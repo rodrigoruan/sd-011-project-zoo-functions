@@ -328,7 +328,7 @@ module.exports = {
     Sunday: { open: 8, close: 20 },
     Monday: { open: 0, close: 0 },
   },
-  
+
   prices: {
     Adult: 49.99,
     Senior: 24.99,
