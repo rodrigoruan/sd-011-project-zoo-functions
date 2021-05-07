@@ -13,7 +13,7 @@ const { species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  const speciesId = data.species.filter((specie) => ids.includes(specie.id));
+  const speciesId = species.filter((animal) => ids.includes(animal.id));
 
   return speciesId;
 }
