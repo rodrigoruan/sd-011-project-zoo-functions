@@ -19,11 +19,12 @@ function getSpeciesByIds(...ids) {
   return arrayIds;
 }
 
-console.log(getSpeciesByIds('89be95b3-47e4-4c5b-b687-1fabf2afa274', 'baa6e93a-f295-44e7-8f70-2bcdc6f6948d'));
-
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const verifyAge = data.species.some((specie) => specie.name === animal && specie.residents.every((resident) => resident.age >= age));
+  return verifyAge;
 }
+
+console.log(getAnimalsOlderThan('tigers', 18));
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
