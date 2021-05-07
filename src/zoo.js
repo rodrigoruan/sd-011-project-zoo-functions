@@ -41,7 +41,10 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 // Requisito 7
 function countAnimals(species) {
-  // seu código aqui
+  return (!species) ? data.species.reduce((acc, { name, residents }) => {
+    acc[name] = residents.length;
+    return acc;
+  }, {}) : data.species.find((specie) => specie.name === species).residents.length;
 }
 
 function calculateEntry(entrants) {
