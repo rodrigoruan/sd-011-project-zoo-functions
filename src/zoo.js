@@ -9,6 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
+const _ = require('lodash');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -68,11 +69,18 @@ function countAnimals(species) {
   return allAnimals.reduce(redux, {});
 }
 
-console.log(countAnimals());
-
-function calculateEntry(entrants) {
+function calculateEntry(...entrants) {
+  if (_.isEmpty(...entrants) === true || typeof entrants === 'undefined') {
+    return 0;
+  }
+  let x = { ...entrants };
+  const { Adult = 0, Child = 0, Senior = 0 } = x[0];
+  let calculate = Adult * 49.99 + Child * 20.99 + Senior * 24.99;
+  return calculate;
   // seu código aqui
 }
+let entrants = { Adult: 2, Child: 3, Senior: 1 };
+console.log(calculateEntry(entrants));
 
 function getAnimalMap(options) {
   // seu código aqui
