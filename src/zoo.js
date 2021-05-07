@@ -57,7 +57,20 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  const arrayOfAnimals = data.species;
+  if (species === undefined) {
+    return ({
+      lions: arrayOfAnimals.find((animal) => animal.name === 'lions').residents.length,
+      tigers: arrayOfAnimals.find((animal) => animal.name === 'tigers').residents.length,
+      bears: arrayOfAnimals.find((animal) => animal.name === 'bears').residents.length,
+      penguins: arrayOfAnimals.find((animal) => animal.name === 'penguins').residents.length,
+      otters: arrayOfAnimals.find((animal) => animal.name === 'otters').residents.length,
+      frogs: arrayOfAnimals.find((animal) => animal.name === 'frogs').residents.length,
+      snakes: arrayOfAnimals.find((animal) => animal.name === 'snakes').residents.length,
+      elephants: arrayOfAnimals.find((animal) => animal.name === 'elephants').residents.length,
+      giraffes: arrayOfAnimals.find((animal) => animal.name === 'giraffes').residents.length,
+    });
+  } return arrayOfAnimals.find((animal) => animal.name === species).residents.length;
 }
 
 function calculateEntry(entrants) {
