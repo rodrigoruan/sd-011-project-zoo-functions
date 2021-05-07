@@ -20,7 +20,7 @@ function getSpeciesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
-  const rightSpecies = data.species.find((element) => element.name === animal); 
+  const rightSpecies = data.species.find((element) => element.name === animal);
   const areAllOlder = rightSpecies.residents.every((species) => species.age >= age);
   return areAllOlder;
 }
@@ -33,11 +33,13 @@ function getEmployeeByName(employeeName) {
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
-  return ({...personalInfo, ...associatedWith});
+  return ({ ...personalInfo, ...associatedWith });
 }
 
 function isManager(id) {
   // seu código aqui
+  const employeesManagers = employees.map((employee) => employee.managers);
+  return employeesManagers.some((managers) => managers.some((manager) => manager === id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
