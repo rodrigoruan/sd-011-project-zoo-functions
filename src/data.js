@@ -332,3 +332,4 @@ module.exports = {
     Child: 20.99,
   },
 };
+console.log(module.exports.species[0].residents.age);
