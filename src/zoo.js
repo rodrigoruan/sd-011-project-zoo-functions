@@ -1,4 +1,4 @@
-/*
+
 eslint no-unused-vars: [
   "error",
   {
@@ -7,7 +7,7 @@ eslint no-unused-vars: [
     "varsIgnorePattern": "data"
   }
 ]
-*/
+*s/
 
 const data = require('./data');
 
