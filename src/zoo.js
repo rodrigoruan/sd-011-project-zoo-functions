@@ -17,7 +17,6 @@ const getAnimalsOlderThan = (animal, age) => animalSpecies
   .find((zooAnimal) => zooAnimal.name === animal).residents
   .every((resident) => resident.age >= age);
 
-
 const getEmployeeByName = (employeeName) => (employeeName
   ? employees
     .find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName)
