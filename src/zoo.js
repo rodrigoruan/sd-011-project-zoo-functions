@@ -15,14 +15,15 @@ const getSpeciesByIds = (...ids) => animalSpecies.filter((animal) => ids.include
 
 const getAnimalsOlderThan = (animal, age) => animalSpecies
   .find((zooAnimal) => zooAnimal.name === animal).residents
-  .avery((resident) => resident.age >= age);
+  .every((resident) => resident.age >= age);
+
 
 const getEmployeeByName = (employeeName) => (employeeName
   ? employees
     .find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName)
   : {});
 
-const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, associatedWith });
+const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...associatedWith });
 
 const isManager = (id) => employees.some((employee) => employee.managers.includes(id));
 
@@ -64,13 +65,13 @@ const getResidentsBySex = (animal, sex) => animal
     return residentsBySex;
   }, []);
 
-const animalsByLocationNames = ([result, sorted, sex], animal) => {
+const getAnimalsByLocationWithNames = ([result, sorted, sex], animal) => {
   let residents = [];
   if (sex) residents = getResidentsBySex(animal, sex);
   else residents = animal.residents.map((resident) => resident.name);
   if (sorted) residents.sort();
 
-  if (!sorted[animal.location]) {
+  if (!result[animal.location]) {
     return [{
       ...result,
       [animal.location]: [{
@@ -86,14 +87,14 @@ const animalsByLocationNames = ([result, sorted, sex], animal) => {
 };
 
 const getAnimalMap = (options) => {
-  if (!options || !options.includesNames) {
+  if (!options || !options.includeNames) {
     return animalSpecies.reduce(getAnimalsByLocation, {});
   }
 
-  const { includesNames, sorted, sex } = options;
+  const { includeNames, sorted, sex } = options;
 
-  if (includesNames) {
-    return animalSpecies.reduce(animalsByLocationNames, [{}, sorted, sex])[0];
+  if (includeNames) {
+    return animalSpecies.reduce(getAnimalsByLocationWithNames, [{}, sorted, sex])[0];
   }
 };
 
@@ -110,7 +111,7 @@ const getSchedule = (dayName) => {
     ...formated,
     [day]: hour.open === 0 && hour.close === 0
       ? 'CLOSED'
-      : `Open from &{formatHour(hour.open)}am unitl ${formatHour(hour.close)}pm`,
+      : `Open from ${formatHour(hour.open)}am until ${formatHour(hour.close)}pm`,
   }), {});
 
   return dayName ? getScheduleByDay(formatedDays, dayName) : formatedDays;
