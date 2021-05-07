@@ -18,7 +18,7 @@ const getAnimalsOlderThan = (animal, age) => data.species.find(((value) => value
 
 const getEmployeeByName = (employeeName) => {
   if (!employeeName) return {};
-  return data.employees.find((value) => value.firstName === employeeName || value.lastName === employeeName);
+  return data.employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName);
 };
 
 const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...associatedWith });
