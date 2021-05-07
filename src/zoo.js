@@ -50,10 +50,10 @@ const calculateEntry = (entrants) => {
     .reduce((entryFee, [type, qtt]) => entryFee + prices[type] * qtt, 0);
 };
 
-const getAnimalsByLocation = (result, animal) => {
-  if (!result[animal.location]) return { ...result, [animal.location]: [animal.name] };
+const getAnimalsByLocation = (result, { name, location }) => {
+  if (!result[location]) return { ...result, [location]: [name] };
 
-  result[animal.location].push(animal.name);
+  result[location].push(name);
 
   return result;
 };
@@ -67,7 +67,7 @@ const getResidentsBySex = (animal, sex) => animal
 const getAnimalsByLocationWithNames = ([result, sorted, sex], animal) => {
   let residents = [];
   if (sex) residents = getResidentsBySex(animal, sex);
-  else residents = animal.residents.map((resident) => resident.name);
+  else residents = animal.residents.map(({ name }) => name);
   if (sorted) residents.sort();
 
   if (!result[animal.location]) {
