@@ -20,8 +20,7 @@ function getSpeciesByIds(...ids) {
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
   return data.species.find(
-    ((species) => species.name === animal).every((species) => species.age > age)
-  );
+    ((species) => species.name === animal).every((species) => species.age > age));
 }
 
 function getEmployeeByName(employeeName) {
@@ -29,8 +28,7 @@ function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
   return data.employees.find(
     (employee) =>
-      employee.name === employeeName || employee.lastName === employee
-  );
+      employee.name === employeeName || employee.lastName === employee);
 }
 
 function createEmployee(personalInfo, associatedWith) {
