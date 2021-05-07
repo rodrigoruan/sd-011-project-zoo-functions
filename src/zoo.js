@@ -41,15 +41,33 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 // Requisito 7
 function countAnimals(species) {
-  return (!species) ? data.species.reduce((acc, { name, residents }) => {
-    acc[name] = residents.length;
-    return acc;
-  }, {}) : data.species.find((specie) => specie.name === species).residents.length;
+  if (!species) {
+    return data.species.reduce((acc, { name, residents }) => {
+      acc[name] = residents.length;
+      return acc;
+    }, {});
+  }
+  return data.species.find((specie) => specie.name === species).residents.length;
 }
 
+// Requisito 8
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants) return 0;
+  const { Adult, Child, Senior } = entrants;
+  let sum = 0;
+  if (Adult) sum += data.prices.Adult * Adult;
+  if (Child) sum += data.prices.Child * Child;
+  if (Senior) sum += data.prices.Senior * Senior;
+  return sum;
 }
+// return entrants.reduce((acc, entrant) => acc += data.prices.find((price) => entrant === price))
+
+// let entrants = {};
+// console.log(calculateEntry());
+// entrants = { 'Adult': 2, 'Child': 3, 'Senior': 1 };
+// console.log(calculateEntry(entrants));
+// entrants = { 'Adult': 1 };
+// console.log(calculateEntry(entrants));
 
 function getAnimalMap(options) {
   // seu código aqui
