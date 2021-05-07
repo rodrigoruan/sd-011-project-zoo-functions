@@ -22,10 +22,13 @@ function getAnimalsOlderThan(animal, minAge) {
   // retorna true se todos os animais da espécie tem a idade maior que o parâmetro passado.
 }
 
-console.log(getAnimalsOlderThan('tigers', 12));
-
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (employeeName !== undefined) {
+    return data.employees.find(({ firstName, lastName }) =>
+      employeeName === firstName || employeeName === lastName);
+  // Procura o nome e o sobrenome do funcionário na base de dados
+  }
+  return {};
 }
 
 function createEmployee(personalInfo, associatedWith) {
