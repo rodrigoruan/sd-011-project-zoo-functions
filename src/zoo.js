@@ -16,9 +16,12 @@ const getSpeciesByIds = (...ids) => data.species.filter((specie) => ids.includes
 
 const getAnimalsOlderThan = (animal, age) => data.species.find(((specie) => specie.name === animal)).residents.every((anim) => anim.age >= age);
 
-const getEmployeeByName = (employeeName) => data.employees.find(({ firstName, lastName }) => (firstName || lastName) === employeeName);
+const getEmployeeByName = (employeeName) => {
+  if (!employeeName) return {};
+  return data.employees.find(({ firstName, lastName }) => (firstName || lastName) === employeeName);
+};
 
-const createEmployee = (personalInfo, associatedWith) => ({...personalInfo, ...associatedWith});
+const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...associatedWith });
 
 const isManager = (id) => {
   // seu código aqui
