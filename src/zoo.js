@@ -18,13 +18,11 @@ const getAnimalsOlderThan = (animal, age) => data.species.find(({ name }) => nam
 const getEmployeeByName = (employeeName) => {
   const employeer = data.employees.find(({ firstName, lastName }) => employeeName === firstName || employeeName === lastName);
   return employeer !== undefined ? employeer : {};
-}
+};
 
 const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...associatedWith });
 
-function isManager(id) {
-  // seu código aqui
-}
+const isManager = (id) => data.employees.reduce(((acc, { managers }) => managers.includes(id)), false);
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
