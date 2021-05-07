@@ -71,9 +71,18 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
-function getSchedule(dayName) {
-  // seu código aqui
-}
+const daysOfWeek = {
+  Tuesday: "Open from 8am until 6pm",
+  Wednesday: "Open from 8am until 6pm",
+  Thursday: "Open from 10am until 8pm",
+  Friday: "Open from 10am until 8pm",
+  Saturday: "Open from 8am until 10pm",
+  Sunday: "Open from 8am until 8pm",
+  Monday: "CLOSED",
+};
+
+const getSchedule = (day) =>
+  day ? Object.fromEntries([[day, daysOfWeek[day]]]) : daysOfWeek;
 
 const getOldestFromFirstSpecies = (id) =>
   Object.values(
@@ -94,9 +103,9 @@ const increasePrices = (percent) => {
   prices.Senior = Math.round((Senior + Senior * (percent / 100)) * 100) / 100;
 };
 
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
-}
+const getEmployeeCoverage = (idOrName) => {};
+
+console.log(getEmployeeCoverage("fdb2543b-5662-46a7-badc-93d960fdc0a8"));
 
 module.exports = {
   calculateEntry,
