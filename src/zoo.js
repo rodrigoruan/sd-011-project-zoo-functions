@@ -63,6 +63,8 @@ function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
 
+// iniciando
+
 module.exports = {
   calculateEntry,
   getSchedule,
