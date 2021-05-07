@@ -14,11 +14,12 @@ const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   if (ids === undefined) return [];
-  return data.species.filter(({ id }, index) => id === ids[index]);
+  const filterSpecie = ({ id }, index) => id === ids[index];
+  return data.species.filter(filterSpecie);
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  
 }
 
 function getEmployeeByName(employeeName) {
