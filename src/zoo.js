@@ -14,9 +14,9 @@ const { species: animalSpecies } = require('./data');
 const getSpeciesByIds = (...ids) => ids
   .map((id) => animalSpecies.find((animal) => animal.id === id));
 
-function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
-}
+const getAnimalsOlderThan = (animal, age) => animalSpecies
+  .find((zooAnimal) => zooAnimal.name === animal).residents
+  .every((resident) => resident.age >= age);
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
