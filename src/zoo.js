@@ -33,19 +33,31 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
-  // seu código aqui
+  return data.employees.some((value) => value.managers.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  return data.employees.push({
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  });
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  const arrayQuantityResidents = data.species.map((animal) => (animal.residents).length);
+  const arrayOfNames = data.species.map((animal) => (animal.name));
+  let objOfSpecies = {};
+  arrayOfNames.forEach((name, index) => {
+    objOfSpecies[name] = arrayQuantityResidents[index];
+  });
+  return species ? objOfSpecies[species] : objOfSpecies;
 }
 
 function calculateEntry(entrants) {
