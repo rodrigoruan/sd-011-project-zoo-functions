@@ -31,8 +31,13 @@ function getAnimalsOlderThan(animal, age) {
 console.log(getAnimalsOlderThan('giraffes', 4)); // a espécie de 'girafas' , tem idade maior ou igual a 4? true!
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (employeeName) {
+    return data.employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
+  }
+  return {};
 }
+
+console.log(getEmployeeByName('Stephanie')); // retornou o objeto com todas as informações da funcionária.
 
 function createEmployee(personalInfo, associatedWith) {
   return {
