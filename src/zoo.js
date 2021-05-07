@@ -20,13 +20,13 @@ function getSpeciesByIds(...ids) {
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
   const rightSpecies = data.species.find((element) => element.name === animal); 
-  const isOneUnder = rightSpecies.residents.some((species) => species.age < age);
-  if (isOneUnder) return false;
-  else return true;
+  const areAllOlder = rightSpecies.residents.every((species) => species.age >= age);
+  return areAllOlder;
 }
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
+
 }
 
 function createEmployee(personalInfo, associatedWith) {
