@@ -51,6 +51,10 @@ function countAnimals(species) {
 function calculateEntry(entrants) {
   let total = 0;
 
+  if (!entrants) {
+    return total;
+  }
+
   const entrantKeys = Object.keys(entrants);
 
   entrantKeys.forEach((key) => { total += data.prices[key] * entrants[key]; });
@@ -65,56 +69,52 @@ function getBaseMap() {
   }, { NE: [], NW: [], SE: [], SW: [] });
 }
 
-function includeNamesInMap(animalMap) {
-  for (let region in animalMap) {
-    animalMap[region] = animalMap[region].map((animal) => (
-      {
-        [animal]: data.species.find(({ name }) => name === animal).residents.map((res) => res.name),
-      }
+function includeNamesInMap(animalMap, region) {
+  animalMap[region] = animalMap[region].map((animal) => (
+    {
+      [animal]: data.species.find(({ name }) => name === animal).residents.map((res) => res.name),
+    }
+  ));
+}
+
+function sortMap(animalMap, region) {
+  for (let animal of animalMap[region]) {
+    let key = Object.keys(animal)[0];
+    animal[key] = animal[key].sort();
+  }
+}
+
+function filterMapBySex(animalMap, region, sex) {
+  for (let animal of animalMap[region]) {
+    let key = Object.keys(animal)[0];
+    animal[key] = animal[key].filter((animalName) => (
+      data.species.find((species) => species.name === key).residents.find(({ name }) => name === animalName).sex === sex
     ));
   }
 }
 
-function sortMap(animalMap) {
-  for (let region in animalMap) {
-    for (let animal of animalMap[region]) {
-      let key = Object.keys(animal)[0];
-      animal[key] = animal[key].sort();
-    }
-  }
-}
+function manipulateRegions(animalMap, manipulation, ...args) {
+  const regions = Object.keys(animalMap);
 
-function filterMapBySex(animalMap, sex) {
-  for (let region in animalMap) {
-    for (let animal of animalMap[region]) {
-      let key = Object.keys(animal)[0];
-      animal[key] = animal[key].filter((animalName) => (
-        data.species.find((species) => species.name === key).residents.find(({ name }) => name === animalName).sex === sex
-      ));
-    }
-  }
+  regions.forEach((region) => {
+    manipulation(animalMap, region, ...args);
+  });
 }
 
 function getAnimalMap(options) {
   const animalMap = getBaseMap();
 
-  if (!options) {
+  if (!options || !options.includeNames) {
     return animalMap;
   }
 
-  const { includeNames, sorted, sex } = options;
+  const { sorted, sex } = options;
 
-  if (includeNames) {
-    includeNamesInMap(animalMap);
-  }
+  manipulateRegions(animalMap, includeNamesInMap);
 
-  if (includeNames && sorted) {
-    sortMap(animalMap);
-  }
+  if (sorted) manipulateRegions(animalMap, sortMap);
 
-  if (includeNames && (sex === 'male' || sex === 'female')) {
-    filterMapBySex(animalMap, sex);
-  }
+  if (sex) manipulateRegions(animalMap, filterMapBySex, sex);
 
   return animalMap;
 }
