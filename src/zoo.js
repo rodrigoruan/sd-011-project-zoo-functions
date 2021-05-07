@@ -53,8 +53,17 @@ function countAnimals(animalName) {
   return animalSelected.residents.length;
 }
 
-function calculateEntry(entrants) {
-  // seu código aqui
+function calculateEntry(entrants = {}) {
+  const entries = [entrants.Adult, entrants.Child, entrants.Senior];
+  const validEntry = entries.reduce((justValidEntry, entry) => {
+    if (entry === undefined) {
+      justValidEntry.push(0);
+    } else {
+      justValidEntry.push(entry);
+    }
+    return justValidEntry;
+  }, []);
+  return validEntry[0] * 49.99 + validEntry[1] * 20.99 + validEntry[2] * 24.99;
 }
 
 function getAnimalMap(options) {
