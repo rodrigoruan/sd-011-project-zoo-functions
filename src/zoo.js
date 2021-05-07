@@ -128,9 +128,16 @@ const getOldestFromFirstSpecies = (id) => {
   return oldest;
 };
 
-function increasePrices(percentage) {
-  // seu código aqui
-}
+const modifyNumber = (number, modifier) => Math.round(number * modifier * 100) / 100;
+const increasePrices = (percentage) => {
+  const modifier = 1 + (percentage / 100);
+  
+  Object.keys(prices).forEach((key) => {
+    prices[key] = modifyNumber(prices[key], modifier);
+  });
+
+  return prices;
+};
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
