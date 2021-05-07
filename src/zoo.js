@@ -31,9 +31,7 @@ function getEmployeeByName(employeeName) {
 const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...associatedWith });
 // seu código aqui
 
-function isManager(id) {
-  // seu código aqui
-}
+const isManager = (id) => data.employees.some((element) => element.managers.includes(id));
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
