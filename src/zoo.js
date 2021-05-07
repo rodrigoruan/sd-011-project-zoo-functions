@@ -142,9 +142,28 @@ const increasePrices = (percentage) => {
   return prices;
 };
 
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
-}
+const getEmployeeCoverage = (idOrName) => {
+  let filteredEmployees = employees;
+
+  if (idOrName) {
+    const hasName = getEmployeeByName(idOrName);
+
+    filteredEmployees = hasName ? [hasName] : [employees.find((employee) => employee.id === idOrName)];
+  }
+
+  const employeesWithSpecies = filteredEmployees
+    .reduce((coverage, employee) => ({
+      ...coverage,
+      [`${employee.firstName} ${employee.lastName}`]: employee.responsibleFor,
+    }), {});
+
+  Object.entries(employeesWithSpecies).forEach(([key, animalsId]) => {
+    employeesWithSpecies[key] = animalsId
+      .map((animalId) => animalSpecies.find((specie) => specie.id === animalId).name);
+  });
+
+  return employeesWithSpecies;
+};
 
 module.exports = {
   calculateEntry,
