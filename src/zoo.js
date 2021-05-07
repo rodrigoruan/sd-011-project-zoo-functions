@@ -15,7 +15,7 @@ function getSpeciesByIds(...ids) {
   if (ids.length === 0) {
     return [];
   }
-  return species.filter((especie) => ids.some((id) => especie.id === id))
+  return species.filter((especie) => ids.some((id) => especie.id === id));
 }
 // console.log(animalsByIds('0938aa23-f153-4937-9f88-4858b24d6bce', 'e8481c1d-42ea-4610-8e11-1752cfc05a46'));
 
@@ -26,23 +26,23 @@ function getAnimalsOlderThan(animal, age) {
 
 function getEmployeeByName(employeeName) {
   if (!employeeName) {
-    return {}
+    return {};
   }
-  return data.employees.find((value) => value.firstName === employeeName || value.lastName === employeeName)
+  return data.employees.find((value) => value.firstName === employeeName || value.lastName === employeeName);
 }
 // console.log(employeeByName('Emery'));
 
 function createEmployee(personalInfo, associatedWith) {
-  return {...personalInfo, ...associatedWith};
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
-  return employees.some((funcionario) => funcionario.managers.includes(id))
+  return employees.some((funcionario) => funcionario.managers.includes(id));
 }
 // console.log(isManager('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  const pushEmployee = employees.push({id, firstName, lastName, managers, responsibleFor});
+  const pushEmployee = employees.push({ id, firstName, lastName, managers, responsibleFor });
   return pushEmployee;
 }
 // console.log(addEmployee('4141da1c-a6ed-4cf7-90c4-99c657ba4ef3', 'Jane', 'Doe',
@@ -55,8 +55,8 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 //   '210fcd23-aa7b-4975-91b7-0230ebb27b99',
 // ]));
 
-function countAnimals(species) {
-  if (!species) {
+function countAnimals(speciesOfAnimals) {
+  if (!speciesOfAnimals) {
     const countAnimal = data.species.map(({ name }) => name)
     const countResidentsAnimals = data.species.map(({ residents }) => residents.length)
     const listOfAnimals = (countAnimal, countResidentsAnimals) => countAnimal.map((animal, i) => {
@@ -65,7 +65,7 @@ function countAnimals(species) {
     const animalsCounted = listOfAnimals(countAnimal, countResidentsAnimals);
     return Object.assign({}, ...animalsCounted)
 }
-else if (species) {
+else if (speciesOfAnimals) {
   const findAnimal = data.species.find((animal) => animal.name === species);
   return findAnimal.residents.length;
 }
