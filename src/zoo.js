@@ -29,7 +29,7 @@ const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []
 const countAnimals = (specie) => ((specie)
   ? data.species.find(({ name }) => name === specie).residents.length
   : data.species.reduce((acc, curr) => {
-    acc[curr.name] = curr.residents.length
+    acc[curr.name] = curr.residents.length;
     return acc;
   }, {}));
 
@@ -39,6 +39,10 @@ const getAnimalMap = (options) => {
   // seu código aqui
 };
 
+const getString = (day) => ((day.close - day.open <= 0)
+  ? day = 'CLOSED'
+  : schedule[day] = `Open from ${day.open}am until ${day.close}pm`);
+
 const getSchedule = (dayName) => {
   const schedule = data.hours;
 
@@ -46,10 +50,8 @@ const getSchedule = (dayName) => {
 
   if (dayName) return { [dayName]: schedule[dayName] };
 
-  for (let day in schedule) {
-    ((schedule[day].close - schedule[day].open <= 0)
-      ? schedule[day] = 'CLOSED'
-      : schedule[day] = `Open from ${schedule[day].open}am until ${schedule[day].close}pm`);
+  for (let day = 0; day < schedule.length; day += 1) {
+    getString(schedule[day]);
   }
 
   return schedule;
