@@ -37,21 +37,15 @@ function createEmployee(personalInfo, associatedWith) {
 }
 // .some((person) => idParam === person.managers
 function isManager(idParam) {
-  // return data.employees.some((managerId) => managerId === idParam);
+  return data.employees.some((person) => person.managers.includes(idParam));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // return data.employees.push({
-  //   id: id,
-  //   firstName: firstName,
-  //   lastName: lastName,
-  //   managers: managers,
-  //   responsibleFor: responsibleFor,
-  // })
+
 }
 
 function countAnimals(species) {
-  // seu código aqui
+
 }
 
 function calculateEntry(entrants) {
