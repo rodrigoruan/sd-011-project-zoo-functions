@@ -65,7 +65,7 @@ function getSchedule(dayName) {
   // seu código aqui
   const result = {};
   if (dayName && dayName !== 'Monday') {
-    result[dayName] = `Open from ${hours[dayName].open} am until ${hours[dayName].close - 12}pm`;
+    result[dayName] = `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm`;
     return result;
   }
   if (dayName === 'Monday') {
@@ -84,6 +84,8 @@ function getSchedule(dayName) {
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
+  const getId = data.employees.filter((ids) => ids.employees.id === id);
+  const getResponsabilit = data.employees.filter((animal) => animal.id === respo)
 }
 
 function increasePrices(percentage) {
