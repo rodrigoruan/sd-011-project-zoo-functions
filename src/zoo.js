@@ -43,15 +43,15 @@ function calculateEntry(entrants) {
   if (typeof entrants === 'undefined' || !entrants) {
     return 0;
   }
-  const adultPrice = data.prices.Adult.value;
-  const adultNumbers = entrants.Adult.value;
-  const adultPriceTotal = adultPrice * adultNumbers;
-  const childPrice = data.prices.Child.value;
-  const childNumbers = entrants.Child.value;
-  const childPriceTotal = childPrice * childNumbers;
-  const seniorPrice = data.prices.Senior.value;
-  const seniorNumbers = entrants.Senior.value;
-  const seniorPriceTotal = seniorPrice * seniorNumbers;
+  const adultPrice = data.prices.Adult;
+  let adultNumbers = entrants.Adult;
+  let adultPriceTotal = adultPrice * adultNumbers;
+  const childPrice = data.prices.Child;
+  let childNumbers = entrants.Child;
+  let childPriceTotal = childPrice * childNumbers;
+  const seniorPrice = data.prices.Senior;
+  let seniorNumbers = entrants.Senior;
+  let seniorPriceTotal = seniorPrice * seniorNumbers;
   return adultPriceTotal + childPriceTotal + seniorPriceTotal;
 }
 
