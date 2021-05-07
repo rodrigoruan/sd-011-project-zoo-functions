@@ -53,8 +53,35 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  if (!species) {
+    return data.species.reduce((acc, { name, residents }) => {
+      acc[name] = residents.length;
+      return acc;
+      }, {})
+  }
+  const findAnimal = data.species.find(({ name }) => name === species);
+  if (findAnimal) {
+    return findAnimal.residents.length;
+  }  
 }
+
+console.log(countAnimals());
+console.log(countAnimals('lions'));
+
+// return data.species.filter(({ name, residents }) => {
+//   if (species.includes(name)) {
+//     return residents.length;
+//   }
+// });
+
+// data.species.find(({ name, residents }) => {
+//   if (species === name) {
+//     return residents.length;
+//   }
+//   data.species.reduce((acc, { name, residents }) => {
+//     { name, residents.length, }
+//   });
+// });
 
 function calculateEntry(entrants) {
   // seu código aqui
