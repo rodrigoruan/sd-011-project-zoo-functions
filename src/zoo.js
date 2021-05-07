@@ -28,7 +28,10 @@ const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []
 
 const countAnimals = (specie) => ((specie)
   ? data.species.find(({ name }) => name === specie).residents.length
-  : data.species.reduce((acc, curr) => acc[curr.name] = curr.residents.length, {}));
+  : data.species.reduce((acc, curr) => {
+    acc[curr.name] = curr.residents.length
+    return acc;
+  }, {}));
 
 const calculateEntry = (entrants) => data.prices.reduce((acc, curr) => acc + curr * entrants[curr], 0);
 
@@ -44,9 +47,9 @@ const getSchedule = (dayName) => {
   if (dayName) return { [dayName]: schedule[dayName] };
 
   for (let day in schedule) {
-    schedule[day] = ((schedule[day].close - schedule[day].open <= 0)
-    ? 'CLOSED'
-    : `Open from ${schedule[day].open}am until ${schedule[day].close}pm`);
+    ((schedule[day].close - schedule[day].open <= 0)
+      ? schedule[day] = 'CLOSED'
+      : schedule[day] = `Open from ${schedule[day].open}am until ${schedule[day].close}pm`);
   }
 
   return schedule;
