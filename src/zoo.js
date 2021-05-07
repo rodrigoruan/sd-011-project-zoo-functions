@@ -100,9 +100,23 @@ function increasePrices(percentage) {
 }
 /* Arredondar: https://metring.com.br/arredondar-numero-em-javascript#:~:text=Para%20arredondar%20um%20n%C3%BAmero%20decimal,n%C3%A3o%20%C3%A9%20um%20m%C3%A9todo%20confi%C3%A1vel. */
 
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+const coverage = () => {
+  const reduceParam = (acc, { firstName, lastName, responsibleFor }) => {
+    const name = `${firstName} ${lastName}`;
+    acc[name] = responsibleFor.map((id) => species.find((animal) => animal.id === id).name)
+    return acc
+  }
+  return reduceParam
 }
+
+function getEmployeeCoverage(idOrName) {
+  if (idOrName) {
+    const filteredWithParam = employees.filter((emp) => emp.firstName === idOrName || emp.lastName === idOrName || emp.id === idOrName)
+    return filteredWithParam.reduce(coverage(), {})
+  }
+  return employees.reduce(coverage(), {})
+}
+console.log(getEmployeeCoverage())
 
 module.exports = {
   calculateEntry,
