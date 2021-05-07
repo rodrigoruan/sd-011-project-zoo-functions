@@ -9,7 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
-const { species: animalSpecies, employees } = require('./data');
+const { species: animalSpecies, employees, prices } = require('./data');
 
 const getSpeciesByIds = (...ids) => ids
   .map((id) => animalSpecies.find((animal) => animal.id === id));
@@ -42,11 +42,14 @@ const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []
 const countAnimals = (species) => (species
   ? animalSpecies.find((animal) => animal.name === species).residents.length
   : animalSpecies
-    .reduce((result, { name, residents }) => ({ ...result, [name]: residents.length}), {}));
+    .reduce((result, { name, residents }) => ({ ...result, [name]: residents.length }), {}));
 
-function calculateEntry(entrants) {
-  // seu código aqui
-}
+const calculateEntry = (entrants) => {
+  if (!entrants || Object.keys(entrants).length === 0) return 0;
+
+  return Object.entries(entrants)
+    .reduce((entryFree, [type, quant]) => entryFree + prices[type] * quant, 0);
+};
 
 function getAnimalMap(options) {
   // seu código aqui
