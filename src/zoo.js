@@ -30,14 +30,13 @@ function getEmployeeByName(employeeName) {
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
-  
 }
 // console.log(createEmployee());
 
 function isManager(id) {
   // seu código aqui
-  let employee = employees.find((employee) => employee.id === id);
-  return (employee.firstName === 'Stephanie' || employee.firstName === 'Ola' || employee.firstName === 'Burl');
+  let employer = employees.find((employee) => employee.id === id);
+  return (employer.firstName === 'Stephanie' || employer.firstName === 'Ola' || employer.firstName === 'Burl');
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
