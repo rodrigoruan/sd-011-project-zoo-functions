@@ -61,17 +61,17 @@ function countAnimals(speciesOfAnimals) {
     const countResidentsAnimals = data.species.map(({ residents }) => residents.length);
     const listOfAnimals = (listAnimal, listResidentsAnimals) => listAnimal.map((animal, i) => ({ [animal]: listResidentsAnimals[i] }));
     const animalsCounted = listOfAnimals(countAnimal, countResidentsAnimals);
-    return Object.assign({}, ...animalsCounted)
-}
-else if (speciesOfAnimals) {
-  const findAnimal = data.species.find((animal) => animal.name === species);
-  return findAnimal.residents.length;
-}
+    return Object.assign({}, ...animalsCounted);
+    }
+  else if (speciesOfAnimals) {
+    const findAnimal = data.species.find((animal) => animal.name === species);
+    return findAnimal.residents.length;
+  }
 }
 // console.log(animalCount('lions'));
 
 function calculateEntry(entrants = 0) {
-  return Object.keys(entrants).reduce((acc, value) => acc + prices[value] * entrants[value], 0)
+  return Object.keys(entrants).reduce((acc, value) => acc + prices[value] * entrants[value], 0);
 }
 // console.log(entryCalculator({ 'Adult': 2, 'Child': 3, 'Senior': 1 }));
 
