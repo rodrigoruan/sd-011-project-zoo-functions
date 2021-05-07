@@ -61,8 +61,9 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  return data.species.every((valeu) => valeu.residents.every((valeu) => valeu))
 }
+calculateEntry()
 
 function getAnimalMap(options) {
   // seu código aqui
