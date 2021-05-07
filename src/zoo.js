@@ -9,6 +9,9 @@ eslint no-unused-vars: [
 ]
 */
 
+// PROJECT ZOO FUNCTIONS
+// Gabriel Lennox - TRYBE T11
+
 const data = require('./data');
 
 function getSpeciesByIds(ids) {
