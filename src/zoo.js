@@ -51,9 +51,52 @@ const calculateEntry = (entrants) => {
     .reduce((entryFee, [type, qtt]) => entryFee + prices[type] * qtt, 0);
 };
 
-function getAnimalMap(options) {
-  // seu código aqui
-}
+const getAnimalsByLocation = (result, animal) => {
+  if (!result[animal.location]) return { ...result, [animal.location]: [animal.name] };
+
+  result[animal.location].push(animal.name);
+
+  return result;
+};
+
+const getResidentsBySex = (animal, sex) => animal
+  .residents.reduce((residentsBySex, resident) => {
+    if (resident.sex === sex) residentsBySex.push(resident.name);
+    return residentsBySex;
+  }, []);
+
+const getAnimalsByLocationWithNames = ([result, sorted, sex], animal) => {
+  let residents = [];
+  if (sex) residents = getResidentsBySex(animal, sex);
+  else residents = animal.residents.map((resident) => resident.name);
+  if (sorted) residents.sort();
+
+  if (!result[animal.location]) {
+    return [{
+      ...result,
+      [animal.location]: [{
+        [animal.name]: residents,
+      }],
+    }, sorted, sex];
+  }
+  result[animal.location].push(...[{
+    [animal.name]: residents,
+  }]);
+
+  return [result, sorted, sex];
+};
+
+const getAnimalMap = (options) => {
+  if (!options || !options.includeNames) {
+    return animalSpecies.reduce(getAnimalsByLocation, {});
+  }
+
+  const { includeNames, sorted, sex } = options;
+
+  if (includeNames) {
+    return animalSpecies.reduce(getAnimalsByLocationWithNames, [{}, sorted, sex])[0];
+  }
+};
 
 function getSchedule(dayName) {
   // seu código aqui
