@@ -42,7 +42,7 @@ function countAnimals(species) {
 function calculateEntry(entrants) {
   if (typeof entrants === 'undefined' || !entrants) {
     return 0;
-  } 
+  }
   const adultPrice = data.prices.Adult.value;
   const adultNumbers = entrants.Adult.value;
   const adultPriceTotal = adultPrice * adultNumbers;
