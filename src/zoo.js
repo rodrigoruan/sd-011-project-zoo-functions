@@ -14,14 +14,21 @@ const data = require('./data');
 // Caso receba nenhum parâmetro, necessário retornar um array vazio'
 // Ao receber como parâmetro um único id, retorna um array com a espécie referente à esse id'
 // Ao receber mais de um id, retorna um array com as espécies referentes aos ids'
+// O método filter() cria um novo array com todos os elementos que passaram no teste implementado
+// O método includes ()determina se um array contém um determinado elemento, retornando true ou false
 
 function getSpeciesByIds(...ids) {
   // seu código aqui
   return data.species.filter((species) => ids.includes(species.id));
 }
 
-function getAnimalsOlderThan(animal, age) {
+// Ao passar o nome de uma espécie e uma idade,
+// testa se todos os animais desta espécie possuem a idade mínima especificada'
+// O every()método verifica se todos os elementos em uma matriz passam em um teste
+
+function getAnimalsOlderThan(species, age) {
   // seu código aqui
+  return data.species.find((nome) => nome.name === species).residents.every((idade) => idade.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
