@@ -20,15 +20,30 @@ function getSpeciesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, age) {
   const selectedSpecie = species.find((specie) => specie.name === animal);
-  const ageAnimal = selectedSpecie.residents.every((animal) => animal.age >= age);
+  const ageAnimal = selectedSpecie.residents.every((animals) => animals.age >= age);
   return ageAnimal;
 }
 
 // console.log(getAnimalsOlderThan('penguins', 10));
+const { employees } = require('./data');
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  const employerByFirstName = employees.find((employer) => {
+    if (employer.firstName === employeeName) {
+      return employer;
+    }
+  });
+  const employerByLastName = employees.find((employer) => {
+    if (employer.lastName === employeeName) {
+      return employer;
+    }
+  });
+
+  return employerByFirstName || employerByLastName || {};
+  
 }
+
+// console.log(getEmployeeByName('Nigel'));
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
