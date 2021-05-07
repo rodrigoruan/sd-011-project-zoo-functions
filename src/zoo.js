@@ -12,53 +12,51 @@ eslint no-unused-vars: [
 const { species } = require('./data');
 const data = require('./data');
 
-const getSpeciesByIds = (...ids) => data.species.filter((species) => ids.includes(species.id));
+const getSpeciesByIds = (...ids) => data.species.filter(species => ids.includes(species.id));
 
-function getAnimalsOlderThan(animal, age) {
+const getAnimalsOlderThan = (animal, age) => data.species.find((specie => specie.name === animal)).residents.every(animal => animal.age >= age);
+
+const getEmployeeByName = (employeeName) => {
   // seu código aqui
 }
 
-function getEmployeeByName(employeeName) {
+const createEmployee = (personalInfo, associatedWith) => {
   // seu código aqui
 }
 
-function createEmployee(personalInfo, associatedWith) {
+const isManager = (id) => {
   // seu código aqui
 }
 
-function isManager(id) {
+const addEmployee = (id, firstName, lastName, managers, responsibleFor) => {
   // seu código aqui
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+const countAnimals = (species) => {
   // seu código aqui
 }
 
-function countAnimals(species) {
+const calculateEntry = (entrants) => {
   // seu código aqui
 }
 
-function calculateEntry(entrants) {
+const getAnimalMap = (options) => {
   // seu código aqui
 }
 
-function getAnimalMap(options) {
+const getSchedule = (dayName) => {
   // seu código aqui
 }
 
-function getSchedule(dayName) {
+const getOldestFromFirstSpecies = (id) => {
   // seu código aqui
 }
 
-function getOldestFromFirstSpecies(id) {
+const increasePrices = (percentage) => {
   // seu código aqui
 }
 
-function increasePrices(percentage) {
-  // seu código aqui
-}
-
-function getEmployeeCoverage(idOrName) {
+const getEmployeeCoverage = (idOrName) => {
   // seu código aqui
 }
 
