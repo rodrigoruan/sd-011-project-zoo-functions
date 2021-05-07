@@ -35,12 +35,11 @@ function getEmployeeByName(employeeName) {
   if (typeof (employeeName) === 'undefined') {
     return {};
   }
-
   return employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
