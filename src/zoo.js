@@ -28,8 +28,8 @@ function getEmployeeByName(employeeName) {
   return data.employees.find((currentEmployee) => currentEmployee.firstName === employeeName || currentEmployee.lastName === employeeName) || {};
 }
 
-function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+function createEmployee({ id, firstName, lastName }, { managers, responsibleFor }) {
+  return { id, firstName, lastName, managers, responsibleFor };
 }
 
 function isManager(id) {
