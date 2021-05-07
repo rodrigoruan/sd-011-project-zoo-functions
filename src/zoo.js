@@ -33,7 +33,7 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  return data.employees.some((check) => (check.id === id && check.managers[0] === '9e7d4524-363c-416a-8759-8aa7e50c0992'));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
