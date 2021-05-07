@@ -11,7 +11,7 @@ const olaId = 'fdb2543b-5662-46a7-badc-93d960fdc0a8';
 const burlId = '0e7b460e-acf4-4e17-bcb3-ee472265db83';
 
 module.exports = {
-  species: [
+  animals: [
     {
       id: lionId,
       name: 'lions',
