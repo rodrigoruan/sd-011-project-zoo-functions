@@ -60,8 +60,20 @@ function countAnimals(species) {
   return foundAnimal.residents.length;
 }
 
+const verifyCases = (entrants) => {
+  if (entrants === undefined) return 0;
+  if (entrants === {}) return 0;
+};
+const assign0 = (entrants) => {
+  if (entrants.Adult === undefined) entrants.Adult = 0;
+  if (entrants.Child === undefined) entrants.Child = 0;
+  if (entrants.Senior === undefined) entrants.Senior = 0;
+};
 function calculateEntry(entrants) {
   // seu código aqui
+  if (verifyCases(entrants) === 0) return 0;
+  assign0(entrants);
+  return (entrants.Adult * 49.99 + entrants.Child * 20.99 + entrants.Senior * 24.99);
 }
 
 function getAnimalMap(options) {
