@@ -64,7 +64,7 @@ const getSchedule = (dayName) => {
       : `Open from ${format(daySchedule.open)} until ${format(daySchedule.close)}`;
   };
 
-  scheduleKeys.forEach((day) => schedule[day] = getString(schedule[day]));
+  scheduleKeys.forEach((day) => { schedule[day] = getString(schedule[day]) });
 
   return schedule;
 };
