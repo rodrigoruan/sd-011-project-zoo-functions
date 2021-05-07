@@ -1,3 +1,4 @@
+/* eslint-disable no-confusing-arrow */
 /*
 eslint no-unused-vars: [
   "error",
@@ -68,17 +69,19 @@ const getSchedule = (dayName) => {
   return { [dayName]: schedules[dayName] };
 };
 
-function getOldestFromFirstSpecies(id) {
+const getOldestFromFirstSpecies = (id) => {
   const getResponsibleFordata = data.employees.find((employ) => employ.id === id);
   const getFirtSpecieId = data.species.find((animal) => animal.id === getResponsibleFordata.responsibleFor[0]);
   const getOlderAgeAnimal = getFirtSpecieId.residents.sort((a, b) => b.age - a.age);
 
   return Object.values(getOlderAgeAnimal[0]);
-}
+};
 
-function increasePrices(percentage) {
-  // seu código aqui
-}
+const increasePrices = (percentage) => {
+  Object.keys(data.prices).forEach((curr) => {
+    data.prices[curr] = Math.ceil(data.prices[curr] * (percentage + 100)) / 100;
+  });
+};
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
