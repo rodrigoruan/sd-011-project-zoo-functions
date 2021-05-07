@@ -13,17 +13,21 @@ const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   const arrayOfAnimals = data.species;
+
   return ids.length === 0 ? [] : arrayOfAnimals.filter((animal, index) => animal.id === ids[index]);
 }
 
 function getAnimalsOlderThan(animal, age) {
   const arrayOfAnimals = data.species;
   const animalObject = arrayOfAnimals.find((object) => object.name === animal);
+
   return animalObject.residents.every((element) => element.age > age);
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  const arrayOfEmployees = data.employees;
+  const findEmployee = () => arrayOfEmployees.find((employer) => employer.firstName === employeeName || employer.lastName === employeeName);
+  return employeeName === undefined ? {} : findEmployee();
 }
 
 function createEmployee(personalInfo, associatedWith) {
