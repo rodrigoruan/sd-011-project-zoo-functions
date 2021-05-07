@@ -18,7 +18,9 @@ const getSpeciesByIds = (...ids) =>
   ids ? species.filter((animal) => [...ids].includes(animal.id)) : [];
 
 const getAnimalsOlderThan = (animal, age) =>
-
+  species
+    .find((animalName) => animalName.name === animal)
+    .residents.every((animals) => animals.age >= age);
 
 const getEmployeeByName = (employee) =>
 
