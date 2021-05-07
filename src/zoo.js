@@ -83,12 +83,13 @@ function getOldestFromFirstSpecies(id) {
   const idAnimal = data.employees.find((empoyer) => empoyer.id === id).responsibleFor[0];
   const firstAnimal = data.species.find((nameSpecie) => nameSpecie.id === idAnimal).residents.filter((res, _, arr) => res.age === arr.reduce((acc, value) => Math.max(acc, value.age), 0))[0];
   const { name, sex, age } = firstAnimal;
-  return [ name, sex, age ];
+  return [name, sex, age];
 }
-console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
+
 function increasePrices(percentage) {
   // seu código aqui
 }
+console.log(increasePrices(50));
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
