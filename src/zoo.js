@@ -27,16 +27,14 @@ function getSpeciesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, minAge) {
   const { species } = data;
-  const animalGroup = () => {
-    return species.find((animals) => animals.name === animal);
-  }
-  return animalGroup().residents.every((resident) => resident.age >= minAge)
+  const animalGroup = () => species.find((animals) => animals.name === animal);
+  return animalGroup().residents.every((resident) => resident.age >= minAge);
 }
 
 function getEmployeeByName(employeeName) {
   const { employees } = data;
-  if (!employeeName){ return {} };
-  return employees.find((person) => {return person.firstName === employeeName || person.lastName === employeeName});
+  if (!employeeName) { return {}; }
+  return employees.find((person) => person.firstName === employeeName || person.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
