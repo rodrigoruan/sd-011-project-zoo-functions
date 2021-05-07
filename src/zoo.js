@@ -63,8 +63,40 @@ function calculateEntry(entrants = {}) {
   return Adult * data.prices.Adult + Child * data.prices.Child + Senior * data.prices.Senior;
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+function getNamesList(residents, sorted, sex) {
+  const namesList = residents.reduce((accumulator, current) => {
+    if (sex && current.sex !== sex) {
+      return accumulator;
+    }
+    return accumulator.concat(current.name);
+  }, []);
+  if (sorted) {
+    namesList.sort();
+  }
+  return namesList;
+}
+
+function getAnimalMap(options = {}) {
+  const { includeNames, sorted, sex } = options;
+  const animalMap = {
+    NE: [],
+    NW: [],
+    SE: [],
+    SW: [],
+  };
+  data.species.forEach((species) => {
+    const { name, location, residents } = species;
+    if (!includeNames) {
+      animalMap[location].push(name);
+    } else {
+      const namesList = getNamesList(residents, sorted, sex);
+      animalMap[location].push({
+        [name]: namesList,
+      });
+    }
+  });
+
+  return animalMap;
 }
 
 function getSchedule(dayName) {
