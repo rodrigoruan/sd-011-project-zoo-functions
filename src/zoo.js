@@ -16,30 +16,24 @@ const getSpeciesByIds = (...ids) => data.species.filter((value) => ids.includes(
 
 const getAnimalsOlderThan = (animal, age) => data.species.find(((value) => value.name === animal)).residents.every((value) => value.age >= age);
 
-const getEmployeeByName = (employeeName) => {
-  if (!employeeName) return {};
-  return data.employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName);
-};
+const getEmployeeByName = (employeeName) => (!employeeName)
+? {}
+: data.employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName);
 
-const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...associatedWith });
+const createEmployee = (typealInfo, associatedWith) => ({ ...typealInfo, ...associatedWith });
 
 const isManager = (id) => data.employees.some(({ managers }) => managers.includes(id));
 
-const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []) => {
-  data.employees.push({ id, firstName, lastName, managers, responsibleFor });
-};
+const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []) => data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 
-const countAnimals = (specie) => {
-  if (!specie) return data.species.find(({ name }) => name === specie).residents.length;
-  return data.species.reduce((acc, curr) => {
+const countAnimals = (specie) => (!specie)
+? data.species.find(({ name }) => name === specie).residents.length
+: data.species.reduce((acc, curr) => {
     acc[curr.name] = curr.residents.length;
     return acc;
   }, {});
-};
 
-const calculateEntry = (entrants) => {
-  // seu código aqui
-};
+const calculateEntry = (entrants) => data.prices.reduce((acc, curr) => acc + curr * entrants[curr], 0);
 
 const getAnimalMap = (options) => {
   // seu código aqui
