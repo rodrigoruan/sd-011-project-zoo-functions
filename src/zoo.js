@@ -9,34 +9,48 @@ eslint no-unused-vars: [
 ]
 */
 
+const { species, employees } = require('./data');
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  // seu código aqui
+function getSpeciesByIds(...ids) {
+  return ids.map((id) => species.find((animal) => animal.id === id));
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const animalTypeObject = species.find((oneSpecie) => oneSpecie.name === animal);
+  return animalTypeObject.residents.every((element) => element.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (employeeName === undefined) {
+    return {};
+  }
+  return employees.find((person) => person.firstName === employeeName || person.lastName === employeeName);
 }
 
-function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+function createEmployee({ id, firstName, lastName }, { managers, responsibleFor }) {
+  const newEmployee = { id, firstName, lastName, managers, responsibleFor };
+  return newEmployee;
 }
 
 function isManager(id) {
-  // seu código aqui
+  return employees.some((person) => person.managers.some((manage) => manage === id) === true);
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const newEmployee = { id, firstName, lastName, managers, responsibleFor };
+  employees.push(newEmployee);
 }
 
-function countAnimals(species) {
-  // seu código aqui
+function countAnimals(animalName) {
+  if (animalName === undefined) {
+    return species.reduce((allAnimals, animal) => {
+      allAnimals[animal.name] = animal.residents.length;
+      return allAnimals;
+    }, {});
+  }
+  const animalSelected = species.find((animal) => animal.name === animalName);
+  return animalSelected.residents.length;
 }
 
 function calculateEntry(entrants) {
