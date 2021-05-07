@@ -13,11 +13,7 @@ const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   const arrayOfAnimals = data.species;
-  if (ids.length === 0) {
-    return [];
-  } else {
-    return arrayOfAnimals.filter((animal, index) => animal.id === ids[index]);
-  }
+  return ids.length === 0 ? [] : arrayOfAnimals.filter((animal, index) => animal.id === ids[index]);
 }
 
 function getAnimalsOlderThan(animal, age) {
