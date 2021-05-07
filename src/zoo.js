@@ -19,11 +19,11 @@ function getAnimalsOlderThan(animal, age) {
   return data.species.find((animalName) => animalName.name === animal).residents.every((val) => val.age >= age);
 }
 
-// console.log(getAnimalsOlderThan('tigers', 18))
-
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  return !employeeName ? {} : data.employees.find((person) => person.firstName === employeeName || person.lastName === employeeName);
 }
+
+console.log(getEmployeeByName('Elser'));
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
