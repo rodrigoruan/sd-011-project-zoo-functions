@@ -12,7 +12,7 @@ eslint no-unused-vars: [
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  // const returnArray = data.species.filter((specie) => ids === 'undefined'? []: specie.id === ids[0] || specie.id === ids[1]);
+  // const returnArray = data.species.filter((animal) => ids === 'undefined'? [] : specie.id === ids[0] || specie.id === ids[1]);
   const returnArray = data.species.filter((specie) => (ids === 'undefined' ? [] : ids.some((identifie) => specie.id === identifie)));
   return returnArray;
 }
@@ -24,9 +24,9 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  if (employeeName === undefined){
+  if (employeeName === undefined) {
     return {};
-  };
+  }
   const returnObj = data.employees.find((emp) => emp.firstName === employeeName || emp.lastName === employeeName);
   return returnObj;
 }
