@@ -10,29 +10,44 @@ eslint no-unused-vars: [
 */
 
 const data = require('./data');
+// console.log(data.employees);
 
-function getSpeciesByIds(ids) {
-  // seu código aqui
+function getSpeciesByIds(...ids) {
+  // if (ids.length === 0) return [];
+  // return data.species.filter((zooAnimal) => {
+  //   for (let index of ids) {
+  //     if (zooAnimal.id === index) {
+  //       return zooAnimal;
+  //     }
+  //   }
+  // });
 }
 
-function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+function getAnimalsOlderThan(animal, minAge) {
+  return data.species.find((zooAnimal) => zooAnimal.name === animal).residents.every((zooAge) => zooAge.age >= minAge);
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (typeof employeeName === 'undefined') return {};
+  return data.employees.find((employee) => (employee.firstName === employeeName || employee.lastName === employeeName));
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return Object.assign(personalInfo, associatedWith);
 }
-
-function isManager(id) {
-  // seu código aqui
+// .some((person) => idParam === person.managers
+function isManager(idParam) {
+  // return data.employees.some((managerId) => managerId === idParam);
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+  // return data.employees.push({
+  //   id: id,
+  //   firstName: firstName,
+  //   lastName: lastName,
+  //   managers: managers,
+  //   responsibleFor: responsibleFor,
+  // })
 }
 
 function countAnimals(species) {
