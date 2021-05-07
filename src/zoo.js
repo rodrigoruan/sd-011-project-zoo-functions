@@ -38,7 +38,7 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   let managersId = [];
-  data.employees.forEach(element => managersId.push(...element.managers));
+  data.employees.forEach((element) => managersId.push(...element.managers));
   return managersId.includes(id);
 }
 
