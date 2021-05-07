@@ -8,12 +8,13 @@ eslint no-unused-vars: [
   }
 ]
 */
-//Mudança para commit
+// Mudança para commit
 
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
+function getSpeciesByIds(...ids) {
   // seu código aqui
+  return data.species.filter(({ id }) => ids.some((idOfArray) => idOfArray === id));
 }
 
 function getAnimalsOlderThan(animal, age) {
