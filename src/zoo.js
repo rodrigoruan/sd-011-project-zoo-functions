@@ -11,16 +11,26 @@ eslint no-unused-vars: [
 
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  // seu código aqui
+function getSpeciesByIds(...idCode) {
+  // Ela retorna um array contendo as espécies referentes aos ids passados como parâmetro, podendo receber um ou mais ids.
+  if (!idCode) {
+    return [];
+  }
+  return data.species.filter((specie) => specie.id === idCode);
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  // A partir do nome de uma espécie e uma idade mínima, 
+  // verifica se todos os animais daquela espécie possuem a idade mínima especificada.
+  return data.species.find((specie) => specie.name === animal).every((resident) => resident.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  // Busca das pessoas colaboradoras através do primeiro ou do último nome delas.
+  if (!employeeName) {
+    return {};
+  }
+  return data.employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
