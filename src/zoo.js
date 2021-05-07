@@ -9,12 +9,11 @@ eslint no-unused-vars: [
 ]
 */
 
-const { species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   return ids.reduce((animals, currentId) => {
-    const animalObj = species.find((animal) => animal.id === currentId);
+    const animalObj = data.species.find((animal) => animal.id === currentId);
     animals.push(animalObj);
     return animals;
   }, []);
