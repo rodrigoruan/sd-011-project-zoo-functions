@@ -1,5 +1,5 @@
 /*
-eslint no-unused-vars: [
+eslint no-unused-vars: [ 
   "error",
   {
     "args": "none",
