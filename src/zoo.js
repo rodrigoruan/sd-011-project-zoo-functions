@@ -23,7 +23,11 @@ const getAnimalsOlderThan = (animal, age) =>
     .residents.every((animals) => animals.age >= age);
 
 const getEmployeeByName = (employee) =>
-
+  employee
+    ? employees.find(
+        (name) => name.firstName === employee || name.lastName === employee
+      )
+    : {};
 
 console.log(getEmployeeByName("Nigel"));
 
