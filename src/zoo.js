@@ -13,14 +13,8 @@ const data = require('./data');
 // console.log(data.employees);
 
 function getSpeciesByIds(...ids) {
-  // if (ids.length === 0) return [];
-  // return data.species.filter((zooAnimal) => {
-  //   for (let index of ids) {
-  //     if (zooAnimal.id === index) {
-  //       return zooAnimal;
-  //     }
-  //   }
-  // });
+  if (ids.length === 0) return [];
+  return ids.map((id) => data.species.find((animal) => animal.id === id));
 }
 
 function getAnimalsOlderThan(animal, minAge) {
@@ -52,17 +46,17 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 function countAnimals(species) {
   if (typeof species === 'undefined') {
-    const animalsPopularity = {};
+    const animalsResidents = {};
     data.species.forEach((animal) => {
-      animalsPopularity[animal.name] = animal.residents.length;
+      animalsResidents[animal.name] = animal.residents.length;
     });
-    return animalsPopularity;
+    return animalsResidents;
   }
   return data.species.find((animal) => animal.name === species).residents.length;
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (typeof entrants === 'undefined') return 0;
 }
 
 function getAnimalMap(options) {
