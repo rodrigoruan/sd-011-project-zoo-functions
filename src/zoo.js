@@ -13,7 +13,7 @@ const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   if (ids.length === 0) return [];
-  return data.species.filter((elementMap) => ids.includes(elementMap.id));
+  return data.species.filter((element) => ids.includes(element.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
@@ -25,7 +25,9 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (employeeName === undefined) return {};
+  return data.employees.find((element) => element.firstName === employeeName
+    || element.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
