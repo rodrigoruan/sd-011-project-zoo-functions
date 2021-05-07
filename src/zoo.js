@@ -29,8 +29,18 @@ function getEmployeeByName(employeeName) {
   .find((person) => employeeName.includes(person.firstName) || employeeName.includes(person.lastName));
 }
 
+
+
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  const {id, firstName, lastName} = personalInfo
+  const {managers, responsibleFor} = associatedWith
+  return {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor
+  }
 }
 
 function isManager(id) {
