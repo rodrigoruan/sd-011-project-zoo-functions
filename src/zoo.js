@@ -67,9 +67,7 @@ const calculateEntry = (entrants = 0) =>
       )
     : 0;
 
-function getAnimalMap(options) {
-  // seu código aqui
-}
+const getAnimalMap = (options) => {};
 
 const daysOfWeek = {
   Tuesday: "Open from 8am until 6pm",
@@ -103,9 +101,35 @@ const increasePrices = (percent) => {
   prices.Senior = Math.round((Senior + Senior * (percent / 100)) * 100) / 100;
 };
 
-const getEmployeeCoverage = (idOrName) => {};
+const employeeWithId = (idOrName) => {
+  const person = employees.find(
+    (person) =>
+      person.id === idOrName ||
+      person.firstName === idOrName ||
+      person.lastName === idOrName
+  );
 
-console.log(getEmployeeCoverage("fdb2543b-5662-46a7-badc-93d960fdc0a8"));
+  const personFullName = `${person.firstName} ${person.lastName}`;
+  const animalsName = person.responsibleFor
+    .map((id) => species.find((animal) => animal.id === id))
+    .map((animal) => animal.name);
+
+  let obj = {};
+  obj[personFullName] = animalsName;
+  return obj;
+};
+
+const employeeWithoutId = () => {
+  let arrOfEmployees = employees.map((person) => person.firstName);
+  let obj = {};
+  for (let i of arrOfEmployees) {
+    Object.assign(obj, employeeWithId(i));
+  }
+  return obj;
+};
+
+const getEmployeeCoverage = (idOrName) =>
+  idOrName ? employeeWithId(idOrName) : employeeWithoutId();
 
 module.exports = {
   calculateEntry,
