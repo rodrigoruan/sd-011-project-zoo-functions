@@ -24,15 +24,23 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
-  // seu código aqui
+  return data.employees
+    .some(({ managers }) => managers
+      .includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  data.employees.push({
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  });
 }
 
 function countAnimals(species) {
@@ -56,7 +64,13 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const multiply = (percentage / 100) + 1;
+  let currKeyValue = 0;
+  Object.entries(data.prices).forEach(([key, value]) => {
+    currKeyValue = value * multiply;
+    data.prices[key] = Math.round(currKeyValue * 100) / 100;
+  });
+  return data.prices;
 }
 
 function getEmployeeCoverage(idOrName) {
