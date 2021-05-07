@@ -103,20 +103,19 @@ function increasePrices(percentage) {
 const coverage = () => {
   const reduceParam = (acc, { firstName, lastName, responsibleFor }) => {
     const name = `${firstName} ${lastName}`;
-    acc[name] = responsibleFor.map((id) => species.find((animal) => animal.id === id).name)
-    return acc
-  }
-  return reduceParam
-}
+    acc[name] = responsibleFor.map((id) => species.find((animal) => animal.id === id).name);
+    return acc;
+  };
+  return reduceParam;
+};
 
 function getEmployeeCoverage(idOrName) {
   if (idOrName) {
-    const filteredWithParam = employees.filter((emp) => emp.firstName === idOrName || emp.lastName === idOrName || emp.id === idOrName)
-    return filteredWithParam.reduce(coverage(), {})
+    const filteredWithParam = employees.filter((emp) => emp.firstName === idOrName || emp.lastName === idOrName || emp.id === idOrName);
+    return filteredWithParam.reduce(coverage(), {});
   }
-  return employees.reduce(coverage(), {})
+  return employees.reduce(coverage(), {});
 }
-console.log(getEmployeeCoverage())
 
 module.exports = {
   calculateEntry,
