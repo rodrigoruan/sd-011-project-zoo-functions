@@ -33,7 +33,7 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  //  contém managers
+  return Object.values(employees).some((subject) => subject.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
