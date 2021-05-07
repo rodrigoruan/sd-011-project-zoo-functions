@@ -16,9 +16,7 @@ const getSpeciesByIds = (...ids) => data.species.filter(species => ids.includes(
 
 const getAnimalsOlderThan = (animal, age) => data.species.find((specie => specie.name === animal)).residents.every(animal => animal.age >= age);
 
-const getEmployeeByName = (employeeName) => {
-  // seu código aqui
-}
+const getEmployeeByName = (employeeName) => data.employees.find(({ firstName, lastName }) => (firstName ||lastName) === employeeName);
 
 const createEmployee = (personalInfo, associatedWith) => {
   // seu código aqui
