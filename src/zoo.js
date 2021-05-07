@@ -28,12 +28,14 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  const newEmployee = {... personalInfo, ...associatedWith};
+  const newEmployee = { ...personalInfo, ...associatedWith };
   return newEmployee;
 }
 
 function isManager(id) {
-  // seu código aqui
+  const getById = employees.find((employee) => employee.id === id);
+  const isAManager = getById.managers.length <= 1;
+  return isAManager;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
