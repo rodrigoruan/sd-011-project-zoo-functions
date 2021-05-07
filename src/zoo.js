@@ -58,11 +58,45 @@ function calculateEntry(entrants) {
   return total;
 }
 
-function getAnimalMap(options) {
-  const animalMap = data.species.reduce((acc, curr) => {
+function getBaseMap() {
+  return data.species.reduce((acc, curr) => {
     acc[curr.location].push(curr.name);
     return acc;
   }, { NE: [], NW: [], SE: [], SW: [] });
+}
+
+function includeNamesInMap(animalMap) {
+  for (let region in animalMap) {
+    animalMap[region] = animalMap[region].map((animal) => (
+      {
+        [animal]: data.species.find(({ name }) => name === animal).residents.map((res) => res.name),
+      }
+    ));
+  }
+}
+
+function sortMap(animalMap) {
+  for (let region in animalMap) {
+    for (let animal of animalMap[region]) {
+      let key = Object.keys(animal)[0];
+      animal[key] = animal[key].sort();
+    }
+  }
+}
+
+function filterMapBySex(animalMap, sex) {
+  for (let region in animalMap) {
+    for (let animal of animalMap[region]) {
+      let key = Object.keys(animal)[0];
+      animal[key] = animal[key].filter((animalName) => (
+        data.species.find((species) => species.name === key).residents.find(({ name }) => name === animalName).sex === sex
+      ));
+    }
+  }
+}
+
+function getAnimalMap(options) {
+  const animalMap = getBaseMap();
 
   if (!options) {
     return animalMap;
@@ -71,33 +105,15 @@ function getAnimalMap(options) {
   const { includeNames, sorted, sex } = options;
 
   if (includeNames) {
-    for (let region in animalMap) {
-      animalMap[region] = animalMap[region].map((animal) => (
-        {
-          [animal]: data.species.find(({ name }) => name === animal).residents.map((res) => res.name),
-        }
-      ));
-    }
+    includeNamesInMap(animalMap);
   }
 
   if (includeNames && sorted) {
-    for (let region in animalMap) {
-      for (let animal of animalMap[region]) {
-        let key = Object.keys(animal)[0];
-        animal[key] = animal[key].sort();
-      }
-    }
+    sortMap(animalMap);
   }
 
   if (includeNames && (sex === 'male' || sex === 'female')) {
-    for (let region in animalMap) {
-      for (let animal of animalMap[region]) {
-        let key = Object.keys(animal)[0];
-        animal[key] = animal[key].filter((animalName) => (
-          data.species.find((species) => species.name === key).residents.find(({ name }) => name === animalName).sex === sex
-        ));
-      }
-    }
+    filterMapBySex(animalMap, sex);
   }
 
   return animalMap;
