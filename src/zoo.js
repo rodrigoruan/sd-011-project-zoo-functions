@@ -9,14 +9,11 @@ eslint no-unused-vars: [
 ]
 */
 
-const { species } = require('./data');
 const data = require('./data');
 
-const getSpeciesByIds = (...ids) => species.filter(({id}) => ids.includes(id));
+const getSpeciesByIds = (...ids) => data.species.filter(({ id }) => ids.includes(id));
 
-function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
-}
+const getAnimalsOlderThan = (animal, age) => data.species.find(({ name }) => name === animal).residents.every(({ age: animalAge }) => age < animalAge);
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
