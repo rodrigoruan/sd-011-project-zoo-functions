@@ -33,6 +33,7 @@ function getEmployeeByName(employeeName) {
       return employer;
     }
   });
+  
   const employerByLastName = employees.find((employer) => {
     if (employer.lastName === employeeName) {
       return employer;
@@ -40,8 +41,7 @@ function getEmployeeByName(employeeName) {
   });
 
   return employerByFirstName || employerByLastName || {};
-  
-}
+};
 
 // console.log(getEmployeeByName('Nigel'));
 
