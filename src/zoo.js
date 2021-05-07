@@ -74,7 +74,7 @@ function countAnimals(species) {
 
   const objSpecies = specie.find((item) => item.name === species);
   const ArrSpecies = objSpecies.residents.length;
-  return ArrSpecies;   
+  return ArrSpecies;
 }
 
 function calculateEntry(entrants) {
