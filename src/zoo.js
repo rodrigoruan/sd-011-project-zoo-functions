@@ -38,15 +38,17 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   // seu código aqui
-  return data.employees.some((employee) => employee.managers.some((idEmployee) => idEmployee === id));
+  return data.employees.some((employee) => employee.managers.some((em) => em === id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
+  data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(species) {
   // seu código aqui
+
 }
 
 function calculateEntry(entrants) {
