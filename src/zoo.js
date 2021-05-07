@@ -16,8 +16,7 @@ const getSpeciesByIds = (...ids) => data.species.filter((value) => ids.includes(
 
 const getAnimalsOlderThan = (animal, age) => data.species.find(((value) => value.name === animal)).residents.every((value) => value.age >= age);
 
-const getEmployeeByName = (employeeName) => ((!employeeName)
-  ? {}
+const getEmployeeByName = (employeeName) => ((!employeeName) ? {}
   : data.employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName));
 
 const createEmployee = (typealInfo, associatedWith) => ({ ...typealInfo, ...associatedWith });
@@ -58,9 +57,7 @@ const getString = (daySchedule) => {
 const getSchedule = (dayName) => {
   const schedule = data.hours;
 
-  if (dayName) {
-    return { [dayName]: schedule[dayName] };
-  }
+  if (dayName) return { [dayName]: schedule[dayName] };
 
   const scheduleKeys = Object.keys(schedule);
 
@@ -75,9 +72,7 @@ const getOldestFromFirstSpecies = (id) => {
   return [name, sex, age];
 };
 
-const increasePrices = (percentage) => {
-  // seu código aqui
-};
+const increasePrices = (percentage) => Object.keys(data.prices).forEach((priceKey) => { data.prices[priceKey] = Math.round(data.prices[priceKey] * (1 + percentage / 100) * 100) / 100; });
 
 const getEmployeeCoverage = (idOrName) => {
   // seu código aqui
