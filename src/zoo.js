@@ -110,16 +110,23 @@ const getSchedule = (dayName) => {
   const formatedDays = Object.entries(hours).reduce((formated, [day, hour]) => ({
     ...formated,
     [day]: hour.open === 0 && hour.close === 0
-    ? 'CLOSED'
-    : `Open from &{formatHour(hour.open)}am unitl ${formatHour(hour.close)}pm`,
+      ? 'CLOSED'
+      : `Open from &{formatHour(hour.open)}am unitl ${formatHour(hour.close)}pm`,
   }), {});
 
   return dayName ? getScheduleByDay(formatedDays, dayName) : formatedDays;
 };
 
-function getOldestFromFirstSpecies(id) {
-  // seu código aqui
-}
+const getOldestFromFirstSpecies = (id) => {
+  const employee = employees.find((person) => person.id === id);
+  const firstSpeciesId = employee.responsibleFor[0];
+  const specie = animalSpecies.find((animalSpecie) => animalSpecie.id === firstSpeciesId);
+  const oldest = specie.residents.reduce((oldestResident, { name, sex, age }) => {
+    if (age > oldestResident[2]) return [name, sex, age];
+    return oldestResident;
+  }, ['', '', 0]);
+  return oldest;
+};
 
 function increasePrices(percentage) {
   // seu código aqui
