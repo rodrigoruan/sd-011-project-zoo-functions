@@ -52,9 +52,14 @@ const addEmployee = (
     responsibleFor,
   });
 
-function countAnimals(species) {
-  // seu código aqui
-}
+const countAnimals = (specie) =>
+  specie
+    ? species.find((animal) => animal.name === specie).residents.length
+    : Object.fromEntries(
+        species.map((animal) => [animal.name, animal.residents.length])
+      );
+
+console.log(countAnimals("giraffes"));
 
 function calculateEntry(entrants) {
   // seu código aqui
