@@ -33,7 +33,16 @@ const countAnimals = (specie) => ((specie)
     return acc;
   }, {}));
 
-const calculateEntry = (entrants) => data.prices.reduce((acc, curr) => acc + curr * entrants[curr], 0);
+function calculateEntry(entrants) {
+  let total = 0;
+
+  if (entrants) {
+    const entrantKeys = Object.keys(entrants);
+    entrantKeys.forEach((value) => { total += data.prices[value] * entrants[value]; });
+  }
+
+  return total;
+}
 
 const getAnimalMap = (options) => {
   // seu código aqui
@@ -58,7 +67,11 @@ const getSchedule = (dayName) => {
 };
 
 const getOldestFromFirstSpecies = (id) => {
-  // seu código aqui
+  const responsible = data.employees.find((employee) => employee.id === id);
+  const firstAnimalId = data.species.find((species) => species.id === responsible.responsibleFor[0]);
+  const { age, name, sex } = firstAnimalId.residents.reduce((acc, curr) => (curr.age > acc.age ? curr : acc), { age: 0 });
+
+  return [name, sex, age];
 };
 
 const increasePrices = (percentage) => {
