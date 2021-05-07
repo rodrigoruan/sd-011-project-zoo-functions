@@ -31,9 +31,15 @@ const isManager = (id) => data.employees.some((curr) => curr.managers.includes(i
 
 const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []) => data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 
-function countAnimals(species) {
-  // seu código aqui
-}
+const countAnimals = (species) => {
+  if (species === undefined) {
+    return data.species.reduce((curr, acc) => {
+      curr[acc.name] = acc.residents.length;
+      return curr;
+    }, {});
+  }
+  return data.species.find((animal) => animal.name === species).residents.length;
+};
 
 function calculateEntry(entrants) {
   // seu código aqui
