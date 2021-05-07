@@ -20,10 +20,10 @@ const getAnimalsOlderThan = (animal, age) => animalSpecies
 
 const getEmployeeByName = (employeeName) => (employeeName
   ? employees
-  .find((employee) => employee.firstName === employeeName || employee.lastName === employeeName)
+    .find((employee) => employee.firstName === employeeName || employee.lastName === employeeName)
   : {});
 
-const createEmployee = (personalInfo, associatedWith) => ({...personalInfo, associatedWith });
+const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, associatedWith });
 
 function isManager(id) {
   // seu código aqui
