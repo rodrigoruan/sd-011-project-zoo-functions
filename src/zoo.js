@@ -28,20 +28,12 @@ function getAnimalsOlderThan(animal, age) {
 const { employees } = require('./data');
 
 function getEmployeeByName(employeeName) {
-  const employerByFirstName = employees.find((employer) => {
-    if (employer.firstName === employeeName) {
-      return employer;
-    }
-  });
-  
-  const employerByLastName = employees.find((employer) => {
-    if (employer.lastName === employeeName) {
-      return employer;
-    }
-  });
+  const employerByFirstName = employees.find((employer) => employer.firstName === employeeName);
+
+  const employerByLastName = employees.find((employer) => employer.lastName === employeeName);
 
   return employerByFirstName || employerByLastName || {};
-};
+}
 
 // console.log(getEmployeeByName('Nigel'));
 
