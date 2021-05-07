@@ -48,6 +48,13 @@ const getAnimalMap = (options) => {
   // seu código aqui
 };
 
+const getString = (daySchedule) => {
+  const format = (hour) => ((hour <= 12) ? `${hour}am` : `${hour - 12}pm`);
+
+  return (daySchedule.close - daySchedule.open <= 0) ? 'CLOSED'
+    : `Open from ${format(daySchedule.open)} until ${format(daySchedule.close)}`;
+};
+
 const getSchedule = (dayName) => {
   const schedule = data.hours;
 
@@ -57,14 +64,7 @@ const getSchedule = (dayName) => {
 
   const scheduleKeys = Object.keys(schedule);
 
-  const getString = (daySchedule) => {
-    const format = (hour) => ((hour <= 12) ? `${hour}am` : `${hour - 12}pm`);
-
-    return (daySchedule.close - daySchedule.open <= 0) ? 'CLOSED'
-      : `Open from ${format(daySchedule.open)} until ${format(daySchedule.close)}`;
-  };
-
-  scheduleKeys.forEach((day) => { schedule[day] = getString(schedule[day]) });
+  scheduleKeys.forEach((day) => { schedule[day] = getString(schedule[day]); });
 
   return schedule;
 };
