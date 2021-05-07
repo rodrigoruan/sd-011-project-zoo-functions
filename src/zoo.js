@@ -48,10 +48,14 @@ function getAnimalsOlderThan(animal, age) {
   });
   return verifyAge;
 }
-console.log('resposta', getAnimalsOlderThan('otters', 5));
 
-function getEmployeeByName(employeeName) {
-  // seu código aqui
+function getEmployeeByName(...employeeNames) {
+  if (employeeNames.length === 0) {
+    return {};
+  }
+  let firstOrSecondName = employeeNames[0];
+  const verifyFirstName = data.employees.filter((value) => (value.firstName === firstOrSecondName || value.lastName === firstOrSecondName));
+  return verifyFirstName[0];
 }
 
 function createEmployee(personalInfo, associatedWith) {
