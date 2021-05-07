@@ -21,18 +21,15 @@ function getAnimalsOlderThan(animal, age) {
   return data.species.find((animals) => animals.name === animal).residents.every((resAge) => resAge.age > age);
 }
 
-function getEmployeeByName(employeeName) {
-  if (!employeeName) return employeeName;
-  return data.employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
-}
+function getEmployeeByName = (employeeName) => (employeeName ?
+  employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName)
+  : {});
 
 function createEmployee(personalInfo, associatedWith) {
   return { ...personalInfo, ...associatedWith };
 }
 
-function isManager(id) {
-  return employees.some((employee) => employee.includes(id));
-}
+function isManager = (id) => employees.some((employee) => employee.includes(id));
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   return data.employees.push({
