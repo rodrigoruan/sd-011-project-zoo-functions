@@ -14,9 +14,9 @@ const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   if (ids === null) return [];
-  return ids.map(element => {
+  return ids.map((element) => {
     let acc = [];
-    acc = species.find(item => item.id === element);
+    acc = species.find((item) => item.id === element);
     return acc;
   });
 }
@@ -40,7 +40,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-function countAnimals(species) {
+function countAnimals(specie) {
   // seu código aqui
 }
 
