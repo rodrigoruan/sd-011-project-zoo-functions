@@ -100,6 +100,12 @@ const getAnimalMap = (options) => {
 
 const formatHour = (hour) => (hour <= 12 ? hour : hour - 12);
 
+const getScheduleByDay = (schedule, day) => Object.entries(schedule)
+  .reduce((filteredDay, [key, hour]) => {
+    if (key === day) return { ...filteredDay, [key]: hour };
+    return filteredDay;
+  }, {});
+
 const getSchedule = (dayName) => {
   const formatedDays = Object.entries(hours).reduce((formated, [day, hour]) => ({
     ...formated,
@@ -108,16 +114,8 @@ const getSchedule = (dayName) => {
       : `Open from ${formatHour(hour.open)}am until ${formatHour(hour.close)}pm`,
   }), {});
 
-  return dayName
-    ? Object.entries(formatedDays)
-      .reduce((filteredDay, [key, hour]) => {
-        if (key === dayName) return { ...filteredDay, [key]: hour };
-        return filteredDay;
-      }, {})
-    : formatedDays;
+  return dayName ? getScheduleByDay(formatedDays, dayName) : formatedDays;
 };
-
-console.log(getSchedule('Monday'))
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
