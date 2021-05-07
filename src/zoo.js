@@ -41,7 +41,9 @@ function createEmployee({ id, firstName, lastName }, { managers, responsibleFor 
 }
 
 function isManager(id) {
-  // seu código aqui
+  const arrayOfEmployees = data.employees;
+  const arrayOfManagers = arrayOfEmployees.map((person) => person.managers);
+  return arrayOfManagers.some((employer, index) => employer[index] === id);
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
