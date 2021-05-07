@@ -48,27 +48,33 @@ const getAnimalMap = (options) => {
   // seu código aqui
 };
 
-const getString = (day) => ((day.close - day.open <= 0)
-  ? 'CLOSED'
-  : `Open from ${day.open}am until ${day.close}pm`);
+const format = (hour) =>
+  (hour <= 12)
+    ? `${hour}am`
+    : `${hour - 12}pm`;
+
+const getString = (daySchedule) =>
+  (daySchedule.close - daySchedule.open <= 0)
+    ? 'CLOSED'
+    : `Open from ${format(daySchedule.open)} until ${format(daySchedule.close)}`;
 
 const getSchedule = (dayName) => {
   const schedule = data.hours;
 
-  if (schedule[dayName].close > 12) schedule[dayName] -= 12;
-
-  if (dayName) return { [dayName]: schedule[dayName] };
-
-  for (let day = 0; day < schedule.length; day += 1) {
-    schedule[day] = getString(schedule[day]);
+  if (dayName) {
+    return { [dayName]: schedule[dayName] };
   }
+
+  const scheduleKeys = Object.keys(schedule);
+
+  scheduleKeys.forEach((day) => schedule[day] = getString(schedule[day]));
 
   return schedule;
 };
 
 const getOldestFromFirstSpecies = (id) => {
   const responsible = data.employees.find((employee) => employee.id === id);
-  const firstAnimalId = data.species.find((species) => species.id === responsible.responsibleFor[0]);
+  const firstAnimalId = data.species.find((specie) => specie.id === responsible.responsibleFor[0]);
   const { age, name, sex } = firstAnimalId.residents.reduce((acc, curr) => (curr.age > acc.age ? curr : acc), { age: 0 });
 
   return [name, sex, age];
