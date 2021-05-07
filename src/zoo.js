@@ -33,8 +33,8 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  const { id, firstName, lastName} = personalInfo;
-  const { managers, responsibleFor} = associatedWith;
+  const { id, firstName, lastName } = personalInfo;
+  const { managers, responsibleFor } = associatedWith;
   return {
     id,
     firstName,
@@ -45,7 +45,11 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  const objEmployee = employees.find((employee) => employee.id === id);
+  if (objEmployee.managers.length === 1 || objEmployee.managers.length === 0) {
+    return true;
+  }
+  return false;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
