@@ -1,4 +1,3 @@
-// vqv
 /*
 eslint no-unused-vars: [
   "error",
@@ -10,10 +9,12 @@ eslint no-unused-vars: [
 ]
 */
 
+// const { ...id } = require('./data');
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  // seu código aqui
+function getSpeciesByIds(...ids) {
+  if (ids.length === 0) return [];
+  return data.species.filter(({ id }) => ids.find((animalsId) => animalsId === id));
 }
 
 function getAnimalsOlderThan(animal, age) {
