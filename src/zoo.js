@@ -96,11 +96,15 @@ function getOldestFromFirstSpecies(id) {
 
   return [orderAnimals.name, orderAnimals.sex, orderAnimals.age];
 }
-// const data = require('./data');
-function increasePrices(percentage) {
-  // seu código aqui
-}
 
+function increasePrices(percentage) {
+  const perc = percentage / 100;
+
+  data.prices.Adult = Math.round(data.prices.Adult * (1 + perc) * 100) / 100;
+  data.prices.Senior = Math.round(data.prices.Senior * (1 + perc) * 100) / 100;
+  data.prices.Child = Math.round(data.prices.Child * (1 + perc) * 100) / 100;
+}
+// const data = require('./data');
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
