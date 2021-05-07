@@ -28,9 +28,8 @@ function getEmployeeByName(employeeName) {
   return data.employees.find((val) => val.firstName === employeeName || val.lastName === employeeName);
 }
 
-function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
-}
+const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...associatedWith });
+// seu código aqui
 
 function isManager(id) {
   // seu código aqui
