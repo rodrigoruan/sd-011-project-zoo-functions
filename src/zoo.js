@@ -14,8 +14,7 @@ const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   // seu código aqui
-  const arrayIds = data.species.filter((specie) => (ids === 'undefined' ? [] : ids.some((identifie) => specie.id === identifie)));
-  return arrayIds;
+  return data.species.filter((specie) => ids.find((id) => specie.id === id));
 }
 
 function getAnimalsOlderThan(animal, age) {
@@ -24,9 +23,8 @@ function getAnimalsOlderThan(animal, age) {
   return selectedAnimals;
 }
 
-function getEmployeeByName(employeeName) {
-  // seu código aqui
-}
+// Requisito 03
+const getEmployeeByName = (employeeName) => (!employeeName ? {} : data.employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName));
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
