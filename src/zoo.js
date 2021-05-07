@@ -61,25 +61,42 @@ function calculateEntry(entrants) {
     total + prices[category] * amount, 0);
 }
 
-function getResidentsNames(id) {
-  return species.find((animal) => animal.id === id).residents.map((el) => el.name);
+// function getResidentsNames(id) {
+//   return species.find((animal) => animal.id === id).residents.map((el) => el.name);
+// }
+
+// function initializeMap() {
+//   return species.reduce((map, { location: sector }) =>
+//     (map[sector] ? map : Object.assign(map, { [sector]: [] })), {});
+// }
+
+// function getAnimalMap(options) {
+//   const map = initializeMap();
+
+//   if (!options) {
+//     species.forEach((el) => map[el.location].push(el.name));
+//   } else if (options.includeNames) {
+//     species.forEach((el) => map[el.location].push({ [el.name]: getResidentsNames(el.id) }));
+//   }
+
+//   return map;
+// }
+
+function initializeMapReducer(rawMap, { name, location: sector, residents }) {
+  if (rawMap[sector]) {
+    rawMap[sector].push({ [name]: residents });
+    return rawMap;
+  }
+
+  return Object.assign(rawMap, { [sector]: [{ [name]: residents }] });
 }
 
 function initializeMap() {
-  return species.reduce((map, { location: sector }) =>
-    (map[sector] ? map : Object.assign(map, { [sector]: [] })), {});
+  return species.reduce(initializeMapReducer, {});
 }
 
 function getAnimalMap(options) {
-  const map = initializeMap();
-
-  if (!options) {
-    species.forEach((el) => map[el.location].push(el.name));
-  } else if (options.includeNames) {
-    species.forEach((el) => map[el.location].push({ [el.name]: getResidentsNames(el.id) }));
-  }
-
-  return map;
+  
 }
 
 function getScheduleReducer(formattedHours, day) {
