@@ -14,6 +14,8 @@ const data = require('./data');
 function getSpeciesByIds(ids) {
   // seu código aqui !!
   console.log('oi');
+  console.log('oi');
+  console.log('oi');
 }
 
 function getAnimalsOlderThan(animal, age) {
