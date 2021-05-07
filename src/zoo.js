@@ -70,9 +70,7 @@ const getSchedule = (dayName) => {
 };
 
 const getOldestFromFirstSpecies = (id) => {
-  const responsible = data.employees.find((employee) => employee.id === id);
-  const firstAnimalId = data.species.find((specie) => specie.id === responsible.responsibleFor[0]);
-  const { age, name, sex } = firstAnimalId.residents.reduce((acc, curr) => (curr.age > acc.age ? curr : acc), { age: 0 });
+  const { age, name, sex } = data.species.find((specie) => specie.id === data.employees.find((employee) => employee.id === id).responsibleFor[0]).residents.reduce((acc, curr) => (curr.age > acc.age ? curr : acc), { age: 0 });
 
   return [name, sex, age];
 };
