@@ -33,17 +33,15 @@ const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []
 
 const countAnimals = (species) => {
   if (species === undefined) {
-    return data.species.reduce((curr, acc) => {
-      curr[acc.name] = acc.residents.length;
-      return curr;
+    return data.species.reduce((acc, curr) => {
+      acc[curr.name] = curr.residents.length;
+      return acc;
     }, {});
   }
   return data.species.find((animal) => animal.name === species).residents.length;
 };
 
-function calculateEntry(entrants) {
-  // seu código aqui
-}
+const calculateEntry = (entrants) => (entrants ? Object.keys(entrants).reduce((acc, curr) => acc + (entrants[curr] * data.prices[curr]), 0) : 0);
 
 function getAnimalMap(options) {
   // seu código aqui
