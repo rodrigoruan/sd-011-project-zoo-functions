@@ -33,8 +33,22 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const verifyAge = data.species.some((value) => {
+    let condicao1 = value.name === animal;
+    let condicao2 = value.residents.every((resident) => resident.age >= age);
+    //  let condicao2 = true;
+    //  for (let i = 0; i < value.residents.length; i +=1) {
+    //    let currentAge = value.residents[i].age;
+    //     if (currentAge < age) {
+    //       condicao2 = false;
+    //       break;
+    //     }
+    //  }
+    return condicao1 && condicao2;
+  });
+  return verifyAge;
 }
+console.log('resposta', getAnimalsOlderThan('otters', 5));
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
