@@ -40,8 +40,8 @@ const getAnimalMap = (options) => {
 };
 
 const getString = (day) => ((day.close - day.open <= 0)
-  ? day = 'CLOSED'
-  : schedule[day] = `Open from ${day.open}am until ${day.close}pm`);
+  ? 'CLOSED'
+  : `Open from ${day.open}am until ${day.close}pm`);
 
 const getSchedule = (dayName) => {
   const schedule = data.hours;
@@ -51,7 +51,7 @@ const getSchedule = (dayName) => {
   if (dayName) return { [dayName]: schedule[dayName] };
 
   for (let day = 0; day < schedule.length; day += 1) {
-    getString(schedule[day]);
+    schedule[day] = getString(schedule[day]);
   }
 
   return schedule;
