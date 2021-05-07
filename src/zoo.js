@@ -88,8 +88,7 @@ function filterMapBySex(animalMap, region, sex) {
   for (let animal of animalMap[region]) {
     let key = Object.keys(animal)[0];
     animal[key] = animal[key].filter((animalName) => (
-      data.species.find((species) => species.name === key).residents.find(({ name }) => name === animalName).sex === sex
-    ));
+      data.species.find((species) => species.name === key).residents.find(({ name }) => name === animalName).sex === sex));
   }
 }
 
