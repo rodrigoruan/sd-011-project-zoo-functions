@@ -58,24 +58,52 @@ function calculateEntry(entrants) {
   return total;
 }
 
-function getAnimalMap({ includeNames }) {
+function getAnimalMap(options) {
   const animalMap = data.species.reduce((acc, curr) => {
     acc[curr.location].push(curr.name);
     return acc;
   }, {NE: [], NW: [], SE: [], SW: []});
 
+  if (!options) {
+    return animalMap;
+  }
+
+  const {includeNames, sorted, sex} = options;
+
   if (includeNames) {
     for (let region in animalMap) {
+      animalMap[region] = animalMap[region].map((animal) => (
+        {
+          [animal]: data.species.find(({name}) => name === animal).residents.map((res) => res.name),
+        }
+      ));
+    }
+  }
+
+  if (includeNames && sorted) {
+    for (let region in animalMap) {
       for (let animal of animalMap[region]) {
-        animal = { [animal]: [] };
+        let key = Object.keys(animal)[0];
+        animal[key] = animal[key].sort();
       }
     }
   }
 
-
+  if (includeNames && (sex === 'male' || sex === 'female')) {
+    for (let region in animalMap) {
+      for (let animal of animalMap[region]) {
+        let key = Object.keys(animal)[0];
+        animal[key] = animal[key].filter((animalName) => {
+          return data.species.find((species) => species.name === key).residents.find(({name}) => name === animalName).sex === sex;
+        })
+      }
+    }
+  }
 
   return animalMap;
 }
+
+console.log(getAnimalMap({includeNames: true, sorted: true, sex: 'male'}));
 
 function getSchedule(dayName) {
   // seu código aqui
