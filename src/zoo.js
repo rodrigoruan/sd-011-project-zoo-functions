@@ -23,10 +23,18 @@ function getEmployeeByName(employeeName) {
   return !employeeName ? {} : data.employees.find((person) => person.firstName === employeeName || person.lastName === employeeName);
 }
 
-console.log(getEmployeeByName('Elser'));
-
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  // Método 1
+  // return {
+  // id,
+  // firstName,
+  // lastName,
+  // managers,
+  // responsibleFor,
+  // }
+
+  // Método 2
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
