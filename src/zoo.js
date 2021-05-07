@@ -13,23 +13,23 @@ const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   if (ids.length === 0) {
-    return []
+    return [];
   }
   const idsFiltered = data.species.filter((value) => {
     console.log('------');
     console.log('value id', value.id, value.name);
-    let existeElementoMatch = false;
-    for (let i = 0; i < ids.length; i += 1) {
-      console.log(`verificando se ${value.id} === ${ids[i]}`)
-      if (value.id === ids[i]) {
-        existeElementoMatch = true;
-        break
-      }
-    }
-    console.log(`retornando ${existeElementoMatch} `)
-    return existeElementoMatch
+    let existeElementoMatch = ids.includes(value.id);
+    // for (let i = 0; i < ids.length; i += 1) {
+    //   console.log(`verificando se ${value.id} === ${ids[i]}`);
+    //   if (value.id === ids[i]) {
+    //     existeElementoMatch = true;
+    //     break;
+    //   }
+    // }
+    console.log(`retornando ${existeElementoMatch} `);
+    return existeElementoMatch;
   });
-  return idsFiltered
+  return idsFiltered;
 }
 
 function getAnimalsOlderThan(animal, age) {
