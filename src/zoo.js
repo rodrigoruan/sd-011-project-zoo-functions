@@ -111,11 +111,32 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  Object.entries(prices).forEach(function ([category, price]) {
+    prices[category] = parseFloat(Math.ceil((price * (1 + percentage / 100)) * 100) / 100);
+  });
+}
+
+function getEmployByLabel(label) {
+  return employees.find((el) =>
+    label === el.firstName || label === el.lastName || label === el.id);
+}
+
+function buildEmployeeCoverageData(idOrName) {
+  const employee = getEmployByLabel(idOrName);
+  const employeeFullName = `${employee.firstName} ${employee.lastName}`;
+  const employeeCoverage = employee.responsibleFor.map((id) => getSpeciesByIds(id)[0]);
+  const employeeCoverageNames = employeeCoverage.map((el) => el.name);
+
+  return { [employeeFullName]: employeeCoverageNames };
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (idOrName) {
+    return buildEmployeeCoverageData(idOrName);
+  }
+
+  return employees.reduce((employeesCoverage, employee) =>
+    Object.assign(employeesCoverage, buildEmployeeCoverageData(employee.id)), {});
 }
 
 module.exports = {
