@@ -30,7 +30,11 @@ const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []
 };
 
 const countAnimals = (specie) => {
-  // seu código aqui
+  if (!specie) return data.species.find(({ name }) => name === specie).residents.length;
+  return data.species.reduce((acc, curr) => {
+    acc[curr.name] = curr.residents.length;
+    return acc;
+  }, {});
 };
 
 const calculateEntry = (entrants) => {
