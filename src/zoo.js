@@ -27,21 +27,21 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  return {...personalInfo, ...associatedWith};
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
-  return (id) => employees.some((employee) => employee.includes(id));
+  return employees.some((employee) => employee.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers =[], responsibleFor =[]) {
-  return data.employees.push({ 
-    id, firstName, lastName, managers, responsibleFor})
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  return data.employees.push({
+    id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(species) {
-  (species ? data.species.find((animal) => animal.name === species).residents.length
-  : data.species.reduce((acc, { name, residents }) => ({...acc, [name]: residents.length }), {} ));
+  return (species ? data.species.find((animal) => animal.name === species).residents.length
+    : data.species.reduce((acc, { name, residents }) => ({ ...acc, [name]: residents.length }), {}));
 }
 
 function calculateEntry(entrants) {
