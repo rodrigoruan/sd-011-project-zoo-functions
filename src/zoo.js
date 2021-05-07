@@ -106,11 +106,11 @@ const getScheduleByDay = (schedule, day) => Object.entries(schedule)
   }, {});
 
 const getSchedule = (dayName) => {
-  const formatedDays = Object.entries(hours).reduce((formated, [day, hour]) => ({
+  const formatedDays = Object.entries(hours).reduce((formated, [day, { open, close }]) => ({
     ...formated,
-    [day]: hour.open === 0 && hour.close === 0
+    [day]: open === 0 && close === 0
       ? 'CLOSED'
-      : `Open from ${formatHour(hour.open)}am until ${formatHour(hour.close)}pm`,
+      : `Open from ${formatHour(open)}am until ${formatHour(close)}pm`,
   }), {});
 
   return dayName ? getScheduleByDay(formatedDays, dayName) : formatedDays;
