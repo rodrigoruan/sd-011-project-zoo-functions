@@ -62,9 +62,9 @@ function entryCalculator(entrants) {
   return (data.prices.Adult * Adult) + (data.prices.Child * Child) + (data.prices.Senior * Senior);
 }
 
-function animalMap(options) {
-  // seu código aqui
-}
+// function animalMap(options) {
+//   // seu código aqui
+// }
 
 function schedule(dayName) {
   let workD;
@@ -94,7 +94,7 @@ module.exports = {
   entryCalculator,
   schedule,
   animalCount,
-  animalMap,
+  // animalMap,
   animalsByIds,
   employeeByName,
   employeeCoverage,
