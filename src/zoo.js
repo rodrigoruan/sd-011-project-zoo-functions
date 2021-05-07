@@ -51,10 +51,10 @@ function countAnimals(species) {
   }
   return data.species.find((specieName) => specieName.name === species).residents.length;
 }
-console.log(countAnimals('snakes'));
 
-function calculateEntry(entrants) {
+function calculateEntry(entrants = 0) {
   // seu código aqui
+  return Object.entries(entrants).reduce((acc, person) => acc + (person[1] * data.prices[person[0]]), 0);
 }
 
 function getAnimalMap(options) {
