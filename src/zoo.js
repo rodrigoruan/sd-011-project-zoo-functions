@@ -39,7 +39,7 @@ const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []
 };
 
 const countAnimals = (species) => (species
-  ? animalSpecies.find((animal) => animal.name === species).residents.length
+  ? animalSpecies.find(({ name }) => name === species).residents.length
   : animalSpecies
     .reduce((result, { name, residents }) => ({ ...result, [name]: residents.length }), {}));
 
