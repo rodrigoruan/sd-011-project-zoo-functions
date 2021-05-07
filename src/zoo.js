@@ -59,9 +59,7 @@ function countAnimals(speciesOfAnimals) {
   if (!speciesOfAnimals) {
     const countAnimal = data.species.map(({ name }) => name);
     const countResidentsAnimals = data.species.map(({ residents }) => residents.length);
-    const listOfAnimals = (listAnimal, listResidentsAnimals) => listAnimal.map((animal, i) => {
-      return ({[animal]: listResidentsAnimals[i]})
-    });
+    const listOfAnimals = (listAnimal, listResidentsAnimals) => listAnimal.map((animal, i) => ({ [animal]: listResidentsAnimals[i] }));
     const animalsCounted = listOfAnimals(countAnimal, countResidentsAnimals);
     return Object.assign({}, ...animalsCounted)
 }
