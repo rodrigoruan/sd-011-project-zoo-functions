@@ -19,7 +19,7 @@ const getAnimalsOlderThan = (animal, age) => animalSpecies
 
 const getEmployeeByName = (employeeName) => (employeeName
   ? employees
-    .find((employee) => employee.firstName === employeeName || employee.lastName === employeeName)
+    .find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName)
   : {});
 
 const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...associatedWith });
