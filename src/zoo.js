@@ -33,8 +33,8 @@ function isManager(id) {
   return data.employees.some(({managers}) => managers.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // data.employees.push({id, firstName, lastName, managers, responsibleFor});
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  data.employees.push({id, firstName, lastName, managers, responsibleFor});
 }
 
 function countAnimals(species) {
@@ -58,8 +58,23 @@ function calculateEntry(entrants) {
   return total;
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+function getAnimalMap({ includeNames }) {
+  const animalMap = data.species.reduce((acc, curr) => {
+    acc[curr.location].push(curr.name);
+    return acc;
+  }, {NE: [], NW: [], SE: [], SW: []});
+
+  if (includeNames) {
+    for (let region in animalMap) {
+      for (let animal of animalMap[region]) {
+        animal = { [animal]: [] };
+      }
+    }
+  }
+
+
+
+  return animalMap;
 }
 
 function getSchedule(dayName) {
