@@ -14,7 +14,6 @@ const data = require("./data");
 
 const { species } = data;
 const { employees } = data;
-const { Adult, Senior, Child } = prices;
 
 const getSpeciesByIds = (...ids) =>
   ids ? species.filter((animal) => [...ids].includes(animal.id)) : [];
@@ -77,9 +76,18 @@ function getSchedule(dayName) {
   // seu código aqui
 }
 
-function getOldestFromFirstSpecies(id) {
-  // seu código aqui
-}
+const getOldestFromFirstSpecies = (id) =>
+  Object.values(
+    species
+      .find(
+        (animal) =>
+          animal.id ===
+          employees.find((person) => person.id === id).responsibleFor[0]
+      )
+      .residents.sort((animal1, animal2) => animal2.age - animal1.age)[0]
+  );
+
+console.log(getOldestFromFirstSpecies("4b40a139-d4dc-4f09-822d-ec25e819a5ad"));
 
 function increasePrices(percentage) {
   // seu código aqui
