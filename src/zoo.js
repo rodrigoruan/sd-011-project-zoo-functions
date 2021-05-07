@@ -37,7 +37,6 @@ function getEmployeeByName(employeeName) {
   }
 
   return ({});
-
 }
 
 function createEmployee(personalInfo, associatedWith) {
