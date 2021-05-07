@@ -11,29 +11,41 @@ eslint no-unused-vars: [
 
 const data = require('./data');
 
-const { employees } = data;
-
-function getSpeciesByIds(species, ...ids) {
-  // seu código aqui
+function getSpeciesByIds(...ids) {
+  if (!ids) {
+    return [];
+  }
+  return data.species.filter((specie) => ids.includes(specie.id));
 }
+
+console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce')); // retorna as espécies de leões
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  let result = data.species.find((specie) => specie.name === animal); // procurando animais por nome
+  if (result) {
+    result = result.residents.every((specie) => specie.age >= age);
+  }
+  return result; // retorna true ou false, se não existir o animal, retorna undefined
 }
+
+console.log(getAnimalsOlderThan('giraffes', 4)); // a espécie de 'girafas' , tem idade maior ou igual a 4? true!
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return {
+    ...personalInfo, // usando o destructuring, consigo criar um novo colaborador
+    ...associatedWith,
+  };
 }
 
 function isManager(id) {
-  return employees.some((employee) => employee.managers.includes(id));
+  return data.employees.some((employee) => employee.managers.includes(id));
 }
 
-console.log(isManager('b0dc644a-5335-489b-8a2c-4e086c7819a2'));
+console.log(isManager('b0dc644a-5335-489b-8a2c-4e086c7819a2')); // true
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
