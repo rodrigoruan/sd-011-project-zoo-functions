@@ -28,9 +28,7 @@ const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []
 
 const countAnimals = (specie) => ((specie)
   ? data.species.find(({ name }) => name === specie).residents.length
-  : data.species.reduce((acc, curr) => {
-    acc[curr.name] = curr.residents.length;
-  }, {}));
+  : data.species.reduce((acc, curr) => acc[curr.name] = curr.residents.length, {}));
 
 const calculateEntry = (entrants) => data.prices.reduce((acc, curr) => acc + curr * entrants[curr], 0);
 
@@ -38,23 +36,12 @@ const getAnimalMap = (options) => {
   // seu código aqui
 };
 
-/*
-A função é responsável por disponibilizar as informações de horário para uma consulta, que pode querer ter acesso a todo o cronograma da semana ou apenas o cronograma de um dia específico
-
-Observações técnicas
-
-Analise o teste unitário para entender os retornos que são esperados para esta função
-O que será avaliado
-
-Sem parâmetros, retorna um cronograma legível para humanos
-Se um único dia for passado, retorna somente este dia em um formato legível para humanos
-*/
 const getSchedule = (dayName) => {
   const schedule = data.hours;
-  
+
   if (schedule[dayName].close > 12) schedule[dayName] -= 12;
 
-  if (dayName) return {[dayName]: schedule[dayName]};
+  if (dayName) return { [dayName]: schedule[dayName] };
 
   for (let day in schedule) {
     schedule[day] = ((schedule[day].close - schedule[day].open <= 0)
