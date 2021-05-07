@@ -26,10 +26,10 @@ function getEmployeeByName(employeeName) {
   }
   return employees.filter((funcionario) => funcionario.firstName === employeeName || funcionario.lastName === employeeName)[0];
 }
-console.log(getEmployeeByName('Emery'));
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return { ...personalInfo, ...associatedWith };
 }
+
 
 function isManager(id) {
   // seu código aqui
