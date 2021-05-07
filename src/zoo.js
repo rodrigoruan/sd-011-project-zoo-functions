@@ -19,14 +19,17 @@ function getSpeciesByIds(...ids) {
     const speciesFilter = (species.filter((specie) => specie.id === ids[index]));
     speciesById = [...speciesById, ...speciesFilter];
   }
-  console.log(speciesById);
   return speciesById;
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const specieByName = (species.filter((specie) => (specie.name === animal)));
+  console.log(specieByName);
+  const { residents } = specieByName[0];
+  const everyAnimal = (checkAnimalsAge) => (Object.values(checkAnimalsAge).every((resident) => resident.age > age));
+  return everyAnimal(residents);
 }
-
+getAnimalsOlderThan('penguins', 8);
 function getEmployeeByName(employeeName) {
   // seu código aqui
 }
