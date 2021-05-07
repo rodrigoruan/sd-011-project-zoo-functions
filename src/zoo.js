@@ -100,7 +100,25 @@ function getAnimalMap(options = {}) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const dayEntries = Object.entries(data.hours);
+
+  return dayEntries.reduce((accumulator, current) => {
+    const [dayOfWeek, { open, close }] = current;
+    if (dayName && dayOfWeek !== dayName) {
+      return accumulator;
+    }
+
+    let text;
+    if (open === 0 && close === 0) {
+      text = 'CLOSED';
+    } else {
+      text = `Open from ${open}am until ${close - 12}pm`;
+    }
+
+    return Object.assign(accumulator, {
+      [dayOfWeek]: text,
+    });
+  }, {});
 }
 
 function getOldestFromFirstSpecies(id) {
