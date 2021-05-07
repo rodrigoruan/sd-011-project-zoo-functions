@@ -66,7 +66,14 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants || entrants === {}) {
+    return 0;
+  }
+  const sumFun = ({ Adult = 0, Senior = 0, Child = 0 }) => {
+    let sum = (Adult * 49.99) + (Senior * 24.99) + (Child * 20.99);
+    return sum;
+  };
+  return sumFun(entrants);
 }
 
 function getAnimalMap(options) {
