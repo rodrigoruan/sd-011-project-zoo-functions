@@ -17,9 +17,14 @@ function getSpeciesByIds(...ids) {
 }
 
 // console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce', 'e8481c1d-42ea-4610-8e11-1752cfc05a46'));
+
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const selectedSpecie = species.find((specie) => specie.name === animal);
+  const ageAnimal = selectedSpecie.residents.every((animal) => animal.age >= age);
+  return ageAnimal;
 }
+
+// console.log(getAnimalsOlderThan('penguins', 10));
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
