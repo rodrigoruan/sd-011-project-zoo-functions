@@ -9,7 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -30,7 +30,9 @@ function getEmployeeByName(employeeName) {
   return employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName);
 }
 
-function createEmployee({ id, firstName, lastName }, { managers, responsibleFor }) {
+function createEmployee(personalInfo, associatedWith) {
+  const { id, firstName, lastName } = personalInfo;
+  const { managers, responsibleFor } = associatedWith;
   return {
     id,
     firstName,
@@ -75,7 +77,22 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const schedule = {
+    Tuesday: `Open from ${hours.Tuesday.open}am until ${hours.Tuesday.close - 12}pm`,
+    Wednesday: `Open from ${hours.Wednesday.open}am until ${hours.Wednesday.close - 12}pm`,
+    Thursday: `Open from ${hours.Thursday.open}am until ${hours.Thursday.close - 12}pm`,
+    Friday: `Open from ${hours.Friday.open}am until ${hours.Friday.close - 12}pm`,
+    Saturday: `Open from ${hours.Saturday.open}am until ${hours.Saturday.close - 12}pm`,
+    Sunday: `Open from ${hours.Sunday.open}am until ${hours.Sunday.close - 12}pm`,
+    Monday: 'CLOSED',
+  };
+
+  if (!dayName) {
+    return schedule;
+  }
+  const day = {};
+  day[dayName] = schedule[dayName];
+  return day;
 }
 
 function getOldestFromFirstSpecies(id) {
