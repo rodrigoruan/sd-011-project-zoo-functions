@@ -32,7 +32,7 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  let newEmployee = Object.assign(personalInfo,associatedWith);
+  let newEmployee = Object.assign(personalInfo, associatedWith);
   return newEmployee;
   // seu código aqui
 }
