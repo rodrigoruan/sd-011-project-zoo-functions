@@ -15,25 +15,22 @@ function getSpeciesByIds(...ids) {
   if (ids.length === 0) {
     return [];
   }
-  const filterSpecies = data.species.filter((animal) => {
-    return ids.some((id) => id === animal.id);
-  });
+  const filterSpecies = data.species.filter((animal) => ids.some((id) => id === animal.id));
   return filterSpecies;
 }
 
 function getAnimalsOlderThan(animal, age) {
   return data.species.find((listanimal) => listanimal.name === animal)
-  .residents.every((resident) => resident.age >= age);
+    .residents.every((resident) => resident.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
   if (!employeeName) {
-    return {}
+    return {};
   }
-  return data.employees.find((predicate) => predicate.firstName === employeeName || 
-  predicate.lastName === employeeName || !employeeName);
+  return data.employees.find((predicate) => predicate.firstName === employeeName
+  || predicate.lastName === employeeName);
 }
-console.log(getEmployeeByName('Emery'))
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
