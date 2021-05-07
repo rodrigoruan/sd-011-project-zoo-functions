@@ -27,9 +27,17 @@ const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ass
 
 const isManager = (id) => employee.some((employee) => employee.managers.includes(id));
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
-}
+const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []) => {
+  const newEmploy = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+
+  employee.push(newEmploy);
+};
 
 function countAnimals(species) {
   // seu código aqui
