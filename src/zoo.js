@@ -59,16 +59,46 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const result = {};
+  Object.keys(hours).forEach((day) => {
+    if (day !== 'Monday') {
+      result[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
+    } else {
+      result[day] = 'CLOSED';
+    }
+  });
+  if (dayName) {
+    return {
+      [dayName]: result[dayName],
+    };
+  }
+  return result;
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const findIdFirstAnimal = employees.find((emp) => emp.id === id).responsibleFor[0];
+  const firstAnimal = species.find((animal) => animal.id === findIdFirstAnimal).residents;
+  const arrOfAges = [];
+  firstAnimal.forEach((element) => arrOfAges.push(element.age));
+  const oldestAge = arrOfAges.reduce((acc, curr) => {
+    if (acc > curr) {
+      return acc;
+    }
+    return curr;
+  }, 0);
+  const result = firstAnimal.find((animal) => animal.age === oldestAge);
+  return Object.values(result);
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const priceKeys = Object.keys(prices);
+  const increase = (100 + percentage) / 100;
+  priceKeys.forEach((key) => {
+    prices[key] = Math.round((prices[key] * increase) * 100) / 100;
+  });
+  return prices;
 }
+/* Arredondar: https://metring.com.br/arredondar-numero-em-javascript#:~:text=Para%20arredondar%20um%20n%C3%BAmero%20decimal,n%C3%A3o%20%C3%A9%20um%20m%C3%A9todo%20confi%C3%A1vel. */
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
