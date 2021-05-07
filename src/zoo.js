@@ -38,11 +38,13 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  return data.employees.map(({ managers }) => (managers.includes(id))).reduce(((acc, value) => acc === value), false);
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+  // let newObject = {id, firstName, lastName, managers, responsibleFor,};
+  //  const [one, two, tree, four, five, six, seven, eight, newObject] = data.employees;
+  //  return data.employees
 }
 
 function countAnimals(species) {
