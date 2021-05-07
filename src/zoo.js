@@ -27,14 +27,17 @@ function getEmployeeByName(employeeName) {
   // seu código aqui
   return employeeName ? employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName) : {};
 }
-console.log(getEmployeeByName('Burl'));
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
+  
 }
+// console.log(createEmployee());
 
 function isManager(id) {
   // seu código aqui
+  let employee = employees.find((employee) => employee.id === id);
+  return (employee.firstName === 'Stephanie' || employee.firstName === 'Ola' || employee.firstName === 'Burl');
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
