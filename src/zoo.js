@@ -41,10 +41,15 @@ function isManager(id) {
   return data.employees.map(({ managers }) => (managers.includes(id))).reduce(((acc, value) => acc === value), false);
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // let newObject = {id, firstName, lastName, managers, responsibleFor,};
-  //  const [one, two, tree, four, five, six, seven, eight, newObject] = data.employees;
-  //  return data.employees
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  let newObject = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  return data.employees.push(newObject);
 }
 
 function countAnimals(species) {
