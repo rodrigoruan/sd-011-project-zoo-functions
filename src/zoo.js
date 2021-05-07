@@ -51,9 +51,9 @@ function countAnimals(species) {
 function calculateEntry(entrants) {
   let total = 0;
 
-  for (let key in entrants) {
-    total += data.prices[key] * entrants[key];
-  }
+  const entrantKeys = Object.keys(entrants);
+
+  entrantKeys.forEach((key) => { total += data.prices[key] * entrants[key]; });
 
   return total;
 }
@@ -126,9 +126,11 @@ function getSchedule(dayName) {
     return { [dayName]: schedule[dayName] };
   }
 
-  for (let day in schedule) {
+  const scheduleKeys = Object.keys(schedule);
+
+  scheduleKeys.forEach((day) => {
     schedule[day] = getSingleDayScheduleString(schedule[day]);
-  }
+  });
 
   return schedule;
 }
@@ -136,15 +138,17 @@ function getSchedule(dayName) {
 function getOldestFromFirstSpecies(id) {
   const responsible = data.employees.find((employee) => employee.id === id);
   const allAnimalsFromFirstSpecies = data.species.find((species) => species.id === responsible.responsibleFor[0]);
-  const { age, name, sex } = allAnimalsFromFirstSpecies.residents.reduce((acc, curr) => curr.age > acc.age ? curr : acc, { age: 0 });
+  const { age, name, sex } = allAnimalsFromFirstSpecies.residents.reduce((acc, curr) => (curr.age > acc.age ? curr : acc), { age: 0 });
 
   return [name, sex, age];
 }
 
 function increasePrices(percentage) {
-  for (let priceKey in data.prices) {
+  const priceKeys = Object.keys(data.prices);
+
+  priceKeys.forEach((priceKey) => {
     data.prices[priceKey] = Math.round(data.prices[priceKey] * (1 + percentage / 100) * 100) / 100;
-  }
+  });
 }
 
 function getSingleEmployeeCoverage(employee) {
