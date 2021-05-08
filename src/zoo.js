@@ -18,12 +18,20 @@ function getSpeciesByIds(...ids) {
 function getAnimalsOlderThan(animal, age) {
   return data.species.find((specie) => (specie.name === animal)).residents.every((specieAge) => (specieAge.age >= age));
 }
+// 3. IMPLEMENTE A FUNÇÃO getEmployeeByName
+// Esta função é responsável pela busca das pessoas colaboradoras através do primeiro ou do último nome delas
 
-console.log(getAnimalsOlderThan('otters', 7));
+// O que será avaliado
+
+// Sem parâmetros, retorna um objeto vazio
+// Quando provido o primeiro nome do funcionário, retorna o objeto do funcionário
+// Quando provido o último nome do funcionário, retorna o objeto do funcionário
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (employeeName === undefined) return {};
+  return data.employees.find((employee) => (employee.firstName === employeeName || employee.lastName === employeeName));
 }
+console.log(getEmployeeByName('Bethea'));
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
