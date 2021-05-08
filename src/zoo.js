@@ -149,10 +149,10 @@ const getEmployeeCoverage = (idOrName) => {
   }, {});
 
   if (idOrName) {
-    let person = getEmployeeByName(idOrName) || employees.find(({ id }) => idOrName === id);
+    let { firstName, lastName } = getEmployeeByName(idOrName) || employees.find(({ id }) => idOrName === id);
 
     employeesWithSpecies = Object.entries(employeesWithSpecies).reduce((employeeWithSpecies, [employee, species]) => {
-      if (employee === `${person.firstName} ${person.lastName}`) employeeWithSpecies[employee] = species;
+      if (employee === `${firstName} ${lastName}`) employeeWithSpecies[employee] = species;
       return employeeWithSpecies;
     }, {});
   }
