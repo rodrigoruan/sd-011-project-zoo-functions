@@ -12,11 +12,12 @@ eslint no-unused-vars: [
 const data = require('./data');
 
 function getSpeciesByIds(...idCode) {
-  // Ela retorna um array contendo as espécies referentes aos ids passados como parâmetro, podendo receber um ou mais ids.
   if (!idCode) {
     return [];
   }
-  return data.species.filter((specie) => specie.id === idCode);
+  // let idCodeList = [...idCode];
+  const specieList = data.species.filter((specie) => idCode.find((id) => specie.id === id));
+  return specieList;
 }
 
 function getAnimalsOlderThan(animal, age) {
@@ -69,24 +70,24 @@ function calculateEntry(entrants) {
 
 function getAnimalMap({ includeNames, sorted, sex }) {
   // const filterByRegion = (local) => data.species.filter((specie) => specie.location === local).reduce((animalAcc, specie) => animalAcc.push(specie.name));
-  if (includeNames) {
-    const getResidentListByRegion = (local) => {
-      data.species
-        .filter((specie) => specie.location === local)
-        .forEach((specie) => specie
-          .map(() => {
-            specie.name = [];
-            specie.name.push(specie.residents);
-            if (sorted) return specie.name.sort(); return specie.name;
-          }));
-    };
-    residentListNE = { ...getResidentListByRegion('NE') };
-    residentListNW = { ...getResidentListByRegion('NW') };
-    residentListSE = { ...getResidentListByRegion('SE') };
-    residentListSW = { ...getResidentListByRegion('SW') };
+  // if (includeNames) {
+  //   const getResidentListByRegion = (local) => {
+  //     data.species
+  //       .filter((specie) => specie.location === local)
+  //       .forEach((specie) => specie
+  //         .map(() => {
+  //           specie.name = [];
+  //           specie.name.push(specie.residents);
+  //           if (sorted) return specie.name.sort(); return specie.name;
+  //         }));
+  //   };
+  //   residentListNE = { ...getResidentListByRegion('NE') };
+  //   residentListNW = { ...getResidentListByRegion('NW') };
+  //   residentListSE = { ...getResidentListByRegion('SE') };
+  //   residentListSW = { ...getResidentListByRegion('SW') };
 
-    return data.species.map(() => ({ NE: [...getResidentListByRegion('NE')], NW: [...getResidentListByRegion('NW')], SE: [...getResidentListByRegion('SE')], SW: [...getResidentListByRegion('SW')] }));
-  }
+  //   return data.species.map(() => ({ NE: [...getResidentListByRegion('NE')], NW: [...getResidentListByRegion('NW')], SE: [...getResidentListByRegion('SE')], SW: [...getResidentListByRegion('SW')] }));
+  // }
   // data.species.map(() => ({ NE: filterByRegion('NE'), NW: filterByRegion('NW'), SE: filterByRegion('SE'), SW: filterByRegion('SW') }));
 }
 // console.log(data.species.filter((specie) => specie.location === 'NE'));
@@ -105,16 +106,40 @@ function getOldestFromFirstSpecies(id) {
   const oldestResident = data.species.find((specie) => specie.id === getAnimalIdbyEmployee).residents.filter((resident) => resident.age === oldestAnimalAge);
   return Object.values(oldestResident[0]);
 }
-console.log(getOldestFromFirstSpecies('56d43ba3-a5a7-40f6-8dd7-cbb05082383f'));
 
 function increasePrices(percentage) {
-  // seu código aqui
+  let { Adult: adult, Senior: senior, Child: child } = data.prices;
+
+  adult *= 1 + percentage / 100;
+  senior *= 1 + percentage / 100;
+  child *= 1 + percentage / 100;
+
+  let newPriceList = {};
+  newPriceList.Adult = adult.toFixed(2);
+  newPriceList.Senior = senior.toFixed(2);
+  newPriceList.Child = child.toFixed(2);
+  return newPriceList;
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  // if (!idOrName) {
+    // const employeeData = Object.values(data.employees);
+    // const specieSupervisioned = data.species.find((animal) => animal.id === employee.responsibleFor[index]);
+//     for (let specieSupervisioned in data.employees.responsibleFor) {
+//       if (specieSupervisioned) {
+//         const specieSupervisionedName = data.species.find((specie) => specie.id === specieSupervisioned).name;
+//       }
+//     }
+//       const employeeReport = data.employees.reduce(
+//           (acc, employee) => {
+//             acc[`${employee.firstName} ${employee.lastName}`] = specieSupervisionedName;
+//             return acc;
+//           }, '');
+//       } 
+//     return employeeReport;
+// }
+// console.log(getEmployeeCoverage());
 }
-
 module.exports = {
   calculateEntry,
   getSchedule,
