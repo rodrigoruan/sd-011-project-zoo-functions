@@ -24,17 +24,16 @@ function getAnimalsOlderThan(animal, age) {
 function getEmployeeByName(employeeName) {
   if (employeeName === undefined) { return {}; }
   return employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
-  // seu código aqui
 }
-console.log(getEmployeeByName());
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
 }
 
 function isManager(id) {
-  // seu código aqui
+  let managersArray = [];
+  employees.forEach((employee, index) => { managersArray.push(employee.managers[index]); });
+  return managersArray.some((man) => man === id);
 }
-
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
