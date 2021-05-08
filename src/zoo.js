@@ -34,8 +34,15 @@ function isManager(id) {
   employees.forEach((employee, index) => { managersArray.push(employee.managers[index]); });
   return managersArray.some((man) => man === id);
 }
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const newEmploye = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  return data.employees.push(newEmploye);
 }
 
 function countAnimals() {
