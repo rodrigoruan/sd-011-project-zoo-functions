@@ -101,8 +101,33 @@ function increasePrices(percentage) {
 
 // Arredondar foi bem complicado, consegui consultando esse site: https://metring.com.br/arredondar-numero-em-javascript
 
+function checkAnimalName(ids) {
+  const animalName = [];
+  ids.forEach((responsibleFor) => {
+    data.species.forEach((animal) => {
+      if (responsibleFor === animal.id) {
+        animalName.push(animal.name);
+      }
+    });
+  });
+  return animalName;
+}
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const obj = {};
+
+  if (idOrName === undefined) {
+    data.employees.forEach((positions) => {
+      obj[`${positions.firstName} ${positions.lastName}`] = checkAnimalName(positions.responsibleFor);
+    });
+  }
+
+  data.employees.forEach((checkNames) => {
+    if (idOrName === checkNames.id || idOrName === checkNames.firstName || idOrName === checkNames.lastName) {
+      obj[`${checkNames.firstName} ${checkNames.lastName}`] = checkAnimalName(checkNames.responsibleFor);
+    }
+  });
+  return obj;
 }
 
 module.exports = {
