@@ -84,9 +84,6 @@ function getSchedule(dayName) {
   return myObj;
 }
 
-console.log(getSchedule());
-console.log(getSchedule('Monday'));
-
 // Requisito 11
 function getOldestFromFirstSpecies(id) {
   const species = data.employees.find((employee) => employee.id === id).responsibleFor[0];
@@ -112,14 +109,19 @@ function increasePrices(percentage) {
 
 // Requisito 13
 function getEmployeeCoverage(idOrName) {
-  // const employee = data.employees.find((employee) => employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName);
-  // const nameEmployee = `${employee.firstName} ${employee.lastName}`;
-  // let myObj = {};
-  // let responsibleFor =
-  // myObj[nameEmployee] = ;
-  // return myObj;
-}
+  let myObj = {};
+  if (!idOrName) {
+    data.employees.forEach((employee) => {
+      myObj[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor.map((specie) => data.species.find((spc) => spc.id === specie).name);
+    });
+    return myObj;
+  }
 
+  const employeeSel = data.employees.find((employee) => employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName);
+  myObj[`${employeeSel.firstName} ${employeeSel.lastName}`] = employeeSel.responsibleFor.map((specie) => data.species.find((spc) => spc.id === specie).name);
+  return myObj;
+}
+console.log(getEmployeeCoverage());
 console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 console.log(getEmployeeCoverage('Stephanie'));
 
