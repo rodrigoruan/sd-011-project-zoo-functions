@@ -13,6 +13,7 @@ const data = require('./data');
 
 const arrayOfAnimals = data.species;
 const arrayOfEmployees = data.employees;
+const arrayOfPrices = data.prices;
 
 function getSpeciesByIds(...ids) {
   return arrayOfAnimals.filter((animals) => ids.includes(animals.id));
@@ -55,7 +56,12 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === undefined || entrants === '') {
+    return 0;
+  }
+  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
+  const prices = (Adult * arrayOfPrices.Adult) + (Child * arrayOfPrices.Child) + (Senior * arrayOfPrices.Senior);
+  return prices;
 }
 
 function getAnimalMap(options) {
