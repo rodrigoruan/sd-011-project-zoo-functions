@@ -8,7 +8,8 @@ eslint no-unused-vars: [
   }
 ]
 */
-const { species, employees, prices } = require('./data');
+const { TestScheduler } = require('@jest/core');
+const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -77,10 +78,25 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
 }
 
 function getSchedule(dayName) {
+  const allDays = {
+    Tuesday: 'Open from 8am until 6pm',
+    Wednesday: 'Open from 8am until 6pm',
+    Thursday: 'Open from 10am until 8pm',
+    Friday: 'Open from 10am until 8pm',
+    Saturday: 'Open from 8am until 10pm',
+    Sunday: 'Open from 8am until 8pm',
+    Monday: 'CLOSED',
+  };
+  if (!dayName) {
+    return allDays;
+  }
+  const day = dayName;
+  let schedule = {};
+  schedule[day] = allDays[day];
+  return schedule;
 }
 
 function getOldestFromFirstSpecies(id) {
@@ -104,6 +120,16 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
+  /*  if (!idOrName) {
+    const employeesList = employees.map((employee) => employee.responsibleFor
+    );
+    let nameList = {};
+    employees.map((employee,index) => {
+      let fullNames = `${employee.firstName} ${employee.lastName}`
+      nameList[fullNames] = employeesList[index]
+    })
+    return nameList
+  } */
 }
 
 module.exports = {
