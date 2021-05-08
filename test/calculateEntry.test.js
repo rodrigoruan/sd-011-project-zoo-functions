@@ -11,23 +11,36 @@ describe('Implemente a função calculateEntry', () => {
   });
 
   it('Retorna o preço total a ser cobrado dado o número de adultos, crianças e idosos', () => {
-    let entrants = { 'Adult': 2, 'Child': 3, 'Senior': 1 };
+    let entrants = {
+      'Adult': 2,
+      'Child': 3,
+      'Senior': 1
+    };
     let actual = zoo.calculateEntry(entrants);
     assert.strictEqual(actual, 187.94);
 
-    entrants = { 'Adult': 1 };
+    entrants = {
+      'Adult': 1
+    };
     actual = zoo.calculateEntry(entrants);
     assert.strictEqual(actual, 49.99);
 
-    entrants = { 'Senior': 1 };
+    entrants = {
+      'Senior': 1
+    };
     actual = zoo.calculateEntry(entrants);
     assert.strictEqual(actual, 24.99);
 
-    entrants = { 'Child': 1 };
+    entrants = {
+      'Child': 1
+    };
     actual = zoo.calculateEntry(entrants);
     assert.strictEqual(actual, 20.99);
 
-    entrants = { 'Child': 1, 'Senior': 1 };
+    entrants = {
+      'Child': 1,
+      'Senior': 1
+    };
     actual = zoo.calculateEntry(entrants);
     assert.strictEqual(actual, 45.98);
   });
