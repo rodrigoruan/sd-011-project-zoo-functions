@@ -8,7 +8,7 @@ eslint no-unused-vars: [
   }
 ]
 */
-const { employees } = require('./data');
+const { employees, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -84,9 +84,17 @@ function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
 
-function increasePrices(percentage) {
-  // seu código aqui
-}
+// requisito 12
+const modifyNumber = (number, modifier) => Math.round(number * modifier * 100) / 100;
+
+const increasePrices = (percentage) => {
+  const modifier = 1 + (percentage / 100);
+
+  Object.keys(prices).forEach((key) => {
+    prices[key] = modifyNumber(prices[key], modifier);
+  });
+  return prices;
+};
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
