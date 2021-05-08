@@ -42,7 +42,7 @@ const animalsName = (...args) => {
 const getAnimalMap = (options = {}) => {
   let obj = {}; const names = ['NE', 'NW', 'SE', 'SW']; for (let i of names) {
     obj[i] = [];
-  } species.map((animal) => (options.includeNames ? obj[animal.location].push({ [animal.name]: animalsName(animal.residentsoptions.sorted, options.sex) }) : obj[animal.location].push(animal.name))); return obj;
+  } species.map((animal) => (options.includeNames ? obj[animal.location].push({ [animal.name]: animalsName(animal.residents, options.sorted, options.sex) }) : obj[animal.location].push(animal.name))); return obj;
 };
 
 const daysOfWeek = {
