@@ -39,11 +39,17 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  const result = employees.some(({ managers }) => managers.some((value) => value === id));
+  return result;
 }
 
+// function isManager(id) {
+//   const result = employees.some((get) => get.managers.some((value) => value === id))
+//   return result;
+// }
+
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+   employees.push 
 }
 
 function countAnimals(species) {
