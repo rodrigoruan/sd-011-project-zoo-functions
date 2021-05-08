@@ -18,7 +18,7 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  return data.species.find(((element) => element.name === animal)).residents.every((species) => species.age >= age);
+  return data.species.find(((element) => element.name === animal)).residents.every((specie) => specie.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
@@ -39,7 +39,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 
 function countAnimals(speciess) {
   if (speciess) {
-    return data.species.find(({name}) => name === speciess).residents.length;
+    return data.species.find(({ name }) => name === speciess).residents.length;
   }
 
   return data.species.reduce((acc, curr) => { acc[curr.name] = curr.residents.length; return acc; }, {});
