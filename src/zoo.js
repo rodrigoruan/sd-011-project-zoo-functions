@@ -43,17 +43,36 @@ const calculateEntry = (entrants = {}) => {
   return valueOfAdult + valueOfSenior + valueOfChild;
 };
 
-function getAnimalMap(options) {
+function getAnimalMap(options = {}) {
   // seu código aqui
+  /* const { includeNames = true, sex, sorted } = options;
+  let result = {};
+  data.species.forEach((bicho) => result[bicho.location] += ' ' + bicho.name);
+  Object.keys(result).forEach(key => {
+    result[key] = result[key].split(' ').filter(element => element!== 'undefined');
+  })
+  if (includeNames === true) {
+    Object.keys(result).forEach((element) => {
+      console.log(result[element].map((bichinhos) => {
+        let nomeDosAnimais = data.species.find((x) => x.residents)
+        ({bichinhos: });
+      })
+    });
+  }
+  console.log(Object.keys(result));
+  return result; */
 }
+/* console.log(getAnimalMap()); */
 
 function getSchedule(dayName) {
   // seu código aqui
 }
 
-function getOldestFromFirstSpecies(id) {
-  // seu código aqui
-}
+const getOldestFromFirstSpecies = (id) => {
+  const firstAnimal = data.employees.find((worker) => worker.id === id).responsibleFor[0]; // seu código aqui
+  const resultAnimal = data.species.find((animal) => animal.id === firstAnimal).residents.sort((a, b) => b.age - a.age)[0];
+  return [resultAnimal.name, resultAnimal.sex, resultAnimal.age];
+};
 
 function increasePrices(percentage) {
   // seu código aqui
