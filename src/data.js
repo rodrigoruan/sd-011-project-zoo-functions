@@ -158,7 +158,7 @@ module.exports = {
     {
       id: snakesId,
       name: 'snakes',
-      popularity: 3,
+      popularity: 2,
       location: 'SW',
       residents: [
         {

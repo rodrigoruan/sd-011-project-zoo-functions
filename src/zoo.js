@@ -21,12 +21,10 @@ function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
   return data.employees.find((names) => names.firstName === employeeName || names.lastName === employeeName);
 }
-console.log(getEmployeeByName());
 
 function createEmployee(personalInfo, associatedWith) {
   return { ...personalInfo, ...associatedWith };
 }
-console.log(createEmployee());
 
 const isManager = (id) => data.employees.some(({ managers }) => managers.includes(id));
 
@@ -35,8 +33,17 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  if (species) {
+    return data.species.find((value) => value.name === species).residents.length;
+  }
+
+  let object = {};
+  data.species.forEach((animals) => {
+    object[animals.name] = animals.residents.length;
+  });
+  return object;
 }
+console.log(countAnimals());
 
 function calculateEntry(entrants) {
   // seu código aqui
