@@ -50,10 +50,16 @@ function isManager(id) {
   return manage;
 }
 
-console.log(isManager('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1'));
+function addEmployee(idInput, firstNameInput, lastNameInput, managersInput = [], responsibleForInput = []) {
+  const newEmployees = {
+    id: idInput,
+    firstName: firstNameInput,
+    lastName: lastNameInput,
+    managers: managersInput,
+    responsibleFor: responsibleForInput,
+  };
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+  return data.employees.push(newEmployees);
 }
 
 function countAnimals(species) {
