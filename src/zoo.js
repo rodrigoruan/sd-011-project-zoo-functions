@@ -11,9 +11,7 @@ eslint no-unused-vars: [
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  if (ids.length === 0) {
-    return [];
-  }
+  if (!ids) return [];
   return data.species.find((especie) => ids.includes(especie.id));
 }
 
@@ -25,19 +23,12 @@ function getAnimalsOlderThan(animal, age) {
   return false;
 }
 
-function getEmployeeByName(...employeeName) {
-  if (employeeName.length === 0) {
-    return [];
-  }
-  let primeiroNome = data.employees.filter((pessoa) => employeeName.includes(pessoa.firstName));
-  let segundoNome = data.employees.filter((pessoa) => employeeName.includes(pessoa.lastName));
-  if (primeiroNome.length > 0) {
-    return primeiroNome;
-  }
-  if (segundoNome.length > 0) {
-    return segundoNome;
-  }
+function getEmployeeByName(employeeName) {
+  if (!employeeName) return {};
+  return data.employees.find((pessoa) => employeeName.includes(pessoa.firstName) || employeeName.includes(pessoa.lastName));
 }
+
+console.log(getEmployeeByName());
 
 function createEmployee(personalInfo, associatedWith) {
   let novoColaborador = {
