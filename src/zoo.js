@@ -11,7 +11,7 @@ eslint no-unused-vars: [
 const { prices } = require('./data');
 const data = require('./data');
 
-const { species, employees } = data;
+const { species, employees, hours } = data;
 
 function getSpeciesByIds(...ids) {
   return species.filter(({ id }) => ids.some((specie) => specie === id));
@@ -54,8 +54,14 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const schedule = Object.entries(hours).reduce((accumulator, [day, { open, close }]) => ({ ...accumulator, [day]: open - close === 0 ? 'CLOSED' : `Open from ${open}am until ${close - 12}pm` }), {});
+  if (dayName === undefined) {
+    return schedule;
+  }
+  return { [dayName]: schedule[dayName] };
+  // https://stackoverflow.com/questions/11508463/javascript-set-object-key-by-variable - referência
 }
+console.log(getSchedule('Tuesday'));
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
