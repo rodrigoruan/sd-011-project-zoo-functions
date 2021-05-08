@@ -40,7 +40,6 @@ function countAnimals(speciess) {
   if (speciess) {
     return data.species.find(({ name }) => name === speciess).residents.length;
   }
-
   return data.species.reduce((acc, curr) => { acc[curr.name] = curr.residents.length; return acc; }, {});
 }
 
