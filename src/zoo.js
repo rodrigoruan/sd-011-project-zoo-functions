@@ -61,11 +61,11 @@ function calculateEntry(entrants = {}) {
   }, 0);
 }
 
-const listNames = (object, gender) => {
+const listNames = (object, gender = false) => {
   Object.keys(object).forEach((key) => {
     object[key] = object[key].map((animal) => {
       const currentAnimal = data.species.find(({ name }) => name === animal);
-      if (gender === 'male' || gender === 'female') {
+      if (gender) {
         return { [currentAnimal.name]: currentAnimal.residents.filter((resident) => resident.sex === gender).map((resident) => resident.name) };
       }
       return { [currentAnimal.name]: currentAnimal.residents.map((resident) => resident.name) };
@@ -76,10 +76,12 @@ const listNames = (object, gender) => {
 
 const sortNames = (object) => {
   Object.keys(object).forEach((key) => {
-    Object.keys(object[key]).forEach((subKey) => {
-      Object.keys(object[key][subKey]).forEach((animal) => {
-        const names = object[key][subKey][animal];
-        object[key][subKey][animal] = names.sort();
+    const region = object[key];
+    Object.keys(region).forEach((subKey) => {
+      const animal = object[key][subKey];
+      Object.keys(animal).forEach((residentes) => {
+        const names = animal[residentes];
+        animal[residentes] = names.sort();
       });
     });
   });
