@@ -14,10 +14,16 @@ function getSpeciesByIds(...ids) {
   if (ids.length === 0) {
     return [];
   }
-  return data.species.filter((especie) => ids.includes(especie.id));
+  return data.species.find;
 }
 
-function getAnimalsOlderThan(animal, age) {}
+function getAnimalsOlderThan(animal, age) {
+  const retornoDaEspecie = data.species.find((nome) => animal.includes(nome.name));
+  if (retornoDaEspecie.residents.every((idade) => idade.age >= age)) {
+    return true;
+  }
+  return false;
+}
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
