@@ -14,6 +14,7 @@ const data = require('./data');
 const arrayOfAnimals = data.species;
 const arrayOfEmployees = data.employees;
 const arrayOfPrices = data.prices;
+const arrayOfHours = data.hours;
 
 function getSpeciesByIds(...ids) {
   return arrayOfAnimals.filter((animals) => ids.includes(animals.id));
@@ -69,7 +70,22 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const week = {
+    Tuesday: `Open from ${arrayOfHours.Tuesday.open}am until ${arrayOfHours.Tuesday.close - 12}pm`,
+    Wednesday: `Open from ${arrayOfHours.Wednesday.open}am until ${arrayOfHours.Wednesday.close - 12}pm`,
+    Thursday: `Open from ${arrayOfHours.Thursday.open}am until ${arrayOfHours.Thursday.close - 12}pm`,
+    Friday: `Open from ${arrayOfHours.Friday.open}am until ${arrayOfHours.Friday.close - 12}pm`,
+    Saturday: `Open from ${arrayOfHours.Saturday.open}am until ${arrayOfHours.Saturday.close - 12}pm`,
+    Sunday: `Open from ${arrayOfHours.Sunday.open}am until ${arrayOfHours.Sunday.close - 12}pm`,
+    Monday: 'CLOSED',
+  };
+
+  if (dayName === undefined || dayName === '') {
+    return week;
+  }
+  const day = {};
+  day[dayName] = week[dayName];
+  return day;
 }
 
 function getOldestFromFirstSpecies(id) {
