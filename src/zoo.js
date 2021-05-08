@@ -56,7 +56,7 @@ function countAnimals(specie) {
 
 function calculateEntry(entrants) {
   if (!entrants || entrants === {}) return 0;
-  return Object.keys(entrants).reduce((somatorio, atual) => somatorio + (data.prices[atual] * entrants[atual]), 0);
+  return Object.keys(entrants).reduce((sum, atual) => sum + (data.prices[atual] * entrants[atual]), 0);
 }
 
 function getAnimalMap(options) {
@@ -64,7 +64,25 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  // Array com objetos com todos os horários e dias da semana, que indicam abertura
+  // e fechamento do zoológico.
+  const hours = Object.values(data.hours);
+  let weekDays;
+  if (!dayName) {
+    weekDays = Object.keys(data.hours);
+  } else {
+    weekDays = [dayName];
+  }
+
+  const result = weekDays.reduce((acc, curr, index) => {
+    acc[curr] = `Open from ${hours[index].open}am until ${hours[index].close - 12}pm`;
+    return acc;
+  }, {});
+
+  if (result.Monday) {
+    result.Monday = 'CLOSED';
+  }
+  return result;
 }
 
 function getOldestFromFirstSpecies(id) {
