@@ -51,21 +51,44 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 function countAnimals(speciess) {
   if (speciess) {
-    const animal = species.find((animal) => animal.name === speciess);
-    return animal.residents.length;
+    const animall = species.find((animall) => animall.name === speciess);
+    return animall.residents.length;
   }
   if (!speciess) {
     const allAnimal = species.map((element) => {
-      const { name, residents} = element;
-      return {[`${name}`]: residents.length,};
+      const { name, residents } = element;
+      return { [`${name}`]: residents.length, }
     });
     return Object.assign({}, ...allAnimal);
   }
 }
+// -- EX 8 --
+function calculateByTarget(target) {
+  return targetPrice;
+  // return Number((targetPrice * Object.values(target)));
+}
+
+// console.log(calculateByTarget('Adult'));
+// 
+const test = { 'Adult': 2, 'Child': 3, 'Senior': 1 };
+console.log(Object.keys(test)[0]);
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  const priceAge = Object.entries(entrants).find((target) => target.keys === )
+
+  // acessar o preço em cada chave do objeto
+  // fazer uma função que acesse um valor passado (valor sendo o valor da chave passada) e retorna seu valor
+  // Essa função soma os valores e retorna o total
+  // Somar o valor de todas as chavas e devolver
+  
+  // Condicionais se vazio
 }
+
+// O parâmetro entrants recebe um objeto que contém as chaves Adult, Child e Senior, com suas respectivas quantidades de pessoas
+// { 'Adult': 2, 'Child': 3, 'Senior': 1 };
+// Retorna 0 se nenhum argumento for passado
+// Retorna 0 se um objeto vazio for passado
+// Retorna o preço total a ser cobrado dado o número de adultos, crianças e idosos
 
 function getAnimalMap(options) {
   // seu código aqui
