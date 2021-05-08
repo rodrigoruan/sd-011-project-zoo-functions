@@ -13,7 +13,7 @@ const { species: animalSpecies, employees, prices, hours } = require('./data');
 
 const getSpeciesByIds = (...ids) => animalSpecies.filter((value) => ids.includes(value.id));
 
-const getAnimalsOlderThan = (animal, age) => animalSpecies.find(((value) => value.name === animal)).residents.every((value) => value.age >= age);
+const getAnimalsOlderThan = (animal, age) => animalSpecies.find((value) => value.name === animal).residents.every((value) => value.age >= age);
 
 const getEmployeeByName = (employeeName) => ((!employeeName) ? {}
   : employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName));
