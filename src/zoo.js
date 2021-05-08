@@ -22,13 +22,15 @@ console.log(getSpeciesByIds());
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqu
-  //  return species.filter((specie) => specie.name === animal => )
+  const animalName = species.find((specie) => specie.name === animal);
+  return animalName.residents.every((animal) => animal.age >= age);
 }
-
-// console.log(getAnimalsOlderThan("lions", 1));
+// Filter retornava o residents como objetcs, por isso não acessava. Com find ele acessa todas as infos.
+console.log(getAnimalsOlderThan("tigers", 20));
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
+  
 }
 
 function createEmployee(personalInfo, associatedWith) {
