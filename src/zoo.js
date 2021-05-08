@@ -93,9 +93,9 @@ function getSchedule(dayName) {
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
   const firstAnimalResponsibleId = employees.find((employee) => employee.id === id).responsibleFor[0];
-  let animalSelected = species.filter(({ id }) => id === firstAnimalResponsibleId);
+  let animalSelected = species.filter(({ animalId }) => animalId === firstAnimalResponsibleId);
   let [{ residents }] = animalSelected;
-  let olderAnimal; 
+  let olderAnimal;
   let biggerAge = 0;
   let result = [];
   residents.forEach((animal) => {
@@ -103,7 +103,7 @@ function getOldestFromFirstSpecies(id) {
       biggerAge = animal.age;
       olderAnimal = animal;
     }
-  })
+  });
   result.push(olderAnimal.name);
   result.push(olderAnimal.sex);
   result.push(olderAnimal.age);
