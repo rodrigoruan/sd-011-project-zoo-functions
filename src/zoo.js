@@ -60,12 +60,13 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 function countAnimals(animal) {
   let allSpecies = {};
-  if (!animal) {
-    return allSpecies;
-  }
   species.forEach((specie) => {
     allSpecies[specie.name] = (specie.residents).length;
   });
+
+  if (!animal) {
+    return allSpecies;
+  }
   return allSpecies[animal];
 }
 
@@ -130,11 +131,14 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  Object.keys(prices).map((entrance) => {
+    let temporaryNumber = prices[entrance] * (1 + (percentage * 0.01));
+    prices[entrance] = Math.round(temporaryNumber * 100) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  
 }
 
 module.exports = {
