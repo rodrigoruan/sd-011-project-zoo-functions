@@ -83,9 +83,27 @@ const increasePrices = (percentage) => {
   });
 };
 
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
-}
+const getEmployeeCoverage = (idOrName) => {
+  const result = {};
+
+  data.employees.forEach((employee) => {
+    const fullName = `${employee.firstName} ${employee.lastName}`;
+    result[fullName] = employee.responsibleFor.map((animalId) => (
+      data.species.find((animal) => animal.id === animalId).name
+    ));
+  });
+
+  if (!idOrName) {
+    return result;
+  }
+
+  const findEmployee = data.employees.find((employee) => (
+    employee.firstName === idOrName || employee.lastName === idOrName || employee.id === idOrName));
+
+  const fullName = `${findEmployee.firstName} ${findEmployee.lastName}`;
+
+  return { [fullName]: result[fullName] };
+};
 
 module.exports = {
   calculateEntry,
