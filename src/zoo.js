@@ -97,12 +97,29 @@ function getOldestFromFirstSpecies(id) {
 // console.log(getOldestFromFirstSpecies('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const { Adult, Child, Senior } = data.prices;
+
+  const Adult2 = (Adult + ((percentage / 100) * Adult + 0.001)).toFixed(2);
+  const Child2 = (Child + ((percentage / 100) * Child + 0.001)).toFixed(2);
+  const Senior2 = (Senior + ((percentage / 100) * Senior + 0.001)).toFixed(2);
+
+  data.prices.Adult = parseFloat(Adult2);
+  data.prices.Child = parseFloat(Child2);
+  data.prices.Senior = parseFloat(Senior2);
 }
 
+// Requisito 13
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  // const employee = data.employees.find((employee) => employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName)
+  // const nameEmployee = `${employee.firstName} ${employee.lastName}`
+  // const {firstName, lastName} = employee
+  // const namaComplete = firstName + ' ' + lastName;
+
+  // return console.log(employee);
 }
+
+// console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
+// console.log(getEmployeeCoverage('Stephanie'));
 
 module.exports = {
   calculateEntry,
