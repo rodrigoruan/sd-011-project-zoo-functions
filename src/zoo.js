@@ -42,7 +42,16 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  if (species === undefined) {
+    const obj = {};
+    arrayOfAnimals.forEach((positions) => {
+      obj[positions.name] = positions.residents.length;
+    });
+
+    return obj;
+  }
+  const theanimal = arrayOfAnimals.find((animal) => animal.name === species);
+  return theanimal.residents.length;
 }
 
 function calculateEntry(entrants) {
