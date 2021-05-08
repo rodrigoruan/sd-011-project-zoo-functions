@@ -8,7 +8,7 @@ eslint no-unused-vars: [
   }
 ]
 */
-const { employees } = require('./data');
+const { employees, species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -58,8 +58,13 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   });
 }
 
-function countAnimals(species) {
-  // seu código aqui
+function countAnimals(param) {
+  const result = {};
+  if (!param) {
+    species.forEach((value) => { result[value.name] = value.residents.length; });
+    return result;
+  }
+  return species.find((get) => (get.name === param)).residents.length;
 }
 
 function calculateEntry(entrants) {
