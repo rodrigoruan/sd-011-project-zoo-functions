@@ -88,8 +88,24 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  if (!dayName) {
+    return {
+      Tuesday: 'Open from 8am until 6pm',
+      Wednesday: 'Open from 8am until 6pm',
+      Thursday: 'Open from 10am until 8pm',
+      Friday: 'Open from 10am until 8pm',
+      Saturday: 'Open from 8am until 10pm',
+      Sunday: 'Open from 8am until 8pm',
+      Monday: 'CLOSED',
+    };
+  }
+  if (dayName === 'Monday') {
+    return { Monday: 'CLOSED' };
+  }
+  const { open, close } = data.hours[dayName];
+  return { [dayName]: `Open from ${open}am until ${close -12}pm` };
 }
+console.log(getSchedule('Thursday'));
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
