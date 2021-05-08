@@ -11,7 +11,6 @@ eslint no-unused-vars: [
 
 const data = require('./data');
 
-
 const getSpeciesByIds = (...ids) => data.species.filter((spacies) => ids.some((id) => spacies.id === id));
 
 // o Rodolfo Rezende me ajudou nessa turma 11.
@@ -30,7 +29,6 @@ const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...
 // seu código aqui
 
 const isManager = (id) => data.employees.some((getManeger) => getManeger.managers.includes(id));
-
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // seu código aqui
