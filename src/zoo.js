@@ -131,14 +131,12 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  Object.keys(prices).map((entrance) => {
-    let temporaryNumber = prices[entrance] * (1 + (percentage * 0.01));
-    prices[entrance] = Math.round(temporaryNumber * 100) / 100;
+  Object.keys(prices).forEach((entrance) => {
+    prices[entrance] = Math.round(prices[entrance] * (1 + (percentage * 0.01)) * 100) / 100;
   });
 }
 
 function getEmployeeCoverage(idOrName) {
-  
 }
 
 module.exports = {
