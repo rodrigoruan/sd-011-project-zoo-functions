@@ -142,24 +142,20 @@ const increasePrices = (percentage) => {
 };
 
 const getEmployeeCoverage = (idOrName) => {
-  let filteredEmployees = employees;
+  let employeesWithSpecies = employees.reduce((employeeWithSpecies, { firstName, lastName, responsibleFor }) => {
+    employeeWithSpecies[`${firstName} ${lastName}`] = responsibleFor
+      .map((animalId) => animalSpecies.find(({ id }) => animalId === id).name);
+    return employeeWithSpecies;
+  }, {});
 
   if (idOrName) {
-    const hasName = getEmployeeByName(idOrName);
+    let person = getEmployeeByName(idOrName) || employees.find(({ id }) => idOrName === id);
 
-    filteredEmployees = hasName ? [hasName] : [employees.find(({ id }) => id === idOrName)];
+    employeesWithSpecies = Object.entries(employeesWithSpecies).reduce((employeeWithSpecies, [employee, species]) => {
+      if (employee === `${person.firstName} ${person.lastName}`) employeeWithSpecies[employee] = species;
+      return employeeWithSpecies;
+    }, {});
   }
-
-  const employeesWithSpecies = filteredEmployees
-    .reduce((coverage, { firstName, lastName, responsibleFor }) => ({
-      ...coverage,
-      [`${firstName} ${lastName}`]: responsibleFor,
-    }), {});
-
-  Object.entries(employeesWithSpecies).forEach(([key, animalsId]) => {
-    employeesWithSpecies[key] = animalsId
-      .map((animalId) => animalSpecies.find(({ id }) => id === animalId).name);
-  });
 
   return employeesWithSpecies;
 };
