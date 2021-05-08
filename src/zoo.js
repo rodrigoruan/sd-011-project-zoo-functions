@@ -31,16 +31,16 @@ function createEmployee(personalInfo, associatedWith) {
 function isManager(ids) {
   return employees.some(({ managers }) => managers.includes(ids));
 }
-console.log(isManager('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   employees.push({ id, firstName, lastName, managers, responsibleFor });
   return employees;
 }
 
-function countAnimals(species_) {
-  // seu código aqui
+function countAnimals(animals) {
+  return animals === undefined ? species.reduce((acc, { name, residents }) => ({ ...acc, [name]: residents.length }), {}) : species.find(({ name }) => animals === name).residents.length;
 }
+console.log(countAnimals());
 
 function calculateEntry(entrants) {
   // seu código aqui
