@@ -66,16 +66,21 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // const objectArray = Object.entries(hours);
-  // return objectArray.reduce((object, [day, { open, close }]) => {
-  //   if (day === dayName) {
-  //     object[day] = day === 'Monday' ? 'CLOSED' : `Open from ${open}am until ${close}pm`;
-  //   }
-  //   return object;
-  // }, {});
+  const scheduleCopy = { ...hours };
+  if (!dayName) {
+    const finalObject = Object.entries(scheduleCopy).reduce((object, [day, { open, close }]) => {
+      object[day] = `Open from ${open}am until ${close % 12}pm`;
+      return object;
+    }, {});
+    finalObject.Monday = 'CLOSED';
+    return finalObject;
+  }
+  return dayName === 'Monday' ? { Monday: 'CLOSED' }
+    : { [dayName]: `Open from ${scheduleCopy[dayName].open}am until ${scheduleCopy[dayName].close % 12}pm` };
+  // Need a refactororing!!
 }
 
-console.log(getSchedule('Monday'));
+console.log(getSchedule('Tuesday'));
 
 function getOldestFromFirstSpecies(id) {
   const firstAnimalId = employees.find((employee) => employee.id === id).responsibleFor[0];
