@@ -82,10 +82,13 @@ function getSchedule(dayName) {
       schedule[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
     }
   });
-  dayName ? result[dayName] = schedule[dayName] : result = schedule;
+  if (dayName) {
+    result[dayName] = schedule[dayName];
+    return result;  
+  }
+  result = schedule;
   return result;
-}
-console.log(getSchedule());
+};
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
