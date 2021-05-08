@@ -59,8 +59,20 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   });
 }
 
-function countAnimals(species) {
-  // seu código aqui
+function countAnimals(...species) {
+  if (species.length === 0) {
+    const AllSpecies = data.species.map((animal) => animal.name);
+    // Captura todas as espécies pelo name, independente da quantidade de residentes
+    const counterAnimals = data.species.map((animal) => animal.residents.length);
+    // Conta a quantidade de residentes para cada espécie
+    const allAnimals = {};
+    AllSpecies.forEach((IndividualSpecies, resident) => { allAnimals[IndividualSpecies] = counterAnimals[resident]; });
+    // Para cada espécie, o número de residentes
+    return allAnimals;
+  }
+  const typedSpecies = data.species.find((animal) => species.includes(animal.name));
+  // Captura a espécie de animal digitada no parâmetro
+  return typedSpecies.residents.length;
 }
 
 function calculateEntry(entrants) {
