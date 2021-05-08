@@ -74,8 +74,8 @@ function getSchedule(dayName) {
     finalObject.Monday = 'CLOSED';
     return finalObject;
   }
-  return dayName === 'Monday' ? { Monday: 'CLOSED' }
-    : { [dayName]: `Open from ${hours[dayName].open}am until ${hours[dayName].close % 12}pm` };
+  return { [dayName]: dayName === 'Monday' ? 'CLOSED'
+    : `Open from ${hours[dayName].open}am until ${hours[dayName].close % 12}pm` };
   // Need a refactoring!!
 }
 
