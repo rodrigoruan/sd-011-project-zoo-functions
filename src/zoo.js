@@ -80,7 +80,22 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const schedule = {};
+  if (dayName && dayName !== 'Monday') {
+    schedule[dayName] = `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close - 12}pm`;
+    return schedule;
+  } if (dayName === 'Monday') {
+    return { Monday: 'CLOSED' };
+  }
+  return {
+    'Tuesday': 'Open from 8am until 6pm',
+    'Wednesday': 'Open from 8am until 6pm',
+    'Thursday': 'Open from 10am until 8pm',
+    'Friday': 'Open from 10am until 8pm',
+    'Saturday': 'Open from 8am until 10pm',
+    'Sunday': 'Open from 8am until 8pm',
+    'Monday': 'CLOSED'
+  };
 }
 
 function getOldestFromFirstSpecies(id) {
@@ -88,12 +103,36 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const adultPrice = ((data.prices.Adult / 100) * percentage + data.prices.Adult + 0.001);
+  const childPrice = ((data.prices.Child / 100) * percentage + data.prices.Child + 0.001);
+  const seniorPrice = ((data.prices.Senior / 100) * percentage + data.prices.Senior + 0.001);
+
+  data.prices.Adult = Number(adultPrice.toFixed(2));
+  data.prices.Senior = Number(seniorPrice.toFixed(2));
+  data.prices.Child = Number(childPrice.toFixed(2));
 }
 
+const nameRespons = (listEmployees, listReponsAnimals) => listEmployees.map((name, i) => ({[name]: listReponsAnimals[i]}));
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (!idOrName) {
+    const getEmployees = employees.map((name) => `${name.firstName} ${name.lastName}`);
+  const getAnimalsRespons = employees.map((animalRes) => animalRes.responsibleFor);
+  const arrayNames = []
+  getAnimalsRespons.forEach((animalIds) => {
+    arrayNames.push(animalIds.map((id) => species.find((animal) => id === animal.id).name))
+  });
+  // console.log(arrayNames);
+  const result = nameRespons(getEmployees, arrayNames);
+  const resultObj = Object.assign({}, ...result);
+  return resultObj;
+  } 
+    const employeeAnimal = {};
+    const filterEmployees = data.employees.filter((employee) => employee.firstName === idOrName || employee.lastName === idOrName || employee.id === idOrName).forEach((value) => {
+      employeeAnimal[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((responsId) => data.species.find((specie) => specie.id === responsId).name)
+    })
+    return employeeAnimal;
 }
+// console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 
 module.exports = {
   calculateEntry,
