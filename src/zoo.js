@@ -42,13 +42,14 @@ function isManager(id) {
 console.log(isManager('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  return {
+  const funcionario = ({
     id,
     firstName,
     lastName,
     managers,
     responsibleFor,
-  };
+  });
+  return employees.push(funcionario);
 }
 
 // eslint-disable-next-line no-shadow
