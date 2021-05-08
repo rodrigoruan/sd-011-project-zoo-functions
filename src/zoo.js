@@ -87,8 +87,6 @@ function getSchedule(dayName) {
   };
 }
 
-getSchedule('Tuesday');
-
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
