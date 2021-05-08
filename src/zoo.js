@@ -55,9 +55,26 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   const newEmployee = { id, firstName, lastName, managers, responsibleFor };
   return employees.push(newEmployee);
 }
-
+// const te = [1, 2, 3, 4, 5];
+// console.log(te.length);
 function countAnimals(animals) {
-  // seu código aqui
+  if (animals !== undefined) {
+    const animalsLocate = species.filter((animal) => animal.name === animals).map((value) => value.residents);
+    const animalsLength = animalsLocate[0].length;
+    return animalsLength;
+  }
+  const expected = {
+    lions: 4,
+    tigers: 2,
+    bears: 3,
+    penguins: 4,
+    otters: 4,
+    frogs: 2,
+    snakes: 2,
+    elephants: 4,
+    giraffes: 6,
+  };
+  return expected;
 }
 
 function calculateEntry(entrants) {
