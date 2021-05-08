@@ -103,22 +103,37 @@ function increasePrices(percentage) {
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
-  // let employerNames = [];
-  // if (!idOrName) {
-  //   employerNames = data.employees.map((employer) => [employer.firstName, employer.lastName]);
-  // } else {
-  //   employerNames = data.employees.filter((employe) => employe.id === idOrName || employe.firstName === idOrName || employe.lastName === idOrName ).map((employer) => [employer.firstName, employer.lastName]);
-  // }
-  // const animasIds = employerNames.map((employe) => data.employees.filter((animalId) => animalId.firstName === employe[0])[0].responsibleFor);
-  // const animalsNames = animasIds.map((animalsName) => data.species.filter((anim) => animalsName.some((animal) => animal === anim.id)).map((nameAnimal) => nameAnimal.name));
-  // const fullNames = employerNames.map((fullname) => `${fullname[0]} ${fullname[1]}`);
-  // const objCoverage = fullNames.reduce((acc, element, index) => {
-  //   acc[element] = animalsNames[index];
-  //   return acc;
-  // }, {})
-  // return objCoverage;
-}
+  let employerNames = [];
+  if (!idOrName) {
+    employerNames = data.employees.map((employer) => [employer.firstName, employer.lastName]);
 
+    const animasIds = employerNames.map((employe) => data.employees.filter((animalId) => animalId.firstName === employe[0])[0].responsibleFor);
+
+    const animalsNames = animasIds.map((animalsId) => animalsId.map((anima) => data.species.find((an) => an.id === anima).name));
+
+    // console.log(animalsNames);
+
+    const fullNames = employerNames.map((fullname) => `${fullname[0]} ${fullname[1]}`);
+    const objCoverage = fullNames.reduce((acc, element, index) => {
+      acc[element] = animalsNames[index];
+      return acc;
+    }, {});
+    return objCoverage;
+  }
+  employerNames = data.employees.filter((employe) => employe.id === idOrName || employe.firstName === idOrName || employe.lastName === idOrName).map((employer) => [employer.firstName, employer.lastName]);
+  const animasIds = employerNames.map((employe) => data.employees.filter((animalId) => animalId.firstName === employe[0])[0].responsibleFor);
+
+  const animalsNames = [];
+  animasIds[0].forEach((animalsId, index) => animalsNames.push(data.species.find((an) => an.id === animalsId).name));
+
+  const fullNames = employerNames.map((fullname) => `${fullname[0]} ${fullname[1]}`);
+  const objCoverage = fullNames.reduce((acc, element, index) => {
+    acc[element] = animalsNames;
+    return acc;
+  }, {});
+  return objCoverage;
+}
+console.log(getEmployeeCoverage());
 module.exports = {
   calculateEntry,
   getSchedule,
