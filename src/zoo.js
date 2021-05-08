@@ -72,8 +72,62 @@ function calculateEntry(entrants) {
   return totalCost;
 }
 
+function baseResponse() {
+  const NE = species.filter((item) => item.location === 'NE');
+  const NW = species.filter((item) => item.location === 'NW');
+  const SE = species.filter((item) => item.location === 'SE');
+  const SW = species.filter((item) => item.location === 'SW');
+  return { NE, NW, SE, SW };
+}
+
+function defaultResponse({ NE, NW, SE, SW }) {
+  NE = NE.map((current) => current.name);
+  NW = NW.map((current) => current.name);
+  SE = SE.map((current) => current.name);
+  SW = SW.map((current) => current.name);
+  return { NE, NW, SE, SW };
+}
+
+function responseWithNames({ NE, NW, SE, SW }) {
+  NE = NE.map((item) => ({ [item.name]: item.residents.map((current) => current.name) }));
+  NW = NW.map((item) => ({ [item.name]: item.residents.map((current) => current.name) }));
+  SE = SE.map((item) => ({ [item.name]: item.residents.map((current) => current.name) }));
+  SW = SW.map((item) => ({ [item.name]: item.residents.map((current) => current.name) }));
+  return { NE, NW, SE, SW };
+}
+
+function sortedResponse({ NE, NW, SE, SW }) {
+  NE.map((item) => item[Object.keys(item)].sort());
+  NW.map((item) => item[Object.keys(item)].sort());
+  SE.map((item) => item[Object.keys(item)].sort());
+  SW.map((item) => item[Object.keys(item)].sort());
+  return { NE, NW, SE, SW };
+}
+
+function responseWithSex({ NE, NW, SE, SW }, sex) {
+  if (!sex) return responseWithNames({ NE, NW, SE, SW });
+  NE = NE.map((item) => ({ [item.name]: item.residents.filter((current) => current.sex === sex)
+    .map((element) => element.name) }));
+  NW = NW.map((item) => ({ [item.name]: item.residents.filter((current) => current.sex === sex)
+    .map((element) => element.name) }));
+  SE = SE.map((item) => ({ [item.name]: item.residents.filter((current) => current.sex === sex)
+    .map((element) => element.name) }));
+  SW = SW.map((item) => ({ [item.name]: item.residents.filter((current) => current.sex === sex)
+    .map((element) => element.name) }));
+  return { NE, NW, SE, SW };
+}
+
 function getAnimalMap(options) {
-  // seu código aqui
+  let coordinates = baseResponse();
+  if (!options || !options.includeNames) {
+    coordinates = defaultResponse(coordinates);
+    return coordinates;
+  }
+  coordinates = responseWithSex(coordinates, options.sex);
+  if (options.sorted === true) {
+    coordinates = sortedResponse(coordinates);
+  }
+  return coordinates;
 }
 
 function getSchedule(dayName) {
