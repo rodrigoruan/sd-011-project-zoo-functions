@@ -67,23 +67,25 @@ function getAnimalMap(options) {
 
 // Requisito 10
 function getSchedule(dayName) {
-//   if (!dayName) return {
-//     'Tuesday': `Open from ${data.hours.Tuesday.open}am until ${data.hours.Tuesday.close - 12}pm`,
-//     'Wednesday': `Open from ${data.hours.Wednesday.open}am until ${data.hours.Wednesday.close - 12}pm`,
-//     'Thursday': `Open from ${data.hours.Thursday.open}am until ${data.hours.Thursday.close - 12}pm`,
-//     'Friday': `Open from ${data.hours.Friday.open}am until ${data.hours.Friday.close - 12}pm`,
-//     'Saturday': `Open from ${data.hours.Saturday.open}am until ${data.hours.Saturday.close - 12}pm`,
-//     'Sunday': `Open from ${data.hours.Sunday.open}am until ${data.hours.Sunday.close - 12}pm`,
-//     'Monday': 'CLOSED'
-//   };
-//   let days = Object.keys(data.hours)
-//   console.log(days);
-//   return {dayName : `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close}pm`}
-//   console.log(data.hours[dayName]);
+  if (!dayName) {
+    return {
+      Tuesday: `Open from ${data.hours.Tuesday.open}am until ${data.hours.Tuesday.close - 12}pm`,
+      Wednesday: `Open from ${data.hours.Wednesday.open}am until ${data.hours.Wednesday.close - 12}pm`,
+      Thursday: `Open from ${data.hours.Thursday.open}am until ${data.hours.Thursday.close - 12}pm`,
+      Friday: `Open from ${data.hours.Friday.open}am until ${data.hours.Friday.close - 12}pm`,
+      Saturday: `Open from ${data.hours.Saturday.open}am until ${data.hours.Saturday.close - 12}pm`,
+      Sunday: `Open from ${data.hours.Sunday.open}am until ${data.hours.Sunday.close - 12}pm`,
+      Monday: 'CLOSED',
+    };
+  }
+  if (dayName === 'Monday') return { Monday: 'CLOSED' };
+  let myObj = {};
+  myObj[dayName] = `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close - 12}pm`;
+  return myObj;
 }
 
-// console.log(getSchedule());
-// console.log(getSchedule('Monday'));
+console.log(getSchedule());
+console.log(getSchedule('Monday'));
 
 // Requisito 11
 function getOldestFromFirstSpecies(id) {
@@ -110,16 +112,16 @@ function increasePrices(percentage) {
 
 // Requisito 13
 function getEmployeeCoverage(idOrName) {
-  // const employee = data.employees.find((employee) => employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName)
-  // const nameEmployee = `${employee.firstName} ${employee.lastName}`
-  // const {firstName, lastName} = employee
-  // const namaComplete = firstName + ' ' + lastName;
-
-  // return console.log(employee);
+  // const employee = data.employees.find((employee) => employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName);
+  // const nameEmployee = `${employee.firstName} ${employee.lastName}`;
+  // let myObj = {};
+  // let responsibleFor =
+  // myObj[nameEmployee] = ;
+  // return myObj;
 }
 
-// console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
-// console.log(getEmployeeCoverage('Stephanie'));
+console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
+console.log(getEmployeeCoverage('Stephanie'));
 
 module.exports = {
   calculateEntry,
