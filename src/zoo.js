@@ -88,13 +88,13 @@ function getSchedule(dayName) {
     return { Monday: 'CLOSED' };
   }
   return {
-    'Tuesday': 'Open from 8am until 6pm',
-    'Wednesday': 'Open from 8am until 6pm',
-    'Thursday': 'Open from 10am until 8pm',
-    'Friday': 'Open from 10am until 8pm',
-    'Saturday': 'Open from 8am until 10pm',
-    'Sunday': 'Open from 8am until 8pm',
-    'Monday': 'CLOSED'
+    Tuesday: 'Open from 8am until 6pm',
+    Wednesday: 'Open from 8am until 6pm',
+    Thursday: 'Open from 10am until 8pm',
+    Friday: 'Open from 10am until 8pm',
+    Saturday: 'Open from 8am until 10pm',
+    Sunday: 'Open from 8am until 8pm',
+    Monday: 'CLOSED',
   };
 }
 
@@ -112,25 +112,25 @@ function increasePrices(percentage) {
   data.prices.Child = Number(childPrice.toFixed(2));
 }
 
-const nameRespons = (listEmployees, listReponsAnimals) => listEmployees.map((name, i) => ({[name]: listReponsAnimals[i]}));
+const nameRespons = (listEmployees, listReponsAnimals) => listEmployees.map((name, i) => ({ [name]: listReponsAnimals[i] }));
 function getEmployeeCoverage(idOrName) {
   if (!idOrName) {
     const getEmployees = employees.map((name) => `${name.firstName} ${name.lastName}`);
-  const getAnimalsRespons = employees.map((animalRes) => animalRes.responsibleFor);
-  const arrayNames = []
-  getAnimalsRespons.forEach((animalIds) => {
-    arrayNames.push(animalIds.map((id) => species.find((animal) => id === animal.id).name))
-  });
-  // console.log(arrayNames);
-  const result = nameRespons(getEmployees, arrayNames);
-  const resultObj = Object.assign({}, ...result);
-  return resultObj;
+    const getAnimalsRespons = employees.map((animalRes) => animalRes.responsibleFor);
+    const arrayNames = [];
+    getAnimalsRespons.forEach((animalIds) => {
+      arrayNames.push(animalIds.map((id) => species.find((animal) => id === animal.id).name));
+    });
+    // console.log(arrayNames);
+    const result = nameRespons(getEmployees, arrayNames);
+    const resultObj = Object.assign({}, ...result);
+    return resultObj;
   } 
-    const employeeAnimal = {};
-    const filterEmployees = data.employees.filter((employee) => employee.firstName === idOrName || employee.lastName === idOrName || employee.id === idOrName).forEach((value) => {
-      employeeAnimal[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((responsId) => data.species.find((specie) => specie.id === responsId).name)
-    })
-    return employeeAnimal;
+  const employeeAnimal = {};
+  const filterEmployees = data.employees.filter((employee) => employee.firstName === idOrName || employee.lastName === idOrName || employee.id === idOrName).forEach((value) => {
+    employeeAnimal[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((responsId) => data.species.find((specie) => specie.id === responsId).name);
+  });
+  return employeeAnimal;
 }
 // console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 
