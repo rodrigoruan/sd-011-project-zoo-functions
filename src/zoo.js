@@ -9,13 +9,10 @@ eslint no-unused-vars: [
 ]
 */
 
-const { species, hours } = require('./data');
 const data = require('./data');
+const { employees , responsibleFor, species } = require('./data');
 
-function getSpeciesByIds(...ids) {
-  // seu código aqui
-  return species.filter((spacies) => ids.some((id) => spacies.id === id));
-}
+const getSpeciesByIds = (...ids) => species.filter((spacies) => ids.some((id) => spacies.id === id));
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
@@ -23,7 +20,6 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
   if (!employeeName) return {};
   return data.employees.find((val) => val.firstName === employeeName || val.lastName === employeeName);
 }
@@ -31,7 +27,7 @@ function getEmployeeByName(employeeName) {
 const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...associatedWith });
 // seu código aqui
 
-const isManager = (id) => data.employees.some((element) => element.managers.includes(id));
+const isManager = (id) => data.employees.some((getManeger) => getManeger.managers.includes(id));
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // seu código aqui
@@ -83,15 +79,13 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
   const getId = data.employees.filter((ids) => ids.id === id)[0].responsibleFor[0];
   const getAnimal = data.species.filter((value) => value.id === getId)[0].residents;
   const getOldSpecies = getAnimal.reduce((acc, list) => Math.max(acc, list.age), 0);
   const result = getAnimal.find((age) => age.age === getOldSpecies);
-
   return [result.name, result.sex, result.age];
 }
-console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
+// console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function increasePrices(percentage) {
   const priceAdult = ((data.prices.Adult / 100) * percentage + data.prices.Adult + 0.001);
@@ -102,10 +96,22 @@ function increasePrices(percentage) {
   data.prices.Senior = Number(priceSenior.toFixed(2));
 }
 
+
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+  const getAnimalEmployee = {};
+  if (!idOrName) {
+    employees.forEach((value) => {
+      getAnimalEmployee[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((val) => species.find((specie) => specie.id === val).name)
+    });
+    return getAnimalEmployee;
+  }
+ employees.filter((employee) => employee.id === idOrName || employee.lastName === idOrName || employee.firstName === idOrName).forEach((value) => {
+  getAnimalEmployee[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((val) => species.find((specie) => specie.id === val).name)
+})
+  return getAnimalEmployee
 }
-
+console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 module.exports = {
   calculateEntry,
   getSchedule,
