@@ -48,7 +48,6 @@ function calculateEntry(entrants) {
   }
   return Object.entries(entrants).reduce((accumulator, [key, value]) => accumulator + prices[key] * value, 0);
 }
-console.log(calculateEntry({ 'Adult': 2, 'Child': 3, 'Senior': 1 }));
 
 function getAnimalMap(options) {
   // seu código aqui
