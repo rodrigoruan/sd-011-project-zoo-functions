@@ -48,9 +48,15 @@ function isManager(id = false) {
   return data.employees.some((employeeInfo) => employeeInfo.managers.some((idCheck) => idCheck === id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // seu código aqui
+  const newEmployee = { id, firstName, lastName, managers, responsibleFor };
+  data.employees.push(newEmployee);
 }
+
+// A função irá adicionar uma nova pessoa colaboradora ao array employees, presente no arquivo data.js.
+// O que será avaliado
+// Adiciona um funcionário no fim da lista
 
 function countAnimals(species) {
   // seu código aqui
