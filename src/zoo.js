@@ -120,7 +120,26 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (idOrName === undefined) {
+    return employees.reduce((allEmployee, employee) => {
+      const keyOfAllEmployee = `${employee.firstName} ${employee.lastName}`;
+      const responsibleWithNames = employee.responsibleFor.map((idAnimal) => {
+        const animalFound = species.find((animal) => animal.id === idAnimal);
+        return animalFound.name;
+      });
+      allEmployee[keyOfAllEmployee] = responsibleWithNames;
+      return allEmployee;
+    }, {});
+  }
+  const employeeSelected = employees.find((employee) => employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName);
+  const keyOfEmployee = `${employeeSelected.firstName} ${employeeSelected.lastName}`;
+  const responsibleWithNames = employeeSelected.responsibleFor.map((idAnimal) => {
+    const animalFound = species.find((animal) => animal.id === idAnimal);
+    return animalFound.name;
+  });
+  const myEmployeeCoverage = {};
+  myEmployeeCoverage[keyOfEmployee] = responsibleWithNames;
+  return myEmployeeCoverage;
 }
 
 module.exports = {
