@@ -69,10 +69,20 @@ function calculateEntry(entrants = {}) {
 
 function getAnimalMap(options) {
   // seu código aqui
-}
+
+
+  }
 
 function getSchedule(dayName) {
   // seu código aqui
+  let schedule = {};
+  let days = Object.keys(hours);
+  if (dayName) {
+    schedule[dayName] = ((hours[dayName].open === 0) ? `CLOSED` : `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm`);
+  } else {
+    days.forEach((day) => (day !== 'Monday') ? schedule[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm` : schedule[day] = 'CLOSED');
+  }
+  return schedule;
 }
 
 function getOldestFromFirstSpecies(id) {
