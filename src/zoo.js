@@ -105,8 +105,22 @@ function increasePrices(percentage) {
   data.prices.Child = Math.round(data.prices.Child * (1 + perc) * 100) / 100;
 }
 // const data = require('./data');
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (idOrName === undefined) {
+    let obj = {};
+    data.employees.forEach((element) => {
+      obj[`${element.firstName} ${element.lastName}`] = getEmployeeCoverage(element.id)[`${element.firstName} ${element.lastName}`];
+    });
+    return obj;
+  }
+  const employeesData = data.employees.find((element) => element.firstName === idOrName
+    || element.id === idOrName
+    || element.lastName === idOrName);
+  const animalsId = employeesData.responsibleFor;
+  let animalsName = [];
+  animalsId.forEach((elementFE) => animalsName.push(data.species.find((element) => element.id.includes(elementFE)).name));
+  return { [`${employeesData.firstName} ${employeesData.lastName}`]: animalsName };
 }
 
 module.exports = {
