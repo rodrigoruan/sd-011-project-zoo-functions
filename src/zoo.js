@@ -37,8 +37,9 @@ function isManager(id) {
   return employees.reduce((acc, curr) => `${acc}${curr.managers},`, []).split(',').some((element) => element === id);
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // seu código aqui
+  return employees.push({id, firstName, lastName, managers, responsibleFor})
 }
 
 function countAnimals(species2) {
