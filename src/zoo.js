@@ -56,7 +56,7 @@ function getAnimalMap(options) {
 function getSchedule(dayName) {
   const schedule = Object.entries(hours).reduce((acc, [day, { open, close }]) => ({ ...acc, [day]: open - close === 0 ? 'CLOSED' : `Open from ${open}am until ${close - 12}pm` }), {});
   return dayName === undefined ? schedule : { [dayName]: schedule[dayName] };
-}
+} // https://stackoverflow.com/questions/11508463/javascript-set-object-key-by-variable
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
