@@ -24,10 +24,12 @@ function getAnimalsOlderThan(animal, age) {
   return verifyAge;
 }
 
-console.log(getAnimalsOlderThan('tigers', 18));
-
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (employeeName === undefined) {
+    return {};
+  }
+  const getEmployee = data.employees.filter((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
+  return getEmployee[0];
 }
 
 function createEmployee(personalInfo, associatedWith) {
