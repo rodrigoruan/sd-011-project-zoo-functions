@@ -45,7 +45,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 }
 
 // eslint-disable-next-line no-shadow
-function countAnimals(species) {
+function countAnimals(specie) {
   // seu código aqui
 }
 
