@@ -10,13 +10,12 @@ eslint no-unused-vars: [
 */
 
 const data = require('./data');
-const { employees , responsibleFor, species } = require('./data');
 
-const getSpeciesByIds = (...ids) => species.filter((spacies) => ids.some((id) => spacies.id === id));
+const getSpeciesByIds = (...ids) => data.species.filter((spacies) => ids.some((id) => spacies.id === id));
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
-  return species.find((value) => value.name === animal).residents.every((value) => value.age >= age);
+  return data.species.find((value) => value.name === animal).residents.every((value) => value.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
@@ -39,12 +38,12 @@ function countAnimals(specie) {
   // seu código aqui
   const animaisTotal = {};
   if (!specie) {
-    species.forEach((value) => {
+    data.species.forEach((value) => {
       animaisTotal[value.name] = value.residents.length;
     });
     return animaisTotal;
   }
-  return species.find((spe) => specie === spe.name).residents.length;
+  return data.species.find((spe) => specie === spe.name).residents.length;
 }
 
 function calculateEntry(entrants) {
@@ -61,7 +60,7 @@ function getSchedule(dayName) {
   // seu código aqui
   const result = {};
   if (dayName && dayName !== 'Monday') {
-    result[dayName] = `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm`;
+    result[dayName] = `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close - 12}pm`;
     return result;
   }
   if (dayName === 'Monday') {
@@ -77,6 +76,8 @@ function getSchedule(dayName) {
     Monday: 'CLOSED',
   };
 }
+
+console.log(getSchedule('Monday'));
 
 function getOldestFromFirstSpecies(id) {
   const getId = data.employees.filter((ids) => ids.id === id)[0].responsibleFor[0];
@@ -96,20 +97,19 @@ function increasePrices(percentage) {
   data.prices.Senior = Number(priceSenior.toFixed(2));
 }
 
-
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
   const getAnimalEmployee = {};
   if (!idOrName) {
-    employees.forEach((value) => {
-      getAnimalEmployee[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((val) => species.find((specie) => specie.id === val).name)
+    data.employees.forEach((value) => {
+      getAnimalEmployee[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((val) => data.species.find((specie) => specie.id === val).name);
     });
     return getAnimalEmployee;
   }
- employees.filter((employee) => employee.id === idOrName || employee.lastName === idOrName || employee.firstName === idOrName).forEach((value) => {
-  getAnimalEmployee[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((val) => species.find((specie) => specie.id === val).name)
-})
-  return getAnimalEmployee
+  data.employees.filter((employee) => employee.id === idOrName || employee.lastName === idOrName || employee.firstName === idOrName).forEach((value) => {
+    getAnimalEmployee[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((val) => data.species.find((specie) => specie.id === val).name);
+  });
+  return getAnimalEmployee;
 }
 console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 module.exports = {
