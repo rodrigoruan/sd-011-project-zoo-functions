@@ -14,19 +14,19 @@ const data = require('./data');
 const getSpeciesByIds = (...ids) =>
   data.species.filter((species) => ids.some((id) => species.id === id));
 
-console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'));
-
-function getAnimalsOlderThan(animal, age) {
-  return data.species.find((value) => value.name === animal).residents.every((value) => value.age >= age);
-}
+const getAnimalsOlderThan = (animal, age) =>
+  data.species.find((value) => value.name === animal).residents.every((value) => value.age >= age);
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (!employeeName) return {};
+  return data.employees.find((names) => names.firstName === employeeName || names.lastName === employeeName);
 }
+console.log(getEmployeeByName());
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return { ...personalInfo, ...associatedWith };
 }
+console.log(createEmployee());
 
 function isManager(id) {
   // seu código aqui
