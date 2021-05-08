@@ -85,14 +85,15 @@ const ticketPrice = {
 const { adultPrice, seniorPrice, childPrice } = ticketPrice;
 
 function calculateEntry(entrants) {
+  let total = 0;
   if (entrants === undefined || Object.values(entrants).length === 0) {
-    return 0;
+    return total;
   }
-  console.log(adultPrice * entrants.Adult + seniorPrice * entrants.Senior + childPrice * entrants.Child);
+  
 }
 let entrants = { Adult: 2, Child: 3, Senior: 1 };
-calculateEntry(entrants);
-let entrants2 = {};
+// calculateEntry(entrants);
+let entrants2 = { Adult: 1 };
 calculateEntry(entrants2);
 calculateEntry();
 
