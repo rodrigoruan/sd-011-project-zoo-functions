@@ -84,11 +84,11 @@ function getSchedule(dayName) {
   });
   if (dayName) {
     result[dayName] = schedule[dayName];
-    return result;  
+    return result;
   }
   result = schedule;
   return result;
-};
+}
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
