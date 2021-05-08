@@ -61,8 +61,49 @@ function calculateEntry(entrants = {}) {
   }, 0);
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+const listNames = (object, gender) => {
+  Object.keys(object).forEach((key) => {
+    object[key] = object[key].map((animal) => {
+      const currentAnimal = data.species.find(({ name }) => name === animal);
+      if (gender === 'male' || gender === 'female') {
+        return { [currentAnimal.name]: currentAnimal.residents.filter((resident) => resident.sex === gender).map((resident) => resident.name) };
+      }
+      return { [currentAnimal.name]: currentAnimal.residents.map((resident) => resident.name) };
+    });
+  });
+  return object;
+};
+
+const sortNames = (object) => {
+  Object.keys(object).forEach((key) => {
+    Object.keys(object[key]).forEach((subKey) => {
+      Object.keys(object[key][subKey]).forEach((animal) => {
+        const names = object[key][subKey][animal];
+        object[key][subKey][animal] = names.sort();
+      });
+    });
+  });
+  return object;
+};
+
+function getAnimalMap(options = {}) {
+  const { includeNames = false, sex, sorted = false } = options;
+  let finalObject = {
+    NE: [],
+    NW: [],
+    SE: [],
+    SW: [],
+  };
+  Object.keys(finalObject).forEach((key) => {
+    finalObject[key] = data.species.filter((animal) => animal.location === key).map((animal) => animal.name);
+  });
+  if (includeNames) {
+    finalObject = listNames(finalObject, sex);
+    if (sorted) {
+      finalObject = sortNames(finalObject);
+    }
+  }
+  return finalObject;
 }
 
 function getSchedule(dayName) {
