@@ -33,7 +33,12 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  let arrayIdManager = [];
+  const listIdManager = employees.forEach((employee) => {
+    let findIdManager = employee.managers;
+    arrayIdManager.push(...findIdManager);
+  });
+  return arrayIdManager.some((idManager) => idManager === id);
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
