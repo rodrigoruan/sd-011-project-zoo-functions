@@ -34,9 +34,14 @@ const countAnimals = (animal) => {
   });
   return result;
 };
-function calculateEntry(entrants) {
+
+const calculateEntry = (entrants = {}) => {
   // seu código aqui
-}
+  const valueOfAdult = entrants.Adult * data.prices.Adult || 0;
+  const valueOfSenior = entrants.Senior * data.prices.Senior || 0;
+  const valueOfChild = entrants.Child * data.prices.Child || 0;
+  return valueOfAdult + valueOfSenior + valueOfChild;
+};
 
 function getAnimalMap(options) {
   // seu código aqui
