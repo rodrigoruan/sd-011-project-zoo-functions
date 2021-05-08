@@ -11,8 +11,14 @@ eslint no-unused-vars: [
 
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  // initial commit
+// References:
+// JS filter: https://www.w3schools.com/jsref/jsref_filter.asp
+// JS includes: https://www.w3schools.com/jsref/jsref_includes.asp
+// JS rest parameter: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parametersb
+
+function getSpeciesByIds(...id) {
+  // element = variable element
+  return data.species.filter((element) => id.includes(element.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
