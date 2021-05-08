@@ -67,18 +67,7 @@ const getOldestFromFirstSpecies = (id) => {
 const increasePrices = (percentage) => Object.keys(prices).forEach((priceKey) => { prices[priceKey] = Math.round(prices[priceKey] * (1 + percentage / 100) * 100) / 100; });
 
 const getEmployeeCoverage = (idOrName) => {
-  let filteredEmployees = employees;
-
-  if (idOrName) {
-    const hasName = getEmployeeByName(idOrName);
-    filteredEmployees = hasName ? [hasName] : [employees.find((employee) => employee.id === idOrName)];
-  }
-
-  const employeesWithSpecies = filteredEmployees.reduce((coverage, employee) => ({ ...coverage, [`${employee.firstName} ${employee.lastName}`]: employee.responsibleFor, }), {});
-
-  Object.entries(employeesWithSpecies).forEach(([key, animalsId]) => { employeesWithSpecies[key] = animalsId.map((animalId) => animalSpecies.find((specie) => specie.id === animalId).name); });
-
-  return employeesWithSpecies;
+  // seu código aqui
 };
 
 module.exports = {
