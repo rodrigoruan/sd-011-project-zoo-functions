@@ -46,7 +46,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(specie) {
-  const result =  data.species.reduce((acc, curr) => {
+  const result = data.species.reduce((acc, curr) => {
     acc[curr.name] = curr.residents.length;
     return acc;
   }, {});
