@@ -16,29 +16,22 @@ function getSpeciesByIds(...ids) {
   return ids.map((id) => species.find((animal) => animal.id === id));
 }
 
-// console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce', 'e8481c1d-42ea-4610-8e11-1752cfc05a46'));
-
 function getAnimalsOlderThan(animal, age) {
   const selectedSpecie = species.find((specie) => specie.name === animal);
   const ageAnimal = selectedSpecie.residents.every((animals) => animals.age >= age);
   return ageAnimal;
 }
 
-// console.log(getAnimalsOlderThan('penguins', 10));
 const { employees } = require('./data');
 
 function getEmployeeByName(employeeName) {
   const employerByFirstName = employees.find((employer) => employer.firstName === employeeName);
-
   const employerByLastName = employees.find((employer) => employer.lastName === employeeName);
-
   return employerByFirstName || employerByLastName || {};
 }
 
-// console.log(getEmployeeByName('Nigel'));
-
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return {...personalInfo,...associatedWith};
 }
 
 function isManager(id) {
