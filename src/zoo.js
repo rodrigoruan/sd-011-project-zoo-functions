@@ -66,9 +66,8 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  const scheduleCopy = { ...hours };
   if (!dayName) {
-    const finalObject = Object.entries(scheduleCopy).reduce((object, [day, { open, close }]) => {
+    const finalObject = Object.entries(hours).reduce((object, [day, { open, close }]) => {
       object[day] = `Open from ${open}am until ${close % 12}pm`;
       return object;
     }, {});
@@ -76,8 +75,8 @@ function getSchedule(dayName) {
     return finalObject;
   }
   return dayName === 'Monday' ? { Monday: 'CLOSED' }
-    : { [dayName]: `Open from ${scheduleCopy[dayName].open}am until ${scheduleCopy[dayName].close % 12}pm` };
-  // Need a refactororing!!
+    : { [dayName]: `Open from ${hours[dayName].open}am until ${hours[dayName].close % 12}pm` };
+  // Need a refactoring!!
 }
 
 console.log(getSchedule('Tuesday'));
