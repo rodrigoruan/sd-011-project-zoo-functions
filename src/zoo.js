@@ -46,17 +46,9 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 function countAnimals(especies) {
   if (especies !== undefined) { return species.find((specie) => specie.name === especies).residents.length; }
-  return {
-    lions: species.find((specie) => specie.name === 'lions').residents.length,
-    tigers: species.find((specie) => specie.name === 'tigers').residents.length,
-    bears: species.find((specie) => specie.name === 'bears').residents.length,
-    penguins: species.find((specie) => specie.name === 'penguins').residents.length,
-    otters: species.find((specie) => specie.name === 'otters').residents.length,
-    frogs: species.find((specie) => specie.name === 'frogs').residents.length,
-    snakes: species.find((specie) => specie.name === 'snakes').residents.length,
-    elephants: species.find((specie) => specie.name === 'elephants').residents.length,
-    giraffes: species.find((specie) => specie.name === 'giraffes').residents.length,
-  };
+  let countObjt = {};
+  species.forEach((animal) => { countObjt[animal.name] = animal.residents.length; });
+  return countObjt;
 }
 function calculateEntry(entrants) {
   // seu código aqui
