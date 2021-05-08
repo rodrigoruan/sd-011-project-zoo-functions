@@ -42,17 +42,10 @@ function createEmployee({ id, firstName, lastName }, { managers, responsibleFor 
   };
 }
 
-// A função, a partir de informações recebidas nos parâmetros, é capaz de criar um objeto equivalente ao de uma pessoa colaboradora, retornando-o
-
-// Observações técnicas
-
-// O parâmetro personalInfo recebe um objeto que contém o id, o firstName e o lastName
-// O parâmetro associatedWith recebe um objeto que contém dois array: managers e responsibleFor
-// O que será avaliado
-
 // Cria um novo colaborador a partir de objetos contendo informações pessoais e gerentes e animais gerenciados.
-function isManager(id) {
+function isManager(id = false) {
   // seu código aqui
+  return data.employees.some((employeeInfo) => employeeInfo.managers.some((idCheck) => idCheck === id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
