@@ -123,7 +123,21 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const employeerFind = data.employees.find(({ id, lastName, firstName }) => idOrName === id || idOrName === firstName || idOrName === lastName);
+  if (!idOrName) {
+    return data.employees.reduce((acc, { firstName, lastName, responsibleFor }) => {
+      const fullName = `${firstName} ${lastName}`;
+      console.log(responsibleFor);
+      const AnimalListFound = responsibleFor.map((Animal) => data.species.find(({ id }) => id === Animal).name);
+      acc[fullName] = AnimalListFound;
+      return acc;
+    }, {});
+  }
+  let fullName = `${employeerFind.firstName} ${employeerFind.lastName}`;
+  let newObject = {};
+  const animalsFound = employeerFind.responsibleFor.map((Animal) => data.species.find(({ id }) => id === Animal).name);
+  newObject[fullName] = animalsFound;
+  return newObject;
 }
 
 module.exports = {
