@@ -9,6 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
+const { hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -22,6 +23,7 @@ function getAnimalsOlderThan(animal, age) {
   const animals = data.species.find((specie) => specie.name === animal);
   return animals.residents.every((obj) => obj.age > age);
 }
+console.log(getSpeciesByIds(data.elephantsId));
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
@@ -62,15 +64,32 @@ function calculateEntry(entrants) {
   // seu código aqui
   if (!entrants) return 0;
   const { Adult = 0, Child = 0, Senior = 0 } = entrants;
-  return (data.prices.Child * Child) + (data.prices.Senior * Senior) + (data.prices.Adult * Adult);
+  return (data.prices.Child * Child + data.prices.Senior * Senior + data.prices.Adult * Adult);
 }
 
 function getAnimalMap(options) {
   // seu código aqui
 }
 
+const formatTimeShow = (h24) => {
+  var h = h24 % 12;
+  if (h === 0) h = 12;
+  return (h < 10 ? '' : '') + h + (h24 < 12 ? 'am' : 'pm');
+};
+
 function getSchedule(dayName) {
-  // seu código aqui
+  const days = data.hours;
+  const workingHours = Object.keys(days);
+  if (dayName) {
+    return { [dayName]: days[dayName] };
+  }
+  const getOneDay = (day) => {
+    if (day.open === 0) return 'CLOSED';
+    return `Open from ${formatTimeShow(day.open)} until ${formatTimeShow(day.close)}`;
+  };
+
+  workingHours.forEach((day) => { (days[day] = getOneDay(days[day])); });
+  return days;
 }
 
 function getOldestFromFirstSpecies(id) {
