@@ -39,14 +39,14 @@ function isManager(id) {
   return employees.some((employer) => employer.managers.some(((idManager) => idManager === id)));
 }
 
-console.log(isManager('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1'));
-// Verifica se uma pessoa colaboradora, a partir de seu id, ocupa cargo de gerência.
-// Deve retornar um valor booleano
-// O que será avaliado
-// Testa se o id passado é de um gerente
-
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  employees.push({
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  });
 }
 
 function countAnimals(speciess) {
