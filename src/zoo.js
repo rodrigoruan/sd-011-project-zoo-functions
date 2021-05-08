@@ -50,16 +50,48 @@ function countAnimals(species) {
   return data.species.find((value) => value.name === species).residents.length;
 }
 
+// Falta retorna o preço total a ser cobrado.
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants.length === 0 || Object.values(entrants).length === 0) return 0;
+  // Object.keys(obj).forEach(key => {
+  //  console.log(key, obj[key]);
+  // });
 }
 
 function getAnimalMap(options) {
   // seu código aqui
 }
 
+function transformHour(value) {
+  return (value > 12) ? value - 12 : value;
+}
+
+function printAllDays() {
+  const allDays = {};
+  Object.keys(data.hours).forEach((value) => {
+    const { open } = data.hours[value];
+    const { close } = data.hours[value];
+    if (open === 0 && close === 0) {
+      allDays[value] = 'CLOSED';
+      return undefined;
+    }
+    allDays[value] = `Open from ${transformHour(open)}am until ${transformHour(close)}pm`;
+    return undefined;
+  });
+  return allDays;
+}
+
 function getSchedule(dayName) {
-  // seu código aqui
+  if (dayName === undefined) return printAllDays();
+  const allDays = {};
+  const { open } = data.hours[dayName];
+  const { close } = data.hours[dayName];
+  if (open === 0 && close === 0) {
+    allDays[dayName] = 'CLOSED';
+    return allDays;
+  }
+  allDays[dayName] = `Open from ${transformHour(open)}am until ${transformHour(close)}pm`;
+  return allDays;
 }
 
 function getOldestFromFirstSpecies(id) {
