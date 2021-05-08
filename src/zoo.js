@@ -147,18 +147,18 @@ const getEmployeeCoverage = (idOrName) => {
   if (idOrName) {
     const hasName = getEmployeeByName(idOrName);
 
-    filteredEmployees = hasName ? [hasName] : [employees.find((employee) => employee.id === idOrName)];
+    filteredEmployees = hasName ? [hasName] : [employees.find(({ id }) => id === idOrName)];
   }
 
   const employeesWithSpecies = filteredEmployees
-    .reduce((coverage, employee) => ({
+    .reduce((coverage, { firstName, lastName, responsibleFor }) => ({
       ...coverage,
-      [`${employee.firstName} ${employee.lastName}`]: employee.responsibleFor,
+      [`${firstName} ${lastName}`]: responsibleFor,
     }), {});
 
   Object.entries(employeesWithSpecies).forEach(([key, animalsId]) => {
     employeesWithSpecies[key] = animalsId
-      .map((animalId) => animalSpecies.find((specie) => specie.id === animalId).name);
+      .map((animalId) => animalSpecies.find(({ id }) => id === animalId).name);
   });
 
   return employeesWithSpecies;
