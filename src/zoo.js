@@ -92,7 +92,7 @@ function getSchedule(dayName) {
   const schedule = data.hours;
 
   if (dayName) {
-    return {[dayName] : schedule[dayName] };
+    return { [dayName]: schedule[dayName] };
   }
 
   const keysSchedule = Object.keys(schedule);
