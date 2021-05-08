@@ -12,8 +12,9 @@ const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   if (!ids) return [];
-  return data.species.find((especie) => ids.includes(especie.id));
+  return data.species.filter((especie) => ids.includes(especie.id));
 }
+console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce', 'e8481c1d-42ea-4610-8e11-1752cfc05a46'));
 
 function getAnimalsOlderThan(animal, age) {
   const retornoDaEspecie = data.species.find((nome) => animal.includes(nome.name));
@@ -28,8 +29,6 @@ function getEmployeeByName(employeeName) {
   return data.employees.find((pessoa) => employeeName.includes(pessoa.firstName) || employeeName.includes(pessoa.lastName));
 }
 
-console.log(getEmployeeByName());
-
 function createEmployee(personalInfo, associatedWith) {
   let novoColaborador = {
     id: personalInfo.id,
@@ -42,7 +41,7 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  // PAREI AQUI!!!
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
