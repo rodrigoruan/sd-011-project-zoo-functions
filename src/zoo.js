@@ -76,7 +76,11 @@ function countAnimals(...species) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === undefined || entrants === {}) {
+    return 0;
+  }
+  const allPublic = Object.keys(entrants);
+  return allPublic.reduce((total, ageCategory) => total + entrants[ageCategory] * data.prices[ageCategory], 0);
 }
 
 function getAnimalMap(options) {
