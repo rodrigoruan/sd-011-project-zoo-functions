@@ -14,7 +14,7 @@ function getSpeciesByIds(...ids) {
   if (ids.length === 0) {
     return [];
   }
-  return data.species.find;
+  return data.species.filter((especie) => ids.includes(especie.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
@@ -25,9 +25,14 @@ function getAnimalsOlderThan(animal, age) {
   return false;
 }
 
-function getEmployeeByName(employeeName) {
+function getEmployeeByName(...employeeName) {
+  if (employeeName.length === 0) {
+    return [];
+  }
+
   // seu código aqui
 }
+console.log(getEmployeeByName());
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
