@@ -85,9 +85,13 @@ function getOldestFromFirstSpecies(id) {
   return [animalMaxAge.name, animalMaxAge.sex, animalMaxAge.age];
 }
 
-getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992');
 function increasePrices(percentage) {
-  // seu código aqui
+  const adultPrice = (((data.prices.Adult * percentage) / 100) + data.prices.Adult + 0.001);
+  const childPrice = (((data.prices.Child * percentage) / 100) + data.prices.Child + 0.001);
+  const seniorPrice = (((data.prices.Senior * percentage) / 100) + data.prices.Senior + 0.001);
+  data.prices.Adult = Number(adultPrice.toFixed(2));
+  data.prices.Child = Number(childPrice.toFixed(2));
+  data.prices.Senior = Number(seniorPrice.toFixed(2));
 }
 
 function getEmployeeCoverage(idOrName) {
