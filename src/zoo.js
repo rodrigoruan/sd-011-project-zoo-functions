@@ -23,10 +23,17 @@ const isManager = (id) => data.employees.some((element) => element.managers.incl
 
 const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []) => data.employees.push({ id, firstName, lastName, managers, responsibleFor }); // seu código aqui
 
-function countAnimals(species) {
+const countAnimals = (animal) => {
   // seu código aqui
-}
-
+  if (animal) {
+    return data.species.find((element) => element.name === animal).residents.length;
+  }
+  let result = {};
+  data.species.forEach((bicho) => {
+    result[bicho.name] = bicho.residents.length;
+  });
+  return result;
+};
 function calculateEntry(entrants) {
   // seu código aqui
 }
