@@ -97,6 +97,9 @@ function getSchedule(dayName) {
   if (dayName === 'Monday') {
     return { Monday: 'CLOSED' };
   }
+  let obj = {};
+  obj[dayName] = `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close - 12}pm`;
+  return obj;
 }
 
 function getOldestFromFirstSpecies(idEmployeer) {
