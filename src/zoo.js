@@ -9,7 +9,6 @@ eslint no-unused-vars: [
 ]
 */
 
-const { prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -130,7 +129,9 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const specie = data.employees.find((person) => person.id === id).responsibleFor[0];
+  const { name, sex, age } = data.species.find((animal) => animal.id === specie).residents.reduce((oldest, animal) => (animal.age > oldest.age ? animal : oldest));
+  return [name, sex, age];
 }
 
 function increasePrices(percentage) {
