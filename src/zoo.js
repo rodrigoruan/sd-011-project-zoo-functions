@@ -10,7 +10,7 @@ eslint no-unused-vars: [
 */
 
 const data = require('./data');
-const { species } = require('./data');
+const { species, prices } = require('./data');
 
 function getSpeciesByIds(...ids) {
   return ids.map((id) => species.find((animal) => animal.id === id));
@@ -62,33 +62,17 @@ function countAnimals(speciess) {
     return Object.assign({}, ...allAnimal);
   }
 }
-// -- EX 8 --
-function calculateByTarget(target) {
-  return targetPrice;
-  // return Number((targetPrice * Object.values(target)));
-}
-
-// console.log(calculateByTarget('Adult'));
-// 
-const test = { 'Adult': 2, 'Child': 3, 'Senior': 1 };
-console.log(Object.keys(test)[0]);
 
 function calculateEntry(entrants) {
-  const priceAge = Object.entries(entrants).find((target) => target.keys === )
-
-  // acessar o preço em cada chave do objeto
-  // fazer uma função que acesse um valor passado (valor sendo o valor da chave passada) e retorna seu valor
-  // Essa função soma os valores e retorna o total
-  // Somar o valor de todas as chavas e devolver
-  
-  // Condicionais se vazio
+  if (!entrants) return 0;
+  const valuesTotal = [];
+  Object.entries(entrants).forEach((elementObj) => {
+    const keyAndValue = Object.entries(prices).find((priceObj) => priceObj[0] === elementObj[0]);
+    const sum = keyAndValue[1] * elementObj[1];
+    valuesTotal.push(sum);
+  });
+  return valuesTotal.reduce((acc, value) => acc + value, 0);
 }
-
-// O parâmetro entrants recebe um objeto que contém as chaves Adult, Child e Senior, com suas respectivas quantidades de pessoas
-// { 'Adult': 2, 'Child': 3, 'Senior': 1 };
-// Retorna 0 se nenhum argumento for passado
-// Retorna 0 se um objeto vazio for passado
-// Retorna o preço total a ser cobrado dado o número de adultos, crianças e idosos
 
 function getAnimalMap(options) {
   // seu código aqui
