@@ -60,26 +60,41 @@ function calculateEntry(entrants) {
   if (Senior) sum += data.prices.Senior * Senior;
   return sum;
 }
-// return entrants.reduce((acc, entrant) => acc += data.prices.find((price) => entrant === price))
-
-// let entrants = {};
-// console.log(calculateEntry());
-// entrants = { 'Adult': 2, 'Child': 3, 'Senior': 1 };
-// console.log(calculateEntry(entrants));
-// entrants = { 'Adult': 1 };
-// console.log(calculateEntry(entrants));
 
 function getAnimalMap(options) {
   // seu código aqui
 }
 
+// Requisito 10
 function getSchedule(dayName) {
-  // seu código aqui
+//   if (!dayName) return {
+//     'Tuesday': `Open from ${data.hours.Tuesday.open}am until ${data.hours.Tuesday.close - 12}pm`,
+//     'Wednesday': `Open from ${data.hours.Wednesday.open}am until ${data.hours.Wednesday.close - 12}pm`,
+//     'Thursday': `Open from ${data.hours.Thursday.open}am until ${data.hours.Thursday.close - 12}pm`,
+//     'Friday': `Open from ${data.hours.Friday.open}am until ${data.hours.Friday.close - 12}pm`,
+//     'Saturday': `Open from ${data.hours.Saturday.open}am until ${data.hours.Saturday.close - 12}pm`,
+//     'Sunday': `Open from ${data.hours.Sunday.open}am until ${data.hours.Sunday.close - 12}pm`,
+//     'Monday': 'CLOSED'
+//   };
+//   let days = Object.keys(data.hours)
+//   console.log(days);
+//   return {dayName : `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close}pm`}
+//   console.log(data.hours[dayName]);
 }
 
+// console.log(getSchedule());
+// console.log(getSchedule('Monday'));
+
+// Requisito 11
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const species = data.employees.find((employee) => employee.id === id).responsibleFor[0];
+  const resident = data.species.find((specie) => specie.id === species).residents.sort((resident1, resident2) => resident2.age - resident1.age)[0];
+  const { name, sex, age } = resident;
+  return [name, sex, age];
 }
+
+// console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
+// console.log(getOldestFromFirstSpecies('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 
 function increasePrices(percentage) {
   // seu código aqui
