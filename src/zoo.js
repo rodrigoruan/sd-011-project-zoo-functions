@@ -105,10 +105,14 @@ function getSchedule(dayName) {
   const { open, close } = data.hours[dayName];
   return { [dayName]: `Open from ${open}am until ${close - 12}pm` };
 }
-console.log(getSchedule('Thursday'));
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employee = data.employees.find((worker) => worker.id === id);
+  const firstSpecies = employee.responsibleFor[0];
+  const resident = data.species.find((animals) => animals.id === firstSpecies).residents;
+  const oldestAnimal = resident.reduce((firstAnimal, secondAnimal) =>
+    (firstAnimal.age > secondAnimal.age ? firstAnimal : secondAnimal));
+  return ([oldestAnimal.name, oldestAnimal.sex, oldestAnimal.age]);
 }
 
 function increasePrices(percentage) {
