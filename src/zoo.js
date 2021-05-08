@@ -9,8 +9,8 @@ eslint no-unused-vars: [
 ]
 */
 
-const { employees, species } = require('./data');
 const data = require('./data');
+const { employees } = require('./data');
 
 function getSpeciesByIds(...ids) {
   // seu código aqui
@@ -111,13 +111,13 @@ function getEmployeeCoverage(idOrName) {
   // seu código aqui
   const consultAnimalEmployee = {};
   if (!idOrName) {
-    employees.forEach((value) =>{
-      consultAnimalEmployee[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((valor) => data.species.find((specie) => specie.id === valor).name)
+    employees.forEach((value) => {
+      consultAnimalEmployee[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((valor) => data.species.find((specie) => specie.id === valor).name);
     });
     return consultAnimalEmployee;
   }
   data.employees.filter((employee) => employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName).forEach((value) => {
-    consultAnimalEmployee[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((valor) => data.species.find((specie) => specie.id === valor).name)
+    consultAnimalEmployee[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((valor) => data.species.find((specie) => specie.id === valor).name);
   });
   return consultAnimalEmployee;
 }
