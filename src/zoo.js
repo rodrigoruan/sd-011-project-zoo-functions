@@ -45,7 +45,6 @@ function isManager(id) {
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
-  data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(species) {
@@ -101,6 +100,7 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   // seu código aqui
+
 }
 
 function getEmployeeCoverage(idOrName) {
