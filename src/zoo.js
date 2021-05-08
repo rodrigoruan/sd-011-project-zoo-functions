@@ -91,8 +91,15 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const decimal = percentage / 100 + 1;
+  Object.entries(data.prices).forEach((value) => {
+    data.prices[value[0]] = Math.round((value[1] * decimal) * 100) / 100;
+  });
+
+  return data.prices;
 }
+
+// Arredondar foi bem complicado, consegui consultando esse site: https://metring.com.br/arredondar-numero-em-javascript
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
