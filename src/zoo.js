@@ -33,7 +33,8 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  const theOfficer = data.employees.some(({ managers }) => managers.includes(id));
+  return theOfficer;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
