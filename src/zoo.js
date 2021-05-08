@@ -20,11 +20,8 @@ function getAnimalsOlderThan(animal, age) {
   return species.some((obj) => obj.name === animal && obj.residents.every((resident) => resident.age > age));
 }
 
-function getEmployeeByName(employeeName) {
-  if (!employeeName) {
-    return {};
-  }
-  return employees.filter((funcionario) => funcionario.firstName === employeeName || funcionario.lastName === employeeName)[0];
+/* pergunta sobre setar o ud no paramentro */function getEmployeeByName(employeeName) {
+  return !employeeName ? {} : employees.filter((funcionario) => funcionario.firstName === employeeName || funcionario.lastName === employeeName)[0];
 }
 function createEmployee(personalInfo, associatedWith) {
   return { ...personalInfo, ...associatedWith };
@@ -34,8 +31,8 @@ function isManager(id) {
   return employees.some((funcionario) => funcionario.managers.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  return employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(specie) {
