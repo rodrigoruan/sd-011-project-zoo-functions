@@ -37,7 +37,6 @@ function getEmployeeByName(...employeeName) {
   if (segundoNome.length > 0) {
     return segundoNome;
   }
-  //console.log(getEmployeeByName('Emery'));
 }
 
 function createEmployee(personalInfo, associatedWith) {
