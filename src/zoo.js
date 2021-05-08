@@ -54,14 +54,12 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  const schedule = Object.entries(hours).reduce((accumulator, [day, { open, close }]) => ({ ...accumulator, [day]: open - close === 0 ? 'CLOSED' : `Open from ${open}am until ${close - 12}pm` }), {});
+  const schedule = Object.entries(hours).reduce((acc, [day, { open, close }]) => ({ ...acc, [day]: open - close === 0 ? 'CLOSED' : `Open from ${open}am until ${close - 12}pm` }), {});
   if (dayName === undefined) {
     return schedule;
   }
   return { [dayName]: schedule[dayName] };
-  // https://stackoverflow.com/questions/11508463/javascript-set-object-key-by-variable - referência
 }
-console.log(getSchedule('Tuesday'));
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
