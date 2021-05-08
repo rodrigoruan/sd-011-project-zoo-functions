@@ -56,7 +56,24 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  if (typeof entrants === 'undefined') return 0;
+  if (typeof entrants === 'undefined' || Object.keys(entrants).length === 0) return 0;
+  let sum = 0;
+  Object.entries(entrants).flatMap((person) => {
+    switch (person[0]) {
+    case 'Adult':
+      sum += (person[1] * data.prices.Adult);
+      break;
+    case 'Senior':
+      sum += (person[1] * data.prices.Senior);
+      break;
+    case 'Child':
+      sum += (person[1] * data.prices.Child);
+      break;
+    default:
+      break;
+    }
+  });
+  return sum;
 }
 
 function getAnimalMap(options) {
