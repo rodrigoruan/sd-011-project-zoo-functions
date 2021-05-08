@@ -14,7 +14,6 @@ function getSpeciesByIds(...ids) {
   if (!ids) return [];
   return data.species.filter((especie) => ids.includes(especie.id));
 }
-console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce', 'e8481c1d-42ea-4610-8e11-1752cfc05a46'));
 
 function getAnimalsOlderThan(animal, age) {
   const retornoDaEspecie = data.species.find((nome) => animal.includes(nome.name));
@@ -41,8 +40,17 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // PAREI AQUI!!!
+  const confereId = data.employees.find((verifica) => id.includes(verifica.id));
+  if (confereId.managers[0] === []) {
+    return true;
+  }
+  if (confereId.managers[0] === '9e7d4524-363c-416a-8759-8aa7e50c0992') {
+    return true;
+  }
+  return false;
 }
+
+console.log(isManager('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
