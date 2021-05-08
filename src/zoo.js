@@ -41,17 +41,34 @@ function createEmployee(personalInfo, associatedWith) {
   return { ...personalInfo, ...associatedWith };
 }
 
-function isManager(id) {
-  // seu código aqui
+function isManager(employeId) {
+  /* const employeesList = data.employees;
+  const managerId = data.burlId; //Não é possível trazer burlId
+  const employee = employeesList.find(({ id }) => id === employeId);
+  return employee.id === managerId; */
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const personalInfo = { id, firstName, lastName };
+  const associatedWith = { managers, responsibleFor };
+  const newEmployee = createEmployee(personalInfo, associatedWith);
+  let employeesList = [...data.employees, newEmployee];
+  return employeesList;
+}
+// Adiciona um novo funcionário, porém o length se mantém 8.
+// Qual o problema?
+
+// console.log(addEmployee('39800c14-4b76-454a-858d-2f8d168146a7', 'John', 'Doe'));
+
+function countAnimals(species = '') {
+  const animals = data.species;
+  const findAllAnimals = animals.reduce((accumulator, { name, residents }) =>
+    ({ ...accumulator, [name]: residents.length }),
+  {});
+  return species === '' ? findAllAnimals : findAllAnimals[species];
 }
 
-function countAnimals(species) {
-  // seu código aqui
-}
+console.log(countAnimals('snakes'));
 
 function calculateEntry(entrants) {
   // seu código aqui
