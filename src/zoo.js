@@ -33,9 +33,10 @@ function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
   return { ...personalInfo, ...associatedWith };
 }
-console.log(createEmployee('Ola'));
+
 function isManager(id) {
   // seu código aqui
+  return data.employees.some((employ) => employ.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
