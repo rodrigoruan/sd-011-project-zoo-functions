@@ -9,22 +9,21 @@ eslint no-unused-vars: [
 ]
 */
 
-const { species, employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   // seu código aqui
-  return species.filter((element) => ids.includes(element.id));
+  return data.species.filter((element) => ids.includes(element.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
-  return species.find((element) => animal.includes(element.name)).residents.every((element) => element.age >= age);
+  return data.species.find((element) => animal.includes(element.name)).residents.every((element) => element.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
-  return employeeName ? employees.find((element) => element.firstName === employeeName || element.lastName === employeeName) : {};
+  return employeeName ? data.employees.find((element) => element.firstName === employeeName || element.lastName === employeeName) : {};
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -34,17 +33,19 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   // seu código aqui
-  return employees.reduce((acc, curr) => `${acc}${curr.managers},`, []).split(',').some((element) => element === id);
+  return data.employees.reduce((acc, curr) => `${acc}${curr.managers},`, []).split(',').some((element) => element === id);
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // seu código aqui
-  return employees.push({ id, firstName, lastName, managers, responsibleFor });
+  return data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
-function countAnimals(species2) {
+function countAnimals(species) {
   // seu código aqui
-  return species.find((element) => element.name === species2).residents.length;
+  // https://stackoverflow.com/questions/56195959/return-object-from-map-function-not-array (O QUE ESTE ,acc depois do y.length faz???)
+  const allAnimals = data.species.reduce((acc, { name: x, residents: y }) =>  (acc[x] = y.length, acc) , {});
+  return species ? data.species.find((element) => element.name === species).residents.length : allAnimals;
 }
 
 function calculateEntry(entrants) {
