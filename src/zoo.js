@@ -25,7 +25,7 @@ function getAnimalsOlderThan(animal, age) {
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
-  if (employeeName === undefined) {
+  if (!employeeName) {
     return {};
   }
   return data.employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
@@ -54,12 +54,16 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   data.employees.push(newEmployee);
 }
 
-// A função irá adicionar uma nova pessoa colaboradora ao array employees, presente no arquivo data.js.
-// O que será avaliado
-// Adiciona um funcionário no fim da lista
-
 function countAnimals(species) {
   // seu código aqui
+  if (!species) {
+    let object = {};
+    data.species.forEach((animal) => {
+      object[animal.name] = animal.residents.length;
+    });
+    return object;
+  }
+  return data.species.find((animal) => animal.name === species).residents.length;
 }
 
 function calculateEntry(entrants) {
