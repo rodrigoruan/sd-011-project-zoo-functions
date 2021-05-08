@@ -58,7 +58,22 @@ function countAnimals(species1) {
 }
 
 function calculateEntry(entrants) {
-
+  if (!entrants === true) {
+    return 0;
+  }
+  let adultPrice = prices.Adult * entrants.Adult;
+  let seniorPrice = prices.Senior * entrants.Senior;
+  let childPrice = prices.Child * entrants.Child;
+  if (!entrants.Adult === true) {
+    adultPrice = 0;
+  }
+  if (!entrants.Senior === true) {
+    seniorPrice = 0;
+  }
+  if (!entrants.Child === true) {
+    childPrice = 0;
+  }
+  return adultPrice + seniorPrice + childPrice;
 }
 
 function getAnimalMap(options) {
