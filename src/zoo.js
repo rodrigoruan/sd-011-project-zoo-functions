@@ -125,7 +125,7 @@ function getEmployeeCoverage(idOrName) {
     const result = nameRespons(getEmployees, arrayNames);
     const resultObj = Object.assign({}, ...result);
     return resultObj;
-  } 
+} 
   const employeeAnimal = {};
   const filterEmployees = data.employees.filter((employee) => employee.firstName === idOrName || employee.lastName === idOrName || employee.id === idOrName).forEach((value) => {
     employeeAnimal[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((responsId) => data.species.find((specie) => specie.id === responsId).name);
