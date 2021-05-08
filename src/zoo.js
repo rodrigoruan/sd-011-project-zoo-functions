@@ -69,22 +69,52 @@ function countAnimals(species) {
   return allAnimals.reduce(redux, {});
 }
 
-function calculateEntry(...entrants) {
-  if (_.isEmpty(...entrants) === true || typeof entrants === 'undefined') {
+function calculateEntry(entrants) {
+  if (_.isEmpty(entrants) === true || typeof entrants === 'undefined') {
     return 0;
   }
-  let x = { ...entrants };
-  const { Adult = 0, Child = 0, Senior = 0 } = x[0];
+
+  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
   let calculate = Adult * 49.99 + Child * 20.99 + Senior * 24.99;
   return calculate;
   // seu código aqui
 }
-let entrants = { Adult: 2, Child: 3, Senior: 1 };
-console.log(calculateEntry(entrants));
 
 function getAnimalMap(options) {
-  // seu código aqui
+  let map = { NE: [], NW: [], SE: [], SW: [] };
+  const regions = Object.keys(map);
+  if (_.isEmpty(options) || !options.includeNames) {
+    regions.forEach((region) => {
+      const animals = data.species.filter((animal) => animal.location === region);
+      map[region] = animals.map((el) => el.name);
+    });
+    return map;
+  }
+  const { includeNames, sorted, sex } = options;
+  if (includeNames) {
+    regions.forEach((region) => {
+      const animalsInRegion = data.species.filter((animal) => animal.location === region);
+      map[region] = animalsInRegion.map((animal) => {
+        let animalList = animal.residents;
+        if (sex) {
+          animalList = animalList.filter((gen) => gen.sex === sex);
+        }
+        animalList = animalList.map((single) => single.name);
+        if (sorted) {
+          animalList = animalList.sort();
+        }
+        return {
+          [animal.name]: animalList,
+        };
+      });
+    });
+
+    return map;
+  }
 }
+const options = { includeNames: true, sorted: true, sex: 'female' };
+
+console.log(getAnimalMap(options));
 
 function getSchedule(dayName) {
   // seu código aqui
@@ -101,6 +131,14 @@ function increasePrices(percentage) {
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
+
+// map[region] = animals.map((el) => el.name);
+// const redux = (acc, item, index) => {
+//   acc.push(animals[index].residents.map((id) => id.name));
+//   return acc;
+// };
+// const newMap = map[region].reduce(redux, []);
+// map[region] = newMap;
 
 module.exports = {
   calculateEntry,
