@@ -42,8 +42,17 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  if (species) {
+    const foundSpecies = data.species.find((animal) => animal.name === species);
+    return foundSpecies.residents.length;
+  }
+
+  return data.species.reduce((accumulator, currentValue) => {
+    accumulator[currentValue.name] = currentValue.residents.length;
+    return accumulator;
+  }, {});
 }
+// A segunda parte da função countAnimal foi baseada no exemplo do site "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce"
 
 function calculateEntry(entrants) {
   // seu código aqui
