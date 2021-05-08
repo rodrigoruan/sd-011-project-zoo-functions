@@ -57,9 +57,44 @@ function calculateEntry(entrants = 0) {
   return Object.entries(entrants).reduce((acc, person) => acc + (person[1] * data.prices[person[0]]), 0);
 }
 
-function getAnimalMap(options) {
+function getAnimalMap(options = {}) {
   // seu código aqui
+  let objAll = data.species.reduce((acc, value) => {
+    if (!acc[value.location]) {
+      acc[value.location] = [];
+    }
+    acc[value.location].push(value.name);
+    return acc;
+  }, {});
+  if (!options.includeNames) {
+    return objAll;
+  }
+  let animalNames = {};
+  animalNames = data.species.reduce((acc, value) => {
+    acc[value.name] = value.residents.map((al) => al.name);
+    return acc;
+  }, {});
+  if (options.sex) {
+    animalNames = data.species.reduce((acc, value) => {
+      acc[value.name] = value.residents.filter((al) => al.sex === options.sex).map((an) => an.name);
+      return acc;
+    }, {});
+  }
+  if (options.sorted) {
+    objAll.NE = objAll.NE.map((value) => ({ [value]: animalNames[value].sort() }));
+    objAll.NW = objAll.NW.map((value) => ({ [value]: animalNames[value].sort() }));
+    objAll.SE = objAll.SE.map((value) => ({ [value]: animalNames[value].sort() }));
+    objAll.SW = objAll.SW.map((value) => ({ [value]: animalNames[value].sort() }));
+    return objAll;
+  }
+  objAll.NE = objAll.NE.map((value) => ({ [value]: animalNames[value] }));
+  objAll.NW = objAll.NW.map((value) => ({ [value]: animalNames[value] }));
+  objAll.SE = objAll.SE.map((value) => ({ [value]: animalNames[value] }));
+  objAll.SW = objAll.SW.map((value) => ({ [value]: animalNames[value] }));
+  return objAll;
 }
+
+console.log(getAnimalMap());
 
 function getSchedule(dayName) {
   // seu código aqui
@@ -111,8 +146,6 @@ function getEmployeeCoverage(idOrName) {
 
     const animalsNames = animasIds.map((animalsId) => animalsId.map((anima) => data.species.find((an) => an.id === anima).name));
 
-    // console.log(animalsNames);
-
     const fullNames = employerNames.map((fullname) => `${fullname[0]} ${fullname[1]}`);
     const objCoverage = fullNames.reduce((acc, element, index) => {
       acc[element] = animalsNames[index];
@@ -133,7 +166,7 @@ function getEmployeeCoverage(idOrName) {
   }, {});
   return objCoverage;
 }
-console.log(getEmployeeCoverage());
+
 module.exports = {
   calculateEntry,
   getSchedule,
