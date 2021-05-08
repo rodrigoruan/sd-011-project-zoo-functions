@@ -55,10 +55,7 @@ function getAnimalMap(options) {
 
 function getSchedule(dayName) {
   const schedule = Object.entries(hours).reduce((acc, [day, { open, close }]) => ({ ...acc, [day]: open - close === 0 ? 'CLOSED' : `Open from ${open}am until ${close - 12}pm` }), {});
-  if (dayName === undefined) {
-    return schedule;
-  }
-  return { [dayName]: schedule[dayName] };
+  return dayName === undefined ? schedule : { [dayName]: schedule[dayName] };
 }
 
 function getOldestFromFirstSpecies(id) {
