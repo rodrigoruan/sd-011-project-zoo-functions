@@ -11,13 +11,16 @@ eslint no-unused-vars: [
 
 const data = require('./data');
 
+
 const getSpeciesByIds = (...ids) => data.species.filter((spacies) => ids.some((id) => spacies.id === id));
 
+// o Rodolfo Rezende me ajudou nessa turma 11.
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
   return data.species.find((value) => value.name === animal).residents.every((value) => value.age >= age);
 }
 
+// o Rodolfo Rezende  e o Jean ambos da turma 11, me ajudou nessa.
 function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
   return data.employees.find((val) => val.firstName === employeeName || val.lastName === employeeName);
@@ -27,6 +30,7 @@ const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...
 // seu código aqui
 
 const isManager = (id) => data.employees.some((getManeger) => getManeger.managers.includes(id));
+
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // seu código aqui
@@ -56,6 +60,7 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
+// o Rodolfo Rezende me ajudou nessa.
 function getSchedule(dayName) {
   // seu código aqui
   const result = {};
@@ -77,8 +82,7 @@ function getSchedule(dayName) {
   };
 }
 
-console.log(getSchedule('Monday'));
-
+// o Rodolfo Rezende me ajudou nessa.
 function getOldestFromFirstSpecies(id) {
   const getId = data.employees.filter((ids) => ids.id === id)[0].responsibleFor[0];
   const getAnimal = data.species.filter((value) => value.id === getId)[0].residents;
@@ -111,7 +115,7 @@ function getEmployeeCoverage(idOrName) {
   });
   return getAnimalEmployee;
 }
-console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
+// console.log(getEmployeeCoverage());
 module.exports = {
   calculateEntry,
   getSchedule,
