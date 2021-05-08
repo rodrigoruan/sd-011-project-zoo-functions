@@ -58,6 +58,7 @@ function countAnimals(species1) {
 }
 
 function calculateEntry(entrants) {
+
 }
 
 function getAnimalMap(options) {
@@ -65,7 +66,6 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
 }
 
 function getOldestFromFirstSpecies(id) {
@@ -82,11 +82,13 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const raiseFactor = (percentage / 100) + 1;
+  prices.Adult = Math.round(prices.Adult * raiseFactor * 100) / 100;
+  prices.Senior = Math.round(prices.Senior * raiseFactor * 100) / 100;
+  prices.Child = Math.round(prices.Child * raiseFactor * 100) / 100;
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
 }
 
 module.exports = {
