@@ -77,7 +77,7 @@ function getAnimalMap(options) {
 }
 
 function formatHourFrom24to12(hourIn24) {
-  if (hourIn24 <= 24) {
+  if (hourIn24 <= 12) {
     return `${hourIn24}am`;
   }
   return `${hourIn24 - 12}pm`;
@@ -96,9 +96,11 @@ function getSchedule(dayName) {
   }
 
   const keysSchedule = Object.keys(schedule);
+
   keysSchedule.forEach((day) => {
     schedule[day] = sigleDayScheduleString(schedule[day]);
   });
+
   return schedule;
 }
 
