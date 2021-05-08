@@ -103,7 +103,7 @@ function getSchedule(dayName) {
     return { Monday: 'CLOSED' };
   }
   const { open, close } = data.hours[dayName];
-  return { [dayName]: `Open from ${open}am until ${close -12}pm` };
+  return { [dayName]: `Open from ${open}am until ${close - 12}pm` };
 }
 console.log(getSchedule('Thursday'));
 
