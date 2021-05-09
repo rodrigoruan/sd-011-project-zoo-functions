@@ -54,8 +54,20 @@ function calculateEntry(entrants) {
   return Object.keys(entrants).reduce((acc, value) => acc + (data.prices[value] * entrants[value]), 0);
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+// Rodolfo Resende Turma 11 me ajudou a fazer essa questão
+const getNameAnimal = (residents, sorted, sex) => {
+  const animalName = residents.reduce((acc, value) => (sex && value.sex !== sex ? acc : acc.concat(value.name)), []);
+  return sorted ? animalName.sort() : animalName;
+};
+
+function getAnimalMap(options = {}) {
+  let objectResult = {};
+  const arrayLocation = ['NE', 'NW', 'SE', 'SW'];
+  for (let index of arrayLocation) {
+    objectResult[index] = [];
+  }
+  data.species.map((animal) => (options.includeNames ? objectResult[animal.location].push({ [animal.name]: getNameAnimal(animal.residents, options.sorted, options.sex) }) : objectResult[animal.location].push(animal.name)));
+  return objectResult;
 }
 
 // o Rodolfo Rezende me ajudou nessa.
