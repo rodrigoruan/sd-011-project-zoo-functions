@@ -43,25 +43,37 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   // Verifica se uma pessoa colaboradora, a partir de seu id, ocupa cargo de gerência.
-  return data.employees.some((employee) => employee.managers.includes(id));
+  // const managerIdList = data.employees.reduce((acc, employee, index) => acc[index].push(employee.manager), []);
+  // const idIsOfManager = managerIdList.some((managerId) => managerId === id);
+  const idIsOfManager = data.employees.some((employee) => employee.managers.includes(id));
+  return idIsOfManager;
 }
+console.log(isManager('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1'));
 
-function addEmployee({ id, firstName, lastName, managers, responsibleFor }) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // Adiciona uma nova pessoa colaboradora ao array employees, presente no arquivo data.js.
   data.employees.push({ id, firstName, lastName, managers, responsibleFor });
+  const lastEmployee = data.employees[data.employees.length - 1];
+  return lastEmployee;
 }
+// console.log(addEmployee('39800c14-4b76-454a-858d-2f8d168146a7', 'John', 'Doe'));
 
 function countAnimals(species) {
   // Contabiliza a quantidade de animais.
-  // data.species.find((specie) => specie.resident.length,s
-  // data.species.map((specie) => ({ `${specie.name}`: specie.residents.length })));
+  // data.species.map((specie) => ({ specie.name: specie.resident.length})));
+  // if (!species) {
+  //   const specieQuantityList = data.species.reduce((acc, specie) => { acc[`${specie.name}`] = specie.residents.length }, {});
+  //   return specieQuantityList;
+  // }
+  // const specieQuantity = data.species.find((specie) => specie.name === species).residents.length;
+  // return specieQuantity;
 }
+// console.log(countAnimals('lions'));
 
 function calculateEntry(entrants) {
   // A partir da quantidade de visitantes e a faixa etária de cada um, esta função é responsável por retornar o preço total a ser cobrado.
   // if (!entrants || entrants === {}) return 0;
-  // const prices = {adult: 49.99, child: 20.99, senior: 24.99};
-  // entrants.array.forEach(element => {
+  // data.prices.
   // return totalPaid;
 }
 
@@ -90,10 +102,15 @@ function getAnimalMap({ includeNames, sorted, sex }) {
 // console.log(data.species.filter((specie) => specie.location === 'NE'));
 
 function getSchedule(dayName) {
-  // if (!dayName) {
-  // const weekDaysAndHours = Object.entries(data.hours);
+  if (!dayName) {
+    // const entriesMap = Object.entries(data.hours).map((day, index) => ({ [day[index]]: `Open from ${[day[index + 1]].{open }}am until ${[day[index + 1].close]}pm` }));
+    // const entriesReduce = Object.entries(data.hours).reduce((acc, day, index) => ({ acc[day[index]] = `Open from ${[day[index + 1]].open}am until ${[day[index + 1]].close}pm` }), {});
+    // // const daysOfWeek = Object.keys(data.hours);
+    // // const openAndCloseSchedule = Object.values(data.hours).map((day) => `Open from ${day.open}am until ${day.close}pm`);
+    // return entriesReduce;
+    // const weekDaysAndHours = Object.entries(data.hours);
   // return weekDaysAndHours.map((day) => {{ ola: `Open from ${day[1].open}am until ${day[1].close}pm`, }});
-  // }
+  }
 }
 // console.log(getSchedule());
 
