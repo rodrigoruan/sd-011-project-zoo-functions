@@ -70,13 +70,6 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   employees.push(newEmployee);
 }
 
-// function countAnimals(speciesName) {
-//   const {species} = data;
-//   const animalGroup = () => species.find((speciesGroup) => speciesGroup.name === speciesName);
-//   if (!speciesName){ return {} };
-//   return animalGroup().residents.length;
-// }
-
 function countAnimals(speciesName) {
   const { species } = data;
   const finalObject = {};
@@ -92,7 +85,9 @@ function countAnimals(speciesName) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants) return 0;
+  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
+  return ((Adult * 49.99) + (Child * 20.99) + (Senior * 24.99));
 }
 
 function getAnimalMap(options) {
