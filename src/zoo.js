@@ -99,11 +99,22 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const emplo = employees.find((value) => value.id === id).responsibleFor[0];
+  console.log(emplo)
+  const animal = species.find((get) => emplo === get.id)
+  console.log(animal)
+  const result =  animal.residents.reduce ((acc, curr) => (curr.age > acc.age) ? curr : acc);
+  console.log(result);
+  // object destructuring e construir um array
+  const { name, sex, age } = result;
+  return [name, sex, age];
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  percentage = 1 + (percentage / 100);
+  prices.Adult = Math.round(prices.Adult * percentage * 100) / 100;
+  prices.Child = Math.round(prices.Child * percentage * 100) / 100;
+  prices.Senior = Math.round(prices.Senior * percentage * 100) / 100;
 }
 
 function getEmployeeCoverage(idOrName) {
