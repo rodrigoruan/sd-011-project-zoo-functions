@@ -119,7 +119,6 @@ function returnAnimalsBySexAndSort(sorted, sex) {
       let animalNames = [];
       //
       if (sex) {
-        // criar const filteredGender e fazer forEach a partir dela
         const filteredByGender = residents.filter((resident) => resident.sex === sex)
           .forEach((animalByGender) => {
             animalNames.push(animalByGender.name);
@@ -147,13 +146,39 @@ function getAnimalMap(options = {}) {
   return returnAllAnimals();
 }
 
-/// /////
-console.log(getAnimalMap({ includeNames: true, sex: 'male' }));
-/// //////
+// function getSchedule(dayName) {
+//   const { hours } = data;
+//   let outputObj = {};
+//   if (!dayName) {
+//     Object.keys(hours).forEach((weekDay) => {
+//       if (weekDay === 'Monday') {
+//         outputObj[weekDay] = 'CLOSED';
+//       } else {
+//         outputObj[weekDay] = `Open from ${hours[weekDay].open}am until ${hours[weekDay].close - 12}pm`;
+//       }
+//     });
+//   } else if (dayName === 'Monday') {
+//     outputObj[dayName] = 'CLOSED';
+//   } else {
+//     outputObj[dayName] = `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm`;
+//   }
+//   return outputObj;
+// }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const { hours } = data;
+  let outputObj = {};
+  Object.entries(hours).forEach(([weekDay, shcedule]) => {
+    const { open, close } = shcedule;
+    if (dayName === weekDay || !dayName) {
+      outputObj[weekDay] = (open === 0 && close === 0) ? 'CLOSED'
+        : `Open from ${open}am until ${close - 12}pm`;
+    }
+  });
+  return outputObj;
 }
+
+console.log(getSchedule());
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
