@@ -70,8 +70,25 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   employees.push(newEmployee);
 }
 
-function countAnimals(species) {
-  // seu código aqui
+// function countAnimals(speciesName) {
+//   const {species} = data;
+//   const animalGroup = () => species.find((speciesGroup) => speciesGroup.name === speciesName);
+//   if (!speciesName){ return {} };
+//   return animalGroup().residents.length;
+// }
+
+function countAnimals(speciesName) {
+  const { species } = data;
+  const finalObject = {};
+  const animalGroup = () => species.find((speciesGroup) => speciesGroup.name === speciesName);
+  if (!speciesName) {
+    species.forEach((animals) => {
+      finalObject[animals.name] = animals.residents.length;
+    });
+  } else {
+    return animalGroup().residents.length;
+  }
+  return finalObject;
 }
 
 function calculateEntry(entrants) {
