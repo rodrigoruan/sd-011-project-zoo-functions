@@ -65,14 +65,14 @@ function calculateEntry(entrants) {
 }
 
 const findAnimals = (residents, sorted, sex) => {
-  const animalsNames = residents.reduce((acc, value) => (sex && value.sex !== sex ) ? acc : acc.concat(value.name) ,[]);
+  const animalsNames = residents.reduce((acc, value) => ((sex && value.sex !== sex) ? acc : acc.concat(value.name)) ,[]);
   return sorted ? animalsNames.sort() : animalsNames;
 }
 //Rodrigo Ruan.
 function getAnimalMap(options= {}) {
   // seu código aqui
-  const objeto = { 'NE': [], 'NW': [], 'SE': [], 'SW': [] };
-  data.species.forEach((value) => options.includeNames ? objeto[value.location].push({[value.name] : findAnimals(value.residents, options.sorted, options.sex)}) : objeto[value.location].push(value.name));
+  const objeto = { NE: [], NW: [], SE: [], SW: [] };
+  data.species.forEach((value) => (options.includeNames ? objeto[value.location].push({ [value.name]: findAnimals(value.residents, options.sorted, options.sex) }) : objeto[value.location].push(value.name)));
   return objeto;
 }
 
