@@ -9,7 +9,6 @@ eslint no-unused-vars: [
 ]
 */
 
-const { initial } = require('lodash');
 const data = require('./data');
 const { species, employees, prices } = require('./data');
 
@@ -60,7 +59,7 @@ function countAnimals(specie) {
 }
 
 function calculateEntry(entrants) {
-  if (entrants === undefined || entrants === {}) return {};
+  if (entrants === undefined || entrants === {}) return 0;
   return Object.keys(entrants).reduce(((total, initialValue) =>
     total + (entrants[initialValue] * prices[initialValue])
   ), 0);
