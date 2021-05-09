@@ -90,9 +90,78 @@ function calculateEntry(entrants) {
   return ((Adult * 49.99) + (Child * 20.99) + (Senior * 24.99));
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+// function getAnimalMap(options = {}) {
+//   const { species } = data;
+//   const output = {}
+//   const locations = ['NE','NW', 'SE', 'SW']
+//   const filteredAnimals = () => {
+//     const filteredLocation = species.filter(({ location }) => {
+//     return output[location] === location;
+//   })
+//   }
+//   if (options.length = 0) {
+//     // return species.map((animal) => {
+//     //   return output[animal.location] = species.filter(({ location }) => location === output[animal.location])
+//     // })
+//     location.forEach((locationFiltered) => {
+//       output.locationFiltered = species.filter(({ location }) => location === output[locationFiltered])
+//     })
+//   }
+// }
+
+function returnAllAnimals() {
+  const { species } = data;
+  const outputObj = {
+    NE: [],
+    NW: [],
+    SE: [],
+    SW: [],
+  };
+  Object.keys(outputObj).forEach((objLocation) => {
+    const filteredAnimals = species.filter(({ location }) => location === objLocation)
+      .map(({ name }) => name);
+    outputObj[objLocation] = filteredAnimals;
+  });
+  return outputObj;
 }
+
+function getAnimalMap(options = {}) {
+  const { includeNames, sorted, sex } = options;
+  if (includeNames === true) {
+    const { species } = data;
+    const outputObj = {
+      NE: [],
+      NW: [],
+      SE: [],
+      SW: [],
+    };
+    Object.keys(outputObj).forEach((objLocation) => {
+      const filteredAnimals = species.filter(({ location }) => objLocation === location).map(({ name, residents }) => {
+        let animalNames = [];
+        residents.forEach(({ name }) => {
+          animalNames.push(name);
+        });
+        console.log(animalNames)
+        return { [name]: animalNames };
+      });
+      outputObj[objLocation] = filteredAnimals;
+    });
+    return outputObj;
+  }
+  return returnAllAnimals();
+}
+
+console.log(getAnimalMap({ includeNames: true }));
+/// /////
+// const { species } = data;
+// const test = () => {
+//   const filteredLocation = species.filter(({ location }) => {
+//     return location === 'NE';
+//   })
+//   return filteredLocation.map((animals) => animals.name)
+// }
+// console.log(test())
+/// //////
 
 function getSchedule(dayName) {
   // seu código aqui
