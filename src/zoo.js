@@ -11,24 +11,11 @@ eslint no-unused-vars: [
 
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
-  const newArray = [];
-  if (!ids) return newArray;
-  if (typeof ids === 'string') {
-    const comparedString = data.species.find((comparing) => comparing.id === ids);
-    return comparedString;
-  }
-  for (let index = 0; index <= ids.length; index += 1) {
-    console.log(`Procurando id ${ids[index]}`);
-    const filtered = data.species.filter((listedAnimal) => listedAnimal.id === ids[index]);
-    newArray.concat(filtered);
-  }
-  return newArray;
-  // seu código aqui
+function getSpeciesByIds(...ids) {
+  if (!ids.length) return [];
+  const animals = ids.map((id) => data.species.find((specie) => specie.id === id));
+  return animals;
 }
-
-const id = '0e7b460e-acf4-4e17-bcb3-ee472265db83';
-console.log(getSpeciesByIds([id]));
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
