@@ -29,7 +29,7 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  const newEmployee = {...personalInfo, ...associatedWith};
+  const newEmployee = { ...personalInfo, ...associatedWith };
   return newEmployee;
 }
 
