@@ -22,7 +22,6 @@ function getSpeciesByIds(...id) {
   return data.species.filter((items) => id.includes(items.id));
 }
 
-// References:
 // JS find: https://www.w3schools.com/jsref/jsref_find.asp
 // JS every: https://www.w3schools.com/jsref/jsref_every.asp
 
@@ -36,8 +35,14 @@ function getEmployeeByName(employeeName) {
   } return {}; // empty object
 }
 
+// JS Object.assign: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+// ES6 Object.assign: https://googlechrome.github.io/samples/object-assign-es6/
+// Obj Spread vs Obj Assign: https://stackoverflow.com/questions/32925460/object-spread-vs-object-assign
+
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  // personalInfo contains Id, First Name and Last Name
+  // associatedWith contains managers and responsibleFor
+  return Object.assign(personalInfo, associatedWith);
 }
 
 function isManager(id) {
