@@ -11,7 +11,7 @@ eslint no-unused-vars: [
 
 const data = require('./data');
 
-const getSpeciesByIds = (...ids) => data.species.filter((species) => ids.some((id) => id === species.id));
+const getSpeciesByIds = (...ids) => data.species.filter((species) => ids.includes(species.id));
 
 const getAnimalsOlderThan = (animal, age) => data.species.find(({ name }) => name === animal).residents.every(({ age: ages }) => ages >= age);
 
@@ -20,9 +20,7 @@ const getEmployeeByName = (employeeName) => ((!employeeName) ? {}
 
 const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...associatedWith });
 
-function isManager(id) {
-  // seu código aqui
-}
+const isManager = (id) => data.employees.some(({ managers }) => managers.includes(id));
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
