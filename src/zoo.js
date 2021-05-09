@@ -56,8 +56,15 @@ function countAnimals(species) {
   }, {});
 }
 
-function calculateEntry(entrants) {
-  // seu código aqui
+function calculateEntry(entrants = 0) {
+  // Source: https://stackoverflow.com/questions/42488048/how-can-i-sum-properties-from-two-objects
+  let multiple = 0;
+  Object.keys(entrants).forEach((key) => {
+    if (Object.prototype.hasOwnProperty.call(data.prices, key)) {
+      multiple += entrants[key] * data.prices[key];
+    }
+  });
+  return multiple;
 }
 
 function getAnimalMap(options) {
