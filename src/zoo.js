@@ -32,8 +32,16 @@ function getEmployeeByName(employeeName) {
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
+  let { id, firstName, lastName } = personalInfo;
+  let { managers, responsibleFor } = associatedWith;
+  return {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor
+  };
 }
-// console.log(createEmployee());
 
 function isManager(id) {
   // seu código aqui
@@ -112,11 +120,35 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   // seu código aqui
+
 }
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+  let result = []
+  let employeesList = [];
+  if (!idOrName) {
+    employees.forEach(({ firstName, lastName }) => { employeesList.push(`${firstName} ${lastName}`)});
+  } else {
+    let employer = employees.find(({ firstName, lastName, id}) => idOrName === firstName || idOrName === lastName || idOrName === id);
+    employeesList.push(`${employer.firstName} ${employer.lastName}`);
+  }
+  employeesList.forEach((employerFromList) => result.push(employees.find((employerFromData) => employerFromList === `${employerFromList.firstName} ${employerFromList.lastName}`)))
+  return result
+  
+  // let employerSelected = employees.filter((employer) => idOrName === employer.id || idOrName === employer.firstName || idOrName === employer.lastName);
+  // let [{ firstName , lastName, responsibleFor}] = employerSelected;
+  // species.forEach((animal) => {
+  //   responsibleFor.forEach((id) => {
+  //     if (animal.id === id) {
+  //       animals.push(animal.name)   
+  //     }
+  //   }) 
+  // })  
+  // result[`${firstName} ${lastName}`] = animals;
+  // return result
 }
+
 
 module.exports = {
   calculateEntry,
