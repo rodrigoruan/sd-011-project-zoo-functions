@@ -81,23 +81,26 @@ function calculateEntry(entrants) {
   return totalEntrance;
 }
 
-function getAnimalMap(options) {
-  const locationsAndSpecies = {
-    NE: '',
-    NW: '',
-    SE: '',
-    SW: '',
+function createAnimalMap(arraySpecies) {
+  let locationsAndSpecies = {
+    NE: [],
+    NW: [],
+    SE: [],
+    SW: [],
   };
-
-  // Object.keys(locationsAndSpecies).forEach(function (location) {
-  //   console.log(locationsAndSpecies[location]);
-  //   species.filter((specie) => {
-  //     if (locationsAndSpecies[location] === specie.location) {
-  //       locationsAndSpecies[location] = '123';
-  //     }
-  //   });
-  // });
+  Object.keys(locationsAndSpecies).forEach((location) => {
+    const speciesbyLocation = arraySpecies.filter((specie) => location === specie.location);
+    locationsAndSpecies[location] = speciesbyLocation.map((element) => element.name);
+  });
   return locationsAndSpecies;
+}
+
+function getAnimalMap(options) {
+  let locationsAndSpecies = createAnimalMap(species);
+
+  if (!options) {
+    return locationsAndSpecies;
+  }
 }
 
 function getSchedule(dayName) {
