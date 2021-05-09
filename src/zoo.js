@@ -18,7 +18,9 @@ function getSpeciesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, age) {
   const targetAnimal = species.find((specie) => specie.name === animal);
-  const boolAnimalAge = targetAnimal.residents.every((resident) => resident.age >= age);
+  const boolAnimalAge = targetAnimal.residents.every(
+    (resident) => resident.age >= age,
+  );
   return boolAnimalAge;
   // seu código aqui
 }
@@ -27,7 +29,10 @@ function getEmployeeByName(employeeName) {
   if (employeeName === undefined) {
     return {};
   }
-  return employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
+  return employees.find(
+    (employee) =>
+      employee.firstName === employeeName || employee.lastName === employeeName,
+  );
   // seu código aqui
 }
 
@@ -38,10 +43,29 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
+  // if (id === stephanieId || id === olaId || id === urlId) {
+  //   return true;
+  // }
+  // return false;
   // seu código aqui
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(
+  id,
+  firstName,
+  lastName,
+  managers = [],
+  responsibleFor = [],
+) {
+  let newEmployee = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  employees.push(newEmployee);
+  return employees;
   // seu código aqui
 }
 
