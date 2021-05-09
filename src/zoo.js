@@ -23,8 +23,8 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  if (!employeeName.length) return {};
-  return data.employees.find((( firstName, lastName )) => firstName === employeeName || lastName === employeeName);
+  if (!employeeName) return {};
+  return data.employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
