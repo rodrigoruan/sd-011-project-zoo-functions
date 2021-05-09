@@ -84,12 +84,48 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  let maped = {};
+  const NEList = data.species.filter((specie) => specie.location === 'NE');
+  const NWList = data.species.filter((specie) => specie.location === 'NW');
+  const SEList = data.species.filter((specie) => specie.location === 'SE');
+  const SWList = data.species.filter((specie) => specie.location === 'SW');
+
+  if (options === undefined || options === {}) {
+    maped = {
+      NE: NEList.map((specie) => specie.name),
+      NW: NWList.map((specie) => specie.name),
+      SE: SEList.map((specie) => specie.name),
+      SW: SWList.map((specie) => specie.name),
+    };
+    return maped;
+  }
+
+  if (options.includeNames) {
+    // const regions = data.species.map((item) => item.location );
+    maped.NE = NEList.map((NEItem) => ({ [NEItem.name]: NEItem.residents.map((animalName) => animalName.name) }));
+    maped.NW = NWList.map((NWItem) => ({ [NWItem.name]: NWItem.residents.map((animalName) => animalName.name) }));
+    maped.SE = SEList.map((SEItem) => ({ [SEItem.name]: SEItem.residents.map((animalName) => animalName.name) }));
+    maped.SW = SWList.map((SWItem) => ({ [SWItem.name]: SWItem.residents.map((animalName) => animalName.name) }));
+    return maped;
+  }
 }
 
+// console.log(getAnimalMap({ includeNames: true }));
+
 function getSchedule(dayName) {
-  // seu código aqui
+  const days = Object.keys(data.hours);
+  const hour = Object.values(data.hours);
+  const workingHours = hour.map((time) => (time.open === 0 ? 'CLOSED' : `Open from ${time.open}am until ${time.close - 12}pm`));
+  const newArray = days.map((day, index) => ({ [day]: workingHours[index] }));
+  const fullDays = Object.assign({}, ...newArray);
+  if (dayName === undefined) {
+    return fullDays;
+  }
+  const exactDay = newArray.filter((x) => Object.keys(x)[0] === dayName);
+  return exactDay[0];
 }
+
+getSchedule();
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
