@@ -8,7 +8,7 @@ eslint no-unused-vars: [
   }
 ]
 */
-// comando para test : npm test test/addEmployee.test.js
+// comando para test : npm test test/addEmployee.test.jsnpm 
 
 const data = require('./data');
 
@@ -22,7 +22,7 @@ function getSpeciesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
-  return species.find(({ name }) => name === animal).residents.every(({age:idade}) => age < idade);
+  return species.find(({ name }) => name === animal).residents.every(({ age: idade }) => age < idade);
 }
 
 /* function getEmployeeByName(employeeName) {
