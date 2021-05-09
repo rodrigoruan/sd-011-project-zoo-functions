@@ -61,42 +61,38 @@ function calculateEntry(entrants) {
     total + prices[category] * amount, 0);
 }
 
-// function getResidentsNames(id) {
-//   return species.find((animal) => animal.id === id).residents.map((el) => el.name);
-// }
+function getResidentsNames(id, sorted, sexFilter) {
+  const residentsNames = species
+    .find((animal) => animal.id === id)
+    .residents.filter((animal) => (sexFilter ? animal.sex === sexFilter : true))
+    .map((el) => el.name);
 
-// function initializeMap() {
-//   return species.reduce((map, { location: sector }) =>
-//     (map[sector] ? map : Object.assign(map, { [sector]: [] })), {});
-// }
-
-// function getAnimalMap(options) {
-//   const map = initializeMap();
-
-//   if (!options) {
-//     species.forEach((el) => map[el.location].push(el.name));
-//   } else if (options.includeNames) {
-//     species.forEach((el) => map[el.location].push({ [el.name]: getResidentsNames(el.id) }));
-//   }
-
-//   return map;
-// }
-
-function initializeMapReducer(rawMap, { name, location: sector, residents }) {
-  if (rawMap[sector]) {
-    rawMap[sector].push({ [name]: residents });
-    return rawMap;
-  }
-
-  return Object.assign(rawMap, { [sector]: [{ [name]: residents }] });
+  return sorted ? residentsNames.sort() : residentsNames;
 }
 
-function initializeMap() {
-  return species.reduce(initializeMapReducer, {});
+function buildMapWithNames(map, sorted, sex) {
+  species.forEach((el) => map[el.location].push({ [el.name]: getResidentsNames(el.id, sorted, sex) }));
+}
+
+function buildMapWithoutNames(map) {
+  species.forEach((el) => map[el.location].push(el.name));
+}
+
+function getMapTemplate() {
+  return species.reduce((map, { location: sector }) =>
+    (map[sector] ? map : Object.assign(map, { [sector]: [] })), {});
 }
 
 function getAnimalMap(options) {
-  
+  const map = getMapTemplate();
+
+  if (!options || !options.includeNames) buildMapWithoutNames(map);
+  else {
+    if (!options.sex) options.sex = false;
+    buildMapWithNames(map, !!options.sorted, options.sex);
+  }
+
+  return map;
 }
 
 function getScheduleReducer(formattedHours, day) {
