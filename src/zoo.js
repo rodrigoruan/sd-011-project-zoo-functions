@@ -20,25 +20,21 @@ function getSpeciesByIds(...idCode) {
   return specieList;
 }
 
-function getAnimalsOlderThan(animal, age) { // Tá dizendo que residents is undefined.
-  // A partir do nome de uma espécie e uma idade mínima, 
-  // verifica se todos os animais daquela espécie possuem a idade mínima especificada.
-  // return data.species.find((specie) => specie.name === animal).every((resident) => resident.age >= age);
+function getAnimalsOlderThan(animal, age) {
+  // A partir do nome de uma espécie e uma idade mínima, verifica se todos os animais daquela espécie possuem a idade mínima especificada.
   const isOldEnough = data.species.filter((specie) => specie.name === animal)[0].residents.every((resident) => resident.age >= age);
   return isOldEnough;
 }
-console.log(getAnimalsOlderThan('otters', 7));
 
-function getEmployeeByName(employeeName) { // Tá imprimindo array ao invés de object.
+function getEmployeeByName(employeeName) {
   // Busca das pessoas colaboradoras através do primeiro ou do último nome delas.
   if (!employeeName) {
     return {};
   }
-  const employeeData = data.employees.filter((employee) => employeeName === employee.name || employeeName === employee.lastName);
-  return employeeData;
+  const employeeData = data.employees.filter((employee) => employeeName === employee.firstName || employeeName === employee.lastName);
+  return employeeData[0];
   // return data.employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
 }
-// console.log(getEmployeeByName('Wishart'));
 
 function createEmployee(personalInfo, associatedWith) {
   // const ({ id, firstName, lastName } = personalInfo);
