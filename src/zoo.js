@@ -100,11 +100,13 @@ function getSchedule(dayName) {
 
 function getOldestFromFirstSpecies(id) {
   const emplo = employees.find((value) => value.id === id).responsibleFor[0];
-  console.log(emplo)
-  const animal = species.find((get) => emplo === get.id)
-  console.log(animal)
-  const result =  animal.residents.reduce ((acc, curr) => (curr.age > acc.age) ? curr : acc);
-  console.log(result);
+  const animal = species.find((get) => emplo === get.id);
+  const result = animal.residents.reduce((acc, curr) => {
+    if (curr.age > acc.age) {
+      return curr;
+    }
+    return acc;
+  });
   // object destructuring e construir um array
   const { name, sex, age } = result;
   return [name, sex, age];
