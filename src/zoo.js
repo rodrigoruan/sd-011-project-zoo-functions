@@ -36,8 +36,9 @@ function isManager(id) {
   return gerentes;
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  const nomes = [...employees];
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const nomes = employees.push({ id, firstName, lastName, managers, responsibleFor });
+  return nomes;
 }
 
 function countAnimals(specie) {
