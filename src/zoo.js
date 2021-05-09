@@ -42,11 +42,11 @@ function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
 }
 
-function isManager(id) {
+function isManager(i) {
   // seu código aqui
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(identifier, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
@@ -66,7 +66,7 @@ function getSchedule(dayName) {
   // seu código aqui
 }
 
-function getOldestFromFirstSpecies(id) {
+function getOldestFromFirstSpecies(ides) {
   // seu código aqui
 }
 
