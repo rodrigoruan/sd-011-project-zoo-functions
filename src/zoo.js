@@ -68,6 +68,20 @@ function countAnimals(species) {
 
 function calculateEntry(entrants) {
   // seu código aqui
+  let total = 0;
+  if (!entrants) {
+    return total;
+  }
+  if (entrants.Adult !== undefined) {
+    total += entrants.Adult * data.prices.Adult;
+  }
+  if (entrants.Child !== undefined) {
+    total += entrants.Child * data.prices.Child;
+  }
+  if (entrants.Senior !== undefined) {
+    total += entrants.Senior * data.prices.Senior;
+  }
+  return total;
 }
 
 function getAnimalMap(options) {
