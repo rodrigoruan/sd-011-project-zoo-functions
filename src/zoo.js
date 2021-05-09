@@ -125,10 +125,18 @@ function getSchedule(dayName) {
   return exactDay[0];
 }
 
-getSchedule();
-
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const findFirstSpecieOfEmployee = data.employees.find((employee) => employee.id === id).responsibleFor[0];
+  const caredAnimal = data.species.find((specie) => specie.id === findFirstSpecieOfEmployee);
+  // const olderAnimalAge = caredAnimal.residents.reduce((older, actualAge) => actualAge.age > older ? older = actualAge.age : older, 0)
+  const olderAnimalAge = caredAnimal.residents.reduce((older, actualAge) => {
+    if (actualAge.age > older) {
+      older = actualAge.age;
+    }
+    return older;
+  }, 0);
+  const olderSpecie = Object.values(caredAnimal.residents.find((resident) => resident.age === olderAnimalAge));
+  return olderSpecie;
 }
 
 function increasePrices(percentage) {
