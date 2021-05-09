@@ -115,9 +115,9 @@ function getOldestFromFirstSpecies(id) {
   const ListOfResidentsCared = data.species.find((specie) => specie.id.includes(firstSpecieCaredByEmployee)).residents;
   const ageOfTheOldestResidentCared = ListOfResidentsCared.reduce((oldest, resident) => oldest > resident.age ? oldest : resident.age, 0);
   const getTheOldestResidentCared = ListOfResidentsCared.filter((resident) => resident.age === ageOfTheOldestResidentCared);
+
   return Object.values(getTheOldestResidentCared[0]);
 }
-console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function increasePrices(percentage) {
   // let { Adult: adult, Senior: senior, Child: child } = data.prices;
