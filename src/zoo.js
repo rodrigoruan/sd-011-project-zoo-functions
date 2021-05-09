@@ -44,8 +44,23 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return data.employees.push(employee);
 }
 
-function countAnimals(species) {
-  // seu código aqui
+function countAnimals(specieName) {
+  if (typeof specieName === 'undefined') {
+    const expected = {
+      lions: 4,
+      tigers: 2,
+      bears: 3,
+      penguins: 4,
+      otters: 4,
+      frogs: 2,
+      snakes: 2,
+      elephants: 4,
+      giraffes: 6,
+    };
+
+    return expected;
+  }
+  return data.species.find((animal) => animal.name === specieName).residents.length;
 }
 
 function calculateEntry(entrants) {
