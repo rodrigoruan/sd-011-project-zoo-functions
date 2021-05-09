@@ -46,10 +46,9 @@ function countAnimals(specie) {
   let objeto = {};
   species.forEach((obj) => {
     objeto[obj.name] = obj.residents.length;
-    return objeto;
   });
+  return objeto;
 }
-console.log(countAnimals());
 
 function calculateEntry(entrants) {
   let value = 0;
