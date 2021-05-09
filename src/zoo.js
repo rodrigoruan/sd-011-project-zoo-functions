@@ -28,8 +28,6 @@ function getEmployeeByName(employeeName) {
   return employeesSheet;
 }
 
-console.log(getEmployeeByName());
-
 function createEmployee(personalInfo, associatedWith) {
   return {
     ...personalInfo,
@@ -76,9 +74,63 @@ function calculateEntry(entrants) {
   return sumFun(entrants);
 }
 
+const animalTypesFunc = () => {
+  const regions = data.species.map(({ location }) => location);
+  console.log(regions);
+
+  return regions.reduce((acc, curr, index) => {
+    acc[regions[index]] = data.species.filter(({ location }) => location === curr).map((animal) => animal.name);
+    return acc;
+  }, {});
+};
+
+const getSorted = (obj, regioes) => {
+  regioes.forEach((regiao) => {
+    obj[regiao].forEach((animal) => {
+      animal[Object.keys(animal)[0]].sort();
+    });
+  });
+};
+
+const filterSex = (object, regioes, options) => {
+  regioes.forEach((regiao) => {
+    object[regiao].forEach((animal) => {
+      const animalSelected = Object.keys(animal)[0];
+      const objectAnimalSelected = data.species.find(({ name }) => name === animalSelected);
+      animal[animalSelected] = objectAnimalSelected.residents.filter(({ sex }) => sex === options.sex).map((animalMap) => animalMap.name);
+      console.log(animal[animalSelected]);
+    });
+  });
+};
+
+const includeNames = (object, options) => {
+  const regioes = Object.keys(object);
+  regioes.forEach((regiao) => {
+    object[regiao] = [];
+    data.species.forEach(({ name, location, residents }) => {
+      if (location === regiao) {
+        object[regiao].push({ [name]: residents.map((resident) => resident.name) });
+      }
+    });
+  });
+  if (options.sex) {
+    filterSex(object, regioes, options);
+  }
+  if (options.sorted) {
+    getSorted(object, regioes);
+  }
+  return object;
+};
+
 function getAnimalMap(options) {
-  // seu código aqui
+  let result = animalTypesFunc();
+  if (!options || !options.includeNames) {
+    return result;
+  }
+  return includeNames(result, options);
 }
+
+console.log(getAnimalMap({ includeNames: true }));
 
 function getSchedule(dayName) {
   const dataHours = data.hours;
@@ -127,7 +179,6 @@ function getEmployeeCoverage(idOrName) {
   if (!idOrName) {
     return data.employees.reduce((acc, { firstName, lastName, responsibleFor }) => {
       const fullName = `${firstName} ${lastName}`;
-      console.log(responsibleFor);
       const AnimalListFound = responsibleFor.map((Animal) => data.species.find(({ id }) => id === Animal).name);
       acc[fullName] = AnimalListFound;
       return acc;
