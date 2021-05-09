@@ -25,11 +25,11 @@ function getEmployeeByName(employeeName) {
   const retorno = employees.filter((value) => value.firstName === employeeName || value.lastName
   === employeeName);
   if (employeeName === undefined) {
-    return {}
+    return {};
   }
   return retorno[0];
 }
-console.log(employees.filter((value) => value.lastName === 'Elser'))
+
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
 }
