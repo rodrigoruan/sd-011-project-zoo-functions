@@ -128,9 +128,7 @@ function getEmployeeCoverage(idOrName) {
   //   let employer = employees.find(({ firstName, lastName, id}) => idOrName === firstName || idOrName === lastName || idOrName === id);
   //   employeesList.push(`${employer.firstName} ${employer.lastName}`);
   // }
-
 }
-
 
 module.exports = {
   calculateEntry,
