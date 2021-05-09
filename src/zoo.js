@@ -65,6 +65,17 @@ function countAnimals(specie) {
 
 function calculateEntry(entrants) {
   // seu código aqui
+  let totalValue = 0;
+  if (entrants) {
+    Object.entries(entrants).forEach((entrant) => {
+      // console.log?(Object.values(data.prices));
+      const actualPrice = Object.entries(data.prices).find((price) => price[0] === entrant[0]);
+      // console.log('atual preço ' + actualPrice[1]);
+      totalValue += (actualPrice[1] * entrant[1]);
+      // console.log(totalValue);
+    });
+  }
+  return totalValue;
 }
 
 function getAnimalMap(options) {
