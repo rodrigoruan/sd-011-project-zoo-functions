@@ -95,7 +95,13 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
+  const adultPrice = ((arrayOfPrices.Adult / 100) * percentage + arrayOfPrices.Adult + 0.001);
+  const childPrice = ((arrayOfPrices.Child / 100) * percentage + arrayOfPrices.Child + 0.001);
+  const seniorPrice = ((arrayOfPrices.Senior / 100) * percentage + arrayOfPrices.Senior + 0.001);
 
+  arrayOfPrices.Adult = Number(adultPrice.toFixed(2));
+  arrayOfPrices.Senior = Number(seniorPrice.toFixed(2));
+  arrayOfPrices.Child = +childPrice.toFixed(2);
 }
 
 function getEmployeeCoverage(idOrName) {
