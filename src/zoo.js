@@ -60,17 +60,33 @@ function countAnimals(species) {
   return species ? objOfSpecies[species] : objOfSpecies;
 }
 
-function calculateEntry(entrants) {
-  return data.species.every((valeu) => valeu.residents.every((valeu) => valeu))
+function calculateEntry(entrants = 0) {
+  return Object.keys(entrants).reduce((acumulador, value) => acumulador + (data.prices[value] * entrants[value]), 0);
 }
-calculateEntry()
 
 function getAnimalMap(options) {
   // seu código aqui
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  let legibeWekken = {
+    Tuesday: 'Open from 8am until 6pm',
+    Wednesday: 'Open from 8am until 6pm',
+    Thursday: 'Open from 10am until 8pm',
+    Friday: 'Open from 10am until 8pm',
+    Saturday: 'Open from 8am until 10pm',
+    Sunday: 'Open from 8am until 8pm',
+    Monday: 'CLOSED',
+  };
+  if (!dayName) {
+    return legibeWekken;
+  }
+  if (dayName === 'Monday') {
+    return { Monday: 'CLOSED' };
+  }
+  const dayOfTheWeek = Object.keys(data.hours).find((nameWeeken) => (nameWeeken === dayName));
+  return {
+    [dayOfTheWeek]: `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close - 12}pm` };
 }
 
 function getOldestFromFirstSpecies(id) {
