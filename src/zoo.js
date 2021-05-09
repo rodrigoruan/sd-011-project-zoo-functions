@@ -31,21 +31,16 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  return {
-    id: personalInfo.id,
-    firstName: personalInfo.firstName,
-    lastName: personalInfo.lastName,
-    managers: associatedWith.managers,
-    responsibleFor: associatedWith.responsibleFor,
-  };
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
   return employe.some((person) => (person.id === id && person.managers.length < 2));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const newEMploye = { id, firstName, lastName, managers, responsibleFor };
+  employe.push(newEMploye);
 }
 
 function countAnimals(species) {
