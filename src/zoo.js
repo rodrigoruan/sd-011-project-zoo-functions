@@ -48,6 +48,7 @@ function countAnimals(species) {
 
 function calculateEntry(entrants) {
   // seu código aqui
+  return (!entrants || Object.keys(entrants).length === 0) ? 0 : Object.entries(entrants).map((num) => num[1] * data.prices[num[0]]).reduce((result, pricePerAge) => result + pricePerAge, 0);
 }
 
 function getAnimalMap(options) {
