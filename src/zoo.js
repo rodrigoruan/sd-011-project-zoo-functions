@@ -115,7 +115,10 @@ function getOldestFromFirstSpecies(animalId) {
 
 function increasePrices(percentage) {
   // seu código aqui
-
+  let { Adult, Child, Senior } = prices;
+  prices.Adult = Math.round((percentage * (Adult / 100) + Adult) * 100) / 100;
+  prices.Child = Math.round((percentage * (Child / 100) + Child) * 100) / 100;
+  prices.Senior = Math.round((percentage * (Senior / 100) + Senior) * 100) / 100;
 }
 
 function getEmployeeCoverage(idOrName) {
