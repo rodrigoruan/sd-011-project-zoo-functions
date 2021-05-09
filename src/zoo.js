@@ -9,7 +9,6 @@ eslint no-unused-vars: [
 ]
 */
 
-const { species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -59,46 +58,50 @@ function calculateEntry(entrants) {
   // seu código aqui
 }
 
-/*
-const expected = {
-  NE: ['lions', 'giraffes'],
-  NW: ['tigers', 'bears', 'elephants'],
-  SE: ['penguins', 'otters'],
-  SW: ['frogs', 'snakes']
-};
- */
-function getAnimalMap(options = {}) {
-  const locations = data.species.reduce((acc, curr) => {
+// Function getAnimalMap
+
+function locationsFunctions() {
+  let locationsFctn = data.species.reduce((acc, curr) => {
     acc[curr.location] = [];
     return acc;
   }, {});
+  return locationsFctn;
+}
+
+function locationKeys(options, locations) {
+  const locationKey = Object.keys(locations);
+  locationKey.forEach((location) => {
+    locations[location] = locations[location].map((specieName) => {
+      const specieObj = data.species.find((spc) => specieName === spc.name);
+      let residents = [];
+
+      if (options.sex) {
+        residents = specieObj.residents.filter((resident) => options.sex === resident.sex);
+      } else {
+        residents = specieObj.residents;
+      }
+
+      const names = residents.map((resident) => resident.name);
+
+      if (options.sorted) {
+        names.sort();
+      }
+
+      return { [specieName]: names };
+    });
+  });
+}
+
+function getAnimalMap(options = {}) {
+  const locations = locationsFunctions();
+  const theOptions = options;
 
   data.species.forEach((specie) => {
     locations[specie.location].push(specie.name);
   });
 
-  if (options.includeNames) {
-    const locationKeys = Object.keys(locations);
-    locationKeys.forEach((location) => {
-      locations[location] = locations[location].map((specieName) => {
-        const specieObj = data.species.find((spc) => specieName === spc.name);
-        let residents = [];
-
-        if (options.sex === 'male' || options.sex === 'female') {
-          residents = specieObj.residents.filter((resident) => options.sex === resident.sex);
-        } else {
-          residents = specieObj.residents;
-        }
-
-        const names = residents.map((resident) => resident.name);
-
-        if (options.sorted) {
-          names.sort();
-        }
-
-        return { [specieName]: names };
-      });
-    });
+  if (theOptions.includeNames) {
+    locationKeys(theOptions, locations);
   }
 
   return locations;
