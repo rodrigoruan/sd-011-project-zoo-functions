@@ -99,7 +99,22 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employee = data.employees.filter((person) => (
+    id.includes(person.id)
+  ))[0];
+
+  const firstSpecieId = employee.responsibleFor[0];
+
+  const residentsFromThisSpecie = data.species.filter((animal) => (
+    firstSpecieId.includes(animal.id)
+  ))[0].residents;
+
+  // Source: https://stackoverflow.com/questions/4020796/finding-the-max-value-of-an-attribute-in-an-array-of-objects
+  const oldestAnimal = residentsFromThisSpecie.reduce((prev, current) => (
+    prev.age > current.age ? prev : current
+  ));
+
+  return Object.values(oldestAnimal);
 }
 
 function increasePrices(percentage) {
