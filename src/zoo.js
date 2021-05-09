@@ -41,22 +41,23 @@ const countAnimals = (specie) =>
     : Object.fromEntries(species.map((animal) => [animal.name, animal.residents.length])));
 
 const calculateEntry = (entrants = 0) =>
-  (Object.entries(entrants).length
-    ? Object.entries(entrants).reduce((acc, curr) => acc + data.prices[curr[0]] * curr[1], 0) : 0);
+  (Object.entries(entrants).length ? Object.entries(entrants).reduce((acc, curr) => acc + data.prices[curr[0]] * curr[1], 0) : 0);
 
+//  args[0] vai ser o residents, args[1] sorted, args[2] sex, o reduce irá concatenar caso o sexo do animal 'current seja igual ao do arg[2]', caso contrário só retorna o array, caso seja passado o sort = args[1] retorna o array ordenado, caso contrario retorna só o array;
 const animalsName = (...args) => {
   const nameOfAnimals = args[0].reduce((acc, curr) => (args[2] && curr.sex !== args[2] ? acc : acc.concat(curr.name)), []);
   return args[1] ? nameOfAnimals.sort() : nameOfAnimals;
 };
 
 const getAnimalMap = (options = {}) => {
+  //  criado um objeto dinamicamente em obj, com key NE, NW, SE, SW. todos com o valor [].
   let obj = {};
   const names = ['NE', 'NW', 'SE', 'SW'];
 
   for (let i of names) {
     obj[i] = [];
   }
-
+  //  caso não seja passado o includeNames, irá retornar o objeto somente com os nomes, caso o includes seja passado irá chamar cada elemento do species e irá puxar para cada um uma chave com o nome do animal e os valores com o array ordenado ou etc...
   species.map((animal) =>
     (options.includeNames ? obj[animal.location].push({ [animal.name]:
        animalsName(animal.residents, options.sorted, options.sex),
