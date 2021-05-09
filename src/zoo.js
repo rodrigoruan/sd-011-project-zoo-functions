@@ -47,9 +47,21 @@ function isManager(id) {
   return id === '0e7b460e-acf4-4e17-bcb3-ee472265db83';
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const newPeople = {
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      managers: managers,
+      responsibleFor: responsibleFor,
+    };
+
+  employees.push(newPeople);
+
+  return employees;
 }
+
+//  console.log(addEmployee(54554, 'tarcisio', 'menezes', 'trybers', 'Jah'));
 
 function countAnimals(animals) {
   // seu código aqui
