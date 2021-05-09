@@ -11,21 +11,22 @@ eslint no-unused-vars: [
 
 const data = require('./data');
 
-function getSpeciesByIds(...ids) {
-  const arrayOfAnimals = data.species;
+const arrayOfAnimals = data.species;
+const arrayOfEmployees = data.employees;
+const pricesObject = data.prices;
+const hoursObject = data.hours;
 
+function getSpeciesByIds(...ids) {
   return ids.length === 0 ? [] : arrayOfAnimals.filter((animal, index) => animal.id === ids[index]);
 }
 
 function getAnimalsOlderThan(animal, age) {
-  const arrayOfAnimals = data.species;
   const animalObject = arrayOfAnimals.find((object) => object.name === animal);
 
   return animalObject.residents.every((element) => element.age > age);
 }
 
 function getEmployeeByName(employeeName) {
-  const arrayOfEmployees = data.employees;
   const findEmployee = () => arrayOfEmployees.find((employer) => employer.firstName === employeeName || employer.lastName === employeeName);
   return employeeName === undefined ? {} : findEmployee();
 }
@@ -41,14 +42,12 @@ function createEmployee({ id, firstName, lastName }, { managers, responsibleFor 
 }
 
 function isManager(id) {
-  const arrayOfEmployees = data.employees;
   const arrayOfManagers = arrayOfEmployees.map((person) => person.managers);
   return arrayOfManagers.some((employer, index) => employer[index] === id);
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  const arrayOfEmployees = data.employees;
-  if (managers === undefined) {
+  if (!managers) {
     managers = [];
   } if (responsibleFor === undefined) {
     responsibleFor = [];
@@ -57,8 +56,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 }
 
 function countAnimals(species) {
-  const arrayOfAnimals = data.species;
-  if (species === undefined) {
+  if (!species) {
     return ({
       lions: arrayOfAnimals.find((animal) => animal.name === 'lions').residents.length,
       tigers: arrayOfAnimals.find((animal) => animal.name === 'tigers').residents.length,
@@ -74,11 +72,10 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  const pricesObject = data.prices;
   let arrayOfSums = [];
-  if (entrants === undefined) {
+  if (!entrants) {
     return 0;
-  } if (entrants.Adult === undefined && entrants.Child === undefined && entrants.Senior === undefined) {
+  } if (!entrants.Adult && !entrants.Child && !entrants.Senior) {
     return 0;
   } arrayOfSums.push((entrants.Adult * pricesObject.Adult));
   arrayOfSums.push(entrants.Child * pricesObject.Child);
@@ -86,12 +83,54 @@ function calculateEntry(entrants) {
   return Math.round((arrayOfSums.filter((element) => element > 0).reduce((a, b) => a + b)) * 100) / 100;
 }
 
+function getAnimalsName() {
+  return ({
+    NE: arrayOfAnimals.filter(((animal) => animal.location === 'NE')).map((animal) => animal.name),
+    NW: arrayOfAnimals.filter(((animal) => animal.location === 'NW')).map((animal) => animal.name),
+    SE: arrayOfAnimals.filter(((animal) => animal.location === 'SE')).map((animal) => animal.name),
+    SW: arrayOfAnimals.filter(((animal) => animal.location === 'SW')).map((animal) => animal.name),
+  });
+}
+
+// to validate
+// const residentsNE = () => {
+//   const NE = arrayOfAnimals.filter(((animal) => animal.location === 'NE'));
+//   const objectNE = NE.reduce((accumulator, curr) => {
+//     accumulator[curr.name] = curr.residents.map((resident) => resident.name);
+//     return accumulator;
+//   },{});
+//   return objectNE;
+// }
+
+// pending
 function getAnimalMap(options) {
-  // seu código aqui
+  if (!options) {
+    return getAnimalsName();
+  } return 'pending';
+}
+
+function convertHour(hour) {
+  return hour >= 12 ? hour - 12 : hour;
+}
+
+function getFullSchedule() {
+  const newObject = {};
+
+  for (let days in hoursObject) {
+    if (days) {
+      newObject[days] = `Open from ${convertHour(hoursObject[days].open)}am until ${convertHour(hoursObject[days].close)}pm`;
+    }
+  }
+  newObject.Monday = 'CLOSED';
+  return newObject;
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const newObject = {};
+  if (!dayName) {
+    return getFullSchedule();
+  } newObject[dayName] = getFullSchedule()[dayName];
+  return newObject;
 }
 
 function getOldestFromFirstSpecies(id) {
