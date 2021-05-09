@@ -113,7 +113,7 @@ function getSchedule(dayName) {
 function getOldestFromFirstSpecies(id) {
   const firstSpecieCaredByEmployee = data.employees.find((employee) => employee.id === id).responsibleFor[0];
   const ListOfResidentsCared = data.species.find((specie) => specie.id.includes(firstSpecieCaredByEmployee)).residents;
-  const ageOfTheOldestResidentCared = ListOfResidentsCared.reduce((oldest, resident) => oldest > resident.age ? oldest : resident.age, 0);
+  const ageOfTheOldestResidentCared = ListOfResidentsCared.reduce((oldest, resident) => (oldest > resident.age ? oldest : resident.age), 0);
   const getTheOldestResidentCared = ListOfResidentsCared.filter((resident) => resident.age === ageOfTheOldestResidentCared);
 
   return Object.values(getTheOldestResidentCared[0]);
