@@ -61,8 +61,113 @@ function calculateEntry(entrants) {
   return sum;
 }
 
+// function returnBySex(options, resident) {
+//   if (options.sex === 'male' && resident.sex === 'male') {
+//     return resident.name;
+//   }
+//   if (options.sex === 'female' && resident.sex === 'female') {
+//     return resident.name;
+//   }
+// }
+
+// function returnSearchNameArray(specieSearch, options) {
+//   let specieNames = [];
+//   specieSearch.residents.forEach((resident) => {
+//     if (options.sex) {
+//       specieNames.push(returnBySex(options, resident));
+//     } else {
+//       specieNames.push(resident.name);
+//     }
+//   });
+//   return specieNames;
+// }
+
+// function createSpecieObject(options, specieSearch) {
+//   if (options && options.includeNames) {
+//     let object = {};
+//     let specieNames = returnSearchNameArray(specieSearch, options);
+//     if (options.sorted) {
+//       specieNames.sort();
+//     }
+//     object[specieSearch.name] = specieNames;
+//     return object;
+//   }
+// }
+
+// Requisito 9
+// function getAnimalMap(options) {
+//   let result = {};
+//   data.species.forEach((specie) => {
+//     result[specie.location] = [];
+//     console.log(specie.location);
+//     let speciesByLocation = data.species.filter((specieSearch) => specieSearch.location === specie.location);
+//     // console.log(speciesByLocation);
+//     speciesByLocation.forEach((specieSearch) => {
+//       console.log(specieSearch);
+//       if (!options || !options.includeNames) {
+//         result[specie.location].push(specieSearch.name);
+//       } else {
+//         result[specie.location].push(createSpecieObject(options, specieSearch));
+//       }
+//     });
+//   });
+//   return result;
+// }
+
+const animalTypesFunc = () => {
+  const regions = data.species.map(({ location }) => location);
+  console.log(regions);
+
+  return regions.reduce((acc, curr, index) => {
+    acc[regions[index]] = data.species.filter(({ location }) => location === curr).map((animal) => animal.name);
+    return acc;
+  }, {});
+};
+
+function filterSex(obj, reg, options) {
+  reg.forEach((regiao) => {
+    obj[regiao].forEach((animal) => {
+      let selectedAnimal = Object.keys(animal)[0];
+      let xablau = data.species.find((specie) => specie.name === selectedAnimal);
+      animal[selectedAnimal] = xablau.residents.filter((resident) => resident.sex === options.sex).map((animalMap) => animalMap.name);
+    });
+  });
+}
+
+function sorted(obj, reg) {
+  reg.forEach((regiao) => {
+    obj[regiao].forEach((animal) => {
+      let selectedAnimal = Object.keys(animal)[0];
+      animal[selectedAnimal].sort();
+    });
+  });
+}
+
+function includeNames(obj, options) {
+  let regioes = Object.keys(obj);
+  regioes.forEach((regiao) => {
+    obj[regiao] = [];
+    data.species.forEach(({ name, location, residents }) => {
+      if (location === regiao) {
+        obj[regiao].push({ [name]: residents.map((resident) => resident.name) });
+      }
+    });
+  });
+  if (options.sex) {
+    filterSex(obj, regioes, options);
+  }
+  if (options.sorted) {
+    sorted(obj, regioes);
+  }
+  return obj;
+}
+
 function getAnimalMap(options) {
-  // seu código aqui
+  let result = animalTypesFunc();
+  if (!options || !options.includeNames) {
+    return result;
+  }
+  return includeNames(result, options);
 }
 
 // Requisito 10
@@ -92,9 +197,6 @@ function getOldestFromFirstSpecies(id) {
   return [name, sex, age];
 }
 
-// console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
-// console.log(getOldestFromFirstSpecies('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
-
 function increasePrices(percentage) {
   const { Adult, Child, Senior } = data.prices;
 
@@ -121,9 +223,6 @@ function getEmployeeCoverage(idOrName) {
   myObj[`${employeeSel.firstName} ${employeeSel.lastName}`] = employeeSel.responsibleFor.map((specie) => data.species.find((spc) => spc.id === specie).name);
   return myObj;
 }
-console.log(getEmployeeCoverage());
-console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
-console.log(getEmployeeCoverage('Stephanie'));
 
 module.exports = {
   calculateEntry,
