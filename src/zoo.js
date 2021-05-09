@@ -133,8 +133,15 @@ function getSchedule(dayName) {
   return newObject;
 }
 
+function getOldestAnimal(animalId) {
+  const sortedResident = arrayOfAnimals.find((animal) => animal.id === animalId).residents.sort((a, b) => b.age - a.age);
+  const { name, sex, age } = sortedResident[0];
+  return [name, sex, age];
+}
+
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const getEmployer = arrayOfEmployees.find((employer) => employer.id === id).responsibleFor;
+  return getOldestAnimal(getEmployer[0]);
 }
 
 function increasePrices(percentage) {
