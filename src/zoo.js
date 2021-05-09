@@ -33,11 +33,20 @@ function isManager(id) {
   return employees.some((pessoa) => pessoa.managers.includes(id))
 }
 
-
+// function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+//  return employees.map(() => {
+//     return {
+//       id,
+//       firstName,
+//       lastName,
+//       managers,
+//       responsibleFor
+//     }
+//   })
+// }
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
-}
-
+  return employees.push(createEmployee(id, firstName, lastName, managers, responsibleFor))
+ }
 function countAnimals(speciess) {
   // seu código aqui
 }
