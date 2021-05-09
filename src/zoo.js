@@ -141,7 +141,9 @@ function getAnimalMap(options = {}) {
         residents.forEach(({ name }) => {
           animalNames.push(name);
         });
-        console.log(animalNames)
+        if (sorted === true) {
+          animalNames.sort();
+        }
         return { [name]: animalNames };
       });
       outputObj[objLocation] = filteredAnimals;
