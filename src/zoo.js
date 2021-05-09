@@ -63,9 +63,9 @@ const getNameAnimal = (residents, sorted, sex) => {
 function getAnimalMap(options = {}) {
   let objectResult = {};
   const arrayLocation = ['NE', 'NW', 'SE', 'SW'];
-  for (let index of arrayLocation) {
-    objectResult[index] = [];
-  }
+  arrayLocation.forEach((valueIndex) => {
+    objectResult[valueIndex] = [];
+  });
   data.species.map((animal) => (options.includeNames ? objectResult[animal.location].push({ [animal.name]: getNameAnimal(animal.residents, options.sorted, options.sex) }) : objectResult[animal.location].push(animal.name)));
   return objectResult;
 }
