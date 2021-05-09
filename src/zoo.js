@@ -28,9 +28,8 @@ function getAnimalsOlderThan(animal, age) {
 function getEmployeeByName(employeeName) {
   // seu código aqui
   if (!employeeName) return {};
-  return employees.find((employee) => Object.values(employee).find((emp) => emp === employeeName));  
+  return employees.find((employee) => Object.values(employee).find((emp) => emp === employeeName));
 }
-console.log(getEmployeeByName('Emery'));
 /* function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
 }
