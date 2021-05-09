@@ -50,12 +50,14 @@ function countAnimals(species) {
   return data.species.find((value) => value.name === species).residents.length;
 }
 
-// Falta retorna o preço total a ser cobrado.
 function calculateEntry(entrants) {
-  if (entrants.length === 0 || Object.values(entrants).length === 0) return 0;
-  // Object.keys(obj).forEach(key => {
-  //  console.log(key, obj[key]);
-  // });
+  if (entrants === undefined || Object.values(entrants).length === 0) return 0;
+  const keys = Object.keys(entrants);
+  const values = Object.values(entrants);
+  return keys.reduce((acc, currentValue, index) => {
+    acc += (data.prices[currentValue] * values[index]);
+    return acc;
+  }, 0);
 }
 
 function getAnimalMap(options) {
