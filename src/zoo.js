@@ -8,10 +8,12 @@ eslint no-unused-vars: [
   }
 ]
 */
+// comando para test : npm test test/addEmployee.test.js
 
 const data = require('./data');
 
 const { species } = data;
+
 function getSpeciesByIds(...ids) {
   // seu código aqui
   // if( ids.length == 0 ) return [];
@@ -20,11 +22,12 @@ function getSpeciesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
+  return species.find(({ name }) => name === animal).residents.every(({age:idade}) => age < idade);
 }
 
-function getEmployeeByName(employeeName) {
+/* function getEmployeeByName(employeeName) {
   // seu código aqui
-}
+}ls
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
@@ -65,19 +68,19 @@ function increasePrices(percentage) {
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
-
+ */
 module.exports = {
-  calculateEntry,
-  getSchedule,
-  countAnimals,
-  getAnimalMap,
+  // calculateEntry,
+  // getSchedule,
+  // countAnimals,
+  // getAnimalMap,
   getSpeciesByIds,
-  getEmployeeByName,
-  getEmployeeCoverage,
-  addEmployee,
-  isManager,
+  // getEmployeeByName,
+  // getEmployeeCoverage,
+  // addEmployee,
+  // isManager,
   getAnimalsOlderThan,
-  getOldestFromFirstSpecies,
-  increasePrices,
-  createEmployee,
+  // getOldestFromFirstSpecies,
+  // increasePrices,
+  // createEmployee,
 };
