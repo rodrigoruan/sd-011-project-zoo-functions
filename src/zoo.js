@@ -43,12 +43,9 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   // Verifica se uma pessoa colaboradora, a partir de seu id, ocupa cargo de gerência.
-  // const managerIdList = data.employees.reduce((acc, employee, index) => acc[index].push(employee.manager), []);
-  // const idIsOfManager = managerIdList.some((managerId) => managerId === id);
   const idIsOfManager = data.employees.some((employee) => employee.managers.includes(id));
   return idIsOfManager;
 }
-console.log(isManager('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1'));
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // Adiciona uma nova pessoa colaboradora ao array employees, presente no arquivo data.js.
@@ -56,17 +53,16 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   const lastEmployee = data.employees[data.employees.length - 1];
   return lastEmployee;
 }
-// console.log(addEmployee('39800c14-4b76-454a-858d-2f8d168146a7', 'John', 'Doe'));
 
 function countAnimals(species) {
   // Contabiliza a quantidade de animais.
-  // data.species.map((specie) => ({ specie.name: specie.resident.length})));
-  // if (!species) {
-  //   const specieQuantityList = data.species.reduce((acc, specie) => { acc[`${specie.name}`] = specie.residents.length }, {});
-  //   return specieQuantityList;
-  // }
-  // const specieQuantity = data.species.find((specie) => specie.name === species).residents.length;
-  // return specieQuantity;
+//   data.species.map((specie) => ({ specie.name: specie.resident.length})));
+//   if (!species) {
+//     const specieQuantityList = data.species.reduce((acc, specie) => { acc[`${specie.name}`] = specie.residents.length }, {});
+//     return specieQuantityList;
+//   }
+//   const specieQuantity = data.species.find((specie) => specie.name === species).residents.length;
+//   return specieQuantity;
 }
 // console.log(countAnimals('lions'));
 
@@ -102,24 +98,26 @@ function getAnimalMap({ includeNames, sorted, sex }) {
 // console.log(data.species.filter((specie) => specie.location === 'NE'));
 
 function getSchedule(dayName) {
-  if (!dayName) {
-    // const entriesMap = Object.entries(data.hours).map((day, index) => ({ [day[index]]: `Open from ${[day[index + 1]].{open }}am until ${[day[index + 1].close]}pm` }));
-    // const entriesReduce = Object.entries(data.hours).reduce((acc, day, index) => ({ acc[day[index]] = `Open from ${[day[index + 1]].open}am until ${[day[index + 1]].close}pm` }), {});
-    // // const daysOfWeek = Object.keys(data.hours);
-    // // const openAndCloseSchedule = Object.values(data.hours).map((day) => `Open from ${day.open}am until ${day.close}pm`);
-    // return entriesReduce;
-    // const weekDaysAndHours = Object.entries(data.hours);
+  // if (!dayName) {
+  // const entriesMap = Object.entries(data.hours).map((day, index) => ({ [day[index]]: `Open from ${[day[index + 1]].{open }}am until ${[day[index + 1].close]}pm` }));
+  // const entriesReduce = Object.entries(data.hours).reduce((acc, day, index) => ({ acc[day[index]] = `Open from ${[day[index + 1]].open}am until ${[day[index + 1]].close}pm` }), {});
+  // // const daysOfWeek = Object.keys(data.hours);
+  // // const openAndCloseSchedule = Object.values(data.hours).map((day) => `Open from ${day.open}am until ${day.close}pm`);
+  // return entriesReduce;
+  // const weekDaysAndHours = Object.entries(data.hours);
   // return weekDaysAndHours.map((day) => {{ ola: `Open from ${day[1].open}am until ${day[1].close}pm`, }});
-  }
+  // }
 }
 // console.log(getSchedule());
 
 function getOldestFromFirstSpecies(id) {
-  // const getAnimalIdbyEmployee = data.employees.find((employee) => employee.id === id).responsibleFor[0];
-  // const oldestAnimalAge = data.species.find((specie) => specie.id === getAnimalIdbyEmployee).residents.reduce((acc, resident) => acc < resident.age ? acc = resident.age : acc, 0);
-  // const oldestResident = data.species.find((specie) => specie.id === getAnimalIdbyEmployee).residents.filter((resident) => resident.age === oldestAnimalAge);
-  // return Object.values(oldestResident[0]);
+  const firstSpecieCaredByEmployee = data.employees.find((employee) => employee.id === id).responsibleFor[0];
+  const ListOfResidentsCared = data.species.find((specie) => specie.id.includes(firstSpecieCaredByEmployee)).residents;
+  const ageOfTheOldestResidentCared = ListOfResidentsCared.reduce((oldest, resident) => oldest > resident.age ? oldest : resident.age, 0);
+  const getTheOldestResidentCared = ListOfResidentsCared.filter((resident) => resident.age === ageOfTheOldestResidentCared);
+  return Object.values(getTheOldestResidentCared[0]);
 }
+console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function increasePrices(percentage) {
   // let { Adult: adult, Senior: senior, Child: child } = data.prices;
@@ -155,6 +153,7 @@ function getEmployeeCoverage(idOrName) {
 // }
 // console.log(getEmployeeCoverage());
 }
+
 module.exports = {
   calculateEntry,
   getSchedule,
