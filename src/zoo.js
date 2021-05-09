@@ -66,9 +66,54 @@ function calculateEntry(entrants) {
   return Object.keys(entrants).reduce((acc, curr) => acc + (data.prices[curr] * entrants[curr]), 0);
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+function getAnimalMap(options = {}) {
+  const currentOptions = options;
+
+  const animalLocation = { NE: [], NW: [], SE: [], SW: [] };
+
+  Object.keys(animalLocation).forEach((directions) => {
+    animalLocation[directions] = data.species.filter((animals) => animals.location === directions);
+
+    if (currentOptions.includeNames === undefined) {
+      animalLocation[directions] = animalLocation[directions].map((value) => value.name);
+    }
+  });
+
+  Object.keys(animalLocation).forEach((directions) => {
+    if (currentOptions.includeNames === true && currentOptions.sorted === undefined && currentOptions.sex === undefined) {
+      let animalNames = [];
+      animalLocation[directions].map((value) => animalNames.push({ [value.name]: Object.values(value.residents).map((names) => names.name) }));
+      animalLocation[directions] = animalNames;
+    }
+  });
+
+  Object.keys(animalLocation).forEach((directions) => {
+    if (currentOptions.includeNames === true && currentOptions.sorted === true && currentOptions.sex === undefined) {
+      let animalNames = [];
+      animalLocation[directions].map((value) => animalNames.push({ [value.name]: Object.values(value.residents).map((names) => names.name).sort() }));
+      animalLocation[directions] = animalNames;
+    }
+  });
+
+  Object.keys(animalLocation).forEach((directions) => {
+    if (currentOptions.includeNames === true && currentOptions.sorted === undefined && currentOptions.sex === 'female') {
+      let animalNames = [];
+      animalLocation[directions].map((value) => animalNames.push({ [value.name]: Object.values(value.residents).filter((sex) => sex.sex === 'female').map((name) => name.name) }));
+      animalLocation[directions] = animalNames;
+    }
+  });
+  Object.keys(animalLocation).forEach((directions) => {
+    if (currentOptions.includeNames === true && currentOptions.sorted === true && currentOptions.sex === 'female') {
+      let animalNames = [];
+      animalLocation[directions].map((value) => animalNames.push({ [value.name]: Object.values(value.residents).filter((sex) => sex.sex === 'female').map((name) => name.name).sort() }));
+      animalLocation[directions] = animalNames;
+    }
+  });
+
+  return animalLocation;
 }
+
+console.log(getAnimalMap(true));
 
 function getSchedule(dayName) {
   let obj = {};
