@@ -41,13 +41,7 @@ function isManager(id) {
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  return data.employees.push({
-    id,
-    firstName,
-    lastName,
-    managers,
-    responsibleFor,
-  });
+  return data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(species) {
@@ -65,7 +59,6 @@ function calculateEntry(entrants = 0) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
 }
 
 function getSchedule(dayName) {
@@ -90,7 +83,15 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  // const worker = data.employees.find((callback) => callback.id === id);
+  // const animalSeacrh = data.species.find((callback) => callback.id === worker.responsibleFor[0]);
+  // const findOldestAnimal = animalSeacrh.residents.filter((callback) => callback.age);
+  // return findOldestAnimal
+  // Sala A me ajudou
+  const animalId = data.employees.find((callback) => callback.id === id).responsibleFor[0];
+  const residentListanimalId = data.species.filter((callback) => callback.id === animalId)[0].residents;
+  const oldAnimal = residentListanimalId.sort((a, b) => b.age - a.age)[0];
+  return Object.values(oldAnimal);
 }
 
 function increasePrices(percentage) {
