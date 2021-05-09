@@ -54,12 +54,24 @@ function countAnimals(species) {
 }
 // A segunda parte da função countAnimal foi baseada no exemplo do site "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce"
 
+/*
+ prices: {
+    Adult: 49.99,
+    Senior: 24.99,
+    Child: 20.99,
+  }
+*/
+
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants) {
+    let { Adult = 0, Senior = 0, Child = 0 } = entrants;
+    return (Adult * 49.99 + Senior * 24.99 + Child * 20.99);
+  }
+
+  return 0;
 }
 
-// Function getAnimalMap
-
+/* FUNCTION GET ANIMAL MAP */
 function locationsFunctions() {
   let locationsFctn = data.species.reduce((acc, curr) => {
     acc[curr.location] = [];
