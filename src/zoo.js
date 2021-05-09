@@ -9,8 +9,9 @@ eslint no-unused-vars: [
 ]
 */
 
+const { initial } = require('lodash');
 const data = require('./data');
-const { species, employees } = require('./data');
+const { species, employees, prices } = require('./data');
 
 function getSpeciesByIds(...ids) {
   if (ids === undefined) return [];
@@ -19,7 +20,6 @@ function getSpeciesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, age) {
   const ageAnimals = species.find((bicho) => bicho.name === animal);
-  if (ageAnimals === age) return true;
   return ageAnimals.residents.every((num) => num.age >= age);
 }
 
@@ -58,10 +58,12 @@ function countAnimals(specie) {
     return acc;
   }, {});
 }
-console.log(countAnimals('lions'));
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === undefined || entrants === {}) return {};
+  return Object.keys(entrants).reduce(((total, initialValue) =>
+    total + (entrants[initialValue] * prices[initialValue])
+  ), 0);
 }
 
 function getAnimalMap(options) {
