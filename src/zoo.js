@@ -30,11 +30,17 @@ function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
   return employees.find((employee) => Object.values(employee).find((emp) => emp === employeeName));
 }
-/* function createEmployee(personalInfo, associatedWith) {
+
+ function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
+  return {
+    ...personalInfo,
+    ...associatedWith,
+  }
+
 }
 
-function isManager(id) {
+/*function isManager(id) {
   // seu código aqui
 }
 
@@ -83,5 +89,5 @@ module.exports = {
   getAnimalsOlderThan,
   // getOldestFromFirstSpecies,
   // increasePrices,
-  // createEmployee,
+  createEmployee,
 };
