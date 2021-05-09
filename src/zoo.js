@@ -56,7 +56,7 @@ function countAnimals(animal) {
 }
 
 function calculateEntry(entrants) {
-  if (typeof entrants === 'undefined') return 0;
+  if (!entrants) return 0;
   if (Object.keys(entrants).length === 0) return 0;
   return Object.entries(entrants).reduce((acc, [key, value]) => acc + prices[key] * value, 0);
 }
