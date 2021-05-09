@@ -66,7 +66,6 @@ function countAnimals(species) {
 
 function calculateEntry(entrants) {
   // seu código aqui
-  // entrants[key] * prices[key]
   if (!entrants || Object.keys(entrants).length === 0) return 0;
   const people = Object.keys(entrants);
   return people.reduce((acc, keys) => acc + (prices[keys] * entrants[keys]), 0);
@@ -86,7 +85,14 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   // seu código aqui
+  const numOfPrices = Object.keys(prices);
+  numOfPrices.forEach((price) => {
+    prices[price] = Math.round(((prices[price] * ((percentage / 100) + 1)) * 100)) / 100;
+  });
+  return prices;
 }
+
+// console.log(increasePrices(50));
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
