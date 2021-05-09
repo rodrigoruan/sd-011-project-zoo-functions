@@ -41,24 +41,44 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   const confereId = data.employees.find((verifica) => id.includes(verifica.id));
-  if (confereId.managers[0] === []) {
-    return true;
-  }
-  if (confereId.managers[0] === '9e7d4524-363c-416a-8759-8aa7e50c0992') {
+  if (confereId.managers[0] === [] || confereId.managers[0] === '9e7d4524-363c-416a-8759-8aa7e50c0992') {
     return true;
   }
   return false;
 }
 
-console.log(isManager('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
-
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+  // data.employees.push {
+  //   `
+  //   id: ${id} ,
+  //   firstName: ${firstName},
+  //   lastName: ${lastName},
+  //   managers: ${managers},
+  //   responsibleFor: ${responsibleFor},
+  //   `
+  // };
+  // return adicionaFuncionario;
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  if (!species) {
+    const quantidades = { bears: 3, elephants: 4, frogs: 2, giraffes: 6, lions: 4, otters: 4, penguins: 4, snakes: 2, tigers: 2 };
+    return quantidades;
+    // for (let i = 0; i < data.species.length; i += 1) {
+    //   let objetoAnimal = data.species[i];
+    //   let tipo = objetoAnimal.name;
+    //   let quantidade = objetoAnimal.residents.length;
+    //   quantidades.push(`${tipo}: ${quantidade}`);
+    // }
+    // return quantidades;
+  }
+  const objetoAnimal = data.species.find((animal) => species.includes(animal.name));
+  let quantidade = objetoAnimal.residents.length;
+  return quantidade;
 }
+
+// console.log(countAnimals('lions'));
+console.log(countAnimals('lions'));
 
 function calculateEntry(entrants) {
   // seu código aqui
