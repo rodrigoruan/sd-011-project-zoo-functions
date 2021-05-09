@@ -102,6 +102,7 @@ function getAnimalMap(options = {}) {
       animalLocation[directions] = animalNames;
     }
   });
+
   Object.keys(animalLocation).forEach((directions) => {
     if (currentOptions.includeNames === true && currentOptions.sorted === true && currentOptions.sex === 'female') {
       let animalNames = [];
@@ -110,10 +111,24 @@ function getAnimalMap(options = {}) {
     }
   });
 
+  Object.keys(animalLocation).forEach((directions) => {
+    if (currentOptions.includeNames === true && currentOptions.sorted === undefined && currentOptions.sex === 'male') {
+      let animalNames = [];
+      animalLocation[directions].map((value) => animalNames.push({ [value.name]: Object.values(value.residents).filter((sex) => sex.sex === 'male').map((name) => name.name) }));
+      animalLocation[directions] = animalNames;
+    }
+  });
+
+  Object.keys(animalLocation).forEach((directions) => {
+    if (currentOptions.includeNames === true && currentOptions.sorted === true && currentOptions.sex === 'male') {
+      let animalNames = [];
+      animalLocation[directions].map((value) => animalNames.push({ [value.name]: Object.values(value.residents).filter((sex) => sex.sex === 'male').map((name) => name.name).sort() }));
+      animalLocation[directions] = animalNames;
+    }
+  });
+
   return animalLocation;
 }
-
-console.log(getAnimalMap(true));
 
 function getSchedule(dayName) {
   let obj = {};
