@@ -86,7 +86,22 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  // Parte responsável por capturar o ID do primeiro animal, na qual a pessoa funcionárioa abaixo é responsável.
+  const animalId = Object.entries(data.employees).find((person) => person[1].id === id)[1].responsibleFor[0];
+
+  // Retorna a maior idade do animal requisitado!
+  const oldAnimal = data.species.find((animal) => animal.id === animalId).residents.reduce((acc, curr) => Math.max(acc, curr.age), 0);
+
+  const result = data.species.find((animal) => animalId === animal.id).residents.reduce((acc, curr) => {
+    if (curr.age === oldAnimal) {
+      acc.push(curr.name);
+      acc.push(curr.sex);
+      acc.push(curr.age);
+    }
+    return acc;
+  }, []);
+
+  return result;
 }
 
 function increasePrices(percentage) {
