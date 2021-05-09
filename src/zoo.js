@@ -90,25 +90,6 @@ function calculateEntry(entrants) {
   return ((Adult * 49.99) + (Child * 20.99) + (Senior * 24.99));
 }
 
-// function getAnimalMap(options = {}) {
-//   const { species } = data;
-//   const output = {}
-//   const locations = ['NE','NW', 'SE', 'SW']
-//   const filteredAnimals = () => {
-//     const filteredLocation = species.filter(({ location }) => {
-//     return output[location] === location;
-//   })
-//   }
-//   if (options.length = 0) {
-//     // return species.map((animal) => {
-//     //   return output[animal.location] = species.filter(({ location }) => location === output[animal.location])
-//     // })
-//     location.forEach((locationFiltered) => {
-//       output.locationFiltered = species.filter(({ location }) => location === output[locationFiltered])
-//     })
-//   }
-// }
-
 function returnAllAnimals() {
   const { species } = data;
   const outputObj = {
@@ -138,9 +119,20 @@ function getAnimalMap(options = {}) {
     Object.keys(outputObj).forEach((objLocation) => {
       const filteredAnimals = species.filter(({ location }) => objLocation === location).map(({ name, residents }) => {
         let animalNames = [];
-        residents.forEach(({ name }) => {
-          animalNames.push(name);
-        });
+        //
+        if (sex) {
+          // criar const filteredGender e fazer forEach a partir dela
+          const filteredByGender = residents.filter((resident) => resident.sex === sex)
+            .forEach(({ name }) => {
+              animalNames.push(name);
+            });
+        } else {
+          residents.forEach(({ name }) => {
+            animalNames.push(name);
+          });
+        }
+        //
+        //
         if (sorted === true) {
           animalNames.sort();
         }
@@ -153,16 +145,8 @@ function getAnimalMap(options = {}) {
   return returnAllAnimals();
 }
 
-console.log(getAnimalMap({ includeNames: true }));
 /// /////
-// const { species } = data;
-// const test = () => {
-//   const filteredLocation = species.filter(({ location }) => {
-//     return location === 'NE';
-//   })
-//   return filteredLocation.map((animals) => animals.name)
-// }
-// console.log(test())
+console.log(getAnimalMap({ includeNames: true, sex: 'male' }));
 /// //////
 
 function getSchedule(dayName) {
