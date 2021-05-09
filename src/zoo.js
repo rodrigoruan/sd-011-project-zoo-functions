@@ -12,10 +12,10 @@ const data = require('./data');
 
 function getSpeciesByIds(ids) {
   // seu código
-  const especies = ((id) => (data));
+  const especies = data.species;
+  especies.forEach((item) => item.id);
   return especies;
 }
-
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
 }
