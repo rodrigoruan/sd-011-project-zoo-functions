@@ -33,16 +33,12 @@ function getEmployeeByName(employeeName) {
   }
   const employeeData = data.employees.filter((employee) => employeeName === employee.firstName || employeeName === employee.lastName);
   return employeeData[0];
-  // return data.employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
   // Capaz de criar um objeto equivalente ao de uma pessoa colaboradora, a partir de informações recebidas nos parâmetros.
-  // const ({ id, firstName, lastName } = personalInfo);
-  // const employeePersonalInfo = data.employees.map((personalInfo) => ({ id: personalInfo.id, firstName: personalInfo.firstName, lastName: personalInfo.lastName }));
-  // const employeeAssociatedWith = data.employees.map((associatedWith) => ({ managers: associatedWith.managers, responsibleFor: associatedWith.responsibleFor }));
-
-  // return employeePersonalInfo;
+  const employeeDataFile = Object.assign(personalInfo, associatedWith);
+  return employeeDataFile;
 }
 
 function isManager(id) {
