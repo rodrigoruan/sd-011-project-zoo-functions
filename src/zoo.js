@@ -44,9 +44,13 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 function countAnimals(species) {
   // seu código aqui
   // https://stackoverflow.com/questions/56195959/return-object-from-map-function-not-array (O QUE ESTE ,acc depois do y.length faz???)
-  const allAnimals = data.species.reduce((acc, { name: x, residents: y }) =>  (acc[x] = y.length, acc) , {});
-  return species ? data.species.find((element) => element.name === species).residents.length : allAnimals;
+  // const allAnimals = data.species.reduce((acc, { name: x, residents: y }) => (acc[x] = y.length, acc), {});
+  let arrayAnimals = {};
+  const allAnimals = data.species.forEach((element) => { arrayAnimals[element.name] = element.residents.length; });
+  return species ? data.species.find((element) => element.name === species).residents.length : arrayAnimals;
 }
+
+console.log(countAnimals());
 
 function calculateEntry(entrants) {
   // seu código aqui
