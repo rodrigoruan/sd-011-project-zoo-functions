@@ -12,12 +12,12 @@ eslint no-unused-vars: [
 const data = require('./data');
 
 function getSpeciesByIds(ids) {
-  const newArray = []
-  for (const index = 0; index <= ids.length; index += 1 ) {
-    const filtered = data.species.filter(animal => animal.id === ids[index]);
+  const newArray = [];
+  for (let index = 0; index <= ids.length; index += 1) {
+    const filtered = data.species.filter((listedAnimal) => listedAnimal.id === ids[index]);
     newArray.concat(filtered);
   }
-  return newArray
+  return newArray;
   // seu código aqui
 }
 
