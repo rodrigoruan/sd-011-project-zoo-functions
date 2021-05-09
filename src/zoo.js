@@ -37,8 +37,8 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // const ({ id, firstName, lastName } = personalInfo);
   // Capaz de criar um objeto equivalente ao de uma pessoa colaboradora, a partir de informações recebidas nos parâmetros.
+  // const ({ id, firstName, lastName } = personalInfo);
   // const employeePersonalInfo = data.employees.map((personalInfo) => ({ id: personalInfo.id, firstName: personalInfo.firstName, lastName: personalInfo.lastName }));
   // const employeeAssociatedWith = data.employees.map((associatedWith) => ({ managers: associatedWith.managers, responsibleFor: associatedWith.responsibleFor }));
 
@@ -66,7 +66,6 @@ function calculateEntry(entrants) {
   // if (!entrants || entrants === {}) return 0;
   // const prices = {adult: 49.99, child: 20.99, senior: 24.99};
   // entrants.array.forEach(element => {
-  
   // return totalPaid;
 }
 
@@ -103,30 +102,31 @@ function getSchedule(dayName) {
 // console.log(getSchedule());
 
 function getOldestFromFirstSpecies(id) {
-  const getAnimalIdbyEmployee = data.employees.find((employee) => employee.id === id).responsibleFor[0];
-  const oldestAnimalAge = data.species.find((specie) => specie.id === getAnimalIdbyEmployee).residents.reduce((acc, resident) => acc < resident.age ? acc = resident.age : acc, 0);
-  const oldestResident = data.species.find((specie) => specie.id === getAnimalIdbyEmployee).residents.filter((resident) => resident.age === oldestAnimalAge);
-  return Object.values(oldestResident[0]);
+  // const getAnimalIdbyEmployee = data.employees.find((employee) => employee.id === id).responsibleFor[0];
+  // const oldestAnimalAge = data.species.find((specie) => specie.id === getAnimalIdbyEmployee).residents.reduce((acc, resident) => acc < resident.age ? acc = resident.age : acc, 0);
+  // const oldestResident = data.species.find((specie) => specie.id === getAnimalIdbyEmployee).residents.filter((resident) => resident.age === oldestAnimalAge);
+  // return Object.values(oldestResident[0]);
 }
 
 function increasePrices(percentage) {
-  let { Adult: adult, Senior: senior, Child: child } = data.prices;
+  // let { Adult: adult, Senior: senior, Child: child } = data.prices;
 
-  adult *= 1 + percentage / 100;
-  senior *= 1 + percentage / 100;
-  child *= 1 + percentage / 100;
+  // adult *= 1 + percentage / 100;
+  // senior *= 1 + percentage / 100;
+  // child *= 1 + percentage / 100;
 
-  let newPriceList = {};
-  newPriceList.Adult = adult.toFixed(2);
-  newPriceList.Senior = senior.toFixed(2);
-  newPriceList.Child = child.toFixed(2);
-  return newPriceList;
+  // let newPriceList = { Adult: 0, Senior: 0, Child: 0 };
+  // newPriceList.Adult = parseFloat(adult.toFixed(2));
+  // newPriceList.Senior = parseFLoat(senior.toFixed(2));
+  // newPriceList.Child = parseFLoat(child.toFixed(2));
+  // return newPriceList;
 }
+// console.log(increasePrices(50));
 
 function getEmployeeCoverage(idOrName) {
   // if (!idOrName) {
-    // const employeeData = Object.values(data.employees);
-    // const specieSupervisioned = data.species.find((animal) => animal.id === employee.responsibleFor[index]);
+  // const employeeData = Object.values(data.employees);
+  // const specieSupervisioned = data.species.find((animal) => animal.id === employee.responsibleFor[index]);
 //     for (let specieSupervisioned in data.employees.responsibleFor) {
 //       if (specieSupervisioned) {
 //         const specieSupervisionedName = data.species.find((specie) => specie.id === specieSupervisioned).name;
@@ -137,7 +137,7 @@ function getEmployeeCoverage(idOrName) {
 //             acc[`${employee.firstName} ${employee.lastName}`] = specieSupervisionedName;
 //             return acc;
 //           }, '');
-//       } 
+//       }
 //     return employeeReport;
 // }
 // console.log(getEmployeeCoverage());
