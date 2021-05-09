@@ -55,7 +55,14 @@ function countAnimals(specieName) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  let total = 0;
+
+  for (let entrantAge in entrants) {
+    if (entrantAge === 'Adult' || entrantAge === 'Child' || entrantAge === 'Senior') {
+      total += data.prices[entrantAge] * entrants[entrantAge];
+    }
+  }
+  return total;
 }
 
 function getAnimalMap(options) {
