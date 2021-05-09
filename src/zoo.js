@@ -12,7 +12,7 @@ eslint no-unused-vars: [
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  const array = ids.map((itens) => data.species.find((dados) => dados.id === itens));
+  const array = ids.map((items) => data.species.find((value) => value.id === items));
   return array;
 }
 
