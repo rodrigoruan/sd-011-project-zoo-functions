@@ -111,8 +111,6 @@ function getSchedule(dayName) {
   days.Monday = 'CLOSED';
   return days;
 }
-console.log(getSchedule('Tuesday'));
-// 'Open from 8am until 6pm'
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
