@@ -50,10 +50,9 @@ function countAnimals(species) {
   return species ? data.species.find((element) => element.name === species).residents.length : arrayAnimals;
 }
 
-console.log(countAnimals());
-
 function calculateEntry(entrants) {
   // seu código aqui
+  return entrants ? Object.keys(entrants).reduce((acc, curr) => acc + (data.prices[curr] * entrants[curr]), 0) : 0;
 }
 
 function getAnimalMap(options) {
