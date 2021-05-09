@@ -16,10 +16,12 @@ function getSpeciesByIds(...ids) {
   if (ids === undefined) return [];
   return species.filter((specie) =>(ids.includes(specie.id)));
 }
-console.log(getSpeciesByIds());
+
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  return species.find((specie) => (
+    specie.name === animal
+  )).residents.every((specie) => specie.age >= age)
 }
 
 function getEmployeeByName(employeeName) {
