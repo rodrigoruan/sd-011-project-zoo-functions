@@ -8,7 +8,7 @@ eslint no-unused-vars: [
   }
 ]
 */
-// comando para test : npm test test/addEmployee.test.jsnpm 
+// comando para test : npm test test/addEmployee.test.jsnpm
 
 const data = require('./data');
 
