@@ -43,9 +43,9 @@ function isManager(id) {
   return (employer.firstName === 'Stephanie' || employer.firstName === 'Ola' || employer.firstName === 'Burl');
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // seu código aqui
-
+  return employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(animal) {
