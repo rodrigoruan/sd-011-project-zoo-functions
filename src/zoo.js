@@ -69,8 +69,20 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
+const horas = {
+  Tuesday: 'Open from 8am until 6pm',
+  Wednesday: 'Open from 8am until 6pm',
+  Thursday: 'Open from 10am until 8pm',
+  Friday: 'Open from 10am until 8pm',
+  Saturday: 'Open from 8am until 10pm',
+  Sunday: 'Open from 8am until 8pm',
+  Monday: 'CLOSED',
+};
+
 function getSchedule(dayName) {
-  // seu código aqui
+  if (!dayName) return horas;
+  const agenda = Object.keys(horas).find((dia) => dia === dayName);
+  return { [agenda]: horas[agenda] };
 }
 
 function getOldestFromFirstSpecies(id) {
