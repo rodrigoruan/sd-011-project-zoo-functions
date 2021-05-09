@@ -106,41 +106,43 @@ function returnAllAnimals() {
   return outputObj;
 }
 
+function returnAnimalsBySexAndSort(sorted, sex) {
+  const { species } = data;
+  const outputObj = {
+    NE: [],
+    NW: [],
+    SE: [],
+    SW: [],
+  };
+  Object.keys(outputObj).forEach((objLocation) => {
+    const filteredAnimals = species.filter(({ location }) => objLocation === location).map(({ name, residents }) => {
+      let animalNames = [];
+      //
+      if (sex) {
+        // criar const filteredGender e fazer forEach a partir dela
+        const filteredByGender = residents.filter((resident) => resident.sex === sex)
+          .forEach((animalByGender) => {
+            animalNames.push(animalByGender.name);
+          });
+      } else {
+        residents.forEach((resident) => {
+          animalNames.push(resident.name);
+        });
+      }
+      if (sorted === true) {
+        animalNames.sort();
+      }
+      return { [name]: animalNames };
+    });
+    outputObj[objLocation] = filteredAnimals;
+  });
+  return outputObj;
+}
+
 function getAnimalMap(options = {}) {
   const { includeNames, sorted, sex } = options;
   if (includeNames === true) {
-    const { species } = data;
-    const outputObj = {
-      NE: [],
-      NW: [],
-      SE: [],
-      SW: [],
-    };
-    Object.keys(outputObj).forEach((objLocation) => {
-      const filteredAnimals = species.filter(({ location }) => objLocation === location).map(({ name, residents }) => {
-        let animalNames = [];
-        //
-        if (sex) {
-          // criar const filteredGender e fazer forEach a partir dela
-          const filteredByGender = residents.filter((resident) => resident.sex === sex)
-            .forEach(({ name }) => {
-              animalNames.push(name);
-            });
-        } else {
-          residents.forEach(({ name }) => {
-            animalNames.push(name);
-          });
-        }
-        //
-        //
-        if (sorted === true) {
-          animalNames.sort();
-        }
-        return { [name]: animalNames };
-      });
-      outputObj[objLocation] = filteredAnimals;
-    });
-    return outputObj;
+    return returnAnimalsBySexAndSort(sorted, sex);
   }
   return returnAllAnimals();
 }
