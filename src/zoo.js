@@ -28,9 +28,14 @@ const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []
   data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 };
 
-function countAnimals(species) {
-  // seu código aqui
-}
+const countAnimals = (species) => {
+  const animals = data.species.reduce(((acc, current) => {
+    acc[current.name] = current.residents.length;
+    return acc;
+  }), {});
+  console.log(animals);
+  return species ? animals[species] : animals;
+};
 
 function calculateEntry(entrants) {
   // seu código aqui
