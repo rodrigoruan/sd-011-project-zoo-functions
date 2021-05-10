@@ -13,8 +13,8 @@ const data = require('./data');
 // console.log(species.length);
 const { species: animalNames } = require('./data');
 // console.log(...animalNames);
-const { employees: employeesId } = require('./data');
-// console.log(...employeesId);
+const { employees } = require('./data');
+// console.log(employees);
 const { hours } = require('./data');
 // console.log(hours);
 const { prices } = require('./data');
@@ -24,15 +24,26 @@ const { prices } = require('./data');
 // Caso receba nenhum parâmetro, necessário retornar um array vazio
 // Ao receber como parâmetro um único id, retorna um array com a espécie referente à esse id
 // Ao receber mais de um id, retorna um array com as espécies referentes aos ids
-const getSpeciesByIds = (...ids) => data.species.filter(({ id }) => ids.find((animalId) => animalId === id));
+const getSpeciesByIds = (...ids) => ids.map((id) => data.species.find(({ id: animalId }) => animalId === id));
 
+// Esta função, a partir do nome de uma espécie e uma idade mínima, verifica se todos os animais daquela espécie possuem a idade mínima especificada
 // Ao passar o nome de uma espécie e uma idade, testa se todos os animais desta espécie possuem a idade mínima especificada (>=)
 // retorna um valor booleano
 const getAnimalsOlderThan = (animal, age) => animalNames.find((animals) => animals.name === animal).residents.every((resident) => resident.age >= age);
 
+// Esta função é responsável pela busca das pessoas colaboradoras através do primeiro ou do último nome delas
+// Sem parâmetros, retorna um objeto vazio
+// Quando provido o primeiro nome do funcionário, retorna o objeto do funcionário
+// Quando provido o último nome do funcionário, retorna o objeto do funcionário
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (!employeeName) {
+    return {};
+  }
+  return employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
 }
+console.log(getEmployeeByName(data.employees[0].firstName));
+console.log(getEmployeeByName());
+console.log(getEmployeeByName());
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
