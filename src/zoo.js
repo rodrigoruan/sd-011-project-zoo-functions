@@ -10,10 +10,10 @@ eslint no-unused-vars: [
 */
 const util = require('util');
 const data = require('./data');
-const { species } = require('./data');
+//const { species } = require('./data');
 
 function getSpeciesByIds(...ids) {
-  return species.filter((element) => ids.includes(element.id));  
+  return species.filter((element) => ids.includes(element.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
