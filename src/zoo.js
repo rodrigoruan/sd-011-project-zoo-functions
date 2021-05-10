@@ -8,16 +8,15 @@ eslint no-unused-vars: [
   }
 ]
 */
-
-const { animals } = require('./data');
+const { species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  return animals.filter(({ id }) => ids.includes(id));
+  return species.filter(({ id }) => ids.includes(id));
 }
 
 function getAnimalsOlderThan(animalSelect, ageSelect) {
-  return animals
+  return species
     .find(({ name }) => name === animalSelect)
     .residents
     .every(({ age }) => age >= ageSelect);
@@ -49,14 +48,14 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   });
 }
 
-function countAnimals(species) {
-  if (species === undefined) {
-    return animals.reduce((acc, curr) => {
+function countAnimals(specie) {
+  if (specie === undefined) {
+    return species.reduce((acc, curr) => {
       acc[curr.name] = curr.residents.length;
       return acc;
     }, {});
   }
-  return data.animals.find(({ name }) => name === species).residents.length;
+  return data.species.find(({ name }) => name === specie).residents.length;
 }
 
 function calculateEntry(entrants) {
@@ -94,7 +93,7 @@ function getSchedule(dayName) {
 function getOldestFromFirstSpecies(id) {
   const { employees } = data;
   const animalId = employees.find((employee) => employee.id === id).responsibleFor[0];
-  const { residents } = animals.find((animal) => animal.id === animalId);
+  const { residents } = species.find((animal) => animal.id === animalId);
   const request = Object.values(residents.sort((a, b) => b.age - a.age)[0]);
   return request;
 }
