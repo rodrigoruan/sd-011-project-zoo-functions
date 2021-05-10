@@ -54,7 +54,14 @@ function countAnimals(name) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === undefined || Object.values(entrants).length === 0) {
+    return 0;
+  }
+  let value = 0;
+  for (let key of Object.keys(entrants)) {
+    value += data.prices[key] * entrants[key];
+  }
+  return value;
 }
 
 function getAnimalMap(options) {
