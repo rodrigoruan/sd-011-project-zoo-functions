@@ -56,12 +56,21 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
 }
 
 function getSchedule(dayName) {
   // seu código aqui
+  let schedule = {};
+  Object.entries(data.hours).forEach((element) => {
+    if (element[0] === 'Monday') schedule[element[0]] = 'CLOSED';
+    else (schedule[element[0]] = `Open from ${element[1].open}am until ${element[1].close - 12}pm`);
+  });
+  if (!dayName) return schedule;
+  let calledDay = Object.entries(schedule).find((element) => element[0] === dayName);
+  return { [calledDay[0]]: calledDay[1] }; // https://stackoverflow.com/questions/47395070/how-to-fix-eslint-error-prefer-destructuring
 }
+
+console.log(getSchedule());
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
