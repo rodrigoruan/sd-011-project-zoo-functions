@@ -31,8 +31,15 @@ function getAnimalsOlderThan(species, age) {
   return data.species.find((nome) => nome.name === species).residents.every((idade) => idade.age >= age);
 }
 
+// Sem parâmetros, retorna um objeto vazio'
+// 'Quando provido o primeiro nome do funcionário, retorna o objeto do funcionário'
+// 'Quando provido o último nome do funcionário, retorna o objeto do funcionário'
+// O find()método retorna o valor do primeiro elemento em uma matriz que passa em um teste
+
 function getEmployeeByName(employeeName) {
   // seu código aqui
+  if (!employeeName) return {};
+  return data.employees.find((value) => value.firstName === employeeName || value.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
