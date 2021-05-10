@@ -65,22 +65,42 @@ function calculateEntry(entrants = 0) {
   return Object.keys(entrants).reduce((acc, value) => acc + data.prices[value] * entrants[value], 0);
 }
 
+const animalsName = (options, sex, sorted) => {
+  // if (sex) {
+  //   if (sorted) {
+  //     return sortNames(mapWithResidentsAndSex(options.sex));
+  //   }
+  //   return mapWithResidentsAndSex(options.sex);
+  // } if (sorted) {
+  //   return sortNames(mapWithResidents());
+  // }
+  // return mapWithResidents();
+};
+
 function getAnimalMap(options) {
   // seu código aqui
+  // if (!options || !options.includeNames) {
+  //   return createAnimalMap();
+  // }
+  // const sex = (options.sex === 'male' || options.sex === 'female');
+  // const sorted = (options.sorted === true);
+  // const includeNames = (options.includesNames === true);
+
+  // if (includeNames) {
+  //   return animalsName(options, sex, sorted);
+  // }
 }
 
 function getSchedule(dayName) {
   // seu código aqui
-  // let result = {};
-
-  // if (dayName === 'Monday') => {
-  //   return { Monday: 'Closed' };
-  // }  else {
-  //   hours.forEach((hour) => {
-  //     result[hours] = Object.entries(hour);
-  //     return result[hour];
-  //   });
-  // }
+  const week = Object.entries(data.hours);
+  const humanCalendar = {};
+  week.forEach((dayHour) => {
+    if (dayHour[0] !== 'Monday') humanCalendar[dayHour[0]] = `Open from ${dayHour[1].open}am until ${dayHour[1].close % 12}pm`;
+    if (dayHour[0] === 'Monday') humanCalendar[dayHour[0]] = 'CLOSED';
+  });
+  if (typeof dayName === 'undefined') return humanCalendar;
+  return { [dayName]: humanCalendar[dayName] };
 }
 
 function getOldestFromFirstSpecies(id) {
