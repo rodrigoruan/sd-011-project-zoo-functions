@@ -20,8 +20,12 @@ describe('Implemente a função getSpeciesByIds', () => {
         { name: 'Maxwell', sex: 'male', age: 15 },
         { name: 'Faustino', sex: 'male', age: 7 },
         { name: 'Dee', sex: 'female', age: 14 }
-      ]
-    }]
+      ],
+      func:(getSpeciesByIds) => {
+        return getSpeciesByIds();
+      }  
+    }];
+
 
     assert.deepStrictEqual(actual, expected);
   });
@@ -38,7 +42,10 @@ describe('Implemente a função getSpeciesByIds', () => {
         { name: 'Maxwell', sex: 'male', age: 15 },
         { name: 'Faustino', sex: 'male', age: 7 },
         { name: 'Dee', sex: 'female', age: 14 }
-      ]
+      ],
+      func:(getSpeciesByIds) => {
+        return getSpeciesByIds();
+      } 
     },
     {
       id: 'e8481c1d-42ea-4610-8e11-1752cfc05a46',
@@ -48,7 +55,10 @@ describe('Implemente a função getSpeciesByIds', () => {
       residents: [
         { name: 'Shu', sex: 'female', age: 19 },
         { name: 'Esther', sex: 'female', age: 17 }
-      ]
+      ],
+      func:(getSpeciesByIds) => {
+        return getSpeciesByIds();
+      } 
     }];
 
     assert.deepStrictEqual(actual, expected);
