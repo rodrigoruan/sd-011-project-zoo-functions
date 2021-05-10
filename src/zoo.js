@@ -69,6 +69,20 @@ function calculateEntry(entrants = {}) {
   return soma(entrants);
 }
 
+function createObjectAnimals(current, sorted, sex) {
+  let animalObject;
+  if (sorted && sex) {
+    animalObject = { [current.name]: current.residents.filter((sexo) => sexo.sex === sex).map((value) => value.name).sort() };
+  } else if (sex) {
+    animalObject = { [current.name]: current.residents.filter((sexo) => sexo.sex === sex).map((value) => value.name) };
+  } else if (sorted) {
+    animalObject = { [current.name]: current.residents.map((value) => value.name).sort() };
+  } else {
+    animalObject = { [current.name]: current.residents.map((value) => value.name) };
+  }
+  return animalObject;
+}
+
 function getAnimalMap(options = {}) {
   let locationName = data.species.reduce((accumulator, current) => {
     if (!accumulator[current.location]) {
@@ -81,13 +95,15 @@ function getAnimalMap(options = {}) {
     if (!accumulator[current.location]) {
       accumulator[current.location] = [];
     }
-    accumulator[current.location].push({ [current.name]: current.residents.map((value) => value.name) });
+    accumulator[current.location].push(createObjectAnimals(current, options.sorted, options.sex));
     return accumulator;
   }, {});
   if (options.includeNames) locationName = animalsObject;
+  // if (options.sorted) animalsObject.NE.map((value) => Object.entries(value).map((valor) => valor[1].sort()));
   return locationName;
 }
-console.log(getAnimalMap());
+console.log(getAnimalMap({ includeNames: true, sex: 'male', sorted: true }));
+
 function getSchedule(dayName) {
   const days = Object.entries(data.hours);
   if (dayName) {
