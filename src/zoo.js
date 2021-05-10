@@ -34,12 +34,7 @@ function getSpeciesByIds(...ids) {
   }
 
   const filterID = data.species.filter((value) => {
-    let moreOneId = false;
-    for (let index = 0; index < ids.length; index += 1) {
-      if (value.id === ids[index]) {
-        moreOneId = true;
-      }
-    }
+    let moreOneId = ids.includes(value.id);
     return moreOneId;
   });
   return filterID;
