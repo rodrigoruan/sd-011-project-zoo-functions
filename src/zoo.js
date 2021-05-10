@@ -25,7 +25,7 @@ function getEmployeeByName(employeeName) {
   if (employeeName === undefined) {
     return {};
   }
-  return data.employees.find((element) => element.firstName === employeeName || element.lastName === employeeName);
+  return employees.find((element) => element.firstName === employeeName || element.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -43,9 +43,15 @@ function isManager(id) {
   return getIdManagers.managers.some((element) => element.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  /* const addNewEmployee = {id, firstName, lastName, managers[], responsibleFor[]};
-  return {...addNewEmployee}; */
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const addNewEmployee = ({
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  });
+  return employees.push(addNewEmployee);
 }
 
 function countAnimals(speciesA) {
