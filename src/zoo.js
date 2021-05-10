@@ -43,6 +43,7 @@ function getEmployeeByName(employeeName) {
 // JS Object.assign: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
 // ES6 Object.assign: https://googlechrome.github.io/samples/object-assign-es6/
 // Obj Spread vs Obj Assign: https://stackoverflow.com/questions/32925460/object-spread-vs-object-assign
+// could be made as "return { ...personalInfo", ...associatedWith };" too.
 function createEmployee(personalInfo, associatedWith) {
   // personalInfo contains Id, First Name and Last Name
   // associatedWith contains managers and responsibleFor
@@ -81,8 +82,29 @@ function calculateEntry(entrants) {
   return entrants ? Object.keys(entrants).reduce((acc, curr) => (acc + (data.prices[curr] * entrants[curr])), 0) : 0;
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+// Task 9
+// References:
+// JS concat (array.prototype): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat
+// JS sort: https://www.w3schools.com/js/js_array_sort.asp
+// Thanks to Rodolfo Resende - Team 11's explanation
+const animalInfo = (residents, sorted, sex) => {
+  const names = residents.reduce((acc, value) => ((sex && value.sex !== sex)
+    ? acc : acc.concat(value.name)), []);
+  return sorted ? names.sort() : names;
+};
+
+function getAnimalMap(options = {}) {
+  let result = {};
+  const locationSymbols = ['NE', 'NW', 'SE', 'SW'];
+
+  locationSymbols.forEach((item) => { result[item] = []; });
+
+  // Thanks to Rodolfo Resend and Julio Filizzola from Team 11
+  data.species.map((animal) => (options.includeNames
+    ? result[animal.location].push({ [animal.name]: animalInfo(animal.residents, options.sorted, options.sex) })
+    : result[animal.location].push(animal.name)));
+
+  return result;
 }
 
 function getSchedule(dayName) {
