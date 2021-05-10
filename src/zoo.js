@@ -96,8 +96,47 @@ function calculateEntry(entrants = {}) {
   return result;
 }
 
+function handleAnimals() {
+  let response = data.species.reduce((acc, value) => {
+    if (!acc[value.location]) {
+      acc[value.location] = [];
+    }
+    acc[value.location].push(value.name);
+    return acc;
+  }, {});
+  return response;
+}
+
+function handleAnimalsWithName(options) {
+  let response = data.species.reduce((acc, value) => {
+    if (!acc[value.location]) {
+      acc[value.location] = [];
+    }
+    let obj = {};
+    let arrayAnimais = value.residents.map((value2) => value2.name);
+
+    if (options.sex) {
+      arrayAnimais = value.residents
+        .filter((value2) => value2.sex === options.sex)
+        .map((value3) => value3.name);
+    }
+    if (options.sorted === true) {
+      arrayAnimais.sort();
+    }
+    obj[value.name] = arrayAnimais;
+    acc[value.location].push(obj);
+    return acc;
+  }, {});
+  return response;
+}
+
 function getAnimalMap(options) {
-  // seu código aqui
+  if (options === undefined || !options.includeNames) {
+    return handleAnimals();
+  }
+  if (options && options.includeNames === true) {
+    return handleAnimalsWithName(options);
+  }
 }
 
 function getSchedule(dayName) {
