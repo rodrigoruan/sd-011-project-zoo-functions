@@ -112,10 +112,16 @@ function getOldestFromFirstSpecies(id) {
   // }
   return ([animalFound2.name, animalFound2.sex, animalFound2.age]);
 }
-console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function increasePrices(percentage) {
   // seu código aqui
+  const aux = (percentage / 100) + 1;
+  const newAdultPrice = Math.round((prices.Adult * aux) * 100) / 100;
+  const newChildPrice = Math.round((prices.Child * aux) * 100) / 100;
+  const newSeniorPrice = Math.round((prices.Senior * aux) * 100) / 100;
+  prices.Adult = newAdultPrice;
+  prices.Child = newChildPrice;
+  prices.Senior = newSeniorPrice;
 }
 
 function getEmployeeCoverage(idOrName) {
