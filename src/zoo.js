@@ -120,17 +120,36 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  /*  if (!idOrName) {
-    const employeesList = employees.map((employee) => employee.responsibleFor
-    );
+  if (!idOrName) {
     let nameList = {};
-    employees.map((employee,index) => {
-      let fullNames = `${employee.firstName} ${employee.lastName}`
-      nameList[fullNames] = employeesList[index]
-    })
-    return nameList
-  } */
+    employees.forEach((employee) => {
+      nameList[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor.map((eachId) => species.find((animal) => animal.id === eachId).name);
+    });
+    return nameList;
+  }
+
+  if (employees.some((isId) => isId.id === idOrName)) {
+    let nameList = {};
+    const currentEmployee = employees.find((employee) => employee.id === idOrName);
+    nameList[`${currentEmployee.firstName} ${currentEmployee.lastName}`] = currentEmployee.responsibleFor.map((eachId) => species.find((animal) => animal.id === eachId).name);
+    return nameList;
+  }
+
+  if (employees.some((isFirstName) => isFirstName.firstName === idOrName)) {
+    let nameList = {};
+    const currentEmployee = employees.find((employee) => employee.firstName === idOrName);
+    nameList[`${currentEmployee.firstName} ${currentEmployee.lastName}`] = currentEmployee.responsibleFor.map((eachId) => species.find((animal) => animal.id === eachId).name);
+    return nameList;
+  }
+
+  if (employees.some((isLastName) => isLastName.lastName === idOrName)) {
+    let nameList = {};
+    const currentEmployee = employees.find((employee) => employee.lastName === idOrName);
+    nameList[`${currentEmployee.firstName} ${currentEmployee.lastName}`] = currentEmployee.responsibleFor.map((eachId) => species.find((animal) => animal.id === eachId).name);
+    return nameList;
+  }
 }
+console.log(getEmployeeCoverage('Stephanie'));
 
 module.exports = {
   calculateEntry,
