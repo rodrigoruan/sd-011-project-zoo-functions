@@ -63,7 +63,6 @@ function getOldestFromFirstSpecies(ids) {
   const oldSpecie = animals.residents.sort((a, b) => b.age - a.age)[0];
   return [oldSpecie.name, oldSpecie.sex, oldSpecie.age];
 }
-console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function increasePrices(percentage) {
   Object.keys(prices).forEach((key) => {
@@ -71,7 +70,6 @@ function increasePrices(percentage) {
   });
   return prices;
 }
-console.log(increasePrices(50));
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
