@@ -300,10 +300,7 @@ module.exports = {
       firstName: 'Ardith',
       lastName: 'Azevado',
       managers: ['b0dc644a-5335-489b-8a2c-4e086c7819a2'],
-      responsibleFor: [
-        tigersId,
-        bearsId,
-      ],
+      responsibleFor: [tigersId, bearsId],
     },
     {
       id: 'b0dc644a-5335-489b-8a2c-4e086c7819a2',
