@@ -127,13 +127,37 @@ function getAnimalMap(options) {
   }
   return checkInclude(options);
 }
-const options = { includeNames: true, sex: 'female', sorted: true };
 
-console.log(getAnimalMap(options));
+function weekCalendar(dayName) {
+  let newObj = {};
+  let obj;
+  Object.keys(data.hours).forEach((el) => {
+    let openTime = Object.values(data.hours[el])[0];
+    let closeTime = Object.values(data.hours[el])[1] - 12;
+    if (openTime < 1 && closeTime < 1) {
+      obj = {
+        [el]: 'CLOSED',
+      };
+    } else {
+      obj = {
+        [el]: `Open from ${openTime}am until ${closeTime}pm`,
+      };
+    }
+    Object.assign(newObj, obj);
+  });
+  return newObj;
+}
 
 function getSchedule(dayName) {
-  // seu código aqui
+  if (!dayName) {
+    return weekCalendar();
+  }
+  let imported = { ...weekCalendar() };
+  let newObject = { [dayName]: imported[dayName] };
+  return newObject;
 }
+
+console.log(getSchedule('Tuesday'));
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
