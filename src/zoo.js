@@ -57,12 +57,13 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   });
 }
 
-const quantityPerSpecies = () => {
- return species.reduce((acc,curr) => {
+const quantityPerSpecies = () =>{
+  return species.reduce((acc, curr) => {
     acc[curr.name] = curr.residents.length;
     return acc;
-  },{});
+  }, {});
 }
+
 const speciePerId = (specie) => {
   const animal = quantityPerSpecies();
   return animal[specie];
@@ -70,7 +71,7 @@ const speciePerId = (specie) => {
 
 function countAnimals(specie) {
   // seu código aqui
-  if(!specie) return quantityPerSpecies();
+  if (!specie) return quantityPerSpecies();
   return speciePerId(specie);
 }
 /* function calculateEntry(entrants) {
