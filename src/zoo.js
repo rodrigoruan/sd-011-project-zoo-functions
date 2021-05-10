@@ -15,7 +15,7 @@ const animals = data.species;
 const employe = data.employees;
 
 function getSpeciesByIds(...ids) {
-  if (ids === undefined) return [];
+  if (!ids) return [];
   return animals.filter((specie) => (ids.includes(specie.id)));
 }
 
@@ -25,8 +25,7 @@ function getAnimalsOlderThan(animal, age) {
   )).residents.every((specie) => specie.age >= age);
 }
 
-function getEmployeeByName(employeeName) {
-  if (!employeeName) return {};
+function getEmployeeByName(employeeName = {}) {
   return employe.find((person) => person.firstName === employeeName || person.lastName === employeeName);
 }
 
@@ -39,12 +38,19 @@ function isManager(id) {
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  const newEMploye = { id, firstName, lastName, managers, responsibleFor };
-  employe.push(newEMploye);
+  employe.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  const totalAnimals = animals.reduce((acc, cur) => {
+    acc[cur.name] = cur.residents.length;
+    return acc;
+  }, {});
+  
+  if (species) {
+    return totalAnimals[species];
+  }
+  return totalAnimals;
 }
 
 function calculateEntry(entrants) {
