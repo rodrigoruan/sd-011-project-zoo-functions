@@ -53,14 +53,13 @@ function isManager(employeId) {
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const employeesList = data.employees;
   const personalInfo = { id, firstName, lastName };
   const associatedWith = { managers, responsibleFor };
   const newEmployee = createEmployee(personalInfo, associatedWith);
-  const employeesList = [...data.employees, newEmployee];
-  return employeesList;
+  const addNewEmployee = employeesList.push(newEmployee);
+  return addNewEmployee;
 }
-// Adiciona um novo funcionário, porém o length do se mantém 8.
-// Qual o problema?
 
 // console.log(addEmployee('39800c14-4b76-454a-858d-2f8d168146a7', 'John', 'Doe'));
 
