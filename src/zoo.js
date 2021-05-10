@@ -53,6 +53,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 }
 
 function countAnimals(specie) {
+// atualiza
 }
 
 function calculateEntry(entrants) {
