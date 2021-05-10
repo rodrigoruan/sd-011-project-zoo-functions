@@ -51,19 +51,19 @@ const getAnimalMap = (options = {}) => {
     return locations;
   }
   if (options.sex) {
-    data.species.forEach(({ curr, index, array }) =>
-      locations[index].push({
-        [curr]: array
+    data.species.forEach(({ curr, location, residents }) =>
+      locations[location].push({
+        [curr]: residents
           .filter((element) => element.sex === options.sex)
           .map((element) => element.name),
       }));
   } else {
-    data.species.forEach(({ curr, index, array }) =>
-      locations[index].push({ [curr]: array.map((element) => element.name) }));
+    data.species.forEach(({ name, location, residents }) =>
+      locations[location].push({ [name]: residents.map((element) => element.name) }));
   }
   if (options.sorted) {
-    Object.keys(locations).forEach((curr) =>
-      locations[curr].forEach((element) => element[Object.keys(element)].sort()));
+    Object.keys(locations).forEach((key) =>
+      locations[key].forEach((element) => element[Object.keys(element)].sort()));
   }
   return locations;
 };
