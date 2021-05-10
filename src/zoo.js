@@ -87,10 +87,21 @@ function increasePrices(percentage) {
   });
 }
 
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+function animalPessoa(idOrName) {
+  const pessoa = employees.find(({ firstName, lastName, id }) => firstName === idOrName || lastName === idOrName || id === idOrName);
+  const animais = pessoa.responsibleFor.map((id) => species.find((animal) => animal.id === id).name);
+  return { [`${pessoa.firstName} ${pessoa.lastName}`]: animais };
 }
 
+function getEmployeeCoverage(idOrName) {
+  if (idOrName === undefined) {
+    const pessoasEanimais = {};
+    employees.forEach(({ id }) => Object.assign(pessoasEanimais, animalPessoa(id)));
+    return pessoasEanimais;
+  }
+  return animalPessoa(idOrName);
+}
+console.log(getEmployeeCoverage());
 module.exports = {
   calculateEntry,
   getSchedule,
