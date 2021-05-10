@@ -57,17 +57,17 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   });
 }
 
-const quantityPerSpecies = () =>{
-  return species.reduce((acc, curr) => {
+const quantityPerSpecies = () => {
+  species.reduce((acc, curr) => {
     acc[curr.name] = curr.residents.length;
     return acc;
   }, {});
-}
+};
 
 const speciePerId = (specie) => {
   const animal = quantityPerSpecies();
   return animal[specie];
-}
+};
 
 function countAnimals(specie) {
   // seu código aqui
