@@ -16,7 +16,7 @@ const getSpeciesByIds = (...ids) => data.species.filter(({ id }) => ids.includes
 const getAnimalsOlderThan = (animal, age) => data.species.find(({ name }) => name === animal).residents.every(({ age: animalAge }) => age < animalAge);
 
 const getEmployeeByName = (employeeName) => {
-  const employeer = data.employees.find(({ firstName, lastName }) => employeeName === firstName || employeeName === lastName);
+  const employeer = data.employees.find(({ firstName, lastName, id }) => employeeName === firstName || employeeName === lastName || employeeName === id);
   return employeer !== undefined ? employeer : {};
 };
 
@@ -87,13 +87,24 @@ const getOldestFromFirstSpecies = (id) => {
   return Object.values(specie.residents.reduce((arr, current) => (current.age > arr.age ? current : arr)));
 };
 
-function increasePrices(percentage) {
-  // seu código aqui
-}
+const increasePrices = (percentage) => {
+  Object.keys(data.prices).forEach((element) => {
+    data.prices[element] = Math.round((data.prices[element] * (percentage / 100 + 1)) * 100) / 100;
+  });
+};
 
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
-}
+const getEmployeeCoverage = (idOrName) => {
+  const employeeCoverage = data.employees.reduce(((arr, { firstName, lastName, responsibleFor }) => {
+    arr[`${firstName} ${lastName}`] = responsibleFor.map((id) => getSpeciesByIds(id)[0].name);
+    return arr;
+  }), {});
+
+  if (!idOrName) return employeeCoverage;
+
+  const employee = getEmployeeByName(idOrName);
+  const fullName = `${employee.firstName} ${employee.lastName}`;
+  return { [fullName]: employeeCoverage[fullName] };
+};
 
 module.exports = {
   calculateEntry,
