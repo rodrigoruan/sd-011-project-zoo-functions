@@ -61,8 +61,6 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return addNewEmployee;
 }
 
-// console.log(addEmployee('39800c14-4b76-454a-858d-2f8d168146a7', 'John', 'Doe'));
-
 function countAnimals(species = '') {
   const animals = data.species;
   const findAllAnimals = animals.reduce((accumulator, { name, residents }) =>
@@ -71,8 +69,11 @@ function countAnimals(species = '') {
   return species === '' ? findAllAnimals : findAllAnimals[species];
 }
 
-function calculateEntry(entrants) {
-  if (entrants === 0 || {}) return 0;
+function calculateEntry(entrants = {}) {
+  if (!entrants) return 0;
+
+  const entrantKeys = Object.keys(entrants);
+  return entrantKeys.reduce((accumulator, key) => accumulator + entrants[key] * data.prices[key], 0);
 }
 
 // console.log(calculateEntry({ 'Adult': 2, 'Child': 3, 'Senior': 1 }));
