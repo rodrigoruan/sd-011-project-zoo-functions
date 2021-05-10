@@ -123,8 +123,12 @@ function getSchedule(dayName) {
     return schedule;
   };
 
-  if (dayName) {
+  if (dayName !== undefined && dayName !== 'Monday') {
     return { [dayName]: scheduleObj()[dayName] };
+  }
+
+  if (dayName === 'Monday') {
+    return { Monday: 'CLOSED' };
   }
   return scheduleObj();
 }
