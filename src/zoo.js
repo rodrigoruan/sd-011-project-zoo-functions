@@ -84,17 +84,10 @@ const ticketPrice = {
 
 const { adultPrice, seniorPrice, childPrice } = ticketPrice;
 
-function calculateEntry(entrants) {
-  let total = 0;
-  if (entrants === undefined || Object.values(entrants).length === 0) {
-    return total;
-  }
-  
+function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
+  let allEntry = childPrice * entrants.Child + seniorPrice * entrants.Senior + adultPrice * entrants.Adult;
+  return console.log(allEntry);
 }
-let entrants = { Adult: 2, Child: 3, Senior: 1 };
-// calculateEntry(entrants);
-let entrants2 = { Adult: 1 };
-calculateEntry(entrants2);
 calculateEntry();
 
 function getAnimalMap(options) {
