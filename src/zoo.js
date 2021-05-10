@@ -16,7 +16,7 @@ const getSpeciesByIds = (...ids) => data.species.filter((species) => ids.some((i
 // o Rodolfo Rezende me ajudou nessa turma 11.
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
-  return data.species.find((value) => value.name === animal).residents.every((value) => value.age >= age);
+  return data.species.find(({ name }) => name === animal).residents.every((value) => value.age >= age);
 }
 
 // o Rodolfo Rezende  e o Jean ambos da turma 11, me ajudou nessa.
