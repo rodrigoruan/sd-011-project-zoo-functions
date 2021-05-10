@@ -9,8 +9,8 @@ eslint no-unused-vars: [
 ]
 */
 
-const { species, employees } = require("./data");
-const data = require("./data");
+const { species, employees } = require('./data');
+const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   // seu código aqui
@@ -26,14 +26,12 @@ function getAnimalsOlderThan(animal, age) {
   return animalName.residents.every((specie) => specie.age >= age);
 }
 // Filter retornava o residents como objetcs, por isso não acessava. Com find ele acessa todas as infos.
-console.log(getAnimalsOlderThan("tigers", 20));
+console.log(getAnimalsOlderThan('tigers', 20));
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
   if (!employeeName) return {};
-  return employees.find(
-    (name) => name.firstName === employeeName || name.lastName === employeeName
-  );
+  return employees.find((name) => name.firstName === employeeName || name.lastName === employeeName);
 }
 
 console.log(getEmployeeByName());
@@ -55,15 +53,15 @@ function addEmployee(
   firstName,
   lastName,
   managers = [],
-  responsibleFor = []
+  responsibleFor = [],
 ) {
   // seu código aqui
   return employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
-function countAnimals(species) {
+function countAnimals(animalName) {
   // seu código aqui
-  if (!species) {
+  if (!animalName) {
     let allAnimals = {};
     data.species.forEach((animal) => {
       allAnimals[animal.name] = animal.residents.length;
@@ -72,20 +70,17 @@ function countAnimals(species) {
     return allAnimals;
   }
 
-  const searchedAnimal = data.species.find((animal) => animal.name === species);
+  const searchedAnimal = data.species.find((animal) => animal.name === animalName);
 
   return searchedAnimal.residents.length;
 }
 
 function calculateEntry(entrants) {
   // seu código aqui
-  if (entrants === "" || !entrants) return 0;
+  if (entrants === '' || !entrants) return 0;
   const { Adult = 0, Senior = 0, Child = 0 } = entrants;
 
-  const prices =
-    Adult * data.prices.Adult +
-    Senior * data.prices.Senior +
-    Child * data.prices.Child;
+  const prices = Adult * data.prices.Adult + Senior * data.prices.Senior + Child * data.prices.Child;
 
   return prices;
 }
@@ -105,13 +100,9 @@ function getOldestFromFirstSpecies(id) {
   const employeeAnimals = employees.find((worker) => worker.id === id)
     .responsibleFor[0];
 
-  const whichAnimal = data.species.find(
-    (which) => which.id === employeeAnimals
-  );
+  const whichAnimal = data.species.find((which) => which.id === employeeAnimals);
 
-  const theOldest = whichAnimal.residents.reduce((oldestOne, animal) =>
-    oldestOne.age > animal.age ? oldestOne : animal
-  );
+  const theOldest = whichAnimal.residents.reduce((acc, animal) => (acc.age > animal.age ? acc : animal));
 
   return [theOldest.name, theOldest.sex, theOldest.age];
 }
