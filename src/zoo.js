@@ -53,6 +53,7 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
+  const { prices } = data;
   if (!entrants) return 0;
   return Object.keys(entrants).reduce((totalPrice, entries) => totalPrice + (prices[entries] * entrants[entries]), 0);
 }
