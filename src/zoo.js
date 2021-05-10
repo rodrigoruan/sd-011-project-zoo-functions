@@ -28,7 +28,7 @@ const countAnimals = (species) => ((species)
   ? animalSpecies.find(({ name }) => name === species).residents.length
   : animalSpecies.reduce((acc, { name, residents }) => ({ ...acc, [name]: residents.length }), {}));
 
-const calculateEntry = ((entrants) => (!entrants) ? 0
+const calculateEntry = (entrants) => ((!entrants) ? 0
   : Object.entries(entrants).reduce((fee, [type, qtt]) => fee + prices[type] * qtt, 0));
 
 const getAnimal = (residents, sorted, sex) => {
