@@ -129,7 +129,7 @@ function singleCoverage(employee) {
   const responsabile = [];
 
   employee.responsibleFor.forEach((id) => {
-    responsabile.push(data.species.find((species) => species.id === id).name);
+    responsabile.push(data.species.find((speci) => speci.id === id).name);
   });
   return responsabile;
 }
@@ -137,7 +137,7 @@ function getEmployeeCoverage(idOrName) {
   const employeeCoverage = {};
 
   if (idOrName) {
-    const employee = data.employees.find(({id, firstName, lastName}) => id === idOrName || firstName === idOrName || lastName === idOrName);
+    const employee = data.employees.find(({ id, firstName, lastName }) => id === idOrName || firstName === idOrName || lastName === idOrName);
 
     const fullName = `${employee.firstName} ${employee.lastName}`;
 
