@@ -55,7 +55,16 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const keyhour = Object.keys(data.hours);
+  if (!dayName) {
+    return keyhour.reduce((acc,day) => {
+      acc[day] = `Open from ${data.hours[day].open}am until ${(data.hours[day].close) - 12}pm`;
+      acc.Monday = 'CLOSED';
+      return acc;
+    }, {});
+  }
+  if (dayName === 'Monday') return { Monday: 'CLOSED' };
+  return { [dayName]: `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close - 12}pm` };
 }
 
 function getOldestFromFirstSpecies(id) {
@@ -63,7 +72,6 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
   const entriesPrices = Object.entries(prices);
   const multiplier = 1 + (percentage / 100);
   entriesPrices.forEach(([type, price]) => {
