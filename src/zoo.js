@@ -44,9 +44,33 @@ const calculateEntry = (entrants) => {
   return Adult * adultPrice + Child * childPrice + Senior * seniorPrice;
 };
 
-function getAnimalMap(options) {
-  // seu código aqui
-}
+const getAnimalsNames = (animal, sex) => {
+  let animals = data.species.find((element) => element.name === animal).residents;
+  if (sex) animals = animals.filter((element) => element.sex === sex);
+  return animals.reduce(((acc, current) => [...acc, current.name]), []);
+};
+
+const getAnimalsOnZone = (animals, sorted, sex) => {
+  const animalsOnZone = [];
+  animals.forEach((animal) => animalsOnZone.push({ [animal]: (sorted ? getAnimalsNames(animal, sex).sort() : getAnimalsNames(animal, sex)) }));
+  return animalsOnZone;
+};
+
+const getAnimalsWithOptions = ({ sorted = false, sex = false }, zones) => {
+  Object.keys(zones).forEach((zone, index) => { zones[zone] = getAnimalsOnZone(zones[zone], sorted, sex); });
+  return zones;
+};
+
+const getAnimalMap = (options) => {
+  const zones = {
+    NE: [],
+    NW: [],
+    SE: [],
+    SW: [],
+  };
+  data.species.forEach((animal) => { zones[animal.location].push(animal.name); });
+  return options && options.includeNames ? getAnimalsWithOptions(options, zones) : zones;
+};
 
 function getSchedule(dayName) {
   // seu código aqui
