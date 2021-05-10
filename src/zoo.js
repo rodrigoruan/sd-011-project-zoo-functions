@@ -70,9 +70,17 @@ function calculateEntry(entrants = {}) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  return data.species.reduce((accumulator, current) => {
+    // console.log(current.name);
+    // console.log(current.location);
+    if (!accumulator[current.location]) {
+      accumulator[current.location] = [];
+    }
+    accumulator[current.location].push(current.name);
+    return accumulator;
+  }, {});
 }
-
+console.log(getAnimalMap());
 function getSchedule(dayName) {
   const days = Object.entries(data.hours);
   if (dayName) {
@@ -129,7 +137,7 @@ function getEmployeeCoverage(idOrName) {
     return accumulator;
   }, {});
 }
-console.log(getEmployeeCoverage());
+
 module.exports = {
   calculateEntry,
   getSchedule,
