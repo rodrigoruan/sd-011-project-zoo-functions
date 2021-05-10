@@ -9,7 +9,6 @@ eslint no-unused-vars: [
 ]
 */
 
-const { prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
