@@ -28,15 +28,21 @@ const countAnimals = (species) => ((species)
   ? animalSpecies.find(({ name }) => name === species).residents.length
   : animalSpecies.reduce((acc, { name, residents }) => ({ ...acc, [name]: residents.length }), {}));
 
-function calculateEntry(entrants) {
-  if (!entrants) return 0;
+const calculateEntry = (entrants) => (!entrants) ? 0
+  : Object.entries(entrants).reduce((fee, [type, qtt]) => fee + prices[type] * qtt, 0);
 
-  return Object.entries(entrants).reduce((fee, [type, qtt]) => fee + prices[type] * qtt, 0);
-}
+  const getAnimal = (residents, sorted, sex) => {
+    const animalName = residents.reduce((acc, value) => (sex && value.sex !== sex ? acc : acc.concat(value.name)), []);
+    return sorted ? animalName.sort() : animalName;
+  };
 
-const getAnimalMap = (options) => {
-  // seu código aqui
-};
+  function getAnimalMap(options = {}) {
+    let objectResult = {};
+    const arrayLocation = ['NE', 'NW', 'SE', 'SW'];
+    arrayLocation.forEach((value) => { objectResult[value] = []; });
+    animalSpecies.map((value) => (options.includeNames ? objectResult[value.location].push({ [value.name]: getAnimal(value.residents, options.sorted, options.sex) }) : objectResult[value.location].push(value.name)));
+    return objectResult;
+  }
 
 const getString = (daySchedule) => {
   const format = (hour) => ((hour <= 12) ? `${hour}am` : `${hour - 12}pm`);
@@ -67,7 +73,7 @@ const getOldestFromFirstSpecies = (id) => {
 const increasePrices = (percentage) => Object.keys(prices).forEach((priceKey) => { prices[priceKey] = Math.round(prices[priceKey] * (1 + percentage / 100) * 100) / 100; });
 
 const getCoverage = (employee, obj) => {
-  employee.forEach((value) => { obj[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((value) => animalSpecies.find(({ id }) => id === value).name); });
+  employee.forEach((value) => { obj[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((val) => animalSpecies.find(({ id }) => id === val).name); });
   return obj;
 }
 
