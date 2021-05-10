@@ -16,7 +16,8 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  const { species } = data;
+  return species.find((specieName) => specieName.name === animal).residents.every((resident) => resident.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
