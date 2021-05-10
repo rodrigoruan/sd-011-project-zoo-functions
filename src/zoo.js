@@ -66,8 +66,16 @@ const getOldestFromFirstSpecies = (id) => {
 // tive que usar Math.round, usando toFixed dá erro de 1 centavo
 const increasePrices = (percentage) => Object.keys(prices).forEach((priceKey) => { prices[priceKey] = Math.round(prices[priceKey] * (1 + percentage / 100) * 100) / 100; });
 
+const getCoverage = (employee, obj) => {
+  employee.forEach((value) => { obj[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((value) => animalSpecies.find(({ id }) => id === value).name); });
+  return obj;
+}
+
 const getEmployeeCoverage = (idOrName) => {
-  // seu código aqui
+  let obj = {};
+  if (!idOrName) return getCoverage(employees, obj);
+
+  return getCoverage(employees.filter((value) => value.id === idOrName || value.firstName === idOrName || value.lastName === idOrName), obj);
 };
 
 module.exports = {
