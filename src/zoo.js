@@ -51,12 +51,14 @@ function calculateEntry(entrants) {
   return (!entrants || Object.keys(entrants).length === 0) ? 0 : Object.entries(entrants).map((num) => num[1] * data.prices[num[0]]).reduce((result, pricePerAge) => result + pricePerAge, 0);
 }
 
-function getAnimalMap(options) {
+function getAnimalMap(options = {}) {
   // seu código aqui
 }
 
 function getSchedule(dayName) {
   // seu código aqui
+  const ifMonday = (string, hour) => ((string === 'Monday') ? { [string]: 'CLOSED' } : { [string]: `Open from ${hour.open}am until ${(hour.close) - 12}pm` });
+  return (!dayName) ? Object.entries(data.hours).reduce((result, day) => ({ ...result, ...ifMonday(day[0], day[1]) }), {}) : ifMonday(dayName, data.hours[dayName]);
 }
 
 function getOldestFromFirstSpecies(id) {
