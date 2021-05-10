@@ -13,7 +13,6 @@ const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   // seu código aqui
-  //const { species } = data;
   return data.species.filter((spec) => ids.some((id) => id === spec.id));
 }
 
