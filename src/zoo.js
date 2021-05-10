@@ -15,29 +15,25 @@ const getSpeciesByIds = (...ids) => data.species.filter((spacies) => ids.some((i
 
 // o Rodolfo Rezende me ajudou nessa turma 11.
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
   return data.species.find((value) => value.name === animal).residents.every((value) => value.age >= age);
 }
 
-// o Rodolfo Rezende  e o Jean ambos da turma 11, me ajudou nessa.
+// o Rodolfo Rezende  e o Jean ambos da turma 11, me ajudaram nessa.
 function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
   return data.employees.find((val) => val.firstName === employeeName || val.lastName === employeeName);
 }
 
 const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...associatedWith });
-// seu código aqui
 
 const isManager = (id) => data.employees.some((getManeger) => getManeger.managers.includes(id));
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  // seu código aqui
   let result = data.employees.push({ id, firstName, lastName, managers, responsibleFor });
   return result;
 }
 
 function countAnimals(specie) {
-  // seu código aqui
   const animaisTotal = {};
   if (!specie) {
     data.species.forEach((value) => {
@@ -72,7 +68,6 @@ function getAnimalMap(options = {}) {
 
 // o Rodolfo Rezende me ajudou nessa.
 function getSchedule(dayName) {
-  // seu código aqui
   const result = {};
   if (dayName && dayName !== 'Monday') {
     result[dayName] = `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close - 12}pm`;
@@ -86,7 +81,7 @@ function getSchedule(dayName) {
     Wednesday: `Open from ${data.hours.Wednesday.open}am until ${data.hours.Wednesday.close - 12}pm`,
     Thursday: `Open from ${data.hours.Thursday.open}am until ${data.hours.Thursday.close - 12}pm`,
     Friday: `Open from ${data.hours.Friday.open}am until ${data.hours.Friday.close - 12}pm`,
-    Saturday: `Open from ${data.hours.Saturday.open}am until ${data.hours.sa.close - 12}pm`,
+    Saturday: `Open from ${data.hours.Saturday.open}am until ${data.hours.Saturday.close - 12}pm`,
     Sunday: `Open from ${data.hours.Sunday.open}am until ${data.hours.Sunday.close - 12}pm`,
     Monday: 'CLOSED',
   };
