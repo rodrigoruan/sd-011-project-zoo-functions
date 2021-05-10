@@ -43,7 +43,7 @@ function isManager(id) {
   // seu código aqui
   return employees
     .find((employee) => employee.id === id).managers
-      .every((manager) => (manager === '9e7d4524-363c-416a-8759-8aa7e50c0992' || manager.length === 0))
+    .every((manager) => (manager === '9e7d4524-363c-416a-8759-8aa7e50c0992' || manager.length === 0));
 }
 
 /* function addEmployee(id, firstName, lastName, managers, responsibleFor) {
