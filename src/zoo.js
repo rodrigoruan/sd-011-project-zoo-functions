@@ -14,7 +14,7 @@ const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   // seu código aqui
-  return data.species.filter(({ id }) => ids.some((idOfArray) => idOfArray === id));
+  return data.species.filter((species) => ids.some((idOfArray) => idOfArray === species.id));
 }
 
 // animal, age
@@ -114,7 +114,9 @@ function getSchedule(dayName) {
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
+  return data.employees.find((employee) => employee.id === id).responsibleFor;
 }
+// console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function increasePrices(percentage) {
   // seu código aqui
@@ -122,6 +124,17 @@ function increasePrices(percentage) {
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+  if (!idOrName) {
+    let object = {};
+    data.employees.forEach((employee) => {
+      object[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor.map((id) => data.species.find((species) => species.id === id).name);
+    });
+    return object;
+  }
+  let object = {};
+  let employeeInfo = data.employees.find((employee) => employee.firstName === idOrName || employee.lastName === idOrName || employee.id === idOrName);
+  object[`${employeeInfo.firstName} ${employeeInfo.lastName}`] = employeeInfo.responsibleFor.map((id) => data.species.find((species) => species.id === id).name);
+  return object;
 }
 
 module.exports = {
