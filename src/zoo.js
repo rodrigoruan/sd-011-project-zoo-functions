@@ -65,15 +65,19 @@ function getOldestFromFirstSpecies(ids) {
 }
 
 function increasePrices(percentage) {
-  Object.keys(prices).forEach((key) => {
-    prices[key] = Math.round(prices[key] * ((percentage / 100) + 1) * 100) / 100;
-  });
-  return prices;
+  Object.keys(prices).forEach((key) => { prices[key] = Math.round(prices[key] * ((percentage / 100) + 1) * 100) / 100; });
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const fullName = ({ firstName, lastName }) => `${firstName} ${lastName}`;
+  const noParam = employees.reduce((acc, { firstName, lastName, responsibleFor }) => ({ ...acc, [fullName({ firstName, lastName })]: responsibleFor.map((getId) => species.find(({ id }) => getId === id).name) }), {});
+  if (idOrName !== undefined) {
+    const getSingleEmployee = fullName(employees.find(({ id, firstName, lastName }) => [id, firstName, lastName].includes(idOrName)));
+    return { [getSingleEmployee]: noParam[getSingleEmployee] };
+  }
+  return noParam;
 }
+console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 
 module.exports = {
   calculateEntry,
