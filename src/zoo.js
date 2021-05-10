@@ -98,8 +98,15 @@ function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
 
+// Para conseguir arredondar os números corretamente consultei este link: https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
 function increasePrices(percentage) {
-  // seu código aqui
+  for (let age in data.prices) {
+    if (typeof percentage === 'number') {
+      data.prices[age] += data.prices[age] * (percentage / 100);
+      data.prices[age] = Math.round(data.prices[age] * 100) / 100;
+    }
+  }
+  return data.prices;
 }
 
 function getEmployeeCoverage(idOrName) {
