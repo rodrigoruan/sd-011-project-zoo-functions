@@ -86,9 +86,12 @@ const { adultPrice, seniorPrice, childPrice } = ticketPrice;
 
 function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
   let allEntry = childPrice * entrants.Child + seniorPrice * entrants.Senior + adultPrice * entrants.Adult;
+  if (entrants === undefined || Object.values(entrants).length === 0) {
+    allEntry = 0;
+  }
   return console.log(allEntry);
 }
-calculateEntry();
+calculateEntry({});
 
 function getAnimalMap(options) {
   // seu código aqui
