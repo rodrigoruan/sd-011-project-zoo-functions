@@ -41,7 +41,7 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  if (entrants === {} || !entrants) return 0;
+  if (!entrants) return 0;
 
   /* return Object.entries(entrants).reduce((acc, curr) => acc + curr[1] * prices[curr[0]], 0); */
   return Object.keys(entrants).reduce((acc, category) => acc + entrants[category] * prices[category], 0);
@@ -78,7 +78,16 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-// aqui
+  const employee = data.employees.find(({ id, firstName, lastName }) => idOrName === id || idOrName === firstName || idOrName === lastName);
+  let list = {};
+  if (!idOrName) {
+    data.employees.forEach((element) => {
+      list[`${element.firstName} ${element.lastName}`] = element.responsibleFor.map((animals) => data.species.find((ids) => ids.id === animals).name);
+    });
+    return list;
+  }
+  list[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor.map((animals) => data.species.find((ids) => ids.id === animals).name);
+  return list;
 }
 
 module.exports = {
