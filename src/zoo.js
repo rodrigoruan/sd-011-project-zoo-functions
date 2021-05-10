@@ -63,13 +63,14 @@ function getAnimalMap(options) {
 function getSchedule(dayName) {
   let resultSchedule = {};
   if (dayName === undefined) {
+    const { Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday } = data.hours;
     return {
-      Tuesday: 'Open from 8am until 6pm',
-      Wednesday: 'Open from 8am until 6pm',
-      Thursday: 'Open from 10am until 8pm',
-      Friday: 'Open from 10am until 8pm',
-      Saturday: 'Open from 8am until 10pm',
-      Sunday: 'Open from 8am until 8pm',
+      Tuesday: `Open from ${Tuesday.open}am until ${Tuesday.close - 12}pm`,
+      Wednesday: `Open from ${Wednesday.open}am until ${Wednesday.close - 12}pm`,
+      Thursday: `Open from ${Thursday.open}am until ${Thursday.close - 12}pm`,
+      Friday: `Open from ${Friday.open}am until ${Friday.close - 12}pm`,
+      Saturday: `Open from ${Saturday.open}am until ${Saturday.close - 12}pm`,
+      Sunday: `Open from ${Sunday.open}am until ${Sunday.close - 12}pm`,
       Monday: 'CLOSED',
     };
   }
@@ -87,10 +88,15 @@ function getOldestFromFirstSpecies(id) {
   const sortSpecies = getSpecieReturn.sort((a, b) => b.age - a.age)[0];
   return Object.values(sortSpecies);
 }
-console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const { Adult, Senior, Child } = data.prices;
+  const resultAdult = (Adult * percentage) / 100 + Adult + 0.001;
+  data.prices.Adult = Number(resultAdult.toFixed(2));
+  const resultSenior = (Senior * percentage) / 100 + Senior + 0.001;
+  data.prices.Senior = Number(resultSenior.toFixed(2));
+  const resultChild = (Child * percentage) / 100 + Child + 0.001;
+  data.prices.Child = Number(resultChild.toFixed(2));
 }
 
 function getEmployeeCoverage(idOrName) {
