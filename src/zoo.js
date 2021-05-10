@@ -32,8 +32,7 @@ const isManager = (id) => data.employees.some((getManager) => getManager.manager
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // seu código aqui
-  let result = data.employees.push({ id, firstName, lastName, managers, responsibleFor });
-  return result;
+  data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(specie) {
