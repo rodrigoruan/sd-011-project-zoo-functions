@@ -14,7 +14,7 @@ const data = require('./data');
 function getSpeciesByIds(ids) {
   let speciesIds = [];
   ids.forEach((id) => {
-    const speciesFilter = data.species.filter((species) => id === species.id);
+    const speciesFilter = ids.filter(ids);
     speciesIds.push(speciesFilter[0]);
   });
   return speciesIds;
