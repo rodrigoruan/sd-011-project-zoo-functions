@@ -115,8 +115,8 @@ function getEmployeeCoverage(idOrName) {
   // seu código aqui
   const getAnimalEmployee = {};
   if (!idOrName) {
-    data.employees.forEach((value) => {
-      getAnimalEmployee[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((val) => data.species.find((specie) => specie.id === val).name);
+    data.employees.forEach(({ firstName, lastName, responsibleFor }) => {
+      getAnimalEmployee[`${firstName} ${lastName}`] = responsibleFor.map((animalId) => data.species.find(({ id }) => id === animalId).name);
     });
     return getAnimalEmployee;
   }
