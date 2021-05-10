@@ -50,7 +50,7 @@ function countAnimals(specie) {
   return objeto;
 }
 
-//Requisito realizado com a ajuda da Ana Carolina Giorgiani 
+// Requisito realizado com a ajuda da Ana Carolina Giorgiani
 function calculateEntry(entrants) {
   let value = 0;
   if (entrants !== {} && entrants !== undefined) {
@@ -67,22 +67,22 @@ function calculateEntry(entrants) {
 function getAnimalMap(options) {
 }
 
-//Requisito feito com a ajuda do Matheus Alexandre e Alberto Candido
+// Requisito feito com a ajuda do Matheus Alexandre e Alberto Candido
 function getSchedule(dayName) {
   if (!dayName) {
-  return Object.keys(hours).reduce((acc, curr) => {
-  acc[curr] = `Open from ${hours[curr].open}am until ${hours[curr].close -12}pm`
-  acc.Monday = 'CLOSED';
-  return acc;
-  }, {});
+    return Object.keys(hours).reduce((acc, curr) => {
+      acc[curr] = `Open from ${hours[curr].open}am until ${hours[curr].close - 12}pm`;
+      acc.Monday = 'CLOSED';
+      return acc;
+    }, {});
   }
-  
-  if (dayName === 'Monday') return { Monday: 'CLOSED'};
 
-  return { [dayName]: `Open from ${hours[dayName].open}am until ${hours[dayName].close -12}pm`};
+  if (dayName === 'Monday') return { Monday: 'CLOSED' };
+
+  return { [dayName]: `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm` };
 }
 
-// Requisito realizado com ajuda dos colegas na sala de estudo 
+// Requisito realizado com ajuda dos colegas na sala de estudo
 function getOldestFromFirstSpecies(id) {
   const specie = employees.find((employee) => employee.id === id).responsibleFor[0];
   return Object.values(species.find((animal) => animal.id === specie).residents.sort((a, b) => b.age - a.age)[0]);
