@@ -46,23 +46,24 @@ const calculateEntry = (entrants) => (entrants ? Object.keys(entrants).reduce((a
 
 const getAnimalMap = (options = {}) => {
   const locations = { NE: [], NW: [], SE: [], SW: [] };
-
   if (!options.includeNames) {
-    data.species.forEach(({ curr, index }) => locations[curr].push(index));
+    data.species.forEach(({ location, name }) => locations[location].push(name));
     return locations;
   }
   if (options.sex) {
-    data.species.forEach(({ curr, index, array }) =>
-      locations[index].push({
-        [curr]: array.filter((animal) => animal.sex === options.sex).map((name) => name.name),
+    data.species.forEach(({ name, location, residents }) =>
+      locations[location].push({
+        [name]: residents
+          .filter((element) => element.sex === options.sex)
+          .map((element) => element.name),
       }));
   } else {
-    data.species.forEach(({ curr, index, array }) =>
-      locations[index].push({ [curr]: array.map((element) => element.name) }));
+    data.species.forEach(({ name, location, residents }) =>
+      locations[location].push({ [name]: residents.map((element) => element.name) }));
   }
   if (options.sorted) {
-    Object.keys(locations).forEach((curr) =>
-      locations[curr].forEach((item) => item[Object.keys(item)].sort()));
+    Object.keys(locations).forEach((key) =>
+      locations[key].forEach((element) => element[Object.keys(element)].sort()));
   }
   return locations;
 };
