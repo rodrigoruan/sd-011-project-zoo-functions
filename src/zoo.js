@@ -61,63 +61,8 @@ function calculateEntry(entrants) {
   return sum;
 }
 
-// function returnBySex(options, resident) {
-//   if (options.sex === 'male' && resident.sex === 'male') {
-//     return resident.name;
-//   }
-//   if (options.sex === 'female' && resident.sex === 'female') {
-//     return resident.name;
-//   }
-// }
-
-// function returnSearchNameArray(specieSearch, options) {
-//   let specieNames = [];
-//   specieSearch.residents.forEach((resident) => {
-//     if (options.sex) {
-//       specieNames.push(returnBySex(options, resident));
-//     } else {
-//       specieNames.push(resident.name);
-//     }
-//   });
-//   return specieNames;
-// }
-
-// function createSpecieObject(options, specieSearch) {
-//   if (options && options.includeNames) {
-//     let object = {};
-//     let specieNames = returnSearchNameArray(specieSearch, options);
-//     if (options.sorted) {
-//       specieNames.sort();
-//     }
-//     object[specieSearch.name] = specieNames;
-//     return object;
-//   }
-// }
-
-// Requisito 9
-// function getAnimalMap(options) {
-//   let result = {};
-//   data.species.forEach((specie) => {
-//     result[specie.location] = [];
-//     console.log(specie.location);
-//     let speciesByLocation = data.species.filter((specieSearch) => specieSearch.location === specie.location);
-//     // console.log(speciesByLocation);
-//     speciesByLocation.forEach((specieSearch) => {
-//       console.log(specieSearch);
-//       if (!options || !options.includeNames) {
-//         result[specie.location].push(specieSearch.name);
-//       } else {
-//         result[specie.location].push(createSpecieObject(options, specieSearch));
-//       }
-//     });
-//   });
-//   return result;
-// }
-
 const animalTypesFunc = () => {
   const regions = data.species.map(({ location }) => location);
-  console.log(regions);
-
   return regions.reduce((acc, curr, index) => {
     acc[regions[index]] = data.species.filter(({ location }) => location === curr).map((animal) => animal.name);
     return acc;
@@ -173,20 +118,14 @@ function getAnimalMap(options) {
 // Requisito 10
 function getSchedule(dayName) {
   if (!dayName) {
-    return {
-      Tuesday: `Open from ${data.hours.Tuesday.open}am until ${data.hours.Tuesday.close - 12}pm`,
-      Wednesday: `Open from ${data.hours.Wednesday.open}am until ${data.hours.Wednesday.close - 12}pm`,
-      Thursday: `Open from ${data.hours.Thursday.open}am until ${data.hours.Thursday.close - 12}pm`,
-      Friday: `Open from ${data.hours.Friday.open}am until ${data.hours.Friday.close - 12}pm`,
-      Saturday: `Open from ${data.hours.Saturday.open}am until ${data.hours.Saturday.close - 12}pm`,
-      Sunday: `Open from ${data.hours.Sunday.open}am until ${data.hours.Sunday.close - 12}pm`,
-      Monday: 'CLOSED',
-    };
+    return Object.keys(data.hours).reduce((acc, curr) => {
+      acc[curr] = `Open from ${data.hours[curr].open}am until ${data.hours[curr].close - 12}pm`;
+      acc.Monday = 'CLOSED';
+      return acc;
+    }, {});
   }
   if (dayName === 'Monday') return { Monday: 'CLOSED' };
-  let myObj = {};
-  myObj[dayName] = `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close - 12}pm`;
-  return myObj;
+  return { [dayName]: `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close - 12}pm` };
 }
 
 // Requisito 11
