@@ -215,7 +215,6 @@ Antes de começar, analise o arquivo `src/data.js`, para ver os dados que serão
 
   - O parâmetro `personalInfo` recebe um objeto que contém o `id`, o `firstName` e o `lastName`
   - O parâmetro `associatedWith` recebe um objeto que contém dois array: `managers` e `responsibleFor`
-
   **O que será avaliado**
 
   - Cria um novo colaborador a partir de objetos contendo `informações pessoais` e `gerentes e animais gerenciados`.

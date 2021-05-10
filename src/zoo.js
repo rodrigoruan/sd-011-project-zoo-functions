@@ -64,22 +64,70 @@ function countAnimals(specie) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
   let totalValue = 0;
+
   if (entrants) {
     Object.entries(entrants).forEach((entrant) => {
-      // console.log?(Object.values(data.prices));
       const actualPrice = Object.entries(data.prices).find((price) => price[0] === entrant[0]);
-      // console.log('atual preço ' + actualPrice[1]);
       totalValue += (actualPrice[1] * entrant[1]);
-      // console.log(totalValue);
     });
   }
   return totalValue;
 }
 
+function createArrayResidentsNames(residents, sex) {
+  let arrayResidentsNames;
+
+  if (sex) {
+    const residentsSex = residents.filter((element) => element.sex === sex);
+    arrayResidentsNames = residentsSex.map((resident) => resident.name);
+    return arrayResidentsNames;
+  }
+  arrayResidentsNames = residents.map((specie) => specie.name);
+  return arrayResidentsNames;
+}
+
+function createAnimalResidents(array, animal, sorted) {
+  let objResidents = {};
+  if (sorted) {
+    objResidents[animal.name] = array.sort();
+    return objResidents;
+  }
+  objResidents[animal.name] = array;
+  return objResidents;
+}
+
+function createResidents(animal, animalsSelected) {
+  return animalsSelected.find((element) => (element.name === animal.name)).residents;
+}
+
 function getAnimalMap(options) {
-  // seu código aqui
+  const positions = ['NE', 'NW', 'SE', 'SW'];
+  const objAnimals = {};
+
+  if (options) {
+    const { includeNames, sorted, sex } = options;
+    if (includeNames === true) {
+      const selectAnimalsPositions = positions.forEach((position) => {
+        const arrayPosition = [];
+        const animalsSelected = species.filter((specie) => specie.location === position);
+        const animalsNames = animalsSelected.forEach((animal) => {
+          const residents = createResidents(animal, animalsSelected);
+          let residentsNames = createArrayResidentsNames(residents, sex);
+          const objAnimalResidents = createAnimalResidents(residentsNames, animal, sorted);
+          arrayPosition.push(objAnimalResidents);
+        });
+        objAnimals[position] = arrayPosition;
+      });
+      return objAnimals;
+    }
+  }
+  const selectAnimalsPositions = positions.forEach((position) => {
+    const animalsSelected = species.filter((specie) => specie.location === position);
+    const arrayAnimal = animalsSelected.map((animal) => animal.name);
+    objAnimals[position] = arrayAnimal;
+  });
+  return objAnimals;
 }
 
 function getSchedule(dayName) {
