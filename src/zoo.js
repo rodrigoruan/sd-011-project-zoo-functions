@@ -10,7 +10,7 @@ eslint no-unused-vars: [
 */
 
 const data = require('./data');
-const { species, prices } = require('./data');
+const { species, prices, hours } = require('./data');
 
 function getSpeciesByIds(...ids) {
   return ids.map((id) => species.find((animal) => animal.id === id));
@@ -63,6 +63,7 @@ function countAnimals(speciess) {
   }
 }
 
+// Ex feito com apoio dos colegas Mauricio e Rodolfo T11- Salve salve Sala A
 function calculateEntry(entrants) {
   if (!entrants) return 0;
   const valuesTotal = [];
@@ -78,8 +79,28 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
-function getSchedule(dayName) {
-  // seu código aqui
+function getSchedule(dayName ) {
+  const daysWeekHoursArray = Object.entries(hours);
+  const agendaReturn = {};
+  if (!dayName) {
+    daysWeekHoursArray.forEach((dayWeek) => {
+      const dayString = dayWeek[0];
+      const dayObj = dayWeek[1];
+      agendaReturn[dayString] = `Open from ${dayObj.open}am until ${dayObj.close - 12}pm`;
+      if (dayObj.close === dayObj.open) {
+        agendaReturn[dayString] = 'CLOSED';
+      };
+    });
+    return agendaReturn;
+  }
+  const hoursDayWord = daysWeekHoursArray.find((dayWeek) => dayName === dayWeek[0]);
+  const dayString = hoursDayWord[0];
+  const dayObj = hoursDayWord[1];
+  agendaReturn[dayString] = `Open from ${dayObj.open}am until ${dayObj.close - 12}pm`;
+  if (dayObj.close === dayObj.open) {
+    agendaReturn[dayString] = 'CLOSED';
+  };
+  return agendaReturn;
 }
 
 function getOldestFromFirstSpecies(id) {
