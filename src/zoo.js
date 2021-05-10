@@ -99,7 +99,10 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const { Adult, Senior, Child } = data.prices;
+  data.prices.Adult = parseFloat((Adult + (Math.ceil(Adult * percentage) / 100)).toFixed(2));
+  data.prices.Child = parseFloat((Child + (Math.ceil(Child * percentage) / 100)).toFixed(2));
+  data.prices.Senior = parseFloat((Senior + (Math.ceil(Senior * percentage) / 100)).toFixed(2));
 }
 
 function getEmployeeCoverage(idOrName) {
