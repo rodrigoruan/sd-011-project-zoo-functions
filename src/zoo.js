@@ -66,15 +66,12 @@ function countAnimals(animals) {
     const animAllsSelected = species.find((animalSelected) => (animalSelected.name === animals)).residents.length;
 
     return animAllsSelected;
-
-  } else {
+  }
     let all = {};
-    species.forEach((animal) => (all[animal.name] = animal.residents.length));
+    species.forEach((animal) => {
+      (all[animal.name] = animal.residents.length)});
     return all;
-  }  
 }
-
-console.log(countAnimals());
 
 function calculateEntry(entrants) {
   // seu código aqui
