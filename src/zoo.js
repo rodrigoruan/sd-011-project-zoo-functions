@@ -79,10 +79,10 @@ function calculateEntry(entrants) {
   return calculate;
   // seu código aqui
 }
+let map = { NE: [], NW: [], SE: [], SW: [] };
+const regions = Object.keys(map);
 
-function getAnimalMap(options) {
-  let map = { NE: [], NW: [], SE: [], SW: [] };
-  const regions = Object.keys(map);
+const checkEmptyMap = (options) => {
   if (_.isEmpty(options) || !options.includeNames) {
     regions.forEach((region) => {
       const animals = data.species.filter((animal) => animal.location === region);
@@ -90,29 +90,44 @@ function getAnimalMap(options) {
     });
     return map;
   }
-  const { includeNames, sorted, sex } = options;
-  if (includeNames) {
-    regions.forEach((region) => {
-      const animalsInRegion = data.species.filter((animal) => animal.location === region);
-      map[region] = animalsInRegion.map((animal) => {
-        let animalList = animal.residents;
-        if (sex) {
-          animalList = animalList.filter((gen) => gen.sex === sex);
-        }
-        animalList = animalList.map((single) => single.name);
-        if (sorted) {
-          animalList = animalList.sort();
-        }
-        return {
-          [animal.name]: animalList,
-        };
-      });
+};
+
+const sexCheck = (options) => {
+  const { sorted, sex } = options;
+  regions.forEach((region) => {
+    const animalsInRegion = data.species.filter((animal) => animal.location === region);
+    map[region] = animalsInRegion.map((animal) => {
+      let animalList = animal.residents;
+      if (sex) {
+        animalList = animalList.filter((gen) => gen.sex === sex);
+      }
+      animalList = animalList.map((single) => single.name);
+      if (sorted) {
+        animalList = animalList.sort();
+      }
+      return {
+        [animal.name]: animalList,
+      };
     });
+  });
+};
+
+const checkInclude = (options) => {
+  const { includeNames } = options;
+  if (includeNames) {
+    sexCheck(options);
 
     return map;
   }
+};
+
+function getAnimalMap(options) {
+  if (checkEmptyMap(options)) {
+    return checkEmptyMap(options);
+  }
+  return checkInclude(options);
 }
-const options = { includeNames: true, sorted: true, sex: 'female' };
+const options = { includeNames: true, sex: 'female', sorted: true };
 
 console.log(getAnimalMap(options));
 
@@ -131,14 +146,6 @@ function increasePrices(percentage) {
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
-
-// map[region] = animals.map((el) => el.name);
-// const redux = (acc, item, index) => {
-//   acc.push(animals[index].residents.map((id) => id.name));
-//   return acc;
-// };
-// const newMap = map[region].reduce(redux, []);
-// map[region] = newMap;
 
 module.exports = {
   calculateEntry,

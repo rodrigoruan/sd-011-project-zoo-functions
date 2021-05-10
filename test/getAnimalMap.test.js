@@ -1,6 +1,20 @@
 const assert = require('assert');
 const zoo = require('../src/zoo');
 
+const checkEmptyMap = (options) => {
+  let map = { NE: [], NW: [], SE: [], SW: [] };
+  const regions = Object.keys(map);
+  if (_.isEmpty(options) || !options.includeNames) {
+    regions.forEach((region) => {
+      const animals = data.species.filter(
+        (animal) => animal.location === region
+      );
+      map[region] = animals.map((el) => el.name);
+    });
+  }
+  return map;
+};
+
 describe('Implemente a função getAnimalMap', () => {
   it('Sem parâmetros, retorna animais categorizados por localização', () => {
     const expected = {
