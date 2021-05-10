@@ -1,3 +1,4 @@
+const { prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -64,6 +65,11 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   // seu código aqui
+  const entriesPrices = Object.entries(prices);
+  const multiplier = 1 + (percentage / 100);
+  entriesPrices.forEach(([type, price]) => {
+    prices[type] = Math.ceil((price * multiplier) * 100) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
