@@ -12,7 +12,7 @@ eslint no-unused-vars: [
 
 const data = require('./data');
 
-const { species, employees, prices} = data;
+const { species, employees } = data;
 
 function getSpeciesByIds(...ids) {
   // seu código aqui
@@ -67,7 +67,7 @@ function countAnimals(specie) {
   return quantityPerSpecies[specie];
 }
 
- function calculateEntry(entrants = 0) {
+function calculateEntry(entrants = 0) {
   // seu código aqui
   return Object.entries(entrants)
     .reduce((acum, [chave, valor]) => acum + data.prices[chave] * valor, 0);
