@@ -64,9 +64,22 @@ function getAnimalMap(options = {}) {
 }
 /* console.log(getAnimalMap()); */
 
-function getSchedule(dayName) {
-  // seu código aqui
-}
+const getSchedule = (dayName) => {
+  let result = {};
+  const arrayOfSchedule = Object.entries(data.hours).map((day) => `${day[0]}: Open from ${day[1].open}am until ${day[1].close - 12}pm`);
+  arrayOfSchedule.splice(6, 1, 'Monday: CLOSED');
+  const scheduleDays = arrayOfSchedule.map((element) => element.split(': '));
+  if (dayName === undefined) {
+    scheduleDays.forEach((weekDay) => {
+      result[`${weekDay[0]}`] = `${weekDay[1]}`;
+    });
+    return result;
+  }
+  const dayOfWeek = arrayOfSchedule.filter((element) => element.substring(0, 2) === dayName.substring(0, 2));
+  const schDay = dayOfWeek[0].split(': ');
+  result[`${schDay[0]}`] = `${schDay[1]}`;
+  return result;
+};
 
 const getOldestFromFirstSpecies = (id) => {
   const firstAnimal = data.employees.find((worker) => worker.id === id).responsibleFor[0]; // seu código aqui
