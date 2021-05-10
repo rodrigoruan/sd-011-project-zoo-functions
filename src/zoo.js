@@ -76,17 +76,13 @@ function calculateEntry(entrants = 0) {
 // console.log(entryCalculator({ 'Adult': 2, 'Child': 3, 'Senior': 1 }));
 
 function animalReturn(curr, sorted, sex) {
-let everyReturn;
-if (sorted && sex) {
-  everyReturn = { [curr.name]: curr.residents.filter((sexo) => sexo.sex === sex).map((value) => value.name).sort() };
-  }
+  let everyReturn;
+  if (sorted && sex) everyReturn = { [curr.name]: curr.residents.filter((sexo) => sexo.sex === sex).map((value) => value.name).sort() };
 
-  else if (sex) {
-    everyReturn = { [curr.name]: curr.residents.filter((sexo) => sexo.sex === sex).map((value) => value.name) };
-  }
-  else if (sorted) {
-    everyReturn = { [curr.name]: curr.residents.map((value) => value.name).sort() };
-    }
+  else if (sex) everyReturn = { [curr.name]: curr.residents.filter((sexo) => sexo.sex === sex).map((value) => value.name) };
+
+  else if (sorted) everyReturn = { [curr.name]: curr.residents.map((value) => value.name).sort() };
+
   else {
     everyReturn = { [curr.name]: curr.residents.map((value) => value.name) };
   }
@@ -95,19 +91,22 @@ if (sorted && sex) {
 // Ajuda do Tales Coelho, Mauricio Ruviaro e Hugo Somers ambos da turma 11
 function getAnimalMap(options = {}) {
   let expected = data.species.reduce((acc, curr) => {
-    !acc[curr.location] ? acc[curr.location] = [] : undefined;
+    if (!acc[curr.location]) {
+      acc[curr.location] = [];
+    }
     acc[curr.location].push(curr.name);
     return acc;
   }, {});
 
   let residentObj = data.species.reduce((acc, curr) => {
-    !acc[curr.location] ? acc[curr.location] = [] : undefined;
+    if (!acc[curr.location]) {
+      acc[curr.location] = [];
+    }
     acc[curr.location].push(animalReturn(curr, options.sorted, options.sex));
-    return acc
+    return acc;
   }, {});
 
   if (options.includeNames) expected = residentObj;
-  
 
   return expected;
 }
