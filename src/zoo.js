@@ -22,7 +22,7 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  const result = data.employees.reduce((acc, employ) => employeeName === employ.lastName || employeeName === employ.firstName ? acc = employ : acc, {});
+  const result = data.employees.reduce((acc, employ) => (employeeName === employ.lastName || employeeName === employ.firstName ? acc = employ : acc), {});
   return result;
 }
 
