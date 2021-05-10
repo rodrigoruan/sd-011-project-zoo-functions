@@ -64,7 +64,7 @@ function calculateEntry(entrants) {
 const animalTypesFunc = () => {
   const regions = data.species.map(({ location }) => location);
   return regions.reduce((acc, curr, index) => {
-    acc[regions[index]] = data.species.filter(({ location }) => location === curr).map((animal) => animal.name);
+    acc[regions[index]] = data.species.filter(({ location }) => location === curr).map(({ name }) => name);
     return acc;
   }, {});
 };
