@@ -20,7 +20,6 @@ function getSpeciesByIds(...ids) {
   return nameAnimals;
 }
 
-getSpeciesByIds();
 function getAnimalsOlderThan(animal, age) {
   const getAnimals = data.species.find((specie) => specie.name === animal).residents;
   return getAnimals.every((value) => value.age >= age);
@@ -49,7 +48,8 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
     firstName,
     lastName,
     managers,
-    responsibleFor };
+    responsibleFor,
+  };
   return data.employees.push(newObject);
 }
 
@@ -71,8 +71,23 @@ function calculateEntry(entrants) {
   return Object.keys(entrants).reduce((count, value) => count + (entrants[value] * allPrices[value]), 0);
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+function getAnimalMap(options = {}) {
+  let animalsByLocation = { NE: [], NW: [], SE: [], SW: [] };
+  if (!options.includeNames) {
+    data.species.forEach((value) => animalsByLocation[value.location].push(value.name));
+    return animalsByLocation;
+  }
+  data.species.forEach((value) => {
+    let nameList = value.residents.map((name) => name.name);
+    if (options.sex !== undefined) {
+      nameList = [];
+      let objectNameList = value.residents.filter((val) => val.sex === options.sex);
+      objectNameList.forEach((nam) => nameList.push(nam.name));
+    }
+    if (options.sorted) { nameList.sort(); }
+    animalsByLocation[value.location].push({ [value.name]: nameList });
+  });
+  return animalsByLocation;
 }
 
 function getSchedule(dayName) {
