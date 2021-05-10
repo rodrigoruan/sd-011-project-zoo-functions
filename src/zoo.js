@@ -64,14 +64,23 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 // Task 7
+// References:
+// ForEach: https://www.w3schools.com/jsref/jsref_foreach.asp
+// Ternary Operator: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
+// How to use TO: https://www.programiz.com/javascript/ternary-operator
 function countAnimals(species, getAnimals) {
   let animals = {};
   getAnimals = data.species.forEach((items) => { animals[items.name] = items.residents.length; });
   return species ? data.species.find((items) => items.name === species).residents.length : animals;
 }
 
+// Task 8
+// References:
+// JS reduce: https://www.w3schools.com/jsref/jsref_reduce.asp
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants) {
+    return Object.keys(entrants).reduce((acc, curr) => (acc + (data.prices[curr] * entrants[curr])), 0);
+  } return 0;
 }
 
 function getAnimalMap(options) {
