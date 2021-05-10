@@ -66,9 +66,40 @@ function calculateEntry(entrants) {
   return total;
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+let result = {};
+
+function getAnimalNames(options) {
+  data.species.forEach((animal) => result[animal.location].push({ [animal.name]: animal.residents.map(({ name }) => name) }));
+  if (options.sex) {
+    result = { NE: [], NW: [], SE: [], SW: [] };
+    data.species.forEach((animal) => result[animal.location].push({ [animal.name]: animal.residents.filter(({ sex }) => sex === options.sex).map(({ name }) => name) }));
+  }
+  if (options.sorted) {
+    Object.keys(result).forEach((region) => {
+      result[region].forEach((animal) => {
+        const selectedAnimal = Object.keys(animal)[0];
+        animal[selectedAnimal].sort();
+      });
+    });
+  }
+  return result;
 }
+
+function getAnimalMap(options) {
+  const regions = ['NE', 'NW', 'SE', 'SW'];
+  for (let index = 0; index < regions.length; index += 1) {
+    result[regions[index]] = [];
+  }
+  if (!options || !options.includeNames) {
+    data.species.map((animal) => result[animal.location].push(animal.name));
+  } else {
+    getAnimalNames(options);
+  }
+  return result;
+}
+
+// const options = { includeNames: true, sex: 'female' };
+// console.log(getAnimalMap(options));
 
 function getSchedule(dayName) {
   const { Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday } = data.hours;
