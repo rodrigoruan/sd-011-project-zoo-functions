@@ -56,8 +56,7 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  const locations = ['NE', 'NW', 'SE', 'SW'];
-
+  // seu código aqui
 }
 
 function getSchedule(dayName) {
@@ -72,12 +71,13 @@ function getSchedule(dayName) {
     'Monday': 'CLOSED' 
   }
   if (!dayName) return dayNames;
-  if (dayName !== 'Monday') {
-    returnResult[dayName] = `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close - 12}pm`;
+  if (dayName && dayName !== 'Monday') {
+    returnResult[dayName] = `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm`;
     return returnResult;
   }
   if (dayName === 'Monday') return { Monday: 'CLOSED' };
 }
+console.log(getSchedule())
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
