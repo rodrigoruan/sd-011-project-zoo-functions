@@ -57,19 +57,17 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   });
 }
 
-const quantityPerSpecies = () => species
-  .reduce((acc, curr) => {
-    acc[curr.name] = curr.residents.length;
-    return acc;
-  }, {});
-
 
 function countAnimals(specie) {
   // seu código aqui
-  if (!specie) return quantityPerSpecies();
-  return quantityPerSpecies()[specie];
+  const quantityPerSpecies = species.reduce((acc, curr) => {
+    acc[curr.name] = curr.residents.length;
+      return acc;
+    }, {});
+  if (!specie) return quantityPerSpecies;
+  return quantityPerSpecies[specie];
 }
-console.log(countAnimals());
+
 /* function calculateEntry(entrants) {
   // seu código aqui
 }
