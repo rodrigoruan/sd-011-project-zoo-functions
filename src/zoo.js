@@ -136,12 +136,12 @@ function getEmployeeCoverage(idOrName) {
   const employeesSpecies = employeesFiltered
     .reduce((coverage, employee) => ({
       ...coverage,
-      [`${employee.firstName} ${employee.lastName}`] : employee.responsibleFor,
+      [`${employee.firstName} ${employee.lastName}`]: employee.responsibleFor,
   }), {});
 
   Object.entries(employeesSpecies).forEach(([key, animalsId]) => {
     employeesSpecies[key] = animalsId
-      .map((animalId) => animalSpecie.find((specie) => specie.id === animalId).name);
+      .map((animalId) => animalSpecies.find((specie) => specie.id === animalId).name);
   });
 
   return employeesSpecies;
