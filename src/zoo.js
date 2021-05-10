@@ -29,12 +29,12 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  if (data.employees.find((value) => (value.id === id)).managers.length === 1) return true;
+  return false;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  if (data.employees.find((value) => (value.id === id)).managers.length === 1) return true;
-  return false;
+  return data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(species) {
