@@ -103,17 +103,25 @@ function getAnimalMap({ includeNames, sorted, sex }) {
 // console.log(data.species.filter((specie) => specie.location === 'NE'));
 
 function getSchedule(dayName) {
-  // if (!dayName) {
-  // const entriesMap = Object.entries(data.hours).map((day, index) => ({ [day[index]]: `Open from ${[day[index + 1]].{open }}am until ${[day[index + 1].close]}pm` }));
-  // const entriesReduce = Object.entries(data.hours).reduce((acc, day, index) => ({ acc[day[index]] = `Open from ${[day[index + 1]].open}am until ${[day[index + 1]].close}pm` }), {});
-  // // const daysOfWeek = Object.keys(data.hours);
-  // // const openAndCloseSchedule = Object.values(data.hours).map((day) => `Open from ${day.open}am until ${day.close}pm`);
-  // return entriesReduce;
-  // const weekDaysAndHours = Object.entries(data.hours);
-  // return weekDaysAndHours.map((day) => {{ ola: `Open from ${day[1].open}am until ${day[1].close}pm`, }});
-  // }
+  const scheduleWorkingHours = Object.values(data.hours).reduce((acc, workingHours, index) => {
+    acc[index] = `Open from ${workingHours.open}am until ${workingHours.close - 12}pm`;
+    if (workingHours.open === 0) {
+      acc[index] = 'CLOSED';
+    }
+    return acc;
+  }, []);
+
+  const fullSchedule = Object.keys(data.hours).reduce((acc, day, index) => {
+    acc[`${day}`] = scheduleWorkingHours[index];
+    return acc;
+  }, {});
+
+  const scheduleOnChosenDay = Object.entries(fullSchedule).filter((day) => day[0] === dayName).reduce((acc, day) => {
+    acc[`${day[0]}`] = `${day[1]}`;
+    return acc;
+  }, {});
+  return !dayName ? fullSchedule : scheduleOnChosenDay;
 }
-// console.log(getSchedule());
 
 function getOldestFromFirstSpecies(id) {
   const firstSpecieCaredByEmployee = data.employees.find((employee) => employee.id === id).responsibleFor[0];
