@@ -9,8 +9,6 @@ eslint no-unused-vars: [
 ]
 */
 
-// const { species } = require('./data');
-// const { employees } = require('./data');
 const data = require('./data');
 
 // Requisito 1
@@ -94,7 +92,7 @@ function includeNames(obj, options) {
     obj[regiao] = [];
     data.species.forEach(({ name, location, residents }) => {
       if (location === regiao) {
-        obj[regiao].push({ [name]: residents.map(({ name }) => name) });
+        obj[regiao].push({ [name]: residents.map((resident) => resident.name) });
       }
     });
   });
