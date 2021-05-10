@@ -76,23 +76,14 @@ function countAnimals(animals) {
   };
   return expected;
 }
-const ticketPrice = {
-  adultPrice: 49.99,
-  seniorPrice: 24.99,
-  childPrice: 20.99,
-};
 
-const { adultPrice, seniorPrice, childPrice } = ticketPrice;
-
-function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
-  let allEntry = childPrice * entrants.Child + seniorPrice * entrants.Senior + adultPrice * entrants.Adult;
-  if (entrants === undefined || Object.values(entrants).length === 0) {
-    allEntry = 0;
-  }
-
-  return console.log(allEntry);
+function calculateEntry(entrants) {
+  if (entrants === undefined || Object.values(entrants).length === 0) return 0;
+  console.log(Object.keys(entrants));
+  return Object.keys(entrants).reduce((acc, curr) => acc + (data.prices[curr] * entrants[curr]), 0);
 }
-let entrants = { Child: 1, Senior: 1 };
+
+let entrants = { Adult: 10, Child: 5, Senior: 1 };
 calculateEntry(entrants);
 
 function getAnimalMap(options) {
