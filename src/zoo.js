@@ -54,14 +54,6 @@ function countAnimals(species) {
 }
 // A segunda parte da função countAnimal foi baseada no exemplo do site "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce"
 
-/*
- prices: {
-    Adult: 49.99,
-    Senior: 24.99,
-    Child: 20.99,
-  }
-*/
-
 function calculateEntry(entrants) {
   if (entrants) {
     let { Adult = 0, Senior = 0, Child = 0 } = entrants;
@@ -120,18 +112,28 @@ function getAnimalMap(options = {}) {
 }
 
 function getSchedule(dayName) {
+  const scheduleObj = (schedule = data.hours) => {
+    Object.keys(schedule).forEach(function (key) {
+      if (schedule[key].open !== 0) {
+        schedule[key] = `Open from ${schedule[key].open}am until ${schedule[key].close - 12}pm`;
+      } else { schedule[key] = 'CLOSED'; }
+    });
+    return schedule;
+  };
+
+  return scheduleObj();
+}
+
+console.log(getSchedule());
+function getOldestFromFirstSpecies(_id) {
   // seu código aqui
 }
 
-function getOldestFromFirstSpecies(id) {
+function increasePrices(_percentage) {
   // seu código aqui
 }
 
-function increasePrices(percentage) {
-  // seu código aqui
-}
-
-function getEmployeeCoverage(idOrName) {
+function getEmployeeCoverage(_idOrName) {
   // seu código aqui
 }
 
