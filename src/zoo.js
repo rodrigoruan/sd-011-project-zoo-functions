@@ -30,9 +30,12 @@ function getEmployeeByName(employeeName) {
 }
 console.log(getEmployeeByName('Wishart'));
 
+
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return {...personalInfo,...associatedWith}
 }
+console.log(createEmployee(['7ed1c9bb-8570-44f6-b718-0666b869573a', 'Criador de gados']));
+
 
 function isManager(id) {
   // seu código aqui
