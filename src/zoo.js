@@ -36,13 +36,10 @@ const getEmployeeByName = (employeeName) => {
   return employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
 };
 
-const createEmployee = ({ id, firstName, lastName }, { managers, responsibleFor }) => (
+const createEmployee = (personalInfo, associatedWith) => (
   {
-    id,
-    firstName,
-    lastName,
-    managers,
-    responsibleFor,
+    ...personalInfo,
+    ...associatedWith,
   }
 );
 
@@ -50,8 +47,8 @@ const isManager = (id) => (
   employees.some((employee) => employee.managers.includes(id))
 );
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  return data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(speciess) {
