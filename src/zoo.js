@@ -36,8 +36,16 @@ function getAnimalsOlderThan(animal, age) {
   return result;
 }
 
+const { employees } = data;
+
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  let result = {};
+  employees.forEach((employee) => {
+    if (employee.firstName === employeeName || employee.lastName === employeeName) {
+      result = employee;
+    }
+  });
+  return result;
 }
 
 function createEmployee(personalInfo, associatedWith) {
