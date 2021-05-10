@@ -67,13 +67,13 @@ function countAnimals(specie) {
   return quantityPerSpecies[specie];
 }
 
-function calculateEntry(entrants) {
+/* function calculateEntry(entrants) {
   // seu código aqui
   
 }
 
 
-/* function getAnimalMap(options) {
+ function getAnimalMap(options) {
   // seu código aqui
 }
 
