@@ -78,9 +78,7 @@ function countAnimals(species, getAnimals) {
 // References:
 // JS reduce: https://www.w3schools.com/jsref/jsref_reduce.asp
 function calculateEntry(entrants) {
-  if (entrants) {
-    return Object.keys(entrants).reduce((acc, curr) => (acc + (data.prices[curr] * entrants[curr])), 0);
-  } return 0;
+  return entrants ? Object.keys(entrants).reduce((acc, curr) => (acc + (data.prices[curr] * entrants[curr])), 0) : 0;
 }
 
 function getAnimalMap(options) {
