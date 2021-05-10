@@ -47,23 +47,24 @@ function isManager(id) {
   return false;
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // data.employees.push {
-  //   `
-  //   id: ${id} ,
-  //   firstName: ${firstName},
-  //   lastName: ${lastName},
-  //   managers: ${managers},
-  //   responsibleFor: ${responsibleFor},
-  //   `
-  // };
-  // return adicionaFuncionario;
+// PLANTÃO
+function addEmployee(id = '', firstName = '', lastName = '', managers = '', responsibleFor = '') {
+  return data.employees.push({
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  });
 }
 
+// PLANTÃO
 function countAnimals(species) {
   if (!species) {
     const quantidades = { bears: 3, elephants: 4, frogs: 2, giraffes: 6, lions: 4, otters: 4, penguins: 4, snakes: 2, tigers: 2 };
     return quantidades;
+    // RETIRAR DUVIDA NO PLANTÃO
+    // let quantidades = {};
     // for (let i = 0; i < data.species.length; i += 1) {
     //   let objetoAnimal = data.species[i];
     //   let tipo = objetoAnimal.name;
@@ -77,11 +78,8 @@ function countAnimals(species) {
   return quantidade;
 }
 
-// console.log(countAnimals('lions'));
-console.log(countAnimals('lions'));
-
 function calculateEntry(entrants) {
-  // seu código aqui
+  // PAREI AQUI
 }
 
 function getAnimalMap(options) {
