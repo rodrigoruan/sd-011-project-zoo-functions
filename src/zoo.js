@@ -117,16 +117,12 @@ const getSchedule = (dayName) => {
 };
 
 const getOldestFromFirstSpecies = (id) => {
-  const employee = employees.find((person) => person.id === id);
-  const firstSpecieId = employee.responsibleFor[0];
+  const firstSpecieId = employees.find((person) => person.id === id).responsibleFor[0];
   const specie = animalSpecies.find((animalSpecie) => animalSpecie.id === firstSpecieId);
 
-  const oldest = specie.residents.reduce((oldestResident, { name, sex, age }) => {
-    if (age > oldestResident[2]) return [name, sex, age];
-    return oldestResident;
-  }, ['', '', 0]);
-
-  return oldest;
+  return specie.residents.reduce((oldestResident, { name, sex, age }) => (
+    age > oldestResident[2] ? [name, sex, age] : oldestResident
+  ), ['', '', 0]);
 };
 
 const modifyNumber = (number, modifier) => Math.round(number * modifier * 100) / 100;
