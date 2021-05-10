@@ -89,7 +89,11 @@ function getSchedule(dayName) {
 // Object.entries, vai clonar o objeto horas em forma de array, o reduce vai selecionar os dias da semana e horários de funcionamento. Vou desestruturar open e close. Na linha 82, estou passando o dia da semana e horário de funcionamento precisa ser maior que 0. Se não for um dia da semana, vai retornar vazio.
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employeZoo = data.employees.find((employee) => employee.id === id).responsibleFor[0];
+  const animal = data.species
+    .find((nameSpecie) => nameSpecie.id === employeZoo).residents
+    .sort((young, old) => old.age - young.age);
+  return Object.values(animal[0]);
 }
 
 function increasePrices(percentage) {
