@@ -168,8 +168,6 @@ function getEmployeeCoverage(idOrName) {
   return obj;
 }
 
-getEmployeeCoverage('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1');
-
 module.exports = {
   calculateEntry,
   getSchedule,
