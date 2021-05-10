@@ -109,7 +109,11 @@ function getSchedule(dayName) {
   let days = {};
 
   Object.keys(hours).forEach((day) => {
-    day !== 'Monday' ? days[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm` : days[day] = 'CLOSED';
+    if (day !== 'Monday') {
+      days[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`
+    } else {
+      days[day] = 'CLOSED';
+    }
   });
 
   if (dayName !== undefined) {
