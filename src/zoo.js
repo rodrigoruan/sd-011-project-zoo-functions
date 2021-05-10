@@ -122,7 +122,7 @@ function getOldestFromFirstSpecies(id) {
       || specie1.name === manager.responsibleFor[0]));
   const oldestAnimal = foundAnimal.residents
     .sort((animal1, animal2) => animal2.age - animal1.age)[0];
-  return [oldestAnimal.name, oldestAnimal.sex, oldestAnimal.age];    
+  return [oldestAnimal.name, oldestAnimal.sex, oldestAnimal.age];
 }
 
 function increasePrices(percentage) {
