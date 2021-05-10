@@ -70,8 +70,8 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  const { Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday } = data.hours;
   if (typeof dayName === 'undefined') {
+    const { Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday } = data.hours;
     return {
       Tuesday: `Open from ${Tuesday.open}am until ${Tuesday.close - 12}pm`,
       Wednesday: `Open from ${Wednesday.open}am until ${Wednesday.close - 12}pm`,
