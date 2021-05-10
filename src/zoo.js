@@ -13,13 +13,13 @@ const { TestScheduler } = require('jest');
 const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
+// função que retorna objeto dentro de um array, de acordo com parâmetro dado (nome ou id)
+const findSpecie = (nameOrId, propertySpecie) => species.filter((specie) => specie[propertySpecie] === nameOrId);
+
 function getSpeciesByIds(...ids) {
-  let arraySpecies = [];
-  ids.forEach((id) => {
-    const filterId = species.filter((specie) => id === specie.id);
-    arraySpecies.push(filterId[0]);
-  });
-  return arraySpecies;
+  let arraySpeciesById = [];
+  ids.forEach((id) => arraySpeciesById.push(findSpecie(id, 'id')[0]));
+  return arraySpeciesById;
 }
 
 function getAnimalsOlderThan(animal, age) {
@@ -81,7 +81,7 @@ function calculateEntry(entrants) {
   return totalEntrance;
 }
 
-function createAnimalMap(arraySpecies) {
+function createAnimalMap(hello) {
   let locationsAndSpecies = {
     NE: [],
     NW: [],
@@ -89,19 +89,33 @@ function createAnimalMap(arraySpecies) {
     SW: [],
   };
   Object.keys(locationsAndSpecies).forEach((location) => {
-    const speciesbyLocation = arraySpecies.filter((specie) => location === specie.location);
+    const speciesbyLocation = species.filter((specie) => location === specie.location);
     locationsAndSpecies[location] = speciesbyLocation.map((element) => element.name);
+    
   });
+  const teste = Object.values(locationsAndSpecies).forEach((animal) => findSpecie(animal, 'name').residents)
+
   return locationsAndSpecies;
 }
 
 function getAnimalMap(options) {
-  let locationsAndSpecies = createAnimalMap(species);
 
-  if (!options) {
-    return locationsAndSpecies;
+  // refatorar
+   if (!options) {
+    return createAnimalMap();
+  } else if (options.includeNames === true) {
+    if (options.sex === 'male') {
+      return 'teste1'
+    } else if (options.sex === 'female') {
+      return 'teste2'
+    } if (options.sorted === true) {
+      return 'teste4'
+    }
+    return 'teste3'   
   }
 }
+
+// console.log(getAnimalMap({ includeNames: true}))
 
 function getSchedule(dayName) {
   let objectSchedule = {};
@@ -139,20 +153,14 @@ function increasePrices(percentage) {
   });
 }
 
-const generateArrayCoverage = (objectEmployee, arraySpecies) => {
-  let arrayCoverage = [];
-  objectEmployee.responsibleFor.forEach((specieId) => {
-    const findSpecie = arraySpecies.filter((specie) => specie.id === specieId);
-    arrayCoverage.push(findSpecie[0].name);
-  });
-  return arrayCoverage;
-};
+// função que retorna array com os nomes dos animais que cuida
+const generateArrayCoverage = (objectEmployee) => objectEmployee.responsibleFor.map((specieId) => findSpecie(specieId, 'id')[0].name);
 
 function getEmployeeCoverage(idOrName) {
   let employeesAndSpecies = {};
   employees.forEach((employee) => {
     let temporaryString = `${employee.firstName} ${employee.lastName}`;
-    employeesAndSpecies[temporaryString] = generateArrayCoverage(employee, species);
+    employeesAndSpecies[temporaryString] = generateArrayCoverage(employee);
   });
 
   if (!idOrName) {
