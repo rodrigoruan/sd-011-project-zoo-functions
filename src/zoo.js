@@ -9,15 +9,14 @@ eslint no-unused-vars: [
 ]
 */
 
+const { species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  const { species } = data;
   return species.filter((specie) => ids.includes(specie.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
-  const { species } = data;
   return species.find(({ name }) => name === animal).residents.every(({ age: capturedAge }) => capturedAge >= age);
 }
 
@@ -41,16 +40,15 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return employees.push(newEmployee);
 }
 
-function countAnimals(species) {
-  // const { species } = data;
+function countAnimals(specie) {
   const animal = {};
-  if (!species) {
+  if (!specie) {
     data.species.forEach((element) => {
       animal[element.name] = element.residents.length;
     });
     return animal;
   }
-  return data.species.find((animalName) => animalName.name === species).residents.length;
+  return data.species.find((animalName) => animalName.name === specie).residents.length;
 }
 
 function calculateEntry(entrants) {
@@ -63,12 +61,33 @@ function calculateEntry(entrants) {
   return sum;
 }
 
+// const objAnimals = {};
+// const animalsNames = species.map((animal) => animal.name);
+// const animals = species.reduce((acc, value) => objAnimals[value.location] = objAnimals[value.location] + [value.name], objAnimals);
+// console.log(objAnimals);
+
+// const getAnimalByLocation = (animal, location) => {
+
+// };
+
 function getAnimalMap(options) {
-  // seu código aqui
+  // if (!options) return
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const days = Object.keys(data.hours);
+  const openingHours = {};
+  days.forEach((day, index) => {
+    const opening = data.hours[day].open;
+    const closure = data.hours[day].close - 12;
+    if (index === 6) {
+      openingHours[day] = 'CLOSED';
+    } else {
+      openingHours[day] = `Open from ${opening}am until ${closure}pm`;
+    }
+  });
+  if (!dayName) return openingHours;
+  return { [dayName]: openingHours[dayName] };
 }
 
 function getOldestFromFirstSpecies(id) {
