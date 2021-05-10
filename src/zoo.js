@@ -69,16 +69,23 @@ function calculateEntry(entrants = {}) {
   return soma(entrants);
 }
 
-function getAnimalMap(options) {
-  return data.species.reduce((accumulator, current) => {
-    // console.log(current.name);
-    // console.log(current.location);
+function getAnimalMap(options = {}) {
+  let locationName = data.species.reduce((accumulator, current) => {
     if (!accumulator[current.location]) {
       accumulator[current.location] = [];
     }
     accumulator[current.location].push(current.name);
     return accumulator;
   }, {});
+  let animalsObject = data.species.reduce((accumulator, current) => {
+    if (!accumulator[current.location]) {
+      accumulator[current.location] = [];
+    }
+    accumulator[current.location].push({ [current.name]: current.residents.map((value) => value.name) });
+    return accumulator;
+  }, {});
+  if (options.includeNames) locationName = animalsObject;
+  return locationName;
 }
 console.log(getAnimalMap());
 function getSchedule(dayName) {
