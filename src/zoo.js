@@ -78,18 +78,14 @@ function calculateEntry(entrants = 0) {
 function getAnimalMap(options) {
   let result = {};
   const regions = ['NE', 'NW', 'SE', 'SW'];
-
   result = regions.reduce((ac, current, index) => {
     ac[regions[index]] = species.filter(({
       location,
     }) => location === current).map((mpe) => mpe.name);
     return ac;
   }, {});
-
   return result;
 }
-
-// console.log(getAnimalMap());
 
 function getSchedule(dayName) {
   let result = {};
@@ -118,16 +114,15 @@ function getSchedule(dayName) {
       Monday: 'CLOSED',
     };
   }
-
   if (hours[dayName]) result[dayName] = `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close - 12}pm`;
-
   return result;
 }
 
-console.log(getSchedule('Sunday'));
-
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  let result = [];
+  result = employees.find((userId) => userId.id === id).responsibleFor;
+  const animal = species.find((animalId) => animalId.id === result[0]).residents.sort((a, b) => b.age - a.age)[0];
+  return Object.values(animal);
 }
 
 function increasePrices(percentage) {
