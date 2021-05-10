@@ -59,10 +59,32 @@ function calculateEntry(entrants) {
   return Object.keys(entrants).reduce((sum, atual) => sum + (data.prices[atual] * entrants[atual]), 0);
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+// Requisito 9
+function animalsByRegion() {
+  const regions = data.species.map((region) => region.location);
+  const result = regions.reduce((acc, curr, index) => {
+    acc[regions[index]] = data.species.filter((animal) => animal.location === curr).map((animals) => animals.name);
+    return acc;
+  }, {});
+  return result;
 }
+function getAnimalMap(options) {
+  // let result = animalsByRegion();
+  // const regions = Object.keys(result);
 
+  // if (!options || !options.includeNames) {
+  //   return result;
+  // }
+
+  // regions.forEach((value, index) => {
+  //   let animalName = [];
+  //   animalName.push(data.species.filter((name) => {
+  //     name.find((name) => name.location === value);
+  //   }));
+  // })
+
+}
+// console.log(getAnimalMap());
 function getSchedule(dayName) {
   // Array com objetos com todos os horários e dias da semana, que indicam abertura
   // e fechamento do zoológico.
@@ -115,7 +137,34 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  // Função responsável por retornar todos os funcionários e seus respectivos animais!
+  const result = data.employees.reduce((acc, curr) => {
+    acc[`${curr.firstName} ${curr.lastName}`] = curr.responsibleFor.map((animalId) => data.species.find(({ id }) => id === animalId).name);
+    return acc;
+  }, {});
+
+  // Verifica se a função tem ou não um parâmetro!
+  if (!idOrName) {
+    return result;
+  }
+
+  /** Retorna o objeto completo com o funcinário passado por parâmetro. */
+  const functionary = data.employees.find((person) => (idOrName === person.firstName || idOrName === person.lastName || idOrName === person.id));
+
+  /** Variável com o nome completo que é usada para comparação */
+  const functionaryName = `${functionary.firstName} ${functionary.lastName}`;
+  /** Variáveis abaixo são responsáveis por armazenar o nome dos funcionarios e seus respectivos animais e
+   * estes resultados foram originados do result, criado lá em cima. */
+  const animals = Object.values(result);
+  const animalsCare = Object.keys(result);
+
+  /** Retorna o objeto de acordo com o parâmetro passado */
+  return animalsCare.reduce((acc, curr, index) => {
+    if (functionaryName === curr) {
+      acc[curr] = animals[index];
+    }
+    return acc;
+  }, {});
 }
 
 module.exports = {
