@@ -88,8 +88,10 @@ function calculateEntry(entrants) {
 // JS sort: https://www.w3schools.com/js/js_array_sort.asp
 // Thanks to Rodolfo Resende - Team 11's explanation
 const animalInfo = (residents, sorted, sex) => {
-  const names = residents.reduce((acc, value) => ((sex && value.sex !== sex)
-    ? acc : acc.concat(value.name)), []);
+  // animal sex validation
+  const names = residents.reduce((acc, item) => ((sex && item.sex !== sex)
+    ? acc : acc.concat(item.name)), []);
+  // if sorted is true, return names sorted, otherwise just return the name
   return sorted ? names.sort() : names;
 };
 
@@ -101,7 +103,9 @@ function getAnimalMap(options = {}) {
 
   // Thanks to Rodolfo Resend and Julio Filizzola from Team 11
   data.species.map((animal) => (options.includeNames
+    // if includeNames is true
     ? result[animal.location].push({ [animal.name]: animalInfo(animal.residents, options.sorted, options.sex) })
+    // if includeNames is false
     : result[animal.location].push(animal.name)));
 
   return result;
