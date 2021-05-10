@@ -22,7 +22,7 @@ const getEmployeeByName = (employeeName) => {
 
 const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...associatedWith });
 
-const isManager = (id) => data.employees.reduce(((acc, { managers }) => managers.includes(id)), false);
+const isManager = (id) => data.employees.reduce(((acc, { managers }) => (acc || managers.includes(id))), false);
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
