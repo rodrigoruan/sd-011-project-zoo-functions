@@ -35,11 +35,16 @@ function getEmployeeByName(employeeName) {
   return (employees.find((value) => (value.firstName === employeeName || value.lastName === employeeName)));
 }
 
-const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...associatedWith });
+function createEmployee(personalInfo, associatedWith) {
+  employees.push({ ...personalInfo, ...associatedWith });
+  return (employees[employees.length - 1]);
+}
 
 const isManager = (id) => (employees.some((value) => value.managers.some((ids) => ids === id)));
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  employees.push({ id, firstName, lastName, managers, responsibleFor });
+  return employees;
 }
 
 function countAnimals(speciess) {
