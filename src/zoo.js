@@ -17,8 +17,8 @@ function getSpeciesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, age) {
   return data.species
-  .find((animals) => animal.includes(animals.name))
-  .residents.every((animals) => animals.age > age);
+    .find((animals) => animal.includes(animals.name))
+    .residents.every((animals) => animals.age > age);
 }
 
 function getEmployeeByName(employeeName) {
@@ -26,7 +26,7 @@ function getEmployeeByName(employeeName) {
     return {};
   }
   return data.employees
-  .find((person) => employeeName.includes(person.firstName) || employeeName.includes(person.lastName));
+    .find((person) => employeeName.includes(person.firstName) || employeeName.includes(person.lastName));
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -44,7 +44,7 @@ function createEmployee(personalInfo, associatedWith) {
 function isManager(id) {
   // Recebi ajuda de Laura Gusmão e Mikaela Braga
   return data.employees
-  .some((person) => person.managers.includes(id));
+    .some((person) => person.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -66,22 +66,19 @@ function countAnimals(species) {
       return acc;
     }, {});
   }
-  return data.species.find((animals)=> animals.name === species).residents.length
+  return data.species.find((animals) => animals.name === species).residents.length;
 }
 
 function calculateEntry(entrants) {
   // seu código aqui
-  // if (entrants === undefined || entrants === {}) {
-  //   return 0;
-  // }
-  
-  // Object.keys(entrants).reduce((acc, people) => {
-  //   acc = ;
-  //   return acc;
-  // }, 0);
-  // return entrants['Adult']*49.99+entrants['Child']*20.99+entrants['Senior']*24.99;
+  if (entrants === undefined || entrants === {}) {
+    return 0;
+  }
+  return Object.values(entrants).reduce((acc, value, index) => {
+    acc += value * Object.values(data.prices)[index];
+    return acc;
+  }, 0);
 }
-// console.log(calculateEntry({ 'Adult': 0, 'Child': 3, 'Senior': 1 }))
 function getAnimalMap(options) {
   // seu código aqui
 }
