@@ -8,7 +8,7 @@ eslint no-unused-vars: [
   }
 ]
 */
-const { employees, prices } = require('./data');
+const { employees, prices, species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -125,26 +125,34 @@ const increasePrices = (percentage) => {
   return prices;
 };
 
+function singleCoverage(employee) {
+  const responsabile = [];
+
+  employee.responsibleFor.forEach((id) => {
+    responsabile.push(data.species.find((species) => species.id === id).name);
+  });
+  return responsabile;
+}
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
-  let employeesFiltered = employees;
+  const employeeCoverage = {};
 
   if (idOrName) {
-    const hasName = getEmployeeByName(idOrName);
-    employeesFiltered = hasName ? [hasName] : [employees.find((employee) => employee.id === idOrName)];
+    const employee = data.employees.find(({id, firstName, lastName}) => id === idOrName || firstName === idOrName || lastName === idOrName);
+
+    const fullName = `${employee.firstName} ${employee.lastName}`;
+
+    employeeCoverage[fullName] = singleCoverage(employee);
+
+    return employeeCoverage;
   }
-  const employeesSpecies = employeesFiltered
-    .reduce((coverage, employee) => ({
-      ...coverage,
-      [`${employee.firstName} ${employee.lastName}`]: employee.responsibleFor,
-  }), {});
 
-  Object.entries(employeesSpecies).forEach(([key, animalsId]) => {
-    employeesSpecies[key] = animalsId
-      .map((animalId) => animalSpecies.find((specie) => specie.id === animalId).name);
-  });
+  for (let employee of data.employees) {
+    const fullName = `${employee.firstName} ${employee.lastName}`;
 
-  return employeesSpecies;
+    employeeCoverage[fullName] = singleCoverage(employee);
+  }
+
+  return employeeCoverage;
 }
 
 module.exports = {
