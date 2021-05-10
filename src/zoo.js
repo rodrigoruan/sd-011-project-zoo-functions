@@ -66,18 +66,31 @@ function countAnimals(species) {
 
 function calculateEntry(entrants) {
   if (!entrants) return 0;
-  let result = 0;
-  for (const key in entrants) {
-    if (Object.hasOwnProperty.call(entrants, key)) {
-      result += entrants[key] * data.prices[key];
-    }
-  }
+  const keys = Object.keys(entrants);
+  return keys.reduce((res, key) => res + entrants[key] * data.prices[key], 0);
+}
 
-  return result;
+function createObject(key, value) {
+  let obj = {};
+  obj[key] = value;
+  return obj;
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  let object = {};
+  const locations = ['NE', 'NW', 'SE', 'SW'];
+  locations.forEach((loc) => {
+    object[loc] = data.species.filter(({ location }) => location === loc);
+
+    if (options.includeNames) {
+      object[loc] = object[loc].map((v) => (
+        createObject(v.name, v.residents.map((animal) => animal.name))
+      ));
+    } else {
+      object[loc] = object[loc].map(({ name }) => name);
+    }
+  });
+  return object;
 }
 
 function getSchedule(dayName) {
