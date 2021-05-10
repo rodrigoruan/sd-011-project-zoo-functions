@@ -37,12 +37,9 @@ function getEmployeeByName(employeeName) {
 
 const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...associatedWith });
 
-function isManager(id) {
-  // seu código aqui
-}
+const isManager = (id) => (employees.some((value) => value.managers.some((ids) => ids === id)));
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
 }
 
 function countAnimals(speciess) {
