@@ -122,15 +122,13 @@ function getEmployeeCoverage(idOrName) {
       returnCoverageObj[fullName] = employ.responsibleFor.map((valueId) => data.species.find((singleId) => singleId.id === valueId).name);
     });
   }
-  if (idOrName) {
-    data.employees.forEach((empl) => {
-      if (idOrName === empl.firstName || idOrName === empl.lastName || idOrName === empl.id) {
-        const fullName = `${empl.firstName} ${empl.lastName}`;
-        returnCoverageObj[fullName] = empl.responsibleFor.map((valueId) => data.species.find((singleId) => singleId.id === valueId).name);
-      }
-    });
-  }
 
+  data.employees.forEach((empl) => {
+    if (idOrName === empl.firstName || idOrName === empl.lastName || idOrName === empl.id) {
+      const fullName = `${empl.firstName} ${empl.lastName}`;
+      returnCoverageObj[fullName] = empl.responsibleFor.map((valueId) => data.species.find((singleId) => singleId.id === valueId).name);
+    }
+  });
   return returnCoverageObj;
 }
 
