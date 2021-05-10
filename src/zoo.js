@@ -38,8 +38,7 @@ const getAnimal = (residents, sorted, sex) => {
 
 function getAnimalMap(options = {}) {
   let objectResult = {};
-  const arrayLocation = ['NE', 'NW', 'SE', 'SW'];
-  arrayLocation.forEach((value) => { objectResult[value] = []; });
+  ['NE', 'NW', 'SE', 'SW'].forEach((value) => { objectResult[value] = []; });
   animalSpecies.map((value) => (options.includeNames ? objectResult[value.location].push({ [value.name]: getAnimal(value.residents, options.sorted, options.sex) }) : objectResult[value.location].push(value.name)));
   return objectResult;
 }
@@ -79,9 +78,8 @@ const getCoverage = (employee, obj) => {
 
 const getEmployeeCoverage = (idOrName) => {
   let obj = {};
-  if (!idOrName) return getCoverage(employees, obj);
-
-  return getCoverage(employees.filter((value) => value.id === idOrName || value.firstName === idOrName || value.lastName === idOrName), obj);
+  (!idOrName) ? getCoverage(employees, obj)
+    : getCoverage(employees.filter((value) => value.id === idOrName || value.firstName === idOrName || value.lastName === idOrName), obj);
 };
 
 module.exports = {
