@@ -151,33 +151,24 @@ function getOldestFromFirstSpecies(idEmployeer) {
   return Object.values(sortedAnimals);
 }
 
-function increasePrices(percentage) {
-  const price = data.prices;
-  const { Adult, Senior, Child } = price;
-  const newAdultPrice = ((Adult + (Adult * (percentage / 100))) + 0.001).toFixed(2);
-  const newSeniorPrice = ((Senior + (Senior * (percentage / 100))) + 0.001).toFixed(2);
-  const newChildPrice = ((Child + (Child * (percentage / 100))) + 0.001).toFixed(2);
+// Codigo refatorado com a colaboração de Alberto, Gabriela Feijó e Gabriela Azevedo
 
-  price.Adult = parseFloat(newAdultPrice);
-  price.Senior = parseFloat(newSeniorPrice);
-  price.Child = parseFloat(newChildPrice);
+function increasePrices(percentage) {
+  Object.keys(data.prices).forEach((curr) => {
+    data.prices[curr] = parseFloat((((data.prices[curr] * percentage) / 100 + 0.001) + data.prices[curr]).toFixed(2));
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
   const employeerFind = data.employees.find(({ id, lastName, firstName }) => idOrName === id || idOrName === firstName || idOrName === lastName);
   if (!idOrName) {
     return data.employees.reduce((acc, { firstName, lastName, responsibleFor }) => {
-      const fullName = `${firstName} ${lastName}`;
-      const AnimalListFound = responsibleFor.map((Animal) => data.species.find(({ id }) => id === Animal).name);
-      acc[fullName] = AnimalListFound;
+      acc[`${firstName} ${lastName}`] = responsibleFor.map((Animal) => data.species.find(({ id }) => id === Animal).name);
       return acc;
     }, {});
   }
-  let fullName = `${employeerFind.firstName} ${employeerFind.lastName}`;
-  let newObject = {};
   const animalsFound = employeerFind.responsibleFor.map((Animal) => data.species.find(({ id }) => id === Animal).name);
-  newObject[fullName] = animalsFound;
-  return newObject;
+  return { [`${employeerFind.firstName} ${employeerFind.lastName}`]: animalsFound };
 }
 
 module.exports = {
