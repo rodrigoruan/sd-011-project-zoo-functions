@@ -33,7 +33,7 @@ console.log(getEmployeeByName('Wishart'));
 function createEmployee(personalInfo, associatedWith) {
   return { ...personalInfo, ...associatedWith };
 }
-console.log(createEmployee(['7ed1c9bb-8570-44f6-b718-0666b869573a', 'Criador de gados']));
+console.log(createEmployee(['7ed1c9bb-8570-44f6-b718-0666b869573a', '0938aa23-f153-4937-9f88-4858b24d6bce']));
 
 
 function isManager(id) {
