@@ -61,11 +61,20 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return employees;
 }
 
-//  console.log(addEmployee(54554, 'tarcisio', 'menezes', 'trybers', 'Jah'));
-
 function countAnimals(animals) {
-  // seu código aqui
+  if (animals !== undefined) {
+    const animAllsSelected = species.find((animalSelected) => (animalSelected.name === animals)).residents.length;
+
+    return animAllsSelected;
+
+  } else {
+    let all = {};
+    species.forEach((animal) => (all[animal.name] = animal.residents.length));
+    return all;
+  }  
 }
+
+console.log(countAnimals());
 
 function calculateEntry(entrants) {
   // seu código aqui
