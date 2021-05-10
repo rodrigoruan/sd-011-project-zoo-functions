@@ -9,10 +9,12 @@ eslint no-unused-vars: [
 ]
 */
 
+const data = require('./data');
 const {
   species,
   employees,
   prices,
+  hours,
 } = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -54,7 +56,6 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 function countAnimals(speciess) {
   let resultFilt = species.find((especie) => especie.name === speciess);
-
   if (resultFilt === undefined) {
     return species.reduce((ac, {
       name,
@@ -67,30 +68,63 @@ function countAnimals(speciess) {
   return resultFilt.residents.length;
 }
 
-let teste = {
-  Adult: 2,
-  Child: 3,
-  Senior: 1,
-};
-
 function calculateEntry(entrants = 0) {
   let {
-    Adult = 0,
-    Child = 0,
-    Senior = 0,
+    Adult = 0, Child = 0, Senior = 0,
   } = entrants;
   return Adult * prices.Adult + Child * prices.Child + Senior * prices.Senior;
 }
 
-console.log(calculateEntry(teste));
-
 function getAnimalMap(options) {
-  // seu código aqui
+  let result = {};
+  const regions = ['NE', 'NW', 'SE', 'SW'];
+
+  result = regions.reduce((ac, current, index) => {
+    ac[regions[index]] = species.filter(({
+      location,
+    }) => location === current).map((mpe) => mpe.name);
+    return ac;
+  }, {});
+
+  return result;
 }
+
+// console.log(getAnimalMap());
 
 function getSchedule(dayName) {
-  // seu código aqui
+  let result = {};
+  let {
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday,
+    Monday,
+  } = hours;
+  if (dayName === undefined) {
+    result = {
+      Tuesday: `Open from ${Tuesday.open}am until ${Tuesday.close - 12}pm`,
+      Wednesday: `Open from ${Wednesday.open}am until ${Wednesday.close - 12}pm`,
+      Thursday: `Open from ${Thursday.open}am until ${Thursday.close - 12}pm`,
+      Friday: `Open from ${Friday.open}am until ${Friday.close - 12}pm`,
+      Saturday: `Open from ${Saturday.open}am until ${Saturday.close - 12}pm`,
+      Sunday: `Open from ${Sunday.open}am until ${Sunday.close - 12}pm`,
+      Monday: `${Monday.open === 0 ? 'CLOSED' : `Open from ${Monday.open}am until ${Sunday.Monday - 12}pm`}`,
+    };
+  }
+  if (dayName === 'Monday') {
+    return {
+      Monday: 'CLOSED',
+    };
+  }
+
+  if (hours[dayName]) result[dayName] = `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close - 12}pm`;
+
+  return result;
 }
+
+console.log(getSchedule('Sunday'));
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
