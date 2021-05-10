@@ -47,7 +47,7 @@ function countAnimals(species) {
       return acc;
     }, {});
   }
-  return data.species.find((specie) => specie.name === species).residents.length;
+  return data.species.find(({ name }) => name === species).residents.length;
 }
 
 // Requisito 8
