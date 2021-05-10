@@ -81,7 +81,7 @@ function calculateEntry(entrants) {
   let child = 0;
   let senior = 0;
 
-  if (entrants === null || entrants === undefined) {
+  if (entrants === undefined) {
     return total;
   }
 
