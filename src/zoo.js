@@ -81,7 +81,7 @@ function calculateEntry(entrants) {
   return totalEntrance;
 }
 
-function createAnimalMap(hello) {
+function createAnimalMap() {
   let locationsAndSpecies = {
     NE: [],
     NW: [],
@@ -92,28 +92,68 @@ function createAnimalMap(hello) {
     const speciesbyLocation = species.filter((specie) => location === specie.location);
     locationsAndSpecies[location] = speciesbyLocation.map((element) => element.name);
   });
-  const teste = Object.values(locationsAndSpecies).forEach((animal) => findSpecie(animal, 'name').residents);
-
   return locationsAndSpecies;
 }
 
-function getAnimalMap(options) {
-  // refatorar
-  if (!options) {
-    return createAnimalMap();
-  // } else if (options.includeNames === true) {
-  //   if (options.sex === 'male') {
-  //     return 'teste1'
-  //   } else if (options.sex === 'female') {
-  //     return 'teste2'
-  //   } if (options.sorted === true) {
-  //     return 'teste4'
-  //   }
-  //   return 'teste3'
-  }
+function mapWithResidents() {
+  let locationsAndSpecies = createAnimalMap();
+  Object.keys(locationsAndSpecies).forEach((location) => {
+    locationsAndSpecies[location].forEach((element, index) => {
+      let arrayResidents = findSpecie(element, 'name')[0].residents;
+      let residentName = { [locationsAndSpecies[location][index]]: arrayResidents.map((resident) => resident.name) };
+      locationsAndSpecies[location][index] = residentName;
+    });
+  });
+  return locationsAndSpecies;
 }
 
-// console.log(getAnimalMap({ includeNames: true}))
+function mapWithResidentsAndSex(sex) {
+  let locationsAndSpecies = createAnimalMap();
+  Object.keys(locationsAndSpecies).forEach((location) => {
+    locationsAndSpecies[location].forEach((element, index) => {
+      let arrayResidents = findSpecie(element, 'name')[0].residents;
+      let residentName = arrayResidents.filter((resident) => resident.sex === sex);
+      residentName = residentName.map((resident) => resident.name);
+      locationsAndSpecies[location][index] = { [locationsAndSpecies[location][index]]: residentName };
+    });
+  });
+  return locationsAndSpecies;
+}
+
+function sortNames(object) {
+  Object.keys(object).forEach((location) => {
+    object[location].forEach((specie) => {
+      Object.values(specie).forEach((animal) => animal.sort());
+    });
+  });
+  return object;
+}
+
+const animalsWithName = (options, sex, sorted) => {
+  if (sex) {
+    if (sorted) {
+      return sortNames(mapWithResidentsAndSex(options.sex));
+    }
+    return mapWithResidentsAndSex(options.sex);
+  } if (sorted) {
+    return sortNames(mapWithResidents());
+  }
+  return mapWithResidents();
+};
+
+function getAnimalMap(options) {
+  if (!options || !options.includeNames) {
+    return createAnimalMap();
+  }
+
+  const sex = (options.sex === 'male' || options.sex === 'female');
+  const sorted = (options.sorted === true);
+  const includeNames = (options.includeNames === true);
+
+  if (includeNames) {
+    return animalsWithName(options, sex, sorted);
+  }
+}
 
 function getSchedule(dayName) {
   let objectSchedule = {};
