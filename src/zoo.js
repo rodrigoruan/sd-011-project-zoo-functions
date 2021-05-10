@@ -75,9 +75,42 @@ function calculateEntry(entrants) {
   return reducedKeys;
 }
 
-function getAnimalMap(options) {
-  // seu código aqu
+function objectNine(current, sorted, sex) {
+  let returnTypes;
+  if (sorted && sex) {
+    returnTypes = { [current.name]: current.residents.filter((value) => value.sex === sex).map((name) => name.name).sort() };
+  } else if (sex) {
+    returnTypes = { [current.name]: current.residents.filter((value) => value.sex === sex).map((name) => name.name) };
+  } else if (sorted) {
+    returnTypes = { [current.name]: current.residents.map((value) => value.name).sort() };
+  } else {
+    returnTypes = { [current.name]: current.residents.map((value) => value.name) };
+  }
+  return returnTypes;
 }
+
+function getAnimalMap(options = {}) {
+  let returnVariable = data.species.reduce((acc, current) => {
+    if (!acc[current.location]) {
+      acc[current.location] = [];
+    }
+    acc[current.location].push(current.name);
+    return acc;
+  }, {});
+
+  let animalObject = data.species.reduce((acc, current) => {
+    if (!acc[current.location]) {
+      acc[current.location] = [];
+    }
+    acc[current.location].push(objectNine(current, options.sorted, options.sex));
+    return acc;
+  }, {});
+
+  if (options.includeNames) returnVariable = animalObject;
+  return returnVariable;
+}
+
+console.log(getAnimalMap({ includeNames: true, sex: 'female', sorted: true }));
 
 function getSchedule(dayName) {
   const hoursKeys = Object.keys(data.hours);
