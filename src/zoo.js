@@ -9,20 +9,20 @@ eslint no-unused-vars: [
 ]
 */
 
-const { employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  return data.species.filter((species) => ids.includes(species.id));
+  return data.species.filter((specie) => ids.includes(specie.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
-  return data.species.find((species) => species.name === animal).residents.every((element) => element.age >= age);
+  return data.species.find((specie) => specie.name === animal)
+    .residents.every((element) => element.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
-  return data.employees.find((employees) => employees.firstName === employeeName || employees.lastName === employeeName);
+  return data.employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -30,7 +30,7 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  return data.employees.some(employees => employees.managers.some(managers => managers === id));
+  return data.employees.some((employees) => employees.managers.some((managers) => managers === id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -42,12 +42,12 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
     responsibleFor,
   };
 
-  employees.push(newEmployee);
+  data.employees.push(newEmployee);
 }
 
 function countAnimals(species) {
   if (species) {
-    return data.species.find(specie => specie.name === species).residents.length;
+    return data.species.find((specie) => specie.name === species).residents.length;
   }
 
   const specieSelected = data.species.reduce((accumulator, currentValue) => {
