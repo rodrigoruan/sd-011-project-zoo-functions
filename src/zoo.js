@@ -70,14 +70,14 @@ function getSchedule(dayName) {
   return { [calledDay[0]]: calledDay[1] }; // https://stackoverflow.com/questions/47395070/how-to-fix-eslint-error-prefer-destructuring
 }
 
-console.log(getSchedule());
-
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
 
 function increasePrices(percentage) {
   // seu código aqui
+  Object.keys(data.prices).forEach((element) => { data.prices[element] *= (1 + (percentage / 100)); });
+  Object.keys(data.prices).forEach((element) => { data.prices[element] = Math.ceil(data.prices[element] * 100) / 100; });
 }
 
 function getEmployeeCoverage(idOrName) {
