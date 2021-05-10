@@ -19,7 +19,7 @@ function getAnimalsOlderThan(animal, age) {
   return data.species.find(({ name }) => name === animal).residents.every((value) => value.age >= age);
 }
 
-// o Rodolfo Rezende  e o Jean ambos da turma 11, me ajudou nessa.
+// o Rodolfo Rezende  e o Jean ambos da turma 11, me ajudaram nessa.
 function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
   return data.employees.find((val) => val.firstName === employeeName || val.lastName === employeeName);
