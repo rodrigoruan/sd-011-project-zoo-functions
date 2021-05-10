@@ -89,9 +89,11 @@ function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
   if (entrants === undefined || Object.values(entrants).length === 0) {
     allEntry = 0;
   }
+
   return console.log(allEntry);
 }
-calculateEntry({});
+let entrants = { Child: 1, Senior: 1 };
+calculateEntry(entrants);
 
 function getAnimalMap(options) {
   // seu código aqui
