@@ -30,7 +30,7 @@ function getAnimalsOlderThan(animal, age) {
       const { residents } = species[index];
       residents.forEach((resident) => {
         if (resident.age < age) result = false;
-      });  
+      });
     }
   });
   return result;
