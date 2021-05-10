@@ -1,14 +1,3 @@
-/*
-eslint no-unused-vars: [
-  "error",
-  {
-    "args": "none",
-    "vars": "local",
-    "varsIgnorePattern": "data"
-  }
-]git 
-*/
-
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
