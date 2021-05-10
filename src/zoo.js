@@ -136,16 +136,11 @@ function getOldestFromFirstSpecies(id) {
   return [name, sex, age];
 }
 
+// Requisito 12
 function increasePrices(percentage) {
-  const { Adult, Child, Senior } = data.prices;
-
-  const Adult2 = (Adult + ((percentage / 100) * Adult + 0.001)).toFixed(2);
-  const Child2 = (Child + ((percentage / 100) * Child + 0.001)).toFixed(2);
-  const Senior2 = (Senior + ((percentage / 100) * Senior + 0.001)).toFixed(2);
-
-  data.prices.Adult = parseFloat(Adult2);
-  data.prices.Child = parseFloat(Child2);
-  data.prices.Senior = parseFloat(Senior2);
+  Object.keys(data.prices).forEach((curr) => {
+    data.prices[curr] = parseFloat((((data.prices[curr] * percentage) / 100 + 0.001) + data.prices[curr]).toFixed(2));
+  });
 }
 
 // Requisito 13
