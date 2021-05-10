@@ -125,7 +125,7 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   Object.entries(prices).forEach(function ([category, price]) {
-    prices[category] = parseFloat(Math.ceil((price * (1 + percentage / 100)) * 100) / 100);
+    prices[category] = Math.ceil((price * (1 + percentage / 100)) * 100) / 100;
   });
 }
 
