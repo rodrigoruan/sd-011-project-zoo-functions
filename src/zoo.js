@@ -113,27 +113,31 @@ function getAnimalMap(options = {}) {
 
 function getSchedule(dayName) {
   const scheduleObj = (schedule = data.hours) => {
-    Object.keys(schedule).forEach(function (key) {
+    Object.keys(schedule).forEach((key) => {
+      let schedKeyOpen = schedule[key].open;
+      let schedKeyClose = schedule[key].close;
       if (schedule[key].open !== 0) {
-        schedule[key] = `Open from ${schedule[key].open}am until ${schedule[key].close - 12}pm`;
+        schedule[key] = `Open from ${schedKeyOpen}am until ${schedKeyClose - 12}pm`;
       } else { schedule[key] = 'CLOSED'; }
     });
     return schedule;
   };
 
+  if (dayName) {
+    return { [dayName]: scheduleObj()[dayName] };
+  }
   return scheduleObj();
 }
 
-console.log(getSchedule());
-function getOldestFromFirstSpecies(_id) {
+function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
 
-function increasePrices(_percentage) {
+function increasePrices(percentage) {
   // seu código aqui
 }
 
-function getEmployeeCoverage(_idOrName) {
+function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
 
