@@ -17,11 +17,9 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // const animalOlderThan = species.filter((value) => value.name === animal);
-  // console.log(animalOlderThan.residents);
-  // return animalOlderThan.residents;
+  return species.find((animalFind) => (animalFind.name === animal)).residents.every((check) => check.age > age);
 }
-// console.log(getAnimalsOlderThan('otters', 7));
+
 function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
   return employees.find((value) => value.firstName === employeeName || value.lastName === employeeName);
