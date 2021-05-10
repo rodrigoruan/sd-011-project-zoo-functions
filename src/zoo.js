@@ -67,9 +67,9 @@ function countAnimals(animals) {
 
     return animAllsSelected;
   }
-    let all = {};
-    species.forEach((animal) => {
-      (all[animal.name] = animal.residents.length)});
+  let all = {};
+  species.forEach((animal) => {
+    (all[animal.name] = animal.residents.length)});
     return all;
 }
 
