@@ -154,8 +154,64 @@ function increasePrices(percentage) {
   }
 }
 
+function getAnimalsById(array) {
+  const newArray = [];
+  array.forEach((id) => newArray.push(arrayOfAnimals.find((animal) => animal.id === id).name));
+  return newArray;
+}
+
+function generalCoverage() {
+  const coverageObject = arrayOfEmployees.reduce((acc, curr) => {
+    acc[`${curr.firstName} ${curr.lastName}`] = getAnimalsById(curr.responsibleFor);
+    return acc;
+  }, {});
+  return coverageObject;
+}
+
+function findByName(name) {
+  return arrayOfEmployees.filter((employer) => employer.firstName === name);
+}
+
+function findByLastName(lastName) {
+  return arrayOfEmployees.filter((employer) => employer.lastName === lastName);
+}
+
+function findById(id) {
+  return arrayOfEmployees.filter((employer) => employer.id === id);
+}
+
+function coverageByName(name) {
+  const coverageObject = findByName(name).reduce((acc, curr) => {
+    acc[`${curr.firstName} ${curr.lastName}`] = getAnimalsById(curr.responsibleFor);
+    return acc;
+  }, {});
+  return coverageObject;
+}
+
+function coverageByLastName(name) {
+  const coverageObject = findByLastName(name).reduce((acc, curr) => {
+    acc[`${curr.firstName} ${curr.lastName}`] = getAnimalsById(curr.responsibleFor);
+    return acc;
+  }, {});
+  return coverageObject;
+}
+
+function coverageById(id) {
+  const coverageObject = findById(id).reduce((acc, curr) => {
+    acc[`${curr.firstName} ${curr.lastName}`] = getAnimalsById(curr.responsibleFor);
+    return acc;
+  }, {});
+  return coverageObject;
+}
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (!idOrName) {
+    return generalCoverage();
+  } if (findByName(idOrName).length !== 0) {
+    return coverageByName(idOrName);
+  } if (findByLastName(idOrName).length !== 0) {
+    return coverageByLastName(idOrName);
+  } return coverageById(idOrName);
 }
 
 module.exports = {
