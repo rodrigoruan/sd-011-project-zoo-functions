@@ -12,6 +12,9 @@ eslint no-unused-vars: [
 const _ = require('lodash');
 const data = require('./data');
 
+let map = { NE: [], NW: [], SE: [], SW: [] };
+const regions = Object.keys(map);
+
 function getSpeciesByIds(...ids) {
   if (ids.length > 0) {
     const array = [];
@@ -70,17 +73,15 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  if (_.isEmpty(entrants) === true || typeof entrants === 'undefined') {
+  if (_.isEmpty(entrants) || _.isUndefined(entrants)) {
     return 0;
   }
-
   const { Adult = 0, Child = 0, Senior = 0 } = entrants;
-  let calculate = Adult * 49.99 + Child * 20.99 + Senior * 24.99;
+  // prettier-ignore
+  let calculate = data.prices.Adult * Adult + data.prices.Senior * Senior + data.prices.Child * Child;
   return calculate;
   // seu código aqui
 }
-let map = { NE: [], NW: [], SE: [], SW: [] };
-const regions = Object.keys(map);
 
 const checkEmptyMap = (options) => {
   if (_.isEmpty(options) || !options.includeNames) {
@@ -173,10 +174,13 @@ function getOldestFromFirstSpecies(id) {
   return [getTheOne.name, getTheOne.sex, getTheOne.age];
 }
 
-console.log(getOldestFromFirstSpecies('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
-
 function increasePrices(percentage) {
-  // seu código aqui
+  // prettier-ignore
+  const prices = Object.keys(data.prices).map((el) =>
+    _.round(data.prices[el] + (data.prices[el] * percentage) / 100, 2));
+  let newObj = { Adult: prices[0], Senior: prices[1], Child: prices[2] };
+  data.prices = newObj;
+  return data.prices;
 }
 
 function getEmployeeCoverage(idOrName) {
