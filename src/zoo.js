@@ -45,7 +45,7 @@ function isManager(id) {
   if (id === stephanieId || id === olaId || id === burlId) {
     return true;
   }
-    return false;
+  return false;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
