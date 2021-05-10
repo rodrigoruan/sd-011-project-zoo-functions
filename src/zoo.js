@@ -73,8 +73,12 @@ function increasePrices(percentage) {
   data.prices = Object.entries(data.prices).reduce((result, [age, price]) => ({ ...result, [age]: sumPercentage(price) }), {});
 }
 
-function getEmployeeCoverage(idOrName) {
+function getEmployeeCoverage(idOrName = {}) {
   // seu código aqui
+  const findResponsabilities = (employee) => employee.responsibleFor.map((responsability) => data.species.find(({ id: speciesId }) => speciesId === responsability).name);
+  if (Object.keys(idOrName).length === 0) return data.employees.reduce((result, employee) => ({ ...result, [`${employee.firstName} ${employee.lastName}`]: findResponsabilities(employee) }), {});
+  const selecEmployee = data.employees.find(({ id, firstName, lastName }) => id === idOrName || firstName === idOrName || lastName === idOrName);
+  return { [`${selecEmployee.firstName} ${selecEmployee.lastName}`]: findResponsabilities(selecEmployee) };
 }
 
 module.exports = {
