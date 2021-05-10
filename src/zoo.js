@@ -147,8 +147,8 @@ function increasePrices(percentage) {
 function getEmployeeCoverage(idOrName) {
   let myObj = {};
   if (!idOrName) {
-    data.employees.forEach((employee) => {
-      myObj[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor.map((specie) => data.species.find((spc) => spc.id === specie).name);
+    data.employees.forEach(({ firstName, lastName, responsibleFor }) => {
+      myObj[`${firstName} ${lastName}`] = responsibleFor.map((specieId) => data.species.find(({ id }) => id === specieId).name);
     });
     return myObj;
   }
