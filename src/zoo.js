@@ -95,7 +95,12 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employeefirstAnimalId = data.employees.find((employee) => employee.id === id).responsibleFor[0];
+  const animalObject = data.species.find((animal) => animal.id === employeefirstAnimalId);
+  const oldestAnimal = animalObject.residents.reduce((acc, curr) => (acc.age > curr.age ? acc : curr));
+  const { age, name, sex } = oldestAnimal;
+
+  return [name, sex, age];
 }
 
 // Para conseguir arredondar os números corretamente consultei este link: https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
