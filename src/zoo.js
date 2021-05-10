@@ -46,10 +46,10 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 function countAnimals(spe) {
   // seu código aqui
   if (spe) {
-    return data.species.find(({name}) => name === spe).residents.length;
+    return data.species.find(({ name }) => name === spe).residents.length;
   }
   return data.species.reduce((acc, curr) => {
-    acc[curr.name] = curr.residents.length
+    acc[curr.name] = curr.residents.length;
     return acc;
   }, {});
 }
