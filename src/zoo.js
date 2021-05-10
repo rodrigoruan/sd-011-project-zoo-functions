@@ -47,12 +47,12 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
     firstName,
     lastName,
     managers,
-    responsibleFor
-  }
-  employees.push(newStaff);
+    responsibleFor,
+  };
+  employees.push(staff);
 }
 
- function countAnimals(specie) {
+function countAnimals(specie) {
 }
 
 function calculateEntry(entrants) {
