@@ -23,7 +23,7 @@ function getAnimalsOlderThan(animal, age) {
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
-  return employeeName ? data.employees.filter((Employee) => Employee.firstName === employeeName || Employee.lastName === employeeName)[0] : {};
+  return employeeName ? data.employees.find((Employee) => Employee.firstName === employeeName || Employee.lastName === employeeName) : {};
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -93,8 +93,6 @@ function getAnimalMap(options = {}) {
   objAll.SW = objAll.SW.map((value) => ({ [value]: animalNames[value] }));
   return objAll;
 }
-
-console.log(getAnimalMap());
 
 function getSchedule(dayName) {
   // seu código aqui
