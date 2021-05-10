@@ -19,19 +19,25 @@ describe('Implemente a função getEmployeeCoverage', () => {
 
   it('Com o id de um funcionário, retorna os animais pelos quais o funcionário é responsável', () => {
     const actual = zoo.getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad');
-    const expected = { 'Sharonda Spry': ['otters', 'frogs'] };
+    const expected = {
+      'Sharonda Spry': ['otters', 'frogs']
+    };
     assert.deepStrictEqual(actual, expected);
   });
 
   it('Com o primeiro nome de um funcionário, retorna os animais pelos quais o funcionário é responsável', () => {
     const actual = zoo.getEmployeeCoverage('Stephanie');
-    expected = { 'Stephanie Strauss': ['giraffes', 'otters'] };
+    expected = {
+      'Stephanie Strauss': ['giraffes', 'otters']
+    };
     assert.deepStrictEqual(actual, expected);
   });
 
   it('Com o último nome de um funcionário, retorna os animais pelos quais o funcionário é responsável', () => {
     const actual = zoo.getEmployeeCoverage('Azevado');
-    const expected = { 'Ardith Azevado': ['tigers', 'bears'] };
+    const expected = {
+      'Ardith Azevado': ['tigers', 'bears']
+    };
     assert.deepStrictEqual(actual, expected);
   });
 });

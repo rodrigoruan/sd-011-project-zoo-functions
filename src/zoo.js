@@ -137,11 +137,29 @@ function increasePrices(percentage) {
   prices.Child = parseFloat(((Child / 100) * percentage + Child + 0.001).toFixed(2));
 }
 
-// console.log(increasePrices(50));
-
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  let result = {};
+  if (idOrName === undefined) {
+    employees.forEach(({
+      firstName,
+      lastName,
+      responsibleFor,
+    }) => {
+      result[`${firstName} ${lastName}`] = responsibleFor.map((ids) => species.find(((spec) => spec.id === ids)).name);
+    });
+  }
+  let func = employees.filter((nameResp) => nameResp.id === idOrName || nameResp.firstName === idOrName || nameResp.lastName === idOrName);
+  func.forEach(({
+    firstName,
+    lastName,
+    responsibleFor,
+  }) => {
+    result[`${firstName} ${lastName}`] = responsibleFor.map((ids) => species.find(((spec) => spec.id === ids)).name);
+  });
+  return result;
 }
+
+console.log(getEmployeeCoverage());
 
 module.exports = {
   calculateEntry,
