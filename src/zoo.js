@@ -42,7 +42,14 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  const AnimalsQuant = data.species.reduce((res, animal) => {
+    res[animal.name] = animal.residents.length;
+    return res;
+  }, {});
+  if (species) {
+    return AnimalsQuant[species];
+  }
+  return AnimalsQuant;
 }
 
 function calculateEntry(entrants) {
