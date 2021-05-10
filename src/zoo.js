@@ -12,6 +12,7 @@ eslint no-unused-vars: [
 const { species } = require('./data');
 const { employees } = require('./data');
 const data = require('./data');
+const { hours } = require('./data');
 
 function getSpeciesByIds(...ids) {
   return species.filter((specie) => ids.includes(specie.id));
@@ -129,10 +130,43 @@ function getAnimalMap(options) {
   });
   return objAnimals;
 }
+function stringHoursDay(day) {
+  if (day[1].open === day[1].close) {
+    return 'CLOSED';
+  }
+  return `Open from ${day[1].open}am until ${day[1].close - 12}pm`;
+}
+
+function selectedDays(dayName) {
+  let listDays = {};
+  if (dayName) {
+    let hoursFiltered = Object.entries(hours).find((day) => day[0] === dayName);
+    let hoursSelected = hoursFiltered[1];
+    listDays[dayName] = hoursSelected;
+    return listDays;
+  }
+  let listDaysAll;
+  listDaysAll = hours;
+  return listDaysAll;
+}
 
 function getSchedule(dayName) {
-  // seu código aqui
+  // console.log(hours);
+  const objSchedule = {};
+  const daysSelected = selectedDays(dayName);
+
+  const arrayDay = Object.entries(daysSelected).forEach((day) => {
+    // console.log(day);
+    let dayEach = day[0];
+    // console.log(dayEach);
+    const hoursInDay = stringHoursDay(day);
+    // console.log(hoursInDay);
+    objSchedule[dayEach] = hoursInDay;
+  });
+  // console.log(objSchedule);
+  return objSchedule;
 }
+// getSchedule('Monday');
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
