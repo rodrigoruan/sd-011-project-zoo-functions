@@ -120,8 +120,8 @@ function getEmployeeCoverage(idOrName) {
     });
     return getAnimalEmployee;
   }
-  data.employees.filter((employee) => employee.id === idOrName || employee.lastName === idOrName || employee.firstName === idOrName).forEach((value) => {
-    getAnimalEmployee[`${value.firstName} ${value.lastName}`] = value.responsibleFor.map((val) => data.species.find((specie) => specie.id === val).name);
+  data.employees.filter(({ id, firstName, lastName }) => id === idOrName || lastName === idOrName || firstName === idOrName).forEach(({ firstName, lastName, responsibleFor }) => {
+    getAnimalEmployee[`${firstName} ${lastName}`] = responsibleFor.map((animalId) => data.species.find(({ id }) => id === animalId).name);
   });
   return getAnimalEmployee;
 }
