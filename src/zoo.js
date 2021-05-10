@@ -65,7 +65,7 @@ const quantityPerSpecies = () => {
 };
 
 const speciePerId = (specie) => {
-  const animal = quantityPerSpecies();
+  const animal = quantityPerSpecies;
   return animal[specie];
 };
 
