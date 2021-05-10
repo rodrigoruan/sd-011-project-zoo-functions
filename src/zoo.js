@@ -113,9 +113,23 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const employee = data.employees.find((employe) => (idOrName === employe.firstName || idOrName === employe.lastName || idOrName === employe.id));
+  if (!idOrName) {
+    return data.employees.reduce((accumulator, current) => {
+      accumulator[`${current.firstName} ${current.lastName}`] = current.responsibleFor.map((animal) => data.species.find((value) => animal === value.id).name);
+      return accumulator;
+    }, {});
+  }
+  return employee.responsibleFor.reduce((accumulator, current) => {
+    if (!accumulator[`${employee.firstName} ${employee.lastName}`]) {
+      accumulator[`${employee.firstName} ${employee.lastName}`] = [];
+    }
+    const animalObject = data.species.find((animal) => animal.id === current);
+    accumulator[`${employee.firstName} ${employee.lastName}`].push(animalObject.name);
+    return accumulator;
+  }, {});
 }
-
+console.log(getEmployeeCoverage());
 module.exports = {
   calculateEntry,
   getSchedule,
