@@ -76,8 +76,6 @@ function calculateEntry(entrants) {
 
 const animalTypesFunc = () => {
   const regions = data.species.map(({ location }) => location);
-  console.log(regions);
-
   return regions.reduce((acc, curr, index) => {
     acc[regions[index]] = data.species.filter(({ location }) => location === curr).map((animal) => animal.name);
     return acc;
@@ -98,7 +96,6 @@ const filterSex = (object, regioes, options) => {
       const animalSelected = Object.keys(animal)[0];
       const objectAnimalSelected = data.species.find(({ name }) => name === animalSelected);
       animal[animalSelected] = objectAnimalSelected.residents.filter(({ sex }) => sex === options.sex).map((animalMap) => animalMap.name);
-      console.log(animal[animalSelected]);
     });
   });
 };
@@ -130,36 +127,24 @@ function getAnimalMap(options) {
   return includeNames(result, options);
 }
 
-console.log(getAnimalMap({ includeNames: true }));
-
 function getSchedule(dayName) {
-  const dataHours = data.hours;
-  const { Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday } = dataHours;
   if (!dayName) {
-    return {
-      Tuesday: `Open from ${Tuesday.open}am until ${Tuesday.close - 12}pm`,
-      Wednesday: `Open from ${Wednesday.open}am until ${Wednesday.close - 12}pm`,
-      Thursday: `Open from ${Thursday.open}am until ${Thursday.close - 12}pm`,
-      Friday: `Open from ${Friday.open}am until ${Friday.close - 12}pm`,
-      Saturday: `Open from ${Saturday.open}am until ${Saturday.close - 12}pm`,
-      Sunday: `Open from ${Sunday.open}am until ${Sunday.close - 12}pm`,
-      Monday: 'CLOSED',
-    };
+    return Object.keys(data.hours).reduce((acc, day) => {
+      acc[day] = `Open from ${data.hours[day].open}am until ${data.hours[day].close - 12}pm`;
+      acc.Monday = 'CLOSED';
+      return acc;
+    }, {});
   }
-  if (dayName === 'Monday') {
-    return { Monday: 'CLOSED' };
-  }
-  let obj = {};
-  obj[dayName] = `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close - 12}pm`;
-  return obj;
+
+  if (dayName === 'Monday') return { Monday: 'CLOSED' };
+  return { [dayName]: `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close - 12}pm` };
 }
 
 function getOldestFromFirstSpecies(idEmployeer) {
   const getAnimal = data.employees.find(({ id }) => id === idEmployeer).responsibleFor[0];
   const getAniamlObj = data.species.find(({ id }) => id === getAnimal).residents;
   const sortedAnimals = getAniamlObj.sort((value1, value2) => value2.age - value1.age)[0];
-  const { name, sex, age } = sortedAnimals;
-  return [name, sex, age];
+  return Object.values(sortedAnimals);
 }
 
 function increasePrices(percentage) {
