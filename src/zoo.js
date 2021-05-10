@@ -110,8 +110,6 @@ function getAnimalMap(options = {}) {
   return returnVariable;
 }
 
-console.log(getAnimalMap({ includeNames: true, sex: 'female', sorted: true }));
-
 function getSchedule(dayName) {
   const hoursKeys = Object.keys(data.hours);
   const unObj = {};
