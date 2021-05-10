@@ -75,7 +75,7 @@ function getSchedule(dayName) {
     Saturday: `Open from ${data.hours.Saturday.open}am until ${data.hours.Saturday.close - 12}pm`,
     Sunday: `Open from ${data.hours.Sunday.open}am until ${data.hours.Sunday.close - 12}pm`,
     Monday: 'CLOSED',
-  };  
+  };
 }
 
 function getOldestFromFirstSpecies(id) {
