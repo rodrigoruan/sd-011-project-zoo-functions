@@ -70,16 +70,15 @@ function countAnimals(species) {
 
 function calculateEntry(entrants) {
   // A partir da quantidade de visitantes e a faixa etária de cada um, esta função é responsável por retornar o preço total a ser cobrado.
-  // if (!entrants || entrants === {}) return 0;
+  if (!entrants || entrants === {}) return 0;
 
-  // const priceByAgeGroup = Object.entries(data.prices);
-  // const entrantsByAgeGroup = Object.entries(entrants);
+  const priceByAgeGroup = Object.entries(data.prices);
+  const entrantsByAgeGroup = Object.entries(entrants);
 
-  // const totalPaid = entrantsByAgeGroup.reduce((acc, age) => acc + age[1] * priceByAgeGroup.filter((ageGroup) => ageGroup[0] === age[1]));
+  const totalPaid = entrantsByAgeGroup.reduce((acc, age) => acc + age[1] * priceByAgeGroup.find((ageGroup) => ageGroup[0] === age[0])[1], 0);
 
-  // return totalPaid;
+  return totalPaid;
 }
-// console.log(calculateEntry({ 'Adult': 2 }));
 
 function getAnimalMap({ includeNames, sorted, sex }) {
   // const filterByRegion = (local) => data.species.filter((specie) => specie.location === local).reduce((animalAcc, specie) => animalAcc.push(specie.name));
