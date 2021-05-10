@@ -9,7 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
-const { species, employees } = require('./data');
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -88,7 +88,19 @@ function countAnimals(speciesList) {
   }
 }
 
+function thisOrDefaut(exp, fallback) {
+  return exp || fallback;
+}
+
 function calculateEntry(entrants) {
+  // https://pt.wikipedia.org/wiki/Avalia%C3%A7%C3%A3o_de_curto-circuito
+  if (!entrants || Object.keys(entrants).length === 0) {
+    return 0;
+  }
+  const childPrice = thisOrDefaut(entrants.Child, 0) * prices.Child;
+  const adultPrice = thisOrDefaut(entrants.Adult, 0) * prices.Adult;
+  const seniorPrice = thisOrDefaut(entrants.Senior, 0) * prices.Senior;
+  return childPrice + adultPrice + seniorPrice;
   // seu código aqui
 }
 
