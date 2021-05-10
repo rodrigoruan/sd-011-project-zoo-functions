@@ -40,17 +40,18 @@ function countAnimals(species) {
   }, {});
 }
 
+// Requisito feito com ajuda de alunos em sala de estudos (Tales, Rodolfo e Filizzola) e Renato Bispo!
 function calculateEntry(entrants) {
   if (!entrants) return 0;
-
   /* return Object.entries(entrants).reduce((acc, curr) => acc + curr[1] * prices[curr[0]], 0); */
-  return Object.keys(entrants).reduce((acc, category) => acc + entrants[category] * prices[category], 0);
+  return Object.keys(entrants).reduce((acc, category) => acc + (entrants[category] * prices[category]), 0);
 }
 
 function getAnimalMap(options) {
   // codigo aqui
 }
 
+// Requisito feito com ajuda de alunos em sala de estudos (Matheus e Alberto)
 function getSchedule(dayName) {
   if (dayName === 'Monday') return { Monday: 'CLOSED' };
   if (!dayName) {
@@ -64,6 +65,7 @@ function getSchedule(dayName) {
   return { [dayName]: `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm` };
 }
 
+// Requisito feito com ajuda de alunos em sala de estudos (Matheus e Alberto)
 function getOldestFromFirstSpecies(id) {
   const species = data.employees.find((employee) => employee.id === id).responsibleFor[0];
   const residents = data.species.find((animal) => animal.id === species).residents.sort((a, b) => b.age - a.age)[0];
@@ -71,12 +73,14 @@ function getOldestFromFirstSpecies(id) {
 }
 console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
+// Requisito feito com ajuda de alunos em sala de estudos (Matheus e Alberto)
 function increasePrices(percentage) {
   Object.keys(data.prices).forEach((curr) => {
     data.prices[curr] = parseFloat((((data.prices[curr] * percentage) / 100 + 0.001) + data.prices[curr]).toFixed(2));
   });
 }
 
+// Requisito feito com a ajuda de Gabriela Azevedo
 function getEmployeeCoverage(idOrName) {
   const employee = data.employees.find(({ id, firstName, lastName }) => idOrName === id || idOrName === firstName || idOrName === lastName);
   let list = {};
