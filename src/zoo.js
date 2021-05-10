@@ -91,27 +91,25 @@ function createAnimalMap(hello) {
   Object.keys(locationsAndSpecies).forEach((location) => {
     const speciesbyLocation = species.filter((specie) => location === specie.location);
     locationsAndSpecies[location] = speciesbyLocation.map((element) => element.name);
-    
   });
-  const teste = Object.values(locationsAndSpecies).forEach((animal) => findSpecie(animal, 'name').residents)
+  const teste = Object.values(locationsAndSpecies).forEach((animal) => findSpecie(animal, 'name').residents);
 
   return locationsAndSpecies;
 }
 
 function getAnimalMap(options) {
-
   // refatorar
-   if (!options) {
+  if (!options) {
     return createAnimalMap();
-  } else if (options.includeNames === true) {
-    if (options.sex === 'male') {
-      return 'teste1'
-    } else if (options.sex === 'female') {
-      return 'teste2'
-    } if (options.sorted === true) {
-      return 'teste4'
-    }
-    return 'teste3'   
+  // } else if (options.includeNames === true) {
+  //   if (options.sex === 'male') {
+  //     return 'teste1'
+  //   } else if (options.sex === 'female') {
+  //     return 'teste2'
+  //   } if (options.sorted === true) {
+  //     return 'teste4'
+  //   }
+  //   return 'teste3'
   }
 }
 
