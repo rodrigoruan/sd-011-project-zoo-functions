@@ -42,20 +42,24 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(employeId) {
-  /* const employeesList = data.employees;
-  const managerId = data.burlId; //Não é possível trazer burlId
-  const employee = employeesList.find(({ id }) => id === employeId);
-  return employee.id === managerId; */
+  const employeesList = data.employees;
+  const employee = employeesList.map(({ managers }) => managers);
+  const managers = employee.reduce((accumulator, manager) => {
+    const arrayOfIds = accumulator.concat(manager);
+    return arrayOfIds;
+  }, []);
+  const checkManager = managers.some((id) => id === employeId);
+  return checkManager;
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   const personalInfo = { id, firstName, lastName };
   const associatedWith = { managers, responsibleFor };
   const newEmployee = createEmployee(personalInfo, associatedWith);
-  let employeesList = [...data.employees, newEmployee];
+  const employeesList = [...data.employees, newEmployee];
   return employeesList;
 }
-// Adiciona um novo funcionário, porém o length se mantém 8.
+// Adiciona um novo funcionário, porém o length do se mantém 8.
 // Qual o problema?
 
 // console.log(addEmployee('39800c14-4b76-454a-858d-2f8d168146a7', 'John', 'Doe'));
@@ -68,11 +72,11 @@ function countAnimals(species = '') {
   return species === '' ? findAllAnimals : findAllAnimals[species];
 }
 
-console.log(countAnimals('snakes'));
-
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === 0 || {}) return 0;
 }
+
+// console.log(calculateEntry({ 'Adult': 2, 'Child': 3, 'Senior': 1 }));
 
 function getAnimalMap(options) {
   // seu código aqui
