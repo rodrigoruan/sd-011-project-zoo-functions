@@ -56,28 +56,27 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  // const obj = {};
 }
 
 function getSchedule(dayName) {
   const returnResult = {};
-  const dayNames = {
-    'Tuesday': 'Open from 8am until 6pm',
-    'Wednesday': 'Open from 8am until 6pm',
-    'Thursday': 'Open from 10am until 8pm',
-    'Friday': 'Open from 10am until 8pm',
-    'Saturday': 'Open from 8am until 10pm',
-    'Sunday': 'Open from 8am until 8pm',
-    'Monday': 'CLOSED' 
-  }
-  if (!dayName) return dayNames;
   if (dayName && dayName !== 'Monday') {
     returnResult[dayName] = `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm`;
     return returnResult;
   }
   if (dayName === 'Monday') return { Monday: 'CLOSED' };
+
+  return {
+    Tuesday: `Open from ${data.hours.Tuesday.open}am until ${data.hours.Tuesday.close - 12}pm`,
+    Wednesday: `Open from ${data.hours.Wednesday.open}am until ${data.hours.Wednesday.close - 12}pm`,
+    Thursday: `Open from ${data.hours.Thursday.open}am until ${data.hours.Thursday.close - 12}pm`,
+    Friday: `Open from ${data.hours.Friday.open}am until ${data.hours.Friday.close - 12}pm`,
+    Saturday: `Open from ${data.hours.Saturday.open}am until ${data.hours.Saturday.close - 12}pm`,
+    Sunday: `Open from ${data.hours.Sunday.open}am until ${data.hours.Sunday.close - 12}pm`,
+    Monday: 'CLOSED',
+  };  
 }
-console.log(getSchedule())
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
