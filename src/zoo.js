@@ -47,13 +47,13 @@ const calculateEntry = (entrants) => (entrants ? Object.keys(entrants).reduce((a
 const getAnimalMap = (options = {}) => {
   const locations = { NE: [], NW: [], SE: [], SW: [] };
   if (!options.includeNames) {
-    data.species.forEach(({ curr, index }) => locations[curr].push(index));
+    data.species.forEach(({ location, name }) => locations[location].push(name));
     return locations;
   }
   if (options.sex) {
-    data.species.forEach(({ curr, location, residents }) =>
+    data.species.forEach(({ name, location, residents }) =>
       locations[location].push({
-        [curr]: residents
+        [name]: residents
           .filter((element) => element.sex === options.sex)
           .map((element) => element.name),
       }));
