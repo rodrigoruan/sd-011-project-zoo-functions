@@ -9,7 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -65,14 +65,31 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // if (options === undefined) {
-  //   const allLocations = {};
-  //   species.forEach((specie) => )
-  // }
+  // const getAnimals = {};
+  // species.forEach((specie) => {
+  //   getAnimals[specie.location] = specie.name
+  // });
+  // return getAnimals;
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const getKeys = Object.keys(hours);
+  const allHours = {};
+  if (dayName === undefined) {
+    getKeys.forEach((day) => {
+      allHours[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
+      if (day === 'Monday') {
+        allHours[day] = 'CLOSED';
+      }
+    });
+    return allHours;
+  }
+  if (dayName === 'Monday') {
+    allHours[dayName] = 'CLOSED';
+    return allHours;
+  }
+  allHours[dayName] = `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm`;
+  return allHours;
 }
 
 function getOldestFromFirstSpecies(id) {
