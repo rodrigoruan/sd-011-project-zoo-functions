@@ -49,8 +49,12 @@ function createEmployee(personalInfo, associatedWith) {
   return ({ ...personalInfo, ...associatedWith });
 }
 
+// Testa se o id passado é de um gerente
+// some () verifica se algum dos elementos em uma matriz passa em um teste
+
 function isManager(id) {
   // seu código aqui
+  return data.employees.some((value) => value.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
