@@ -70,29 +70,39 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
-function getSchedule(dayName) {
-  // const days = Object.values(hours);
-  // const returned = days.map((ele) => `Open from ${ele.open}am until ${ele.close}pm`)
-  // console.log(returned);
-  // const getDays = () => hours.reduce((acc, curr) => {
-  //   acc[curr] = curr
-  // })
+const clockCalc = (receivedHour) => {
+  const hour = (receivedHour > 12) ? receivedHour - 12 : receivedHour;
+  return hour;
+};
 
-  // const getDay = () => {
-  //   zoo.getSchedule()
-  // }
-  // return (dayName === undefined)? getDays() : getDay()
+const scheduleReduce = (acc, curr) => {
+  acc[curr[0]] = `Open from ${curr[1].open}am until ${clockCalc(curr[1].close)}pm`;
+  const monday = (curr[0] === 'Monday') ? acc[curr[0]] = 'CLOSED' : null;
+  return acc;
+};
+
+function getSchedule(dayName) {
+  const days = Object.entries(hours);
+  const getDays = () => days.reduce(scheduleReduce, {});
+  const getDay = () => {
+    const result = {};
+    const getDayEntries = Object.entries(hours);
+    const hour = getDayEntries.find((day) => day[0] === dayName)[1];
+    result[dayName] = `Open from ${hour.open}am until ${clockCalc(hour.close)}pm`;
+    const monday = (hour.open === 0) ? result[dayName] = 'CLOSED' : result;
+    return result;
+  };
+  return (dayName === undefined) ? getDays() : getDay();
 }
-// console.log(getSchedule());
 
 function getOldestFromFirstSpecies(id) {
-  const getAnimalId = employees.filter((ele) => ele.id === id)[0].responsibleFor[0];
-  const getSpecies = species.filter((el) => el.id === getAnimalId)[0].residents;
+  const getAnimalId = employees.filter((employee) => employee.id === id)[0].responsibleFor[0];
+  const getSpecies = species.filter((animal) => animal.id === getAnimalId)[0].residents;
   let max = getSpecies[0].age;
-  getSpecies.forEach((elem) => {
-    const calc = elem.age > max ? max = elem.age : null;
+  getSpecies.forEach((specie) => {
+    const calc = specie.age > max ? max = specie.age : null;
   });
-  const result = getSpecies.filter((eleme) => eleme.age === max);
+  const result = getSpecies.filter((specie) => specie.age === max);
   return [result[0].name, result[0].sex, result[0].age];
 }
 
