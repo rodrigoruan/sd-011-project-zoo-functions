@@ -20,7 +20,7 @@ function getAnimalsOlderThan(animal, age) {
   return species.some((obj) => obj.name === animal && obj.residents.every((resident) => resident.age > age));
 }
 
-/* pergunta sobre setar o ud no paramentro */function getEmployeeByName(employeeName) {
+/* pergunta sobre setar o id no paramentro */function getEmployeeByName(employeeName) {
   return !employeeName ? {} : employees.filter((funcionario) => funcionario.firstName === employeeName || funcionario.lastName === employeeName)[0];
 }
 function createEmployee(personalInfo, associatedWith) {
@@ -55,8 +55,7 @@ function calculateEntry(entrants) {
 function getAnimalMap(options) {
 }
 function getSchedule(dayName) {
-  const dia = {}; 
-
+  const dia = {};
   if (!dayName) {
     const dias = Object.keys(hours);
     const horas = Object.values(hours);
@@ -75,14 +74,20 @@ function getSchedule(dayName) {
   return dia;
 }
 
-console.log(getSchedule('Monday'));
-
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const { Adult, Senior, Child } = prices;
+  const porcentagem = percentage / 100;
+  const adulto = parseFloat((Adult + porcentagem * Adult + 0.001).toFixed(2));
+  const crianca = parseFloat((Child + porcentagem * Child + 0.001).toFixed(2));
+  const velho = parseFloat((Senior + porcentagem * Senior + 0.001).toFixed(2));
+
+  prices.Adult = adulto;
+  prices.Child = crianca;
+  prices.Senior = velho;
 }
 
 function getEmployeeCoverage(idOrName) {
