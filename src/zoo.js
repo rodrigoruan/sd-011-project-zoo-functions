@@ -33,7 +33,7 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  if (typeof (employeeName) === 'undefined') {
+  if (!employeeName) {
     return {};
   }
   return employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
@@ -44,7 +44,7 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  return employees.some((employee) => employee.managers[0] === id || employee.managers[1] === id);
+  return employees.some((employee) => employee.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -95,26 +95,20 @@ function createAnimalMap() {
   return locationsAndSpecies;
 }
 
-function mapWithResidents() {
+function mapWithResidents(options) {
   let locationsAndSpecies = createAnimalMap();
   Object.keys(locationsAndSpecies).forEach((location) => {
     locationsAndSpecies[location].forEach((element, index) => {
       let arrayResidents = findSpecie(element, 'name')[0].residents;
-      let residentName = { [locationsAndSpecies[location][index]]: arrayResidents.map((resident) => resident.name) };
-      locationsAndSpecies[location][index] = residentName;
-    });
-  });
-  return locationsAndSpecies;
-}
 
-function mapWithResidentsAndSex(sex) {
-  let locationsAndSpecies = createAnimalMap();
-  Object.keys(locationsAndSpecies).forEach((location) => {
-    locationsAndSpecies[location].forEach((element, index) => {
-      let arrayResidents = findSpecie(element, 'name')[0].residents;
-      let residentName = arrayResidents.filter((resident) => resident.sex === sex);
-      residentName = residentName.map((resident) => resident.name);
-      locationsAndSpecies[location][index] = { [locationsAndSpecies[location][index]]: residentName };
+      if (options.sex) { // quando definido o sexo
+        let residentName = arrayResidents.filter((resident) => resident.sex === options.sex);
+        residentName = { [locationsAndSpecies[location][index]]: residentName.map((resident) => resident.name) };
+        locationsAndSpecies[location][index] = residentName;
+      } else {
+        let residentName = { [locationsAndSpecies[location][index]]: arrayResidents.map((resident) => resident.name) };
+        locationsAndSpecies[location][index] = residentName;
+      }
     });
   });
   return locationsAndSpecies;
@@ -129,29 +123,24 @@ function sortNames(object) {
   return object;
 }
 
-const animalsWithName = (options, sex, sorted) => {
-  if (sex) {
-    if (sorted) {
-      return sortNames(mapWithResidentsAndSex(options.sex));
+const animalsWithName = (options) => {
+  if (options.sex) {
+    if (options.sorted) {
+      return sortNames(mapWithResidents(options));
     }
-    return mapWithResidentsAndSex(options.sex);
-  } if (sorted) {
-    return sortNames(mapWithResidents());
+    return mapWithResidents(options);
+  } if (options.sorted) {
+    return sortNames(mapWithResidents(options));
   }
-  return mapWithResidents();
+  return mapWithResidents(options);
 };
 
 function getAnimalMap(options) {
   if (!options || !options.includeNames) {
     return createAnimalMap();
   }
-
-  const sex = (options.sex === 'male' || options.sex === 'female');
-  const sorted = (options.sorted === true);
-  const includeNames = (options.includeNames === true);
-
-  if (includeNames) {
-    return animalsWithName(options, sex, sorted);
+  if (options.includeNames) {
+    return animalsWithName(options);
   }
 }
 
