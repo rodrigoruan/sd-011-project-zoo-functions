@@ -21,10 +21,14 @@ function getAnimalsOlderThan(animal, age) {
   const animalsArr = species.filter((specie) => specie.name === animal)[0].residents;
   return animalsArr.every((animal1) => animal1.age > age);
 }
-console.log(species);
+
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (employeeName) {
+    return data.employees.filter((employee) => employeeName === employee.firstName || employeeName === employee.lastName)[0];
+  }
+  return {};
 }
+console.log(getEmployeeByName('Emery'));
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
