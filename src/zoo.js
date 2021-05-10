@@ -13,8 +13,6 @@ const data = require('./data');
 
 const animals = data.species;
 const employe = data.employees;
-const { prices } = data.prices;
-const { hour } = data.hours;
 
 function getSpeciesByIds(...ids) {
   if (!ids) return [];
@@ -27,7 +25,8 @@ function getAnimalsOlderThan(animal, age) {
   )).residents.every((specie) => specie.age >= age);
 }
 
-function getEmployeeByName(employeeName = {}) {
+function getEmployeeByName(employeeName) {
+  if (!employeeName) return {};
   return employe.find((person) => person.firstName === employeeName || person.lastName === employeeName);
 }
 
@@ -57,8 +56,7 @@ function countAnimals(species) {
 
 function calculateEntry(entrants) {
   if (!entrants || !Object.keys(entrants).length) return 0;
-
-  return Object.keys(entrants).reduce((acc, cur) => (acc + entrants[cur] * prices[cur]), 0);
+  return Object.keys(entrants).reduce((acc, cur) => (acc + entrants[cur] * data.prices[cur]), 0);
 }
 
 function getAnimalMap(options) {
