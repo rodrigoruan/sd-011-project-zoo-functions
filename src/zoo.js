@@ -11,31 +11,50 @@ eslint no-unused-vars: [
 
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
- 
+const { species, employees } = data;
+
+function getSpeciesByIds(...ids) {
+  return species.filter((specie) => ids.some((id) => id === specie.id));
 }
 
+// function getSpeciesByIds(...ids) {
+//   return species.filter((value, index) => value.id === ids[index]);
+// };
+
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  return species.find((specie) => specie.name === animal).residents.every((resident) => resident.age > age);
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  if (employeeName === undefined) {
+    return {};
+  }
+  return employees.filter(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName)[0];
 }
 
+// function getEmployeeByName(employeeName) {
+//   if (employeeName === undefined) {
+//     return {};
+//   }
+//   const obj = employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
+//   return obj;
+// }
+// console.log(getEmployeeByName('Nigel'));
+
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
-  // seu código aqui
+  return employees.some(({ managers }) => managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+  // seu códinpm run lint
+
 }
 
-function countAnimals(species) {
+function countAnimals(species1) {
   // seu código aqui
 }
 
@@ -77,4 +96,5 @@ module.exports = {
   getOldestFromFirstSpecies,
   increasePrices,
   createEmployee,
+
 };
