@@ -44,9 +44,9 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return data.employees.push(object);
 }
 
-function countAnimals(species) {
+function countAnimals(spe) {
   // seu código aqui
-  if (species === undefined) {
+  if (spe === undefined) {
     let response = data.species.reduce((acc, value) => {
       acc[value.name] = value.residents.length;
       return acc;
