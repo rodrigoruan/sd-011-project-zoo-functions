@@ -332,3 +332,5 @@ module.exports = {
     Child: 20.99,
   },
 };
+
+// https://pt.wikipedia.org/wiki/Avalia%C3%A7%C3%A3o_de_curto-circuito

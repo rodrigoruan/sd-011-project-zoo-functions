@@ -9,7 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -109,6 +109,22 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
+  const schedule = {
+    Tuesday: 'Open from 8am until 6pm',
+    Wednesday: 'Open from 8am until 6pm',
+    Thursday: 'Open from 10am until 8pm',
+    Friday: 'Open from 10am until 8pm',
+    Saturday: 'Open from 8am until 10pm',
+    Sunday: 'Open from 8am until 8pm',
+    Monday: 'CLOSED',
+  };
+  if (typeof dayName === 'undefined') {
+    return schedule;
+  }
+  let specificDay = [
+    Object.entries(schedule).find((keyValue) => keyValue[0] === dayName),
+  ];
+  return Object.fromEntries(specificDay);
   // seu código aqui
 }
 
@@ -117,7 +133,12 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  // const percentageFunction = (percentage, base) => (percentage * base) / 100;
+  // const adultNewPrice = (
+  //   percentageFunction(percentage, prices.Adult) + prices.Adult
+  // )
+  // console.log();
+  // // seu código aqui
 }
 
 function getEmployeeCoverage(idOrName) {
