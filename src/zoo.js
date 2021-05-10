@@ -44,6 +44,9 @@ function getSpeciesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
+  const forEachAnimal = data.species.find((animals) => animals.name === animal);
+  const verifyAge = forEachAnimal.residents.every((value) => value.age >= age);
+  return verifyAge;
 }
 
 function getEmployeeByName(employeeName) {
