@@ -15,7 +15,7 @@ function getSpeciesByIds(...ids) {
   if (!ids) {
     return [];
   }
-  return data.species.filter((specie) => ids.includes(specie.id));
+  return data.species.filter((specie) => ids.includes(specie.id)); // utilizei o data para chamar somente na função
 }
 
 console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce')); // retorna as espécies de leões
@@ -41,7 +41,7 @@ console.log(getEmployeeByName('Stephanie')); // retornou o objeto com todas as i
 
 function createEmployee(personalInfo, associatedWith) {
   return {
-    ...personalInfo, // usando o destructuring, consigo criar um novo colaborador
+    ...personalInfo, // usando o spread, consigo criar um novo colaborador
     ...associatedWith,
   };
 }
@@ -55,16 +55,22 @@ console.log(isManager('b0dc644a-5335-489b-8a2c-4e086c7819a2')); // true
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   const personalInfo = { id, firstName, lastName };
   const associatedWith = { managers, responsibleFor };
-  data.employees.push(createEmployee(personalInfo, associatedWith));
+  return data.employees.push(createEmployee(personalInfo, associatedWith));
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  const totalAnimals = data.species.reduce((acc, cur) => {
+    acc[cur.name] = cur.residents.length;
+    return acc;
+  }, {});
+  if (species) return totalAnimals[species];
+  return totalAnimals;
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  return (!entrants) ? 0 : Object.keys(entrants).reduce((total, cur) => total + (entrants[cur] * data.prices[cur]), 0);
 }
+// se não houver entradas, o valor é zero, senão, o total será a soma do número de pagantes * o preço do ingresso (adulto, sênior, ou criança). O object keys, vai pegar as chaves das entradas (adult[0], child[1], sênior[2])
 
 function getAnimalMap(options) {
   // seu código aqui
