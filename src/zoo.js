@@ -37,9 +37,12 @@ const countAnimals = (species) => {
   return species ? animals[species] : animals;
 };
 
-function calculateEntry(entrants) {
-  // seu código aqui
-}
+const calculateEntry = (entrants) => {
+  if (!entrants || Object.keys(entrants).length === 0) return 0;
+  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
+  const { Adult: adultPrice, Child: childPrice, Senior: seniorPrice } = data.prices;
+  return Adult * adultPrice + Child * childPrice + Senior * seniorPrice;
+};
 
 function getAnimalMap(options) {
   // seu código aqui
