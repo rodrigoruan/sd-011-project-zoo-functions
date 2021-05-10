@@ -57,23 +57,19 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   });
 }
 
-const quantityPerSpecies = () => {
-  species.reduce((acc, curr) => {
+const quantityPerSpecies = () => species
+  .reduce((acc, curr) => {
     acc[curr.name] = curr.residents.length;
     return acc;
   }, {});
-};
 
-const speciePerId = (specie) => {
-  const animal = quantityPerSpecies;
-  return animal[specie];
-};
 
 function countAnimals(specie) {
   // seu código aqui
   if (!specie) return quantityPerSpecies();
-  return speciePerId(specie);
+  return quantityPerSpecies()[specie];
 }
+console.log(countAnimals());
 /* function calculateEntry(entrants) {
   // seu código aqui
 }
