@@ -94,7 +94,7 @@ function includeNames(obj, options) {
     obj[regiao] = [];
     data.species.forEach(({ name, location, residents }) => {
       if (location === regiao) {
-        obj[regiao].push({ [name]: residents.map((resident) => resident.name) });
+        obj[regiao].push({ [name]: residents.map(({ name }) => name) });
       }
     });
   });
