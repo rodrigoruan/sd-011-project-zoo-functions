@@ -11,33 +11,36 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
   const { employees } = data;
   if (!employeeName) return {};
   return employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
   const CE = {};
   return Object.assign(CE, personalInfo, associatedWith);
 }
 
 function isManager(id) {
-  // seu código aqui
   // consulta em https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
   const { employees } = data;
   return employees.some((people) => people.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  // seu código aqui
   const { employees } = data;
   return employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  const numberOfAnimals = data.species.reduce((acc, animal) => {
+    acc[animal.name] = animal.residents.length;
+    return acc;
+  }, {});
+  if (species) {
+    return numberOfAnimals[species];
+}
+  return numberOfAnimals;
 }
 
 function calculateEntry(entrants) {
