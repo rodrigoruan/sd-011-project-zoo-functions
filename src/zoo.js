@@ -166,11 +166,24 @@ function getSchedule(dayName) {
   // console.log(objSchedule);
   return objSchedule;
 }
-// getSchedule('Monday');
+
+function getResidents(specieId) {
+  return species.find((specie) => specie.id === specieId).residents;
+}
+
+function filterResidents(arrayResidents) {
+  const arrayResidentsSorted = arrayResidents.sort((a, b) => b.age - a.age);
+  const filteredOldestResident = [arrayResidentsSorted[0].name, arrayResidentsSorted[0].sex, arrayResidentsSorted[0].age];
+  return filteredOldestResident;
+}
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const firstSpecie = employees.find((employee) => employee.id === id).responsibleFor[0];
+  const arrayResidents = getResidents(firstSpecie);
+  const oldestResident = filterResidents(arrayResidents);
+  return oldestResident;
 }
+// getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992');
 
 function increasePrices(percentage) {
   // seu código aqui
