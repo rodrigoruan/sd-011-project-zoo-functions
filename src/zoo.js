@@ -57,9 +57,7 @@ function calculateEntry(entrants) {
   const childrenPrice = Child * data.prices.Child;
   const seniorsPrice = Senior * data.prices.Senior;
   return adultsPrice + childrenPrice + seniorsPrice;
-  // seu código aqui
 }
-console.log(calculateEntry({ Child: 1 }))
 
 function getAnimalMap(options) {
   // seu código aqui
@@ -74,9 +72,17 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const multi = 1 + (percentage / 100);
+  const newAdult = data.prices.Adult * multi;
+  const newSenior = data.prices.Senior * multi;
+  const newChild = data.prices.Child * multi;
+  data.prices = {
+    Adult: Math.round(newAdult * 100) / 100,
+    Senior: Math.round(newSenior * 100) / 100,
+    Child: Math.round(newChild * 100) / 100,
+  };
+  return data.prices;
 }
-
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
