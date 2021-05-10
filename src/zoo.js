@@ -46,10 +46,17 @@ function isManager(id) {
     .every((manager) => (manager === '9e7d4524-363c-416a-8759-8aa7e50c0992' || manager.length === 0));
 }
 
-/* function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // seu código aqui
+  return employees.push({
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor
+  });
 }
-function countAnimals(specie) {
+/* function countAnimals(specie) {
   // seu código aqui
 }
 
@@ -85,7 +92,7 @@ module.exports = {
   getSpeciesByIds,
   getEmployeeByName,
   // getEmployeeCoverage,
-  // addEmployee,
+  addEmployee,
   isManager,
   getAnimalsOlderThan,
   // getOldestFromFirstSpecies,
