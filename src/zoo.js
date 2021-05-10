@@ -69,6 +69,8 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   // seu código aqui
+  const sumPercentage = (value) => parseFloat((value + (Math.round(value * percentage) / 100)).toFixed(2));
+  data.prices = Object.entries(data.prices).reduce((result, [age, price]) => ({ ...result, [age]: sumPercentage(price) }), {});
 }
 
 function getEmployeeCoverage(idOrName) {
