@@ -76,11 +76,8 @@ const getCoverage = (employee, obj) => {
   return obj;
 };
 
-const getEmployeeCoverage = (idOrName) => {
-  let obj = {};
-  (!idOrName) ? getCoverage(employees, obj)
-    : getCoverage(employees.filter((value) => value.id === idOrName || value.firstName === idOrName || value.lastName === idOrName), obj);
-};
+const getEmployeeCoverage = (idOrName) => ((!idOrName) ? getCoverage(employees, {})
+  : getCoverage(employees.filter((value) => value.id === idOrName || value.firstName === idOrName || value.lastName === idOrName), {}));
 
 module.exports = {
   calculateEntry,
