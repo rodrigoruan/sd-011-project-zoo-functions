@@ -182,10 +182,45 @@ function increasePrices(percentage) {
   data.prices = newObj;
   return data.prices;
 }
+const findAnimalById = (monster) => data.species.find((unique) => monster === unique.id);
+function getAllAnimals() {
+  const getEmployee = Object.keys(data.employees).map((el) => {
+    const firstName = Object.values(data.employees[el])[1];
+    const lastName = Object.values(data.employees[el])[2];
+    const responsibleFor = Object.values(data.employees[el])[4];
+    let animalIdArray = [];
+    responsibleFor.forEach((esl, i) => {
+      animalIdArray.push(findAnimalById(esl).name);
+    });
+    let employeeFullName = `${firstName} ${lastName}`;
+    let employeeObj = { [employeeFullName]: animalIdArray };
+    return employeeObj;
+  });
+  return getEmployee;
+}
+
+function getSingleEmployee(idOrName) {
+  const getEmployee = data.employees.find(
+    (el) => el.id === idOrName || el.firstName === idOrName || el.lastName === idOrName,
+  );
+  const { firstName, lastName, responsibleFor } = getEmployee;
+  responsibleFor.forEach((esl, i) => {
+    responsibleFor[i] = findAnimalById(esl).name;
+  });
+  let employeeFullName = `${firstName} ${lastName}`;
+  let employeeObj = { [employeeFullName]: responsibleFor };
+  return employeeObj;
+}
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (!idOrName) {
+    const redux = (acc, curr) => Object.assign(acc, curr);
+    return getAllAnimals().reduce(redux);
+  }
+  return getSingleEmployee(idOrName);
 }
+
+console.log(getEmployeeCoverage());
 
 module.exports = {
   calculateEntry,

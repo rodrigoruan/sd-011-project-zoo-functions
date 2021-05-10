@@ -11,14 +11,16 @@ describe('Implemente a função getEmployeeCoverage', () => {
       'Stephanie Strauss': ['giraffes', 'otters'],
       'Sharonda Spry': ['otters', 'frogs'],
       'Ardith Azevado': ['tigers', 'bears'],
-      'Emery Elser': ['elephants', 'bears', 'lions']
+      'Emery Elser': ['elephants', 'bears', 'lions'],
     };
 
     assert.deepStrictEqual(zoo.getEmployeeCoverage(), expected);
   });
 
   it('Com o id de um funcionário, retorna os animais pelos quais o funcionário é responsável', () => {
-    const actual = zoo.getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad');
+    const actual = zoo.getEmployeeCoverage(
+      '4b40a139-d4dc-4f09-822d-ec25e819a5ad'
+    );
     const expected = { 'Sharonda Spry': ['otters', 'frogs'] };
     assert.deepStrictEqual(actual, expected);
   });
