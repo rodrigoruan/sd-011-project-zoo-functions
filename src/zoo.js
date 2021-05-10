@@ -49,8 +49,7 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  const result = Object.assign({}, personalInfo, associatedWith);
-  return result;
+  return {...personalInfo, ...associatedWith};
 }
 
 function isManager(id) {
