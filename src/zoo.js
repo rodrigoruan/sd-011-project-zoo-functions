@@ -57,8 +57,12 @@ function isManager(id) {
   return data.employees.some((value) => value.managers.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+// Adiciona um funcionário no fim da lista
+// push para adicionar no final, managers, responsiblefor recebe array [] pq ele é um array
+
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // seu código aqui
+  return data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(species) {
