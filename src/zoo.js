@@ -33,7 +33,8 @@ function isManager(id) {
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+  if (data.employees.find((value) => (value.id === id)).managers.length === 1) return true;
+  return false;
 }
 
 function countAnimals(species) {
