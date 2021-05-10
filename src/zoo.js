@@ -12,7 +12,7 @@ const data = require('./data');
 
 function getSpeciesByIds(ids) {
   const especies = data.species;
-  return especies.map((item) => item.id);
+  return especies.map((item) => item);
 }
 console.log(getSpeciesByIds());
 
