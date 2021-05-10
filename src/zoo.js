@@ -74,6 +74,8 @@ function calculateEntry(entrants) {
   return sumFun(entrants);
 }
 
+// A constante regiao para obter o array com as regiões foi feito com a ajuda do Vinicius;
+
 const animalTypesFunc = () => {
   const regions = data.species.map(({ location }) => location);
   return regions.reduce((acc, curr, index) => {
@@ -118,6 +120,8 @@ const includeNames = (object, options) => {
   }
   return object;
 };
+
+// O requisito 9 foi desenvolvido por mim e pelo Alberto;
 
 function getAnimalMap(options) {
   let result = animalTypesFunc();
