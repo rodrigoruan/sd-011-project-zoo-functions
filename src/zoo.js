@@ -122,9 +122,9 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  let result = {}
+  let result = {};
   if (!idOrName) {
-    employees.forEach(employer => { result[`${employer.firstName} ${employer.lastName}`] = employer.responsibleFor.map((animalId) => species.find(({ id }) => id === animalId).name)});
+    employees.forEach((employer) => { result[`${employer.firstName} ${employer.lastName}`] = employer.responsibleFor.map((animalId) => species.find(({ id }) => id === animalId).name); });
   } else {
     let employerSelected = employees.find(({ firstName, lastName, id }) => idOrName === firstName || idOrName === lastName || idOrName === id);
     result[`${employerSelected.firstName} ${employerSelected.lastName}`] = employerSelected.responsibleFor.map((animalId) => species.find(({ id }) => id === animalId).name);
