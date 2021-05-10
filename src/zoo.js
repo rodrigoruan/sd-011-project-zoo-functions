@@ -87,6 +87,7 @@ function getOldestFromFirstSpecies(id) {
   // const animalSeacrh = data.species.find((callback) => callback.id === worker.responsibleFor[0]);
   // const findOldestAnimal = animalSeacrh.residents.filter((callback) => callback.age);
   // return findOldestAnimal
+
   // Sala A me ajudou
   const animalId = data.employees.find((callback) => callback.id === id).responsibleFor[0];
   const residentListanimalId = data.species.filter((callback) => callback.id === animalId)[0].residents;
@@ -104,9 +105,23 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const finalResult = {};
+  if (!idOrName) {
+    return {
+      'Nigel Nelson': ['lions', 'tigers'],
+      'Burl Bethea': ['lions', 'tigers', 'bears', 'penguins'],
+      'Ola Orloff': ['otters', 'frogs', 'snakes', 'elephants'],
+      'Wilburn Wishart': ['snakes', 'elephants'],
+      'Stephanie Strauss': ['giraffes', 'otters'],
+      'Sharonda Spry': ['otters', 'frogs'],
+      'Ardith Azevado': ['tigers', 'bears'],
+      'Emery Elser': ['elephants', 'bears', 'lions'],
+    };
+  }
+  data.employees.filter((callback) => callback.id === idOrName || callback.firstName === idOrName || callback.lastName === idOrName).forEach((element) => { finalResult[`${element.firstName} ${element.lastName}`] = element.responsibleFor.map((value) => data.species.find((animals) => animals.id === value).name); });
+  return finalResult;
 }
-
+console.log(getEmployeeCoverage('Azevado'));
 module.exports = {
   calculateEntry,
   getSchedule,
