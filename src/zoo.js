@@ -92,9 +92,26 @@ function increasePrices(percentage) {
     prices[ageGroup] = Math.round(prices[ageGroup] * 100) / 100;
   });
 }
+// https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+  // sem parametro
+  if (!idOrName) {
+    const result = {};
+    const speciesEmployeeResponsable = employees.map((employee) => employee.responsibleFor
+      .map((specieId) => species.find((specie) => specie.id === specieId).name));
+    // array com o tamanho do array employees, em que cada indice corresponde a outro array contendo strings com os nomes dos animais que o employees[indice] é responsavel por.
+    employees.forEach((employee, index) => {
+      result[`${employee.firstName} ${employee.lastName}`] = speciesEmployeeResponsable[index];
+    });
+    return result;
+  }
+  // com parametro
+  const findEmployee = employees.find((employee) => employee.id === idOrName
+    || employee.firstName === idOrName || employee.lastName === idOrName);
+  return { [`${findEmployee.firstName} ${findEmployee.lastName}`]: findEmployee.responsibleFor
+    .map((specieId) => species.find((specie) => specie.id === specieId).name) };
 }
 
 module.exports = {
