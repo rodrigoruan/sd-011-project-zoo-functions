@@ -47,8 +47,7 @@ function isManager(id) {
   return false;
 }
 
-// PLANTÃO
-function addEmployee(id = '', firstName = '', lastName = '', managers = '', responsibleFor = '') {
+function addEmployee(id = [], firstName = [], lastName = [], managers = [], responsibleFor = []) {
   return data.employees.push({
     id,
     firstName,
@@ -79,7 +78,8 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  // PAREI AQUI
+  // if (!entrants) return 0;
+  // if (entrants === {}) return 0;
 }
 
 function getAnimalMap(options) {
