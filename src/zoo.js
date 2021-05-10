@@ -31,15 +31,15 @@ function getEmployeeByName(employeeName) {
     .find((el) => el.firstName === employeeName || el.lastName === employeeName);
 }
 
-console.log(getEmployeeByName('321321'));
-
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+
 }
 
 function isManager(id) {
-  // seu código aqui
+  return data.employees.some((el) => el.managers.includes(id));
 }
+
+console.log(isManager('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1'));
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
