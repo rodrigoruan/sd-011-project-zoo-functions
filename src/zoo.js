@@ -76,7 +76,7 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  // seu código aqu
 }
 
 function getSchedule(dayName) {
