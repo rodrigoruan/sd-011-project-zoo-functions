@@ -74,7 +74,18 @@ function addEmployee(
 }
 
 function countAnimals(speciesList) {
-  // seu código aqui
+  if (typeof speciesList === 'undefined') {
+    const objectAnimalList = {};
+    species.forEach((__, index) => {
+      objectAnimalList[species[index].name] = species[index].residents.length;
+    });
+    return objectAnimalList;
+  }
+  for (let indexJ = 0; indexJ < species.length; indexJ += 1) {
+    if (species[indexJ].name === speciesList) {
+      return species[indexJ].residents.length;
+    }
+  }
 }
 
 function calculateEntry(entrants) {
