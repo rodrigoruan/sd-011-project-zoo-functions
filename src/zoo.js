@@ -83,24 +83,22 @@ function calculateEntry(entrants) {
 
   if (entrants === null || entrants === undefined) {
     return total;
-  };
+  }
 
   if (entrants.Adult !== undefined) {
     adults = entrants.Adult * prices.Adult;
-  };
+  }
 
   if (entrants.Child !== undefined) {
     child = entrants.Child * prices.Child;
-  };
+  }
 
   if (entrants.Senior !== undefined) {
     senior = entrants.Senior * prices.Senior;
-  };
-  
-  if (entrants !== undefined) {
-    total = adults + child + senior;
-    return total;
   }
+
+  total = adults + child + senior;
+  return total;
 }
 
 function getAnimalMap(options) {
