@@ -32,12 +32,13 @@ function getEmployeeByName(employeeName) {
   if (employeeName === undefined) {
     return {};
   }
-  const employee = data.employees.find((name) => name.firstName === employeeName|| name.lastName === employeeName);
+  const employee = data.employees.find((name) => name.firstName === employeeName || name.lastName === employeeName);
   return employee;
 }
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
+
 }
 
 function isManager(id) {
