@@ -39,7 +39,7 @@ function addEmployee(id = [], firstName = [], lastName = [], managers = [], resp
 
 function countAnimals(species) {
   if (species === undefined) {
-    const animals = {}
+    const animals = {};
     data.species.forEach((value) => {
       animals[value.name] = value.residents.length;
       return undefined;
@@ -50,7 +50,8 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === undefined || entrants === {}) return 0;
+  return Object.keys(entrants).reduce((acc, value) => acc + (data.prices[value] * entrants[value]), 0);
 }
 
 function getAnimalMap(options) {
