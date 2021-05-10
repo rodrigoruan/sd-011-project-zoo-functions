@@ -72,8 +72,11 @@ function calculateEntry(entrants) {
   // A partir da quantidade de visitantes e a faixa etária de cada um, esta função é responsável por retornar o preço total a ser cobrado.
   // if (!entrants || entrants === {}) return 0;
 
-  // const numberEntrants = Object.entries(entrants);
-  // const totalPaid = numberEntrants.find((ageGroup, index) => )
+  // const priceByAgeGroup = Object.entries(data.prices);
+  // const entrantsByAgeGroup = Object.entries(entrants);
+
+  // const totalPaid = entrantsByAgeGroup.reduce((acc, age) => acc + age[1] * priceByAgeGroup.filter((ageGroup) => ageGroup[0] === age[1]));
+
   // return totalPaid;
 }
 // console.log(calculateEntry({ 'Adult': 2 }));
@@ -136,29 +139,19 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  const pricesByAgeGroup = Object.values(data.prices);
-  const ageGroupList = Object.keys(data.prices);
+  const pricesByAgeGroup = Object.entries(data.prices);
 
-  pricesByAgeGroup.forEach((price, index, arr) => {
-    arr[index] = price * (1 + percentage / 100);
-    arr[index] = Math.round(arr[index] * 100) / 100;
-
-    return arr[index];
+  pricesByAgeGroup.forEach((priceGroup) => {
+    priceGroup[1] *= (1 + percentage / 100);
+    data.prices[`${priceGroup[0]}`] = Math.round(priceGroup[1] * 100) / 100;
   });
-
-  const newPriceList = ageGroupList.reduce((keyAcc, ageGroup, index) => {
-    keyAcc[ageGroup] = pricesByAgeGroup[index];
-    return keyAcc;
-  }, {});
-
-  return newPriceList;
 }
 
 function getEmployeeCoverage(idOrName) {
   // const listOfAnimal = data.species.map((specie) => [specie.id, specie.name]);
 
   // const fullEmployeeList = data.employees.reduce((acc, employee) => {
-  //   acc[`${employee.firstName} ${employee.lastName}`] = [listOfAnimal];
+  //   acc[`${employee.firstName} ${employee.lastName}`] = [employee.responsibleFor.((specieId) => )];
   //   return acc;
   // }, {});
 
@@ -169,6 +162,7 @@ function getEmployeeCoverage(idOrName) {
   //   }, {});
 
   // return !idOrName ? fullEmployeeList : employeeArray;
+  // return listOfAnimal;
 }
 // console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 
