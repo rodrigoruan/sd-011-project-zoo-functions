@@ -79,7 +79,7 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
-function getSchedule(dayName ) {
+function getSchedule(dayName) {
   const daysWeekHoursArray = Object.entries(hours);
   const agendaReturn = {};
   if (!dayName) {
@@ -89,7 +89,7 @@ function getSchedule(dayName ) {
       agendaReturn[dayString] = `Open from ${dayObj.open}am until ${dayObj.close - 12}pm`;
       if (dayObj.close === dayObj.open) {
         agendaReturn[dayString] = 'CLOSED';
-      };
+      }
     });
     return agendaReturn;
   }
@@ -99,7 +99,7 @@ function getSchedule(dayName ) {
   agendaReturn[dayString] = `Open from ${dayObj.open}am until ${dayObj.close - 12}pm`;
   if (dayObj.close === dayObj.open) {
     agendaReturn[dayString] = 'CLOSED';
-  };
+  }
   return agendaReturn;
 }
 
