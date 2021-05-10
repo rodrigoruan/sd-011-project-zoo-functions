@@ -87,13 +87,6 @@ const getOldestFromFirstSpecies = (id) => {
   return [resultAnimal.name, resultAnimal.sex, resultAnimal.age];
 };
 
-/* function increasePrices(percentage) {
-  Object.keys(data.prices).forEach((type) => {
-    const percent = (data.prices[type] * percentage) / 100;
-    data.prices[type] = Math.round((percent + data.prices[type]) * 100) / 100;
-  });
-  return data.prices;
-}; */
 const increasePrices = (percentage) => {
   Object.keys(data.prices).forEach((price) => {
     const raise = data.prices[price] + (data.prices[price] * percentage) / 100; // seu código aqui
