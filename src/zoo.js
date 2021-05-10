@@ -133,8 +133,6 @@ const increasePrices = (percentage) => {
   Object.keys(prices).forEach((key) => {
     prices[key] = modifyNumber(prices[key], modifier);
   });
-
-  return prices;
 };
 
 const getEmployeeCoverage = (idOrName) => {
