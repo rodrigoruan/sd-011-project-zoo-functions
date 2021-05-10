@@ -35,7 +35,6 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // verifica se o id recebido esta entre os manager, Se sim, true. Se nao,false.
   return employees.some((employer) => employer.managers.some(((idManager) => idManager === id)));
 }
 
@@ -69,16 +68,18 @@ function calculateEntry(entrants) {
   const valuesTotal = [];
   Object.entries(entrants).forEach((elementObj) => {
     const keyAndValue = Object.entries(prices).find((priceObj) => priceObj[0] === elementObj[0]);
-    const sum = keyAndValue[1] * elementObj[1];
-    valuesTotal.push(sum);
+    const result = keyAndValue[1] * elementObj[1];
+    valuesTotal.push(result);
   });
   return valuesTotal.reduce((acc, value) => acc + value, 0);
 }
 
+// EX 09
 function getAnimalMap(options) {
   // seu código aqui
 }
 
+// USAR REDUCE PARA criar o objeto e rest
 function getSchedule(dayName) {
   const daysWeekHoursArray = Object.entries(hours);
   const agendaReturn = {};
@@ -111,8 +112,21 @@ function getOldestFromFirstSpecies(id) {
   return [name, sex, age];
 }
 
+// Cheguei ate o numero mas não estava conseguindo trabalhar o valor como numero. Estava tendo saidas inesperadas. Foi então que vi co os colegas  de turma como eles trabalharam o valor e aprendi o uso do Number, solucionando o problema decimal. PR Tales Coelho
 function increasePrices(percentage) {
-  // seu código aqui
+  let { Adult, Senior, Child } = prices;
+  Adult = Number(Adult);
+  Senior = Number(Senior);
+  Child = Number(Child);
+
+  Adult += (prices.Adult * percentage) / 100 + 0.001;
+  Senior += (prices.Senior * percentage) / 100 + 0.001;
+  Child += (prices.Child * percentage) / 100 + 0.001;
+
+  prices.Adult = Number(Adult.toFixed(2));
+  prices.Senior = Number(Senior.toFixed(2));
+  prices.Child = Number(Child.toFixed(2));
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
