@@ -67,11 +67,13 @@ function countAnimals(specie) {
   return quantityPerSpecies[specie];
 }
 
-/* function calculateEntry(entrants) {
+function calculateEntry(entrants) {
   // seu código aqui
+  
 }
 
-function getAnimalMap(options) {
+
+/* function getAnimalMap(options) {
   // seu código aqui
 }
 
@@ -94,7 +96,7 @@ function getEmployeeCoverage(idOrName) {
 module.exports = {
   // calculateEntry,
   // getSchedule,
-  // countAnimals,
+  countAnimals,
   // getAnimalMap,
   getSpeciesByIds,
   getEmployeeByName,
