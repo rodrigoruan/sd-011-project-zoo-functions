@@ -72,9 +72,14 @@ const getAnimalMap = (options) => {
   return options && options.includeNames ? getAnimalsWithOptions(options, zones) : zones;
 };
 
-function getSchedule(dayName) {
-  // seu código aqui
-}
+const getSchedule = (dayName) => {
+  const schedule = Object.keys(data.hours).reduce(((arr, current) => {
+    arr[current] = current !== 'Monday' ? `Open from ${data.hours[current].open}am until ${data.hours[current].close - 12}pm` : 'CLOSED';
+    return arr;
+  }), {});
+
+  return !dayName ? schedule : { [dayName]: schedule[dayName] };
+};
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
