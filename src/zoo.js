@@ -8,7 +8,7 @@ eslint no-unused-vars: [
   }
 ]
 */
-const { employees, prices, species } = require('./data');
+//const { employees, prices, species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
