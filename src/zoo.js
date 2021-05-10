@@ -105,6 +105,7 @@ function increasePrices(percentage) {
   data.prices.Adult = Number(newPriceAdult.toFixed(2));
   data.prices.Senior = Number(newPriceSenior.toFixed(2));
   data.prices.Child = Number(newPriceChild.toFixed(2));
+  return data.prices;
 }
 
 function getEmployeeCoverage(idOrName) {
