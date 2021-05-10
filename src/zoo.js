@@ -39,17 +39,17 @@ function countAnimals(specie) {
   // seu código aqui
   const animaisTotal = {};
   if (!specie) {
-    data.species.forEach((value) => {
-      animaisTotal[value.name] = value.residents.length;
+    data.species.forEach(({ name, residents }) => {
+      animaisTotal[name] = residents.length;
     });
     return animaisTotal;
   }
-  return data.species.find((spe) => specie === spe.name).residents.length;
+  return data.species.find(({ name }) => specie === name).residents.length;
 }
 
 function calculateEntry(entrants) {
   // seu código aqui
-  if (entrants === undefined || entrants === {}) return 0;
+  if (!entrants || entrants === {}) return 0;
   return Object.keys(entrants).reduce((acc, value) => acc + (data.prices[value] * entrants[value]), 0);
 }
 
@@ -85,7 +85,7 @@ function getSchedule(dayName) {
     Wednesday: `Open from ${data.hours.Wednesday.open}am until ${data.hours.Wednesday.close - 12}pm`,
     Thursday: `Open from ${data.hours.Thursday.open}am until ${data.hours.Thursday.close - 12}pm`,
     Friday: `Open from ${data.hours.Friday.open}am until ${data.hours.Friday.close - 12}pm`,
-    Saturday: `Open from ${data.hours.Saturday.open}am until ${data.hours.sa.close - 12}pm`,
+    Saturday: `Open from ${data.hours.Saturday.open}am until ${data.hours.Saturday.close - 12}pm`,
     Sunday: `Open from ${data.hours.Sunday.open}am until ${data.hours.Sunday.close - 12}pm`,
     Monday: 'CLOSED',
   };
@@ -93,8 +93,8 @@ function getSchedule(dayName) {
 
 // o Rodolfo Rezende me ajudou nessa.
 function getOldestFromFirstSpecies(id) {
-  const getId = data.employees.filter((ids) => ids.id === id)[0].responsibleFor[0];
-  const getAnimal = data.species.filter((value) => value.id === getId)[0].residents;
+  const getId = data.employees.filter((employee) => employee.id === id)[0].responsibleFor[0];
+  const getAnimal = data.species.filter((specie) => specie.id === getId)[0].residents;
   const getOldSpecies = getAnimal.reduce((acc, list) => Math.max(acc, list.age), 0);
   const [ name, sex, age ] = getAnimal.find(({ age }) => age === getOldSpecies);
   return [name, sex, age];
