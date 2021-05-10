@@ -148,23 +148,22 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // const listOfAnimal = data.species.map((specie) => [specie.id, specie.name]);
+  const listOfAnimal = data.species.map((specie) => [specie.id, specie.name]);
+  const employeeList = data.employees;
 
-  // const fullEmployeeList = data.employees.reduce((acc, employee) => {
-  //   acc[`${employee.firstName} ${employee.lastName}`] = [employee.responsibleFor.((specieId) => )];
-  //   return acc;
-  // }, {});
+  const fullEmployeeList = employeeList.reduce((acc, employee) => {
+    acc[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor.map((specieCode) => listOfAnimal.find((specie) => specie[0] === specieCode)[1]);
+    return acc;
+  }, {});
 
-  // const employeeArray = data.employees.filter((employee) => employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName)
-  //   .reduce((acc, employee) => {
-  //     acc[`${employee.firstName} ${employee.lastName}`] = [listOfAnimal];
-  //     return acc;
-  //   }, {});
+  const employeeArray = data.employees.filter((employee) => employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName)
+    .reduce((acc, employee) => {
+      acc[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor.map((specieCode) => listOfAnimal.find((specie) => specie[0] === specieCode)[1]);
+      return acc;
+    }, {});
 
-  // return !idOrName ? fullEmployeeList : employeeArray;
-  // return listOfAnimal;
+  return !idOrName ? fullEmployeeList : employeeArray;
 }
-// console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 
 module.exports = {
   calculateEntry,
