@@ -17,7 +17,7 @@ const data = require('./data');
 const getSpeciesByIds = (...ids) => data.species.filter((specie) => ids.find((id) => specie.id === id));
 
 // Requisito 2
-const getAnimalsOlderThan = (animal, age) => data.species.some((specie) => specie.name === animal && specie.residents.every((spc) => spc.age > age));
+const getAnimalsOlderThan = (animal, age) => data.species.some(({ name, residents }) => name === animal && residents.every((resident) => resident.age > age));
 
 // Requisito 3
 const getEmployeeByName = (employeeName) => (!employeeName ? {} : data.employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName));
