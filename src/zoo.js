@@ -140,7 +140,18 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  // data.prices.Adult *= (percentage / 100 + 1);
+  // data.prices.Adult = data.prices.Adult.toFixed(2);
+  // data.prices.Senior *= (percentage / 100 + 1);
+  // data.prices.Senior = data.prices.Senior.toFixed(2);
+  // data.prices.Child *= (percentage / 100 + 1);
+  // data.prices.Child = data.prices.Child.toFixed(2);
+  const values = Object.values(data.prices).map((value) => value * (percentage / 100 + 1)).map((newValue) => Math.round(newValue * 100) / 100);
+  const keys = Object.keys(data.prices);
+  const newObj = keys.map((key, index) => ({ [key]: values[index] }));
+  data.prices = Object.assign({}, ...newObj);
+
+  return data.prices;
 }
 
 function getEmployeeCoverage(idOrName) {
