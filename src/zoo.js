@@ -114,8 +114,8 @@ const namedAnimalMap = (result, includeNames) => {
   regions.forEach((region) => {
     region.forEach((specieRegion, index) => {
       newResult.region[index] = { [specieRegion]: [] };
-      const specieInfo = species.find((specie) => specie.name === specie);
-      specieInfo.residents.forEach((resident) => newResult.region[index][specie].push(resident.name));
+      const specieInfo = species.find((specie) => specie.name === specieRegion);
+      specieInfo.residents.forEach((resident) => newResult.region[index][specieRegion].push(resident.name));
     });
   });
   return newResult;
@@ -127,10 +127,10 @@ const genreAnimalMap = (result, sex) => {
   const { NE, NW, SE, SW } = newResult;
   const regions = [NE, NW, SE, SW];
   regions.forEach((region) => {
-    region.forEach((specie, index1) => {
-      const currentSpecie = Object.keys(specie)[0];
+    region.forEach((specieRegion, index1) => {
+      const currentSpecie = Object.keys(specieRegion)[0];
       const specieInfo = species.find((specie) => currentSpecie === specie.name);
-      const residents = specieInfo.residents;
+      const { residents } = specieInfo;
       let splicePointer = 0;
       residents.forEach((resident, index2) => {
         if (resident.sex !== sex) {
