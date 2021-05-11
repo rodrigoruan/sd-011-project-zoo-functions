@@ -49,16 +49,21 @@ function getEmployeeByName(employeeName) {
 function createEmployee(personalInfo, associatedWith) {
   return {
     ...personalInfo,
-    ...associatedWith
-  }
+    ...associatedWith,
+  };
 }
 
 function isManager(id) {
-  // seu código aqui
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  return employees.push({
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  });
 }
 
 function countAnimals(speciesToCount) {
