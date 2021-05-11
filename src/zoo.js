@@ -121,7 +121,6 @@ function getOldestFromFirstSpecies(id) {
 function increasePrices(percentage) {
   let newPrices = data.prices;
   percentage = (percentage / 100) + 1;
-  console.log(typeof newPrices.Adult);
   newPrices.Adult = Math.round(data.prices.Adult * percentage * 100) / 100;
   newPrices.Child = Math.round(data.prices.Child * percentage * 100) / 100;
   newPrices.Senior = Math.round(data.prices.Senior * percentage * 100) / 100;
@@ -129,7 +128,16 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  let answer = {};
+  if (!idOrName) {
+    data.employees.forEach((value) => {
+      answer[`${value.firstName} ${value.lastName}`] = [`${value.responsibleFor}`];
+    });
+    return answer;
+  }
+  const person = data.employees.find((value) => value.id === idOrName || value.firstName === idOrName);
+  answer[`${person.firstName} ${person.lastName}`] = [`${person.responsibleFor}`];
+  return answer;
 }
 
 module.exports = {
