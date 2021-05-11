@@ -68,7 +68,7 @@ function calculateEntry(entrants = {}) {
 
 const findAnimalPerLocation = (location) => species.filter((animal) => animal.location === location);
 
-function getAnimalMap(options) {
+function getAnimalMap(options = {}) {
   const alllMap = { NE: [], NW: [], SE: [], SW: [] };
   if (options.includeNames !== true) {
     findAnimalPerLocation('NE').forEach((animal) => { alllMap.NE.push(animal.name); });
@@ -79,22 +79,22 @@ function getAnimalMap(options) {
   }
   findAnimalPerLocation('NE').forEach((animal) => {
     const animalWithNames = {};
-    animalWithNames[animal.name] = animal.residents; //NOTAR aqui que residents são objetos com key nome idade e sexo, vc precisa somente atribuir aqui o nome de alguma forma
+    animalWithNames[animal.name] = animal.residents.map((animalWithName) => animalWithName.name);
     alllMap.NE.push(animalWithNames);
   });
   findAnimalPerLocation('NW').forEach((animal) => {
     const animalWithNames = {};
-    animalWithNames[animal.name] = animal.residents;
+    animalWithNames[animal.name] = animal.residents.map((animalWithName) => animalWithName.name);
     alllMap.NW.push(animalWithNames);
   });
   findAnimalPerLocation('SE').forEach((animal) => {
     const animalWithNames = {};
-    animalWithNames[animal.name] = animal.residents;
+    animalWithNames[animal.name] = animal.residents.map((animalWithName) => animalWithName.name);
     alllMap.SE.push(animalWithNames);
   });
   findAnimalPerLocation('SW').forEach((animal) => {
     const animalWithNames = {};
-    animalWithNames[animal.name] = animal.residents;
+    animalWithNames[animal.name] = animal.residents.map((animalWithName) => animalWithName.name);
     alllMap.SW.push(animalWithNames);
   });
   return alllMap;
