@@ -70,10 +70,35 @@ function calculateEntry(entrants) {
   return keys.reduce((res, key) => res + entrants[key] * data.prices[key], 0);
 }
 
+function noOptions(options, object, location) {
+  if (!options || !options.includeNames) {
+    object[location] = object[location].map(({ name }) => name);
+  }
+}
+
 function createObject(key, value) {
   let obj = {};
   obj[key] = value;
   return obj;
+}
+
+function createResidents(options = false, residents) {
+  if (options.sex) {
+    residents = residents.filter((animal) => (options.sex === animal.sex));
+  }
+  return residents.map((animal) => animal.name);
+}
+
+function includeOptions(options = false, object, location) {
+  if (options.includeNames) {
+    object[location] = object[location].map(({ name, residents }) => {
+      residents = createResidents(options, residents);
+      if (options.sorted) {
+        return createObject(name, residents.sort());
+      }
+      return createObject(name, residents);
+    });
+  }
 }
 
 function getAnimalMap(options) {
@@ -81,14 +106,8 @@ function getAnimalMap(options) {
   const locations = ['NE', 'NW', 'SE', 'SW'];
   locations.forEach((loc) => {
     object[loc] = data.species.filter(({ location }) => location === loc);
-
-    if (options.includeNames) {
-      object[loc] = object[loc].map((v) => (
-        createObject(v.name, v.residents.map((animal) => animal.name))
-      ));
-    } else {
-      object[loc] = object[loc].map(({ name }) => name);
-    }
+    noOptions(options, object, loc);
+    includeOptions(options, object, loc);
   });
   return object;
 }
