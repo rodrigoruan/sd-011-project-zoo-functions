@@ -188,18 +188,20 @@ function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
 
 const { hours } = data;
 
-function getSchedule(dayName) {
-  let result = {};
-  const daysOfWeek = Object.keys(hours);
-  const daySelected = daysOfWeek.find((day) => day === dayName);
-  if (daySelected === undefined) {
-    result = hours;
+const defaultSchedule = (result) => {
+  result = hours;
     daysOfWeek.forEach((day) => {
       result[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
       if (day === 'Monday') result[day] = 'CLOSED';
     });
-    return result;
-  }
+  return result;
+};
+
+function getSchedule(dayName) {
+  let result = {};
+  const daysOfWeek = Object.keys(hours);
+  const daySelected = daysOfWeek.find((day) => day === dayName);
+  if (daySelected === undefined) return result = defaultSchedule(result);
   daysOfWeek.forEach((day) => {
     if (day === dayName) {
       result[day] = `Open from ${hours[day].open}am until ${hours[day].close}pm`;
