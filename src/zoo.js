@@ -85,6 +85,13 @@ function countAnimals(speciesToCount) {
 
 function calculateEntry(entrants = 0) {
   const { Adult, Child, Senior } = prices;
+
+  // caso o item a ser verificado seja null ou undefined atribui o valor passado
+  // const adultsTotal = (entrants.Adult ?? 0) * Adult;
+  // const childsTotal = (entrants.Child ?? 0) * Child;
+  // const seniorsTotal = (entrants.Senior ?? 0) * Senior;
+
+  // esperado pelo lint
   const adultsTotal = (entrants.Adult ? entrants.Adult : 0) * Adult;
   const childsTotal = (entrants.Child ? entrants.Child : 0) * Child;
   const seniorsTotal = (entrants.Senior ? entrants.Senior : 0) * Senior;
