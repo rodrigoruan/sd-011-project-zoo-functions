@@ -23,7 +23,7 @@ function getEmployeeByName(employeeName) {
   if (employeeName === undefined) {
     return {};
   }
-  return data.employees.find((check) => check.firstName === employeeName || check.lastName === employeeName);
+  return data.employees.find(({ firstName, lastName }) =>firstName === employeeName || lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
