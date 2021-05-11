@@ -186,13 +186,42 @@ function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
 //   return result;
 // }
 
-const { hours } = data;
+// const selectedDaySchedule = (dayName) => {
+//   const { hours } = data;
+//   let result = {};
+//   const daysOfWeek = Object.keys(hours);
+//   daysOfWeek.forEach((day) => {
+//     if (day === dayName) {
+//       result[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
+//       if (day === 'Monday') result[day] = 'CLOSED';
+//     }
+//   });
+//   return result;
+// };
 
-const selectedDaySchedule = (result, dayName) => {
+// function getSchedule(dayName) {
+//   const { hours } = data;
+//   let result = {};
+//   const daysOfWeek = Object.keys(hours);
+//   const daySelected = daysOfWeek.find((day) => day === dayName);
+//   if (daySelected === undefined) {
+//     result = hours;
+//     daysOfWeek.forEach((day) => {
+//       result[day] = `Open from ${result[day].open}am until ${result[day].close - 12}pm`;
+//       if (day === 'Monday') result[day] = 'CLOSED';
+//     });
+//     return result;
+//   }
+//   return selectedDaySchedule(dayName);
+// }
+
+const selectedDaySchedule = (dayName) => {
+  const { hours } = data;
+  let result = {};
   const daysOfWeek = Object.keys(hours);
   daysOfWeek.forEach((day) => {
     if (day === dayName) {
-      result[day] = `Open from ${hours[day].open}am until ${hours[day].close}pm`;
+      result[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
       if (day === 'Monday') result[day] = 'CLOSED';
     }
   });
@@ -200,18 +229,19 @@ const selectedDaySchedule = (result, dayName) => {
 };
 
 function getSchedule(dayName) {
+  const { hours } = data;
   let result = {};
   const daysOfWeek = Object.keys(hours);
   const daySelected = daysOfWeek.find((day) => day === dayName);
   if (daySelected === undefined) {
-    result = hours;
+    result = Object.assign({}, hours);
     daysOfWeek.forEach((day) => {
-      result[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
+      result[day] = `Open from ${result[day].open}am until ${result[day].close - 12}pm`;
       if (day === 'Monday') result[day] = 'CLOSED';
     });
     return result;
   }
-  return selectedDaySchedule(result, dayName);
+  return selectedDaySchedule(dayName);
 }
 
 function getOldestFromFirstSpecies(id) {
