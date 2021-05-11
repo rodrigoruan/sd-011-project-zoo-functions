@@ -95,9 +95,62 @@ function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
   return total;
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+const namedAnimalMap = (result, includeNames) => {
+  if (includeNames === false) return result; 
+  const { NE, NW, SE, SW } = result;
+  const newResult = result;
+  NE.forEach((specieNE) => {
+    newResult.NE[specieNE] = [];
+    const specieInfoNE = species.find((specie) => specie.name === specieNE);
+    specieInfoNE.residents.forEach((resident) => newResult.NE[specieNE].push(resident.name));
+  });
+  NW.forEach((specieNW) => {
+    newResult.NW[specieNW] = [];
+    const specieInfoNW = species.find((specie) => specie.name === specieNW);
+    specieInfoNW.residents.forEach((resident) => newResult.NW[specieNW].push(resident.name));
+  });
+  SE.forEach((specieSE) => {
+    newResult.SE[specieSE] = [];
+    const specieInfoSE = species.find((specie) => specie.name === specieSE);
+    specieInfoSE.residents.forEach((resident) => newResult.SE[specieSE].push(resident.name));
+  });
+  SW.forEach((specieSW) => {
+    newResult.SW[specieSW] = [];
+    const specieInfoSW = species.find((specie) => specie.name === specieSW);
+    specieInfoSW.residents.forEach((resident) => newResult.SW[specieSW].push(resident.name));
+  });
+  return newResult;
+};
+
+const genreAnimalMap = (result, sex) => {
+
+};
+
+const sortedAnimalMap = (result, sorted) => {
+
+};
+
+function getAnimalMap(options = { includeNames: false, sex: '', sorted: false }) {
+  const { includeNames, sex, sorted } = options;
+  let result = {
+    NE: [],
+    NW: [],
+    SE: [],
+    SW: [],
+  }
+  species.forEach((specie) => {
+    if (specie.location === 'NE') result.NE.push(specie.name);
+    if (specie.location === 'NW') result.NW.push(specie.name);
+    if (specie.location === 'SE') result.SE.push(specie.name);
+    if (specie.location === 'SW') result.SW.push(specie.name);
+  });
+  result = namedAnimalMap(result, includeNames);
+  // result = genreAnimalMap(result, sex);
+  // result = sortedAnimalMap(result, sorted);
+  return result;
 }
+
+console.log(getAnimalMap({ includeNames: true}));
 
 function getSchedule(dayName) {
   // seu código aqui
