@@ -85,8 +85,14 @@ function countAnimals(searchSpecie) {
   return result;
 }
 
-function calculateEntry(entrants) {
-  // seu código aqui
+const { prices } = data;
+
+function calculateEntry(entrants = { 'Adult': 0, 'Child': 0, 'Senior': 0 }) {
+  let total = 0;
+  if (entrants['Adult'] !== undefined) total = entrants['Adult'] * prices.Adult;
+  if (entrants['Child'] !== undefined) total += entrants['Child'] * prices.Child;
+  if (entrants['Senior'] !== undefined) total += entrants['Senior'] * prices.Senior;
+  return total;
 }
 
 function getAnimalMap(options) {
