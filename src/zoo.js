@@ -42,10 +42,15 @@ function getEmployeeByName(employeeName) {
   return employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
 }
 
+// A função, a partir de informações recebidas nos parâmetros, é capaz de criar um objeto equivalente ao de uma pessoa colaboradora, retornando-o
+// O parâmetro personalInfo recebe um objeto que contém o id, o firstName e o lastName
+// O parâmetro associatedWith recebe um objeto que contém dois array: managers e responsibleFor
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return { ...personalInfo, ...associatedWith };
 }
 
+// Verifica se uma pessoa colaboradora, a partir de seu id, ocupa cargo de gerência.
+// Testa se o id passado é de um gerente
 function isManager(id) {
   // seu código aqui
 }
