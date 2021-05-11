@@ -23,6 +23,7 @@ function getEmployeeByName(employeeName) {
   if (!employeeName) {
     return {};
   }
+
   return data.employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName);
 }
 
@@ -60,6 +61,7 @@ function countAnimals(species) {
 
 function calculateEntry(entrants) {
   if (!entrants || entrants === {}) return 0;
+
   return Object.keys(entrants).reduce((acc, curr) => acc + (data.prices[curr] * entrants[curr]), 0);
 }
 
@@ -167,6 +169,7 @@ function checkAnimalName(animalsId) {
       }
     });
   });
+
   return animalName;
 }
 
@@ -184,6 +187,7 @@ function getEmployeeCoverage(idOrName) {
       obj[`${firstName} ${lastName}`] = checkAnimalName(responsibleFor);
     }
   });
+
   return obj;
 }
 
