@@ -51,8 +51,27 @@ function calculateEntry(entrants) {
   return (!entrants || Object.keys(entrants).length === 0) ? 0 : Object.entries(entrants).map((num) => num[1] * data.prices[num[0]]).reduce((result, pricePerAge) => result + pricePerAge, 0);
 }
 
+const getSpecies = (region) => data.species.filter(({ location }) => location === region).map(({ name: speciesName }) => speciesName);
+const getAniNames = (string, options) => {
+  const selecSpecies = data.species.find(({ name }) => name === string);
+  let names = {};
+  if (options.sex) {
+    names = { [string]: selecSpecies.residents.filter((resident) => resident.sex === options.sex).map((resident) => resident.name) };
+  } else {
+    names = { [string]: selecSpecies.residents.map((resident) => resident.name) };
+  }
+  if (options.sorted) names[string].sort();
+  return names;
+};
+
 function getAnimalMap(options = {}) {
   // seu código aqui
+  let animalMap = { NE: [], NW: [], SE: [], SW: [] };
+  animalMap = Object.keys(animalMap).reduce((result, region) => ({ ...result, [region]: getSpecies(region) }), {});
+  if (options.includeNames) {
+    animalMap = Object.keys(animalMap).reduce((result, region) => ({ ...result, [region]: animalMap[region].map((string) => getAniNames(string, options)) }), {});
+  }
+  return animalMap;
 }
 
 function getSchedule(dayName) {
