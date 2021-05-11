@@ -8,20 +8,20 @@ eslint no-unused-vars: [
   }
 ]
 */
+
 const data = require('./data');
 
+const { species, employees, prices, hours } = data;
+
 function getSpeciesByIds(...ids) {
-  const { species } = data;
   return species.filter((element) => ids.includes(element.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
-  const { species } = data;
   return species.find((specieName) => specieName.name === animal).residents.every((resident) => resident.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
-  const { employees } = data;
   if (!employeeName) return {};
   return employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName);
 }
@@ -32,16 +32,14 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  const { employees } = data;
   return employees.some((people) => people.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  const { employees } = data;
   return employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
-function countAnimals(species) {
+function countAnimals(text) {
   const AnimalsQuant = data.species.reduce((res, animal) => {
     res[animal.name] = animal.residents.length;
     return res;
@@ -53,13 +51,12 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  const { prices } = data;
   if (!entrants) return 0;
   return Object.keys(entrants).reduce((totalPrice, entries) => totalPrice + (prices[entries] * entrants[entries]), 0);
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+
 }
 
 function getSchedule(dayName) {
@@ -70,8 +67,9 @@ function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
 
-function increasePrices(percentage) {
-  // seu código aqui
+function increasePrices(percent) {
+  const calcValue = 1 + (percent / 100);
+  Object.keys(data.prices).forEach((key) => { data.prices[key] = Math.round(data.prices[key] * calcValue * 100) / 100; });
 }
 
 function getEmployeeCoverage(idOrName) {
