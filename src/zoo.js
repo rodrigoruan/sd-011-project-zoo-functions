@@ -81,7 +81,7 @@ function getOldestFromFirstSpecies(id) {
     .map((person) => person.responsibleFor[0]);
 
   const animal = animals.filter((specie) => specie.id === rashId[0])
-    .map((specie) => specie.residents.sort((a, b) => a.age < b.age)[0]);
+    .map((specie) => specie.residents.sort((a, b) => b.age - a.age)[0]);
 
   return animal.reduce((acc, cur) => [cur.name, cur.sex, cur.age], []);
 }
@@ -109,6 +109,3 @@ module.exports = {
   increasePrices,
   createEmployee,
 };
-
-console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
-console.log(getOldestFromFirstSpecies('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
