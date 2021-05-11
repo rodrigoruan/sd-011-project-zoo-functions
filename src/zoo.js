@@ -58,20 +58,14 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 
 function countAnimals(species) {
   if (!species) {
-    return ({
-      lions: arrayOfAnimals.find((animal) => animal.name === 'lions').residents.length,
-      tigers: arrayOfAnimals.find((animal) => animal.name === 'tigers').residents.length,
-      bears: arrayOfAnimals.find((animal) => animal.name === 'bears').residents.length,
-      penguins: arrayOfAnimals.find((animal) => animal.name === 'penguins').residents.length,
-      otters: arrayOfAnimals.find((animal) => animal.name === 'otters').residents.length,
-      frogs: arrayOfAnimals.find((animal) => animal.name === 'frogs').residents.length,
-      snakes: arrayOfAnimals.find((animal) => animal.name === 'snakes').residents.length,
-      elephants: arrayOfAnimals.find((animal) => animal.name === 'elephants').residents.length,
-      giraffes: arrayOfAnimals.find((animal) => animal.name === 'giraffes').residents.length,
-    });
+    return arrayOfAnimals.reduce((acc, curr) => {
+      acc[curr.name] = curr.residents.length;
+      return acc;
+    }, {});
   } return arrayOfAnimals.find((animal) => animal.name === species).residents.length;
 }
 
+// refatorar
 function calculateEntry(entrants) {
   let arrayOfSums = [];
   if (!entrants) {
@@ -84,30 +78,47 @@ function calculateEntry(entrants) {
   return Math.round((arrayOfSums.filter((element) => element > 0).reduce((a, b) => a + b)) * 100) / 100;
 }
 
-function getAnimalsName() {
-  return ({
-    NE: arrayOfAnimals.filter(((animal) => animal.location === 'NE')).map((animal) => animal.name),
-    NW: arrayOfAnimals.filter(((animal) => animal.location === 'NW')).map((animal) => animal.name),
-    SE: arrayOfAnimals.filter(((animal) => animal.location === 'SE')).map((animal) => animal.name),
-    SW: arrayOfAnimals.filter(((animal) => animal.location === 'SW')).map((animal) => animal.name),
-  });
+function animalsByLocation() {
+  return arrayOfAnimals.reduce((acc, curr) => {
+    acc[curr.location].push(curr.name);
+    return acc;
+  }, { NE: [], NW: [], SE: [], SW: [] });
 }
 
-// to validate
-// const residentsNE = () => {
-//   const NE = arrayOfAnimals.filter(((animal) => animal.location === 'NE'));
-//   const objectNE = NE.reduce((accumulator, curr) => {
-//     accumulator[curr.name] = curr.residents.map((resident) => resident.name);
-//     return accumulator;
-//   },{});
-//   return objectNE;
-// }
+function getNamesByLocation() {
+  const animalsByLocation = arrayOfAnimals.reduce((acc, curr) => {
+    acc[curr.location].push(curr.name);
+    return acc;
+  }, { NE: [], NW: [], SE: [], SW: [] });
+  for (region in animalsByLocation){
+    console.log(animalsByLocation[region]);
+    console.log(region)
+    animalsByLocation[region].forEach(value => {
+      animalsByLocation[value] = (arrayOfAnimals.find(animal => animal.name === value).residents.map(resident => resident.name));
+    },);
+  }
+  return animalsByLocation;
+}
 
-// pending
+// console.log(animalsByLocation());
+console.log(getNamesByLocation());
+ 
+// console.log(getAnimalsWithNames()) 
+
 function getAnimalMap(options) {
   if (!options) {
-    return getAnimalsName();
-  } return 'pending';
+    return animalsByLocation();
+  } if (options.includeNames === true) {
+    return '';
+  } if (options.includeNames === true && options.sort === true) {
+    return '';
+  } if (options.includeNames === true && options.sex === 'female') {
+    return '';
+  } if (options.includeNames === true && options.sex === 'female' && options.sorted === true) {
+    return ';'
+  } if (options) {
+    return ';'
+  }
 }
 
 function convertHour(hour) {
