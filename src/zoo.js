@@ -43,10 +43,10 @@ function createEmployee(personalInfo, associatedWith) {
   return createEmployeeDescription;
 }
 
-const stephanieId = '9e7d4524-363c-416a-8759-8aa7e50c0992';
-const olaId = 'fdb2543b-5662-46a7-badc-93d960fdc0a8';
-const burlId = '0e7b460e-acf4-4e17-bcb3-ee472265db83';
 function isManager(id) {
+  const stephanieId = '9e7d4524-363c-416a-8759-8aa7e50c0992';
+  const olaId = 'fdb2543b-5662-46a7-badc-93d960fdc0a8';
+  const burlId = '0e7b460e-acf4-4e17-bcb3-ee472265db83';
   const findIdManage = employees.filter((employeer) => employeer.id === id).every((identidy) => identidy.id === stephanieId || identidy.id === olaId || identidy.id === burlId);
   return findIdManage;
 }
@@ -112,12 +112,24 @@ function getOldestFromFirstSpecies(id) {
   const animalSpecify = findAnimal.residents.find((_, index, arr) => arr[index].age === ageOfAnimal);
   return Object.values(animalSpecify);
 }
-getOldestFromFirstSpecies('4b40a139-d4dc-4f09-822d-ec25e819a5ad');
 
 function increasePrices(percentage) {
-  // seu código aqui
+  let { adult, senior, child } = prices;
+  const adultNewPrice = (percentage * adult) / 100;
+  console.log(adult);
+  console.log(adultNewPrice);
+  console.log(percentage);
+  const seniorNewPrice = (percentage * senior) / 100;
+  const childNewPrice = (percentage * child) / 100;
+  const newPrice = {
+    Adult: adultNewPrice,
+    Senior: seniorNewPrice,
+    Child: childNewPrice,
+  };
+  console.log(newPrice);
+  return newPrice;
 }
-
+increasePrices(40);
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
