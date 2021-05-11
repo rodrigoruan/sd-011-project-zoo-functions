@@ -20,7 +20,7 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  if (employeeName === undefined) {
+  if (!employeeName) {
     return {};
   }
   return data.employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName);
@@ -46,7 +46,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  if (species === undefined) {
+  if (!species) {
     const obj = {};
     data.species.forEach(({ name, residents }) => {
       obj[name] = residents.length;
@@ -59,7 +59,7 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  if (entrants === undefined || entrants === {}) return 0;
+  if (!entrants || entrants === {}) return 0;
   return Object.keys(entrants).reduce((acc, curr) => acc + (data.prices[curr] * entrants[curr]), 0);
 }
 
@@ -131,7 +131,7 @@ function getSchedule(dayName) {
   let obj = {};
   let officeHour = Object.values(data.hours);
   Object.keys(data.hours).forEach((day, index) => {
-    if (dayName === undefined) obj[day] = `Open from ${officeHour[index].open}am until ${officeHour[index].close - 12}pm`;
+    if (!dayName) obj[day] = `Open from ${officeHour[index].open}am until ${officeHour[index].close - 12}pm`;
     if (day === dayName) obj[day] = `Open from ${officeHour[index].open}am until ${officeHour[index].close - 12}pm`;
   });
 
@@ -173,7 +173,7 @@ function checkAnimalName(animalsId) {
 function getEmployeeCoverage(idOrName) {
   const obj = {};
 
-  if (idOrName === undefined) {
+  if (!idOrName) {
     data.employees.forEach(({ firstName, lastName, responsibleFor }) => {
       obj[`${firstName} ${lastName}`] = checkAnimalName(responsibleFor);
     });
