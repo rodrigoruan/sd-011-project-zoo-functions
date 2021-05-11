@@ -72,11 +72,18 @@ function getSchedule(dayName) {
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
+  let animalID = data.employees.find((element) => element.id === id).responsibleFor[0];
+  return Object.values(data.species.find((element) => element.id === animalID)
+    .residents
+    .reduce((acc, curr) => (acc.age < curr.age ? curr : acc)));
 }
+
+console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function increasePrices(percentage) {
   // seu código aqui
   Object.keys(data.prices).forEach((element) => { data.prices[element] *= (1 + (percentage / 100)); });
+  // https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
   Object.keys(data.prices).forEach((element) => { data.prices[element] = Math.ceil(data.prices[element] * 100) / 100; });
 }
 
