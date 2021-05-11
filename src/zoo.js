@@ -26,6 +26,9 @@ function getEmployeeByName(employeeName) {
   return employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
 }
 function createEmployee(personalInfo, associatedWith) {
+  const { id, firstName, lastName } = personalInfo;
+  const { managers, responsibleFor } = associatedWith;
+  return { id, firstName, lastName, managers, responsibleFor };
 }
 
 function isManager(id) {
@@ -70,9 +73,9 @@ function getSchedule(dayName) {
 function getOldestFromFirstSpecies(id) {
   const employee = employees.find((employe) => employe.id === id);
   const firstEspecieName = employee.responsibleFor[0];
-  const firstEspecie = getSpeciesByIds(firstEspecieName)[0].residents;
-  let oldest = firstEspecie[0];
-  firstEspecie.forEach((animal) => {
+  const firstEspecieResidents = getSpeciesByIds(firstEspecieName)[0].residents;
+  let oldest = firstEspecieResidents[0];
+  firstEspecieResidents.forEach((animal) => {
     if (animal.age > oldest.age) { oldest = animal; }
   });
   return Object.values(oldest);
