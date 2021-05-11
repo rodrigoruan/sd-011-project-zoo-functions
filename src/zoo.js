@@ -129,10 +129,10 @@ function getAnimalMap(options = {}) {
 
 function getSchedule(dayName) {
   let obj = {};
-  let expediente = Object.values(data.hours);
+  let officeHour = Object.values(data.hours);
   Object.keys(data.hours).forEach((day, index) => {
-    if (dayName === undefined) obj[day] = `Open from ${expediente[index].open}am until ${expediente[index].close - 12}pm`;
-    if (day === dayName) obj[day] = `Open from ${expediente[index].open}am until ${expediente[index].close - 12}pm`;
+    if (dayName === undefined) obj[day] = `Open from ${officeHour[index].open}am until ${officeHour[index].close - 12}pm`;
+    if (day === dayName) obj[day] = `Open from ${officeHour[index].open}am until ${officeHour[index].close - 12}pm`;
   });
 
   if (obj.Monday !== undefined) obj.Monday = 'CLOSED';
