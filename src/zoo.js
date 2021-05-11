@@ -264,9 +264,75 @@ function increasePrices(percentage) {
   return prices;
 }
 
+const defaultEmployeeCoverage = () => {
+  const result = {};
+  employees.forEach((employee) => {
+    const fullName = `${employee.firstName} ${employee.lastName}`;
+    result[fullName] = [];
+    employee.responsibleFor.forEach((responsility) => {
+      species.forEach((specie) => {
+        if (specie.id === responsility) result[fullName].push(specie.name);
+      });
+    });
+  });
+  return result;
+};
+
+const employeeCoverageByFirstName = (firstName) => {
+  const result = {};
+  const employeeByFirstName = employees.find((employee) => employee.firstName === firstName);
+  if (employeeByFirstName !== undefined) {
+    const fullName = `${employeeByFirstName.firstName} ${employeeByFirstName.lastName}`;
+    result[fullName] = [];
+    employeeByFirstName.responsibleFor.forEach((responsility) => {
+      species.forEach((specie) => {
+        if (specie.id === responsility) result[fullName].push(specie.name);
+      });
+    });
+  }
+  return result;
+};
+
+const employeeCoverageByLastName = (lastName) => {
+  const result = {};
+  const employeeByLastName = employees.find((employee) => employee.lastName === lastName);
+  if (employeeByLastName !== undefined) {
+    const fullName = `${employeeByLastName.firstName} ${employeeByLastName.lastName}`;
+    result[fullName] = [];
+    employeeByLastName.responsibleFor.forEach((responsility) => {
+      species.forEach((specie) => {
+        if (specie.id === responsility) result[fullName].push(specie.name);
+      });
+    });
+  }
+  return result;
+};
+
+const employeeCoverageByID = (id) => {
+  const result = {};
+  const employeeByID = employees.find((employee) => employee.id === id);
+  if (employeeByID !== undefined) {
+    const fullName = `${employeeByID.firstName} ${employeeByID.lastName}`;
+    result[fullName] = [];
+    employeeByID.responsibleFor.forEach((responsility) => {
+      species.forEach((specie) => {
+        if (specie.id === responsility) result[fullName].push(specie.name);
+      });
+    });
+  }
+  return result;
+};
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (idOrName === undefined) return defaultEmployeeCoverage();
+  let result = {};
+  result = employeeCoverageByFirstName(idOrName);
+  if (Object.entries(result).length === 0) result = employeeCoverageByLastName(idOrName);
+  if (Object.entries(result).length === 0) result = employeeCoverageByID(idOrName);
+  return result
 }
+
+console.log(getEmployeeCoverage('Orloff'));
 
 module.exports = {
   calculateEntry,
