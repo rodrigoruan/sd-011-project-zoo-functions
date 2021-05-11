@@ -95,10 +95,21 @@ function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
   return total;
 }
 
+const defaultAnimalMap = (result) => {
+  let newResult = result;
+  species.forEach((specie) => {
+    if (specie.location === 'NE') newResult.NE.push(specie.name);
+    if (specie.location === 'NW') newResult.NW.push(specie.name);
+    if (specie.location === 'SE') newResult.SE.push(specie.name);
+    if (specie.location === 'SW') newResult.SW.push(specie.name);
+  });
+  return newResult;
+};
+
 const namedAnimalMap = (result, includeNames) => {
-  if (includeNames === false) return result; 
+  if (includeNames === false) return result;
   const { NE, NW, SE, SW } = result;
-  const newResult = { 'NE': [], 'NW': [], 'SE': [], 'SW': [] };
+  const newResult = { NE: [], NW: [], SE: [], SW: [] };
   NE.forEach((specieNE, index) => {
     newResult.NE[index] = { [specieNE]: [] };
     const specieInfoNE = species.find((specie) => specie.name === specieNE);
@@ -149,13 +160,8 @@ function getAnimalMap(options = { includeNames: false, sex: '', sorted: false })
     NW: [],
     SE: [],
     SW: [],
-  }
-  species.forEach((specie) => {
-    if (specie.location === 'NE') result.NE.push(specie.name);
-    if (specie.location === 'NW') result.NW.push(specie.name);
-    if (specie.location === 'SE') result.SE.push(specie.name);
-    if (specie.location === 'SW') result.SW.push(specie.name);
-  });
+  };
+  result = defaultAnimalMap(result);
   result = namedAnimalMap(result, includeNames);
   result = genreAnimalMap(result, sex);
   // result = sortedAnimalMap(result, sorted);
@@ -163,7 +169,7 @@ function getAnimalMap(options = { includeNames: false, sex: '', sorted: false })
   return result;
 }
 
-console.table(getAnimalMap({ includeNames: true, sex: 'male'}).NE);
+console.table(getAnimalMap({ includeNames: true, sex: 'male' }).NE);
 
 function getSchedule(dayName) {
   // seu código aqui
