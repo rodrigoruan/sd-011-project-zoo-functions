@@ -68,10 +68,9 @@ function calculateEntry(entrants) {
   const price = (total, age) =>
     total + (data.prices[age] * entrants[age]);
   const arrayPrices = Object.keys(entrants);
- // console.log(price);
   return arrayPrices.reduce(price, 0);
 }
-console.log(calculateEntry({ 'Adult': 1 , 'Child': 2}));
+console.log(calculateEntry({ Adult: 1, Child: 2 }));
 function getAnimalMap(options) {
 
 }
