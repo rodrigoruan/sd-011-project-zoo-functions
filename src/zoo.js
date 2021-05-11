@@ -62,7 +62,14 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 }
 
 function countAnimals(speciesToCount) {
-  // seu código aqui
+  if (!speciesToCount) {
+    //Diego Figueiredo Turma 11 ---- REVISAR ESSA DESESTRUTURAÇÃO ----
+    return species.reduce((specie, { name: animalName, residents: residentsInfo }) => {
+      specie[animalName] = residentsInfo.length;
+      return specie;
+    }, {})
+  }
+  return species.find((specie) => specie.name === speciesToCount).residents.length
 }
 
 function calculateEntry(entrants) {
