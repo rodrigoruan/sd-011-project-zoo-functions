@@ -38,8 +38,8 @@ function isManager(i) {
   return false;
 }
 
-function addEmployee(identifier, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(identifier, firstName, lastName, managers = [], responsibleFor = []) {
+  employee.push({ ...identifier, ...firstName, ...lastName, ...managers, ...responsibleFor });
 }
 
 function countAnimals(species) {
