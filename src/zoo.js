@@ -102,12 +102,12 @@ function mapWithResidents(options) {
       let arrayResidents = findSpecie(element, 'name')[0].residents;
 
       if (options.sex) { // quando definido o sexo
-        let residentName = arrayResidents.filter((resident) => resident.sex === options.sex);
-        residentName = { [locationsAndSpecies[location][index]]: residentName.map((resident) => resident.name) };
-        locationsAndSpecies[location][index] = residentName;
+        let residentsNames = arrayResidents.filter((resident) => resident.sex === options.sex);
+        residentsNames = { [locationsAndSpecies[location][index]]: residentsNames.map((resident) => resident.name) };
+        locationsAndSpecies[location][index] = residentsNames;
       } else {
-        let residentName = { [locationsAndSpecies[location][index]]: arrayResidents.map((resident) => resident.name) };
-        locationsAndSpecies[location][index] = residentName;
+        let residentsNames = { [locationsAndSpecies[location][index]]: arrayResidents.map((resident) => resident.name) };
+        locationsAndSpecies[location][index] = residentsNames;
       }
     });
   });
@@ -153,6 +153,7 @@ function getSchedule(dayName) {
       objectSchedule[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
     }
   }));
+
   if (!dayName) {
     return objectSchedule;
   }
@@ -170,7 +171,7 @@ function getOldestFromFirstSpecies(id) {
     return oldestResident;
   });
 
-  const arrayOldestSpecie = Object.values(findOldestResident).map((element) => element);
+  const arrayOldestSpecie = Object.values(findOldestResident);
   return arrayOldestSpecie;
 }
 
@@ -180,7 +181,7 @@ function increasePrices(percentage) {
   });
 }
 
-// função que retorna array com os nomes dos animais que cuida
+// função que retorna array com os nomes dos animais que o funcionário cuida / parâmetro é o objeto do funcionário
 const generateArrayCoverage = (objectEmployee) => objectEmployee.responsibleFor.map((specieId) => findSpecie(specieId, 'id')[0].name);
 
 function getEmployeeCoverage(idOrName) {
@@ -195,7 +196,6 @@ function getEmployeeCoverage(idOrName) {
   }
   const objectEmployee = employees.find((employee) => employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName);
   const fullNameEmployee = `${objectEmployee.firstName} ${objectEmployee.lastName}`;
-
   return { [fullNameEmployee]: employeesAndSpecies[fullNameEmployee] };
 }
 
