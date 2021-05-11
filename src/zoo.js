@@ -105,7 +105,7 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aquidd
+  // seu código aquidddsd
 }
 
 function getEmployeeCoverage(idOrName) {
