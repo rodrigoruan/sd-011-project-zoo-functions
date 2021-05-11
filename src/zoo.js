@@ -61,9 +61,27 @@ function calculateEntry(entrants) {
   return Object.keys(entrants).reduce((acc, ageGroup) => acc + entrants[ageGroup] * prices[ageGroup], 0);
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+function getSpeciesByLocation(locations) {
+  const result = {};
+  locations.forEach((location) => {
+    const speciesFromLocation = species.filter((specie) => specie.location === location).map((specie) => specie.name);
+    result[location] = speciesFromLocation;
+  });
+  return result;
 }
+
+function getAnimalMap(options = {}) {
+  // seu código aqui
+  const locations = ['NE', 'NW', 'SE', 'SW'];
+  const speciesByLocation = getSpeciesByLocation(locations);
+  if (options.includeNames) {
+    const residentNameNE = speciesByLocation.NE.map((specie) => species.find((specieName) => specieName.name === specie).residents.map((resident) => resident.name)); // array com arrays contendo os nomes dos residentes de cada specie
+    speciesByLocation.NE = speciesByLocation.NE.map((specie, index) => ({ [specie]: residentNameNE[index] }));
+    console.log(residentNameNE);
+  }
+  return speciesByLocation.NE;
+}
+console.log(getAnimalMap({ includeNames: true }));
 
 function getSchedule(dayName) {
   // seu código aqui
@@ -92,7 +110,7 @@ function increasePrices(percentage) {
     prices[ageGroup] = Math.round(prices[ageGroup] * 100) / 100;
   });
 }
-// https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
+// Ref: https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
