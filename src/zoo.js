@@ -107,7 +107,7 @@ const defaultAnimalMap = (result) => {
 };
 
 const namedAnimalMap = (result, includeNames) => {
-  if (includeNames === false) return result; 
+  if (includeNames === false) return result;
   const { NE, NW, SE, SW } = result;
   const newResult = { NE: [], NW: [], SE: [], SW: [] };
   NE.forEach((specieNE, index) => {
@@ -134,7 +134,7 @@ const namedAnimalMap = (result, includeNames) => {
 };
 
 const genreAnimalMap = (result, sex) => {
-  if (sex !== 'male' || sex !== 'female') return result;
+  if (sex === undefined) return result;
   let newResult = result;
   const { NE, NW, SE, SW } = newResult;
   const regions = [NE, NW, SE, SW];
@@ -185,8 +185,6 @@ function getAnimalMap(options = { includeNames: false, sex: '', sorted: false })
   if (includeNames === false && (sorted === true || sex === 'male' || sex === 'female')) result = 'lions';
   return result;
 }
-
-console.table(getAnimalMap({includeNames: true, sorted: true}).NE);
 
 function getSchedule(dayName) {
   // seu código aqui
