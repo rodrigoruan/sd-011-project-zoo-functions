@@ -72,9 +72,10 @@ function sorted(result, regions) {
 function filterSex(result, regions, options) {
   regions.forEach((region) => {
     result[region] = [];
-    result[region] = data.specie
+    result[region] = data.species
       .reduce((acc, { name, location, residents }) => (location === region ? acc
-        .concat({ [name]: residents.filter(({ sex }) => options.sex === sex)
+        .concat({ [name]: residents
+          .filter(({ sex }) => options.sex === sex)
           .map((specie) => specie.name) }) : acc), []);
   });
 }
