@@ -114,22 +114,15 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  let { adult, senior, child } = prices;
-  const adultNewPrice = (percentage * adult) / 100;
-  console.log(adult);
-  console.log(adultNewPrice);
-  console.log(percentage);
-  const seniorNewPrice = (percentage * senior) / 100;
-  const childNewPrice = (percentage * child) / 100;
-  const newPrice = {
-    Adult: adultNewPrice,
-    Senior: seniorNewPrice,
-    Child: childNewPrice,
-  };
-  console.log(newPrice);
-  return newPrice;
+  for (const [age, price] of Object.entries(data.prices)) {
+    let newPrice = price + (percentage * price) / 100;
+    newPrice = Number((Math.abs(newPrice) * 100).toPrecision(15));
+    newPrice = (Math.round(newPrice) / 100) * Math.sign(newPrice);
+    data.prices[age] = newPrice;
+  }
+  return data.prices;
 }
-increasePrices(40);
+
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
