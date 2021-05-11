@@ -51,18 +51,34 @@ function isManager(id) {
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   const newEmployee = {
-    id: id, 
-    firstName: firstName,
-    lastName: lastName, 
-    managers: managers, 
-    responsibleFor: responsibleFor,
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
   };
   return employees.push(newEmployee);
 }
 
 function countAnimals(species1) {
-  // seu código aqui
+  const obj = species.reduce((specieAccumulator, specie) => {
+    specieAccumulator[specie.name] = specie.residents.length;
+    return specieAccumulator;
+  }, {});
+  if (species1 !== undefined) {
+    return obj[species1];
+  }
+  return obj;
 }
+console.log(countAnimals('tigers'));
+
+// function countAnimals(species1) {
+//   if(species1 === undefined) {
+//    return species.map((specie) => `${specie.name}: ${specie.residents.length}`);
+//   }
+//   return species.find((specie) => specie.name === species1).residents.length;
+// }
+// console.log(countAnimals('lions'));
 
 function calculateEntry(entrants) {
   // seu código aqui
