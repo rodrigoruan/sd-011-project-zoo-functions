@@ -66,7 +66,6 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-
   const getResult = {};
   if (dayName && dayName !== 'Monday') {
     getResult[dayName] = `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm`;
