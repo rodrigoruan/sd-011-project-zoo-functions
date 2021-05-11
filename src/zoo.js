@@ -64,13 +64,14 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 function countAnimals(speciesx) {
   if (!speciesx) {
     const newArray = {};
-    species.forEach((value) => { newArray[value.name] = value.residents.length };);
+    species.forEach((value) => { newArray[value.name] = value.residents.length });
     return newArray;
   }
   const animal = species.find((value) => value.name === speciesx);
   return animal.residents.length;
 }
-
+// CaclulateEntry referencia: Inacio
+// href: https://github.com/tryber/sd-011-project-zoo-functions/pull/79/files
 function calculateEntry(entrants) {
   let result = 0;
   if (entrants) {
