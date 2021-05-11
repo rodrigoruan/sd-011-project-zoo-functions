@@ -35,13 +35,7 @@ function isManager(id) {
 }
 
 function addEmployee(id = [], firstName = [], lastName = [], managers = [], responsibleFor = []) {
-  const obj = {
-    id,
-    firstName,
-    lastName,
-    managers,
-    responsibleFor,
-  };
+  const obj = { id, firstName, lastName, managers, responsibleFor };
   return employees.push(obj);
 }
 
@@ -50,7 +44,6 @@ function countAnimals(speciesItem) {
     acc[curr.name] = curr.residents.length;
     return acc;
   }, {});
-
   const filterLength = () => species.filter((el) => el.name === speciesItem)[0].residents.length;
   return (speciesItem === undefined) ? reduceFunction() : filterLength();
 }
@@ -66,8 +59,24 @@ function calculateEntry(entrants = {}) {
   return value.reduce((acc, curr) => acc + curr, 0);
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+const getAnimals = (residents, sex, sorted) => {
+  const animals = residents.reduce((acc, curr) => {
+    const res = (sex && curr.sex !== sex) ? acc : acc.concat(curr.name);
+    return res;
+  }, []);
+  return (sorted) ? animals.sort() : animals;
+};
+
+function getAnimalMap(options = {}) {
+  const object = { NE: [], NW: [], SE: [], SW: [] };
+  species.forEach((el) => {
+    if (options.includeNames) {
+      object[el.location].push({ [el.name]: getAnimals(el.residents, options.sex, options.sorted) });
+    } else {
+      object[el.location].push(el.name);
+    }
+  });
+  return object;
 }
 
 const clockCalc = (receivedHour) => {
@@ -117,7 +126,7 @@ function getSingleEmployeeCoverage(idOrName) {
   const getEmployee = employees.find((pers) => idOrName === pers.id || idOrName === pers.firstName || idOrName === pers.lastName);
   const fullName = `${getEmployee.firstName} ${getEmployee.lastName}`;
   const animals = [];
-  const getAnimals = getEmployee.responsibleFor.forEach((id) => animals.push(species.find((anim) => id === anim.id).name));
+  const getAnimal = getEmployee.responsibleFor.forEach((id) => animals.push(species.find((anim) => id === anim.id).name));
   return { [fullName]: animals };
 }
 
