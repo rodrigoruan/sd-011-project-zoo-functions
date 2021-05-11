@@ -71,11 +71,14 @@ function countAnimals(speciesx) {
   return animal.residents.length;
 }
 
-function calculateEntry(entrants = {Adult: 0, Child: 0, Senior: 0}) {
-  if (!entrants || entrants === {}) {
-    return 0;
+function calculateEntry(entrants) {
+  let result = 0;
+  if (entrants) {
+    const keys = Object.keys(entrants);
+    keys.forEach((value) => { result += entrants[value] * prices[value] });
   }
-  return (entrants.Adult * prices.Adult) + (entrants.Child * prices.Child) + (entrants.Senior * prices.Senior);
+  
+  return result;
 }
 
 function getAnimalMap(options) {
