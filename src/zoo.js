@@ -75,17 +75,29 @@ function calculateEntry(entrants = 0) {
   return Adult * prices.Adult + Child * prices.Child + Senior * prices.Senior;
 }
 
-function getAnimalMap(options) {
-  let result = {};
-  const regions = ['NE', 'NW', 'SE', 'SW'];
-  result = regions.reduce((ac, current, index) => {
-    ac[regions[index]] = species.filter(({
-      location,
-    }) => location === current).map((mpe) => mpe.name);
-    return ac;
-  }, {});
-  return result;
+// Rodolfo Resende & Julio Filizzola Turma 11 me ajudou a fazer essa questão
+const getNameAnimal = (residents, sorted, sex) => {
+  const animalName = residents.reduce((acc, value) => (sex && value.sex !== sex ? acc : acc.concat(value.name)), []);
+  return sorted ? animalName.sort() : animalName;
+};
+
+function getAnimalMap(options = {}) {
+  let objectResult = {};
+  let arrayRegions = ['NE', 'NW', 'SE', 'SW'];
+  arrayRegions.forEach((regions) => {
+    objectResult[regions] = [];
+  });
+  data.species.map((animal) => (options.includeNames ? objectResult[animal.location].push({
+    [animal.name]: getNameAnimal(animal.residents, options.sorted, options.sex),
+  }) : objectResult[animal.location].push(animal.name)));
+  return objectResult;
 }
+
+console.log(getAnimalMap({
+  includeNames: true,
+  sorted: true,
+  sex: 'female',
+}));
 
 function getSchedule(dayName) {
   let result = {};
@@ -131,7 +143,6 @@ function increasePrices(percentage) {
     Senior,
     Child,
   } = prices;
-
   prices.Adult = parseFloat(((Adult / 100) * percentage + Adult + 0.001).toFixed(2));
   prices.Senior = parseFloat(((Senior / 100) * percentage + Senior + 0.001).toFixed(2));
   prices.Child = parseFloat(((Child / 100) * percentage + Child + 0.001).toFixed(2));
@@ -158,8 +169,6 @@ function getEmployeeCoverage(idOrName) {
   });
   return result;
 }
-
-console.log(getEmployeeCoverage());
 
 module.exports = {
   calculateEntry,
