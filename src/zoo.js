@@ -31,8 +31,10 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  return data.employees.some((check) => (check.id === id && check.managers[0] === '9e7d4524-363c-416a-8759-8aa7e50c0992'));
+  return data.employees.some((check) => (check.id === id && check.managers.includes('9e7d4524-363c-416a-8759-8aa7e50c0992')));
 }
+
+console.log(isManager('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1'))
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   let newObject = {
