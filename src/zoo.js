@@ -174,8 +174,8 @@ function getEmployeeCoverage(idOrName) {
   const obj = {};
 
   if (idOrName === undefined) {
-    data.employees.forEach((positions) => {
-      obj[`${positions.firstName} ${positions.lastName}`] = checkAnimalName(positions.responsibleFor);
+    data.employees.forEach(({ firstName, lastName, responsibleFor }) => {
+      obj[`${firstName} ${lastName}`] = checkAnimalName(responsibleFor);
     });
   }
 
