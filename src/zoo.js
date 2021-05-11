@@ -9,7 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
-const { employees, species, prices } = require('./data');
+const { employees, species, prices, hours } = require('./data');
 const data = require('./data');
 
 const getSpeciesByIds = (...ids) => data.species.filter((speciesId) => ids.includes(speciesId.id));
@@ -36,9 +36,10 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
-function getSchedule(dayName) {
-  // seu código aqui
-}
+const getSchedule = (dayName) => {
+  const schedule = Object.entries(hours).reduce((acc, [day, { open, close }]) => ({ ...acc, [day]: open - close === 0 ? 'CLOSED' : `Open from ${open}am until ${close - 12}pm` }), 0);
+  return dayName === undefined ? schedule : { [dayName]: schedule[dayName] };
+};
 
 const getOldestFromFirstSpecies = (ids) => {
   const responsible = data.employees.find(({ id }) => id === ids).responsibleFor.find((index) => index);
@@ -52,9 +53,20 @@ function increasePrices(percentage) {
   // seu código aqui
 }
 
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
-}
+const PersonId = (idOrName) => {
+  const resposable = employees.find(({ firstName, lastName, id }) => firstName === idOrName || lastName === idOrName || id === idOrName);
+  const animals = resposable.responsibleFor.map((ids) => species.find(({ id }) => id === ids).name);
+  return { [`${resposable.firstName} ${resposable.lastName}`]: animals };
+};
+
+const getEmployeeCoverage = (idOrName) => {
+  const employee = data.employees.reduce(((acc, { firstName, lastName, responsibleFor }) => {
+    acc[`${firstName} ${lastName}`] = responsibleFor.map((ids) => data.species.find(({ id }) => id === ids).name);
+    return acc;
+  }), {});
+  if (!idOrName) return employee;
+  return PersonId(idOrName);
+};
 
 module.exports = {
   calculateEntry,
