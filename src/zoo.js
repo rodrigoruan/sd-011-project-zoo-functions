@@ -14,13 +14,8 @@ const data = require('./data');
 function getSpeciesByIds(...ids) {
   const { species } = data;
 
-  const filteredSpecies = [];
-  for (let index = 0; index < ids.length; index += 1) {
-    const specieFound = species.find((specie) => ids[index] === specie.id);
-    filteredSpecies.push(specieFound);
-  }
-
-  return filteredSpecies;
+  const speciesFound = species.filter((specie) => ids.includes(specie.id));
+  return speciesFound;
 }
 
 function getAnimalsOlderThan(animal, age) {
