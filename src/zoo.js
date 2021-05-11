@@ -97,8 +97,20 @@ function getSchedule(dayName) {
   }, {});
 }
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const person = data.employees.reduce((acc, element)=> {
+    if (element.id.includes(id)){
+      acc = element;
+    }
+    return acc
+  }, {});
+  let animal = person.responsibleFor[0];
+  animal = data.species
+  .find((animals) => animals.id.includes(animal))
+  .residents.sort((ageA, ageB) => ageB.age - ageA.age);
+  return Object.values(animal[0]);
 }
+
+console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'))
 
 function increasePrices(percentage) {
   // seu código aqui
