@@ -109,26 +109,14 @@ const defaultAnimalMap = (result) => {
 const namedAnimalMap = (result, includeNames) => {
   if (includeNames === false) return result;
   const { NE, NW, SE, SW } = result;
+  const regions = [NE, NW, SE, SW];
   const newResult = { NE: [], NW: [], SE: [], SW: [] };
-  NE.forEach((specieNE, index) => {
-    newResult.NE[index] = { [specieNE]: [] };
-    const specieInfoNE = species.find((specie) => specie.name === specieNE);
-    specieInfoNE.residents.forEach((resident) => newResult.NE[index][specieNE].push(resident.name));
-  });
-  NW.forEach((specieNW, index) => {
-    newResult.NW[index] = { [specieNW]: [] };
-    const specieInfoNW = species.find((specie) => specie.name === specieNW);
-    specieInfoNW.residents.forEach((resident) => newResult.NW[index][specieNW].push(resident.name));
-  });
-  SE.forEach((specieSE, index) => {
-    newResult.SE[index] = { [specieSE]: [] };
-    const specieInfoSE = species.find((specie) => specie.name === specieSE);
-    specieInfoSE.residents.forEach((resident) => newResult.SE[index][specieSE].push(resident.name));
-  });
-  SW.forEach((specieSW, index) => {
-    newResult.SW[index] = { [specieSW]: [] };
-    const specieInfoSW = species.find((specie) => specie.name === specieSW);
-    specieInfoSW.residents.forEach((resident) => newResult.SW[index][specieSW].push(resident.name));
+  regions.forEach((region) => {
+    region.forEach((specieRegion, index) => {
+      newResult.region[index] = { [specieRegion]: [] };
+      const specieInfo = species.find((specie) => specie.name === specie);
+      specieInfo.residents.forEach((resident) => newResult.region[index][specie].push(resident.name));
+    });
   });
   return newResult;
 };
@@ -137,52 +125,19 @@ const genreAnimalMap = (result, sex) => {
   if (sex === '') return result;
   let newResult = result;
   const { NE, NW, SE, SW } = newResult;
-  NE.forEach((specieNE, index1) => {
-    const currentSpecie = Object.keys(specieNE)[0];
-    const specieInfoNE = species.find((specie) => currentSpecie === specie.name);
-    const residentsNE = specieInfoNE.residents;
-    let splicePointer = 0;
-    residentsNE.forEach((resident, index2) => {
-      if (resident.sex !== sex) {
-        NE[index1][currentSpecie].splice(index2 + splicePointer, 1);
-        splicePointer -= 1;
-      }
-    });
-  });
-  NW.forEach((specieNW, index1) => {
-    const currentSpecie = Object.keys(specieNW)[0];
-    const specieInfoNW = species.find((specie) => currentSpecie === specie.name);
-    const residentsNW = specieInfoNW.residents;
-    let splicePointer = 0;
-    residentsNW.forEach((resident, index2) => {
-      if (resident.sex !== sex) {
-        NW[index1][currentSpecie].splice(index2 + splicePointer, 1);
-        splicePointer -= 1;
-      }
-    });
-  });
-  SE.forEach((specieSE, index1) => {
-    const currentSpecie = Object.keys(specieSE)[0];
-    const specieInfoSE = species.find((specie) => currentSpecie === specie.name);
-    const residentsSE = specieInfoSE.residents;
-    let splicePointer = 0;
-    residentsSE.forEach((resident, index2) => {
-      if (resident.sex !== sex) {
-        SE[index1][currentSpecie].splice(index2 + splicePointer, 1);
-        splicePointer -= 1;
-      }
-    });
-  });
-  SW.forEach((specieSW, index1) => {
-    const currentSpecie = Object.keys(specieSW)[0];
-    const specieInfoSW = species.find((specie) => currentSpecie === specie.name);
-    const residentsSW = specieInfoSW.residents;
-    let splicePointer = 0;
-    residentsSW.forEach((resident, index2) => {
-      if (resident.sex !== sex) {
-        SW[index1][currentSpecie].splice(index2 + splicePointer, 1);
-        splicePointer -= 1;
-      }
+  const regions = [NE, NW, SE, SW];
+  regions.forEach((region) => {
+    region.forEach((specie, index1) => {
+      const currentSpecie = Object.keys(specie)[0];
+      const specieInfo = species.find((specie) => currentSpecie === specie.name);
+      const residents = specieInfo.residents;
+      let splicePointer = 0;
+      residents.forEach((resident, index2) => {
+        if (resident.sex !== sex) {
+          region[index1][currentSpecie].splice(index2 + splicePointer, 1);
+          splicePointer -= 1;
+        }
+      });
     });
   });
   return result;
