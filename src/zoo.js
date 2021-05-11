@@ -179,9 +179,9 @@ function getEmployeeCoverage(idOrName) {
     });
   }
 
-  data.employees.forEach((checkNames) => {
-    if (idOrName === checkNames.id || idOrName === checkNames.firstName || idOrName === checkNames.lastName) {
-      obj[`${checkNames.firstName} ${checkNames.lastName}`] = checkAnimalName(checkNames.responsibleFor);
+  data.employees.forEach(({ id, firstName, lastName, responsibleFor }) => {
+    if (idOrName === id || idOrName === firstName || idOrName === lastName) {
+      obj[`${firstName} ${lastName}`] = checkAnimalName(responsibleFor);
     }
   });
   return obj;
