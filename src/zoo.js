@@ -82,9 +82,9 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  species.map()
 }
-
+console.log(getAnimalMap())
 function getSchedule(dayName) {
   // seu código aqui
 }
