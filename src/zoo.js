@@ -78,8 +78,6 @@ function getOldestFromFirstSpecies(id) {
     .reduce((acc, curr) => (acc.age < curr.age ? curr : acc)));
 }
 
-console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
-
 function increasePrices(percentage) {
   // seu código aqui
   Object.keys(data.prices).forEach((element) => { data.prices[element] *= (1 + (percentage / 100)); });
