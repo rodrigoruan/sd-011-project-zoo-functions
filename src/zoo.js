@@ -39,12 +39,19 @@ function isManager(i) {
 }
 
 function addEmployee(identifier, firstName, lastName, managers = [], responsibleFor = []) {
-  const employed = { identifier, firstName, lastName, managers, responsibleFor };
+  const employed = { id: identifier, firstName, lastName, managers, responsibleFor };
   data.employees.push(employed);
 }
 
+const specieCountReducer = (otherSpecies, specie) => ({ ...otherSpecies, [specie.name]: specie.residents.length });
+
 function countAnimals(species) {
-  // seu código aqui
+  if (!species) {
+    return data.species.reduce(specieCountReducer,
+      {});
+  }
+  const animalsCount = data.species.find((animalName) => animalName.name === species);
+  return animalsCount.residents.length;
 }
 
 function calculateEntry(entrants) {
