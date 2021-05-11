@@ -70,15 +70,14 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
   if (entrants === undefined || entrants === {}) {
     return 0;
   }
-  return Object.values(entrants).reduce((acc, value, index) => {
-    acc += value * Object.values(data.prices)[index];
-    return acc;
-  }, 0);
+  // Recebi ajuda de Mikaela Braga
+  return Object.keys(entrants)
+  .reduce((acc, person) => acc + entrants[person] * data.prices[person], 0);
 }
+
 function getAnimalMap(options) {
   // seu código aqui
 }
