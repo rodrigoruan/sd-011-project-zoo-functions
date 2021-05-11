@@ -234,7 +234,7 @@ function getSchedule(dayName) {
   const daysOfWeek = Object.keys(hours);
   const daySelected = daysOfWeek.find((day) => day === dayName);
   if (daySelected === undefined) {
-    result = { ...hours};
+    result = { ...hours };
     daysOfWeek.forEach((day) => {
       result[day] = `Open from ${result[day].open}am until ${result[day].close - 12}pm`;
       if (day === 'Monday') result[day] = 'CLOSED';
