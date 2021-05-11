@@ -22,24 +22,34 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  const result = data.employees.reduce((acc, employ) => (employeeName === employ.lastName || employeeName === employ.firstName ? acc = employ : acc), {});
+  const result = data.employees.reduce((acc, employ) => {
+    return (employeeName === employ.lastName || employeeName === employ.firstName ? acc = employ : acc)
+  }, {});
   return result;
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  const newEmployee = {
+    firstName: personalInfo.firstName,
+    id: personalInfo.id,
+    lastName: personalInfo.lastName,
+    managers: associatedWith.managers,
+    responsibleFor: associatedWith.responsibleFor,
+  };
+  return newEmployee;
 }
 
 function isManager(id) {
-  // seu código aqui
+  // seu código aqui 
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+  // return data.employees.map())
 }
 
 function countAnimals(speciess) {
-  // seu código aqui
+  // const findSpecies = data.species.find((animal) => animal.name === speciess);
+  // return findSpecies.residents.reduce((acc, count) => );
 }
 
 function calculateEntry(entrants) {
