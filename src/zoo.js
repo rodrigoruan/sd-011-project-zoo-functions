@@ -96,6 +96,7 @@ function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
 }
 
 const defaultAnimalMap = (result) => {
+  if (result === 'lions') return result;
   let newResult = result;
   species.forEach((specie) => {
     if (specie.location === 'NE') newResult.NE.push(specie.name);
@@ -107,7 +108,7 @@ const defaultAnimalMap = (result) => {
 };
 
 const namedAnimalMap = (result, includeNames) => {
-  if (includeNames === false) return result;
+  if (includeNames !== true || result === 'lions') return result;
   const { NE, NW, SE, SW } = result;
   const newResult = { NE: [], NW: [], SE: [], SW: [] };
   NE.forEach((specieNE, index) => {
@@ -134,7 +135,7 @@ const namedAnimalMap = (result, includeNames) => {
 };
 
 const genreAnimalMap = (result, sex) => {
-  if (sex === undefined) return result;
+  if (result = 'lions') return result;
   let newResult = result;
   const { NE, NW, SE, SW } = newResult;
   const regions = [NE, NW, SE, SW];
@@ -142,9 +143,9 @@ const genreAnimalMap = (result, sex) => {
     region.forEach((specieRegion, index1) => {
       const currentSpecie = Object.keys(specieRegion)[0];
       const specieInfo = species.find((specie) => currentSpecie === specie.name);
-      const { residents } = specieInfo;
+      console.log(specieInfo);
       let splicePointer = 0;
-      residents.forEach((resident, index2) => {
+      specieInfo.residents.forEach((resident, index2) => {
         if (resident.sex !== sex) {
           region[index1][currentSpecie].splice(index2 + splicePointer, 1);
           splicePointer -= 1;
@@ -152,12 +153,11 @@ const genreAnimalMap = (result, sex) => {
       });
     });
   });
-  console.log(result);
-  return result;
+  return newResult;
 };
 
 const sortedAnimalMap = (result, sorted) => {
-  if (sorted === false) return result;
+  if (sorted !== true) return result;
   let newResult = result;
   const { NE, NW, SE, SW } = newResult;
   const regions = [NE, NW, SE, SW];
@@ -178,17 +178,38 @@ function getAnimalMap(options = { includeNames: false, sex: '', sorted: false })
     SE: [],
     SW: [],
   };
+  if (includeNames !== true && (sorted === true || sex === 'male' || sex === 'female')) result = 'lions';
   result = defaultAnimalMap(result);
   result = namedAnimalMap(result, includeNames);
-  result = genreAnimalMap(result, sex);
+  if (sex === 'male' || sex === 'female') result = genreAnimalMap(result, sex);
   result = sortedAnimalMap(result, sorted);
-  if (includeNames === false && (sorted === true || sex === 'male' || sex === 'female')) result = 'lions';
   return result;
 }
 
+const { hours } = data;
+
 function getSchedule(dayName) {
-  // seu código aqui
+  let result = {};
+  const daysOfWeek = Object.keys(hours);
+  const daySelected = daysOfWeek.find((day) => day === dayName);
+  if (daySelected === undefined) {
+    result = hours;
+    daysOfWeek.forEach((day) => {
+      result[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
+      if (day === 'Monday') result[day] = 'CLOSED';
+    });
+    return result;
+  }
+  daysOfWeek.forEach((day) => {
+    if (day === dayName) {
+      result[day] = `Open from ${hours[day].open}am until ${hours[day].close}pm`;
+      if (day === 'Monday') result[day] = 'CLOSED';
+    }
+  });
+  return result;
 }
+
+console.log(getSchedule('Tuesday'));
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
