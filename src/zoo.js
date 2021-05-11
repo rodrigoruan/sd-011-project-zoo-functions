@@ -13,12 +13,11 @@ const data = require('./data');
 function getSpeciesByIds(...ids) {
   return ids.map((item) => data.species.find((species) => species.id === item));
 }
-console.log(getSpeciesByIds());
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
 }
-
+console.log(getAnimalsOlderThan())
 function getEmployeeByName(employeeName) {
   // seu código aqui
 }
