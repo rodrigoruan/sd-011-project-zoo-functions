@@ -43,7 +43,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   employees.push(NewEmployee);
   return employees;
 }
-
+// ex. feito com a ajuda da colega Mikaela Braga
 function countAnimals(species1) {
   if (!species1) {
     return data.species.reduce((acc, animal) => {
@@ -54,9 +54,13 @@ function countAnimals(species1) {
   return data.species.find((specie) => specie.name === species1).residents.length;
 }
 
+// * Fonte : https://stackoverflow.com/questions/61311246/how-to-mutliply-two-objects-by-key-and-sum *//
 function calculateEntry(entrants) {
+  if (entrants === undefined || Object.keys(entrants).length === 0) {
+    return 0;
+  } const totEnt = Object.keys(entrants).reduce((acc, currentPerson) => acc + entrants[currentPerson] * data.prices[currentPerson], 0);
+  return totEnt;
 }
-
 function getAnimalMap(options) {
   // seu código aqui
 }
