@@ -10,7 +10,7 @@ eslint no-unused-vars: [
 
 const data = require('./data');
 
-const { species, employees, hours, price } = data;
+const { species, employees, hours, prices } = data;
 
 function getSpeciesByIds(...ids) {
   // read ids
@@ -68,17 +68,21 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 function countAnimals(speciesToCount) {
   if (!speciesToCount) {
-    //Diego Figueiredo Turma 11 ---- REVISAR ESSA DESESTRUTURAÇÃO ----
+    // Diego ---- REVISAR ESSA DESESTRUTURAÇÃO ----
     return species.reduce((specie, { name: animalName, residents: residentsInfo }) => {
       specie[animalName] = residentsInfo.length;
       return specie;
-    }, {})
+    }, {});
   }
   return species.find((specie) => specie.name === speciesToCount).residents.length;
 }
 
-function calculateEntry(entrants) {
-  // seu código aqui
+function calculateEntry(entrants = 0) {
+  const { Adult, Child, Senior } = prices;
+  const adultsTotal = (entrants.Adult ?? 0) * Adult;
+  const childsTotal = (entrants.Child ?? 0) * Child;
+  const seniorsTotal = (entrants.Senior ?? 0) * Senior;
+  return adultsTotal + childsTotal + seniorsTotal;
 }
 
 function getAnimalMap(options) {
