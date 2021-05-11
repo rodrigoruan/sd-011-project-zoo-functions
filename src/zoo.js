@@ -8,6 +8,9 @@ eslint no-unused-vars: [
   }
 ]
 */
+// solução com o apoio do plantão e consultas aos sites:
+// https://desenvolvimentoparaweb.com/javascript/every-some-find-includes-javascript/
+// https://renatofreire.dev/metodos-do-array-includes-javascript/
 
 const data = require('./data');
 
@@ -17,9 +20,17 @@ function getSpeciesByIds(...ids) {
 }
 console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce', 'e8481c1d-42ea-4610-8e11-1752cfc05a46'));
 
+
+// const { species } = require('./data');
+//const data = require('./data');
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+    const checkAnimal = data.species.find(specieName => specieName.name === animal);
+    const checkAge = checkAnimal.residents.every(specieAge => specieAge.age >= age);
+    return checkAge; 
 }
+console.log(getAnimalsOlderThan('otters', 7));
+console.log(getAnimalsOlderThan('penguins', 10));
+
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
