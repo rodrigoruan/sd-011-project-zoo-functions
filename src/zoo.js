@@ -117,8 +117,7 @@ function increasePrices(percentage) {
 /* requisito 13 */
 function getEmployeeCoverage(idOrName) {
   const animalsAndPerson = employees.reduce((acc, person) => {
-    acc[`${person.firstName} ${person.lastName}`] = person.responsibleFor
-    .map((ids) => species.find(({ id }) => id === ids).name);
+    acc[`${person.firstName} ${person.lastName}`] = person.responsibleFor.map((ids) => species.find(({ id }) => id === ids).name);
     return acc;
   }, {});
   if (!idOrName) {
@@ -126,16 +125,14 @@ function getEmployeeCoverage(idOrName) {
   }
   const functionary = employees.find((funcionario) => idOrName === funcionario.id || idOrName === funcionario.firstName || idOrName === funcionario.lastName);
   const nameFunctionary = `${functionary.firstName} ${functionary.lastName}`;
-  
   const coverages = Object.keys(animalsAndPerson);
   const animaisName = Object.values(animalsAndPerson);
-  
   return coverages.reduce((acc, coverage, index) => {
     if (nameFunctionary === coverage) {
       acc[nameFunctionary] = animaisName[index];
     }
     return acc;
-  }, {})
+  }, {});
 }
 console.log(getEmployeeCoverage('Azevado'));
 
