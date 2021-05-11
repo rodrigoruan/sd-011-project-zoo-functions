@@ -115,8 +115,7 @@ function getAnimalMap(options = {}) {
   locationSymbols.forEach((item) => { result[item] = []; });
 
   // Thanks to Rodolfo Resend and Julio Filizzola from Team 11
-  data.species.map((animal) => 
-    (options.includeNames)
+  data.species.map((animal) => (options.includeNames
     // if includeNames is true
     ? result[animal.location].push({ [animal.name]: animalInfo(animal.residents, options.sorted, options.sex) })
     // if includeNames is false
@@ -126,15 +125,11 @@ function getAnimalMap(options = {}) {
 }
 
 // Task 10
+// Obj entries: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
 
-function getSchedule(dayName) {
-  let schedule = {};
-  Object.entries(data.hours).forEach((items) => {
-    (items[0] === 'Monday')
-    ? schedule[items[0]] = 'CLOSED'
-    : schedule[items[0]] = `Open from ${element[1].open}am until ${element[1].close - 12}pm`
-  });
-}
+const getSchedule = (dayName) => {
+  // in progress
+};
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
