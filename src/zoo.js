@@ -58,8 +58,8 @@ function calculateEntry(entrants) {
     return 0;
   }
 
-  const typeEntrants = Object.keys(entrants)
-  const priceTicket = data.prices
+  const typeEntrants = Object.keys(entrants);
+  const priceTicket = data.prices;
   return typeEntrants.reduce((acc, curr) => acc + (priceTicket[curr] * entrants[curr]), 0);
 }
 
