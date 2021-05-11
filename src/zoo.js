@@ -132,13 +132,21 @@ function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
 
+function roundUpFixedTwo(value) {
+  const biggerPrice = value * 100;
+  const truncatedPrice = Math.ceil(biggerPrice);
+  return truncatedPrice / 100;
+}
+
 function increasePrices(percentage) {
-  // const percentageFunction = (percentage, base) => (percentage * base) / 100;
-  // const adultNewPrice = (
-  //   percentageFunction(percentage, prices.Adult) + prices.Adult
-  // )
-  // console.log();
-  // // seu código aqui
+  const percentageFunction = (value, base) => (value * base) / 100;
+  const adultNewPrice = percentageFunction(percentage, prices.Adult) + prices.Adult;
+  const seniorNewPrice = percentageFunction(percentage, prices.Senior) + prices.Senior;
+  const childNewPrice = percentageFunction(percentage, prices.Child) + prices.Child;
+  prices.Adult = roundUpFixedTwo(adultNewPrice);
+  prices.Child = roundUpFixedTwo(childNewPrice);
+  prices.Senior = roundUpFixedTwo(seniorNewPrice);
+  // seu código aqui
 }
 
 function getEmployeeCoverage(idOrName) {
