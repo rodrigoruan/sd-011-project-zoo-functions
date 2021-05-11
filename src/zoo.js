@@ -57,6 +57,13 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   // seu código aqui
+  const { employees } = data;
+  const isManagerVerification = employees.find((employee) => employee.managers.includes(id));
+
+  if (!isManagerVerification) {
+    return false;
+  }
+  return true;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
