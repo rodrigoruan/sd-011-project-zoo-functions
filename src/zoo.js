@@ -83,7 +83,7 @@ function getOldestFromFirstSpecies(id) {
   const animal = animals.filter((specie) => specie.id === rashId[0])
     .map((specie) => specie.residents.sort((a, b) => a.age < b.age)[0]);
 
-  return animal.reduce((acc, cur) => ([cur.name, cur.sex, cur.age]), []);
+  return animal.reduce((acc, cur) => [cur.name, cur.sex, cur.age], []);
 }
 
 function increasePrices(percentage) {
