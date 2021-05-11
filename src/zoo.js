@@ -81,7 +81,7 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  // todo: seu código aqui
 }
 
 function getSchedule(dayName) {
@@ -124,7 +124,7 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  // todo: seu código aqui
 }
 
 module.exports = {
