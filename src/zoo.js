@@ -10,7 +10,7 @@ eslint no-unused-vars: [
 */
 
 const data = require('./data');
-const assert = require('assert');
+// const assert = require('assert');
 
 const stephanieId = '9e7d4524-363c-416a-8759-8aa7e50c0992';
 const olaId = 'fdb2543b-5662-46a7-badc-93d960fdc0a8';
@@ -93,18 +93,14 @@ function calculateEntry(entrants) {
   return total;
 }
 
-const NE = [];
-const NW = [];
-const SE = [];
-const SW = [];
-
 function animalMap() {
-  const animalMapObject = { 
+  const animalMapObject = {
     NE: [],
     NW: [],
     SE: [],
     SW: [],
-  }
+  };
+
   data.species.forEach((specie) => {
     if (specie.location === 'NE') {
       animalMapObject.NE.push(specie.name);
@@ -193,18 +189,7 @@ function getAnimalMap(options = {}) {
     animalsSort(objectAnimalMap, options.sorted);
   }
   return objectAnimalMap;
-}    
-
-let options = { sex: 'female' }
-let actual = getAnimalMap(options)['NE'][0];
-let expected = 'lions';
-assert.strictEqual(actual, expected);
-
-options = { sex: 'female', sorted: true }
-actual = getAnimalMap(options)['NE'][0];
-expected = 'lions';
-assert.strictEqual(actual, expected);
-// console.log(getAnimalMap({  sex: 'female', sorted: true }).NE[0]);
+}
 
 function getSchedule(dayName) {
   // seu código aqui
