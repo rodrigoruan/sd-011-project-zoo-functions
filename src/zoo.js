@@ -91,7 +91,23 @@ function getAnimalMap(options = {}) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  let hoursOpenMatrix = [];
+  let hoursCloseMatrix = [];
+  let answer = {};
+  (Object.values(data.hours).reduce((index, value) => {
+    hoursOpenMatrix[index] = value.open;
+    hoursCloseMatrix[index] = value.close - 12;
+    return index + 1;
+  }, 0));
+  Object.keys(data.hours).reduce((index, days) => {
+    answer[days] = (`Open from ${hoursOpenMatrix[index]}am until ${hoursCloseMatrix[index]}pm`);
+    return index + 1;
+  }, 0);
+  answer.Monday = 'CLOSED';
+  if (!dayName) {
+    return answer;
+  }
+  return { [dayName]: answer[dayName] };
 }
 
 function getOldestFromFirstSpecies(id) {
