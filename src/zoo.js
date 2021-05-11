@@ -17,8 +17,8 @@ function getSpeciesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, age) {
   return data.species
-    .find((animals) => animal.includes(animals.name))
-    .residents.every((animals) => animals.age > age);
+  .find((animals) => animal.includes(animals.name))
+  .residents.every((animals) => animals.age > age);
 }
 
 function getEmployeeByName(employeeName) {
@@ -26,7 +26,7 @@ function getEmployeeByName(employeeName) {
     return {};
   }
   return data.employees
-    .find((person) => employeeName.includes(person.firstName) || employeeName.includes(person.lastName));
+  .find((person) => employeeName.includes(person.firstName) || employeeName.includes(person.lastName));
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -44,7 +44,7 @@ function createEmployee(personalInfo, associatedWith) {
 function isManager(id) {
   // Recebi ajuda de Laura Gusmão e Mikaela Braga
   return data.employees
-    .some((person) => person.managers.includes(id));
+  .some((person) => person.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -75,7 +75,7 @@ function calculateEntry(entrants) {
   }
   // Recebi ajuda de Mikaela Braga
   return Object.keys(entrants)
-    .reduce((acc, person) => acc + entrants[person] * data.prices[person], 0);
+  .reduce((acc, person) => acc + entrants[person] * data.prices[person], 0);
 }
 
 function getAnimalMap(options) {
@@ -105,13 +105,16 @@ function getOldestFromFirstSpecies(id) {
   }, {});
   let animal = person.responsibleFor[0];
   animal = data.species
-    .find((animals) => animals.id.includes(animal))
-    .residents.sort((ageA, ageB) => ageB.age - ageA.age);
+  .find((animals) => animals.id.includes(animal))
+  .residents.sort((ageA, ageB) => ageB.age - ageA.age);
   return Object.values(animal[0]);
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  return Object.keys(data.prices).reduce((acc, value)=>{
+    acc[value] = (data.prices[value] + (data.prices[value] * (percentage / 100))).toFixed(2);
+    return acc;
+  }, {});
 }
 
 function getEmployeeCoverage(idOrName) {
