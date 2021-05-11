@@ -189,11 +189,12 @@ function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
 const { hours } = data;
 
 const defaultSchedule = (result) => {
+  const daysOfWeek = Object.keys(hours);
   result = hours;
-    daysOfWeek.forEach((day) => {
-      result[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
-      if (day === 'Monday') result[day] = 'CLOSED';
-    });
+  daysOfWeek.forEach((day) => {
+    result[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
+    if (day === 'Monday') result[day] = 'CLOSED';
+  });
   return result;
 };
 
