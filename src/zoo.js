@@ -76,14 +76,31 @@ function calculateEntry(entrants = {}) {
   return entrantKeys.reduce((accumulator, key) => accumulator + entrants[key] * data.prices[key], 0);
 }
 
-// console.log(calculateEntry({ 'Adult': 2, 'Child': 3, 'Senior': 1 }));
-
 function getAnimalMap(options) {
-  // seu código aqui
+  // const animals = data.species;
+  // const animalsMap = animals.reduce((accumulator, { name, location }) => {
+  //   return {...accumulator, [location]: [name] }
+  // }, {});
+  // return animalsMap;
 }
 
+Object.filter = (obj, predicate) => Object.fromEntries(Object.entries(obj).filter(predicate));
+
 function getSchedule(dayName) {
-  // seu código aqui
+  const operatingHour = data.hours;
+  const operatingHourValues = Object.values(operatingHour);
+  const operatingHourKeys = Object.keys(operatingHour);
+
+  const standardMessage = operatingHourKeys.reduce((accumulator, current, index, array) => {
+    const isLastItem = index === array.length - 1;
+    const lastMessage = 'CLOSED';
+    const currentMessage = `Open from ${operatingHourValues[index].open}am until ${operatingHourValues[index].close - 12}pm`;
+    return isLastItem ? { ...accumulator, [current]: lastMessage } : { ...accumulator, [current]: currentMessage };
+  }, {});
+
+  const filtered = Object.filter(standardMessage, ([name]) => name === dayName);
+
+  return (!dayName) ? standardMessage : filtered;
 }
 
 function getOldestFromFirstSpecies(id) {
