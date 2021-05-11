@@ -137,13 +137,52 @@ const genreAnimalMap = (result, sex) => {
   if (sex === '') return result;
   let newResult = result;
   const { NE, NW, SE, SW } = newResult;
-
   NE.forEach((specieNE, index1) => {
     const currentSpecie = Object.keys(specieNE)[0];
     const specieInfoNE = species.find((specie) => currentSpecie === specie.name);
     const residentsNE = specieInfoNE.residents;
+    let splicePointer = 0;
     residentsNE.forEach((resident, index2) => {
-      if (resident.sex !== sex) NE[index1][currentSpecie].splice(index2, 1);
+      if (resident.sex !== sex) {
+        NE[index1][currentSpecie].splice(index2 + splicePointer, 1);
+        splicePointer -= 1;
+      }
+    });
+  });
+  NW.forEach((specieNW, index1) => {
+    const currentSpecie = Object.keys(specieNW)[0];
+    const specieInfoNW = species.find((specie) => currentSpecie === specie.name);
+    const residentsNW = specieInfoNW.residents;
+    let splicePointer = 0;
+    residentsNW.forEach((resident, index2) => {
+      if (resident.sex !== sex) {
+        NW[index1][currentSpecie].splice(index2 + splicePointer, 1);
+        splicePointer -= 1;
+      }
+    });
+  });
+  SE.forEach((specieSE, index1) => {
+    const currentSpecie = Object.keys(specieSE)[0];
+    const specieInfoSE = species.find((specie) => currentSpecie === specie.name);
+    const residentsSE = specieInfoSE.residents;
+    let splicePointer = 0;
+    residentsSE.forEach((resident, index2) => {
+      if (resident.sex !== sex) {
+        SE[index1][currentSpecie].splice(index2 + splicePointer, 1);
+        splicePointer -= 1;
+      }
+    });
+  });
+  SW.forEach((specieSW, index1) => {
+    const currentSpecie = Object.keys(specieSW)[0];
+    const specieInfoSW = species.find((specie) => currentSpecie === specie.name);
+    const residentsSW = specieInfoSW.residents;
+    let splicePointer = 0;
+    residentsSW.forEach((resident, index2) => {
+      if (resident.sex !== sex) {
+        SW[index1][currentSpecie].splice(index2 + splicePointer, 1);
+        splicePointer -= 1;
+      }
     });
   });
   return result;
