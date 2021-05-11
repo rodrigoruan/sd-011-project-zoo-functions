@@ -98,32 +98,44 @@ function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
 const namedAnimalMap = (result, includeNames) => {
   if (includeNames === false) return result; 
   const { NE, NW, SE, SW } = result;
-  const newResult = result;
-  NE.forEach((specieNE) => {
-    newResult.NE[specieNE] = [];
+  const newResult = { 'NE': [], 'NW': [], 'SE': [], 'SW': [] };
+  NE.forEach((specieNE, index) => {
+    newResult.NE[index] = { [specieNE]: [] };
     const specieInfoNE = species.find((specie) => specie.name === specieNE);
-    specieInfoNE.residents.forEach((resident) => newResult.NE[specieNE].push(resident.name));
+    specieInfoNE.residents.forEach((resident) => newResult.NE[index][specieNE].push(resident.name));
   });
-  NW.forEach((specieNW) => {
-    newResult.NW[specieNW] = [];
+  NW.forEach((specieNW, index) => {
+    newResult.NW[index] = { [specieNW]: [] };
     const specieInfoNW = species.find((specie) => specie.name === specieNW);
-    specieInfoNW.residents.forEach((resident) => newResult.NW[specieNW].push(resident.name));
+    specieInfoNW.residents.forEach((resident) => newResult.NW[index][specieNW].push(resident.name));
   });
-  SE.forEach((specieSE) => {
-    newResult.SE[specieSE] = [];
+  SE.forEach((specieSE, index) => {
+    newResult.SE[index] = { [specieSE]: [] };
     const specieInfoSE = species.find((specie) => specie.name === specieSE);
-    specieInfoSE.residents.forEach((resident) => newResult.SE[specieSE].push(resident.name));
+    specieInfoSE.residents.forEach((resident) => newResult.SE[index][specieSE].push(resident.name));
   });
-  SW.forEach((specieSW) => {
-    newResult.SW[specieSW] = [];
+  SW.forEach((specieSW, index) => {
+    newResult.SW[index] = { [specieSW]: [] };
     const specieInfoSW = species.find((specie) => specie.name === specieSW);
-    specieInfoSW.residents.forEach((resident) => newResult.SW[specieSW].push(resident.name));
+    specieInfoSW.residents.forEach((resident) => newResult.SW[index][specieSW].push(resident.name));
   });
   return newResult;
 };
 
 const genreAnimalMap = (result, sex) => {
+  if (sex === '') return result;
+  let newResult = result;
+  const { NE, NW, SE, SW } = newResult;
 
+  NE.forEach((specieNE, index1) => {
+    const currentSpecie = Object.keys(specieNE)[0];
+    const specieInfoNE = species.find((specie) => currentSpecie === specie.name);
+    const residentsNE = specieInfoNE.residents;
+    residentsNE.forEach((resident, index2) => {
+      if (resident.sex !== sex) NE[index1][currentSpecie].splice(index2, 1);
+    });
+  });
+  return result;
 };
 
 const sortedAnimalMap = (result, sorted) => {
@@ -145,12 +157,13 @@ function getAnimalMap(options = { includeNames: false, sex: '', sorted: false })
     if (specie.location === 'SW') result.SW.push(specie.name);
   });
   result = namedAnimalMap(result, includeNames);
-  // result = genreAnimalMap(result, sex);
+  result = genreAnimalMap(result, sex);
   // result = sortedAnimalMap(result, sorted);
+  if (includeNames === false && (sorted === true || sex !== '')) result = 'lions';
   return result;
 }
 
-console.log(getAnimalMap({ includeNames: true}));
+console.table(getAnimalMap({ includeNames: true, sex: 'male'}).NE);
 
 function getSchedule(dayName) {
   // seu código aqui
