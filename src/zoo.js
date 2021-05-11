@@ -129,14 +129,21 @@ function increasePrices(percentage) {
 
 function getEmployeeCoverage(idOrName) {
   let answer = {};
+  const idToName = (id) => data.species.find((value) => value.id === id).name;
+
   if (!idOrName) {
     data.employees.forEach((value) => {
-      answer[`${value.firstName} ${value.lastName}`] = [`${value.responsibleFor}`];
+      let animalsNames = [];
+      value.responsibleFor.forEach((id) => {
+        animalsNames.push(idToName(id));
+      });
+      answer[`${value.firstName} ${value.lastName}`] = animalsNames;
     });
     return answer;
   }
-  const person = data.employees.find((value) => value.id === idOrName || value.firstName === idOrName);
-  answer[`${person.firstName} ${person.lastName}`] = [`${person.responsibleFor}`];
+  const person = data.employees.find((value) => value.id === idOrName || value.firstName === idOrName || value.lastName === idOrName);
+  let animalsNames = person.responsibleFor.map(idToName);
+  answer[`${person.firstName} ${person.lastName}`] = animalsNames;
   return answer;
 }
 
