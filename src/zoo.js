@@ -111,25 +111,39 @@ function getAnimalMap(options = {}) {
   return locations;
 }
 
+function onlyDay(day) {
+  const schedule = {
+    Tuesday: { open: 8, close: 18 },
+    Wednesday: { open: 8, close: 18 },
+    Thursday: { open: 10, close: 20 },
+    Friday: { open: 10, close: 20 },
+    Saturday: { open: 8, close: 22 },
+    Sunday: { open: 8, close: 20 },
+    Monday: { open: 0, close: 0 },
+  };
+
+  if (day === 'Monday') {
+    return { [day]: 'CLOSED' };
+  }
+
+  return { [day]: `Open from ${schedule[day].open}am until ${schedule[day].close - 12}pm` };
+}
+
 function getSchedule(dayName) {
+  if (dayName !== undefined) {
+    return onlyDay(dayName);
+  }
+
   const scheduleObj = (schedule = data.hours) => {
     Object.keys(schedule).forEach((key) => {
-      let schedKeyOpen = schedule[key].open;
-      let schedKeyClose = schedule[key].close;
       if (schedule[key].open !== 0) {
-        schedule[key] = `Open from ${schedKeyOpen}am until ${schedKeyClose - 12}pm`;
+        schedule[key] = `Open from ${schedule[key].open}am until ${schedule[key].close - 12}pm`;
       } else { schedule[key] = 'CLOSED'; }
     });
+
     return schedule;
   };
 
-  if (dayName !== undefined && dayName !== 'Monday') {
-    return { [dayName]: scheduleObj()[dayName] };
-  }
-
-  if (dayName === 'Monday') {
-    return { Monday: 'CLOSED' };
-  }
   return scheduleObj();
 }
 
