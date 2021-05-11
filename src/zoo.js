@@ -8,36 +8,31 @@ eslint no-unused-vars: [
   }
 ]
 */
-  
+
 const data = require('./data');
-const { species } = require('./data');
+const { species, employees } = require('./data');
 
-// const getSpeciesByIds = (...ids) => species.filter((species) => ids.includes(species.id));
-const getSpeciesByIds = (...ids) => species.filter(species => ids.includes(species.id))
+const getSpeciesByIds = (...ids) => species.filter((specie) => ids.includes(specie.id));
 
-console.log(getSpeciesByIds())
+const getAnimalsOlderThan = (animal, age) => species.find((specie) => specie.name === animal).residents.every((el) => el.age >= age);
 
-function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
-}
+const getEmployeeByName = (employeeName) => {
+  if (!employeeName) {
+    return {};
+  }
 
-function getEmployeeByName(employeeName) {
-  // seu código aqui
-}
+  return employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName);
+};
 
-function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
-}
+const createEmployee = (personalInfo, associatedWith) => {
 
-function isManager(id) {
-  // seu código aqui
-}
+};
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
-}
+const isManager = (id) => employees.some(({ managers }) => managers.includes(id));
 
-function countAnimals(species) {
+const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []) => employees.push({ id, firstName, lastName, managers, responsibleFor });
+
+function countAnimals(species2) {
   // seu código aqui
 }
 
