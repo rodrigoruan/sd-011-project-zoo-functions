@@ -60,6 +60,43 @@ function calculateEntry(entrants) {
 }
 
 // Requisito 9
+function sorted(result, regions) {
+  regions.forEach((region) => {
+    result[region].forEach((animal) => {
+      let singleAnimal = Object.keys(animal)[0];
+      animal[singleAnimal].sort();
+    });
+  });
+}
+
+function filterSex(result, regions, options) {
+  regions.forEach((region) => {
+    result[region] = [];
+    result[region] = data.specie
+      .reduce((acc, { name, location, residents }) => (location === region ? acc
+        .concat({ [name]: residents.filter(({ sex }) => options.sex === sex)
+          .map((specie) => specie.name) }) : acc), []);
+  });
+}
+
+function includeNames(result, options, regions) {
+  regions.forEach((region) => {
+    result[region] = [];
+    result[region] = data.species
+      .reduce((acc, { name, location, residents }) => (location === region ? acc
+        .concat({ [name]: residents
+          .map((specie) => specie.name) }) : acc), []);
+  });
+
+  if (options.sex) {
+    filterSex(result, regions, options);
+  }
+  if (options.sorted) {
+    sorted(result, regions);
+  }
+  return result;
+}
+
 function animalsByRegion() {
   const regions = data.species.map((region) => region.location);
   const result = regions.reduce((acc, curr, index) => {
@@ -69,22 +106,17 @@ function animalsByRegion() {
   return result;
 }
 function getAnimalMap(options) {
-  // let result = animalsByRegion();
-  // const regions = Object.keys(result);
+  let result = animalsByRegion();
+  const regions = Object.keys(result);
 
-  // if (!options || !options.includeNames) {
-  //   return result;
-  // }
+  if (!options || !options.includeNames) {
+    return result;
+  }
 
-  // regions.forEach((value, index) => {
-  //   let animalName = [];
-  //   animalName.push(data.species.filter((name) => {
-  //     name.find((name) => name.location === value);
-  //   }));
-  // })
-
+  return includeNames(result, options, regions);
 }
-// console.log(getAnimalMap());
+console.log(getAnimalMap({ includeNames: true, sex: 'female', sorted: true }));
+
 function getSchedule(dayName) {
   // Array com objetos com todos os horários e dias da semana, que indicam abertura
   // e fechamento do zoológico.
