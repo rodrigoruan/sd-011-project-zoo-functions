@@ -9,7 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
-const { employees } = require('./data');
+const { employees, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -49,12 +49,12 @@ function countAnimals(species1) {
     return data.species.reduce((acc, animal) => {
       acc[animal.name] = animal.residents.length;
       return acc;
-    }, {});
+    }, {}); // vai retornar um objeto com os valores e chaves;
   }
   return data.species.find((specie) => specie.name === species1).residents.length;
 }
 
-// * Fonte : https://stackoverflow.com/questions/61311246/how-to-mutliply-two-objects-by-key-and-sum *//
+// * Fonte: https://stackoverflow.com/questions/61311246/how-to-mutliply-two-objects-by-key-and-sum *//
 function calculateEntry(entrants) {
   if (entrants === undefined || Object.keys(entrants).length === 0) {
     return 0;
@@ -64,9 +64,18 @@ function calculateEntry(entrants) {
 function getAnimalMap(options) {
   // seu código aqui
 }
-
+// feito com a ajuda da Gabriela Feijó
+//* repositório: https://github.com/tryber/sd-011-project-zoo-functions/pull/59/files
 function getSchedule(dayName) {
-  // seu código aqui
+  if (dayName === 'Monday') return { Monday: 'CLOSED' };
+  if (dayName === undefined) {
+    return Object.keys(hours).reduce((acc, currDay) => {
+      acc[currDay] = `Open from ${hours[currDay].open}am until ${hours[currDay].close - 12}pm`;
+      acc.Monday = 'CLOSED';
+      return acc;
+    }, {});
+  }
+  return { [dayName]: `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm` };
 }
 
 function getOldestFromFirstSpecies(id) {
