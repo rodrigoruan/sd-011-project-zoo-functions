@@ -13,12 +13,16 @@ const { TestScheduler } = require('jest');
 const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
-// função que retorna objeto dentro de um array, de acordo com parâmetro dado (nome ou id)
-const findSpecie = (nameOrId, propertySpecie) => species.filter((specie) => specie[propertySpecie] === nameOrId);
+// função que retorna o objeto de uma determinada espécie, de acordo com parâmetro dado ('name' ou 'id')
+function findSpecie(nameOrId, propertySpecie) {
+  return (species.filter((specie) => specie[propertySpecie] === nameOrId))[0];
+}
+
+console.log(findSpecie('lions', 'name'));
 
 function getSpeciesByIds(...ids) {
   let arraySpeciesById = [];
-  ids.forEach((id) => arraySpeciesById.push(findSpecie(id, 'id')[0]));
+  ids.forEach((id) => arraySpeciesById.push(findSpecie(id, 'id')));
   return arraySpeciesById;
 }
 
@@ -99,7 +103,7 @@ function mapWithResidents(options) {
   let locationsAndSpecies = createAnimalMap();
   Object.keys(locationsAndSpecies).forEach((location) => {
     locationsAndSpecies[location].forEach((element, index) => {
-      let arrayResidents = findSpecie(element, 'name')[0].residents;
+      let arrayResidents = findSpecie(element, 'name').residents;
 
       if (options.sex) { // quando definido o sexo
         let residentsNames = arrayResidents.filter((resident) => resident.sex === options.sex);
@@ -182,7 +186,9 @@ function increasePrices(percentage) {
 }
 
 // função que retorna array com os nomes dos animais que o funcionário cuida / parâmetro é o objeto do funcionário
-const generateArrayCoverage = (objectEmployee) => objectEmployee.responsibleFor.map((specieId) => findSpecie(specieId, 'id')[0].name);
+function generateArrayCoverage(objectEmployee) {
+  return objectEmployee.responsibleFor.map((specieId) => findSpecie(specieId, 'id').name);
+}
 
 function getEmployeeCoverage(idOrName) {
   let employeesAndSpecies = {};
