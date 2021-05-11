@@ -55,8 +55,19 @@ function calculateEntry(entrants) {
   return Object.keys(entrants).reduce((accumulator, currentValue) => accumulator + (prices[currentValue] * entrants[currentValue]), 0);
 }
 
-function getAnimalMap(options) {
-  // const obj = {};
+const getNameAnimal = (residents, sorted, sex) => {
+  const animalName = residents.reduce((acc, value) => (sex && value.sex !== sex ? acc : acc.concat(value.name)), []);
+  return sorted ? animalName.sort() : animalName;
+};
+
+function getAnimalMap(options = {}) {
+  const obj = {};
+  const arrayLocation = ['NE', 'NW', 'SE', 'SW'];
+  arrayLocation.forEach((item) => {
+    obj[item] = [];
+  });
+  species.map((animal) => (options.includeNames ? obj[animal.location].push({ [animal.name]: getNameAnimal(animal.residents, options.sorted, options.sex) }) : objectResult[animal.location].push(animal.name))); 
+  return obj;
 }
 
 function getSchedule(dayName) {
@@ -79,7 +90,12 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const idParam = employees.find((item) => item.id === id).responsibleFor[0];
+  const firstSpecieAnimal = species.find((elem) => elem.id === idParam).residents
+                             .filter((item, _, array) => item.age === array
+                             .reduce((acc, value) => Math.max(acc, value.age), 0))[0];
+  const { name, sex, age } = firstSpecieAnimal;
+  return [name, sex, age];
 }
 
 function increasePrices(percentage) {
