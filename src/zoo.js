@@ -107,22 +107,34 @@ const defaultAnimalMap = (result) => {
 };
 
 const namedAnimalMap = (result, includeNames) => {
-  if (includeNames === false) return result;
+  if (includeNames === false) return result; 
   const { NE, NW, SE, SW } = result;
-  const regions = [NE, NW, SE, SW];
   const newResult = { NE: [], NW: [], SE: [], SW: [] };
-  regions.forEach((region) => {
-    region.forEach((specieRegion, index) => {
-      newResult.region[index] = { [specieRegion]: [] };
-      const specieInfo = species.find((specie) => specie.name === specieRegion);
-      specieInfo.residents.forEach((resident) => newResult.region[index][specieRegion].push(resident.name));
-    });
+  NE.forEach((specieNE, index) => {
+    newResult.NE[index] = { [specieNE]: [] };
+    const specieInfoNE = species.find((specie) => specie.name === specieNE);
+    specieInfoNE.residents.forEach((resident) => newResult.NE[index][specieNE].push(resident.name));
+  });
+  NW.forEach((specieNW, index) => {
+    newResult.NW[index] = { [specieNW]: [] };
+    const specieInfoNW = species.find((specie) => specie.name === specieNW);
+    specieInfoNW.residents.forEach((resident) => newResult.NW[index][specieNW].push(resident.name));
+  });
+  SE.forEach((specieSE, index) => {
+    newResult.SE[index] = { [specieSE]: [] };
+    const specieInfoSE = species.find((specie) => specie.name === specieSE);
+    specieInfoSE.residents.forEach((resident) => newResult.SE[index][specieSE].push(resident.name));
+  });
+  SW.forEach((specieSW, index) => {
+    newResult.SW[index] = { [specieSW]: [] };
+    const specieInfoSW = species.find((specie) => specie.name === specieSW);
+    specieInfoSW.residents.forEach((resident) => newResult.SW[index][specieSW].push(resident.name));
   });
   return newResult;
 };
 
 const genreAnimalMap = (result, sex) => {
-  if (sex === '') return result;
+  if (sex !== 'male' || sex !== 'female') return result;
   let newResult = result;
   const { NE, NW, SE, SW } = newResult;
   const regions = [NE, NW, SE, SW];
@@ -140,11 +152,22 @@ const genreAnimalMap = (result, sex) => {
       });
     });
   });
+  console.log(result);
   return result;
 };
 
 const sortedAnimalMap = (result, sorted) => {
-
+  if (sorted === false) return result;
+  let newResult = result;
+  const { NE, NW, SE, SW } = newResult;
+  const regions = [NE, NW, SE, SW];
+  regions.forEach((region) => {
+    region.forEach((specieRegion) => {
+      const animalsNames = Object.values(specieRegion);
+      animalsNames[0].sort();
+    });
+  });
+  return result;
 };
 
 function getAnimalMap(options = { includeNames: false, sex: '', sorted: false }) {
@@ -158,12 +181,12 @@ function getAnimalMap(options = { includeNames: false, sex: '', sorted: false })
   result = defaultAnimalMap(result);
   result = namedAnimalMap(result, includeNames);
   result = genreAnimalMap(result, sex);
-  // result = sortedAnimalMap(result, sorted);
-  if (includeNames === false && (sorted === true || sex !== '')) result = 'lions';
+  result = sortedAnimalMap(result, sorted);
+  if (includeNames === false && (sorted === true || sex === 'male' || sex === 'female')) result = 'lions';
   return result;
 }
 
-console.table(getAnimalMap({ includeNames: true, sex: 'male' }).NE);
+console.table(getAnimalMap({includeNames: true, sorted: true}).NE);
 
 function getSchedule(dayName) {
   // seu código aqui
