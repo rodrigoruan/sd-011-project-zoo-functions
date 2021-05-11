@@ -12,6 +12,9 @@ eslint no-unused-vars: [
 const data = require('./data');
 
 const { species } = data;
+const { employees } = data;
+const { hours } = data;
+const { prices } = data;
 
 function getSpeciesByIds(...ids) {
   let result = [];
@@ -35,8 +38,6 @@ function getAnimalsOlderThan(animal, age) {
   });
   return result;
 }
-
-const { employees } = data;
 
 function getEmployeeByName(employeeName) {
   let result = {};
@@ -84,8 +85,6 @@ function countAnimals(searchSpecie) {
   result = selectedSpecie.residents.length;
   return result;
 }
-
-const { prices } = data;
 
 function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
   let total = 0;
@@ -216,7 +215,6 @@ function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
 // }
 
 const selectedDaySchedule = (dayName) => {
-  const { hours } = data;
   let result = {};
   const daysOfWeek = Object.keys(hours);
   daysOfWeek.forEach((day) => {
@@ -229,7 +227,6 @@ const selectedDaySchedule = (dayName) => {
 };
 
 function getSchedule(dayName) {
-  const { hours } = data;
   let result = {};
   const daysOfWeek = Object.keys(hours);
   const daySelected = daysOfWeek.find((day) => day === dayName);
@@ -257,7 +254,11 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  let { Adult, Senior, Child } = prices;
+  prices.Adult = Math.round((Adult + Adult * percentage / 100) * 100) / 100;
+  prices.Senior = Math.round((Senior + Senior * percentage / 100) * 100) / 100;
+  prices.Child = Math.round((Child + Child * percentage / 100) * 100) / 100;
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
