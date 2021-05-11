@@ -64,7 +64,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 function countAnimals(speciesx) {
   if (!speciesx) {
     const newArray = {};
-    species.map((value) => newArray[value.name] = value.residents.length);
+    species.map((value) => { return newArray[value.name] = value.residents.length; });
     return newArray;
   }
   const animal = species.find((value) => value.name === speciesx);
@@ -75,9 +75,8 @@ function calculateEntry(entrants) {
   let result = 0;
   if (entrants) {
     const keys = Object.keys(entrants);
-    keys.forEach((value) => { result += entrants[value] * prices[value] });
+    keys.forEach((value) => { result += entrants[value] * prices[value]; });
   }
-  
   return result;
 }
 
