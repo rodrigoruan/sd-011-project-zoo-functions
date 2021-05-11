@@ -88,9 +88,24 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
+// TERMINAR
 function getSchedule(dayName) {
-  // seu código aqui
+  let diasDaSemana = Object.keys(data.hours);
+  let horarios = Object.values(data.hours);
+  let day = data.hours[`${dayName}`];
+  if (!dayName) {
+    let funcionamento = {};
+    for (let i = 0; i < diasDaSemana.length; i += 1) {
+      funcionamento[diasDaSemana[i]] = `Open from ${horarios[i].open}am until ${horarios[i].close - 12}pm`;
+    }
+    funcionamento.Monday = 'CLOSED';
+    return funcionamento;
+  }
+  if (dayName === 'Monday') return { [dayName]: 'CLOSED' };
+  return { [dayName]: `Open from ${day.open}am until ${day.close - 12}pm` };
 }
+
+console.log(getSchedule());
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
@@ -101,16 +116,17 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // if (!idOrName) {
-  //   let lista = [];
-  //   for (let i = 0; i < data.employees.length; i += 1) {
-  //     data.employees[i].firstName + data.employees[i].lastName, data.employees[i].responsibleFor};
-  //   }
-  //   return lista;
-  // }
+  if (!idOrName) {
+    let lista = [];
+    for (let i = 0; i < data.employees.length; i += 1) {
+      let primeiroNome = data.employees[i].firstName;
+      let segundoNome = data.employees[i].lastName;
+      let responsabilidades = data.employees[i].responsibleFor;
+      lista.push(`${primeiroNome} ${segundoNome}: ${responsabilidades}`);
+    }
+    return lista;
+  }
 }
-
-console.log(getEmployeeCoverage());
 
 module.exports = {
   calculateEntry,
