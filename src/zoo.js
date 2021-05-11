@@ -70,12 +70,84 @@ function calculateEntry(entrants) {
   return Adult * 49.99 + Child * 20.99 + Senior * 24.99;
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+function animalsLocation() {
+  let objLocation = { NE: [], NW: [], SE: [], SW: [] };
+
+  data.species.forEach((animal) => {
+    if (animal.location === 'NE') objLocation.NE.push(animal.name);
+    if (animal.location === 'NW') objLocation.NW.push(animal.name);
+    if (animal.location === 'SE') objLocation.SE.push(animal.name);
+    if (animal.location === 'SW') objLocation.SW.push(animal.name);
+  });
+  return objLocation;
+}
+
+function animalNames(animalDatas) {
+  let animalsLoc = animalDatas;
+  let animalsNE = [];
+  let animalsNW = [];
+  let animalsSE = [];
+  let animalsSW = [];
+  // monster '-'
+  animalsLoc.NE.forEach((animalNE) => animalsNE.push(data.species.find((animal) => animal.name === animalNE).residents));
+  animalsNE.forEach((animalData, index) => { animalsNE[index] = animalData.map((animal) => animal.name); });
+  animalsLoc.NE.forEach((animal, index) => { animalsLoc.NE[index] = { [animal]: animalsNE[index] }; });
+
+  animalsLoc.NW.forEach((animalNW) => { animalsNW.push(data.species.find((animal) => animal.name === animalNW).residents); });
+  animalsNW.forEach((animalData, index) => { animalsNW[index] = animalData.map((animal) => animal.name); });
+  animalsLoc.NW.forEach((animal, index) => { animalsLoc.NW[index] = { [animal]: animalsNW[index] }; });
+
+  animalsLoc.SE.forEach((animalSE) => { animalsSE.push(data.species.find((animal) => animal.name === animalSE).residents); });
+  animalsSE.forEach((animalData, index) => { animalsSE[index] = animalData.map((animal) => animal.name); });
+  animalsLoc.SE.forEach((animal, index) => { animalsLoc.SE[index] = { [animal]: animalsSE[index] }; });
+
+  animalsLoc.SW.forEach((animalSW) => { animalsSW.push(data.species.find((animal) => animal.name === animalSW).residents); });
+  animalsSW.forEach((animalData, index) => { animalsSW[index] = animalData.map((animal) => animal.name); });
+  animalsLoc.SW.forEach((animal, index) => { animalsLoc.SW[index] = { [animal]: animalsSW[index] }; });
+
+  return animalsLoc;
+}
+
+function sortAnimals(animalsData) {
+  let animals = animalsData;
+  animals.NE[0].lions = animals.NE[0].lions.sort();
+  animals.NE[1].giraffes = animals.NE[1].giraffes.sort();
+  animals.NW[0].tigers = animals.NW[0].tigers.sort();
+  animals.NW[1].bears = animals.NW[1].bears.sort();
+  animals.NW[2].elephants = animals.NW[2].elephants.sort();
+  animals.SE[0].penguins = animals.SE[0].penguins.sort();
+  animals.SE[1].otters = animals.SE[1].otters.sort();
+  animals.SW[0].frogs = animals.SW[0].frogs.sort();
+  animals.SW[1].snakes = animals.SW[1].snakes.sort();
+  return animals;
+}
+
+function animalsSex(sex) {
+  let newDataResidents = [];
+  data.species.forEach((animals) => {
+    newDataResidents.push(animals.residents.filter((residents) => residents.sex === sex));
+  });
+  data.species.forEach((element, index) => { element.residents = newDataResidents[index]; });
+}
+
+function getAnimalMap(...options) {
+  let result = animalsLocation();
+
+  if (options.length === 0) {
+    return result;
+  }
+  const { sex, includeNames, sorted } = options[0];
+  if (sex !== undefined) animalsSex(sex);
+  if (includeNames) result = animalNames(result);
+  else return result;
+  if (sorted) result = sortAnimals(result);
+
+  return result;
 }
 
 function getSchedule(dayName) {
   const objDay = data.hours[`${dayName}`];
+
   if (dayName === undefined) {
     let obj = {};
     const objDataKey = Object.keys(data.hours);
@@ -84,7 +156,9 @@ function getSchedule(dayName) {
     });
     return obj;
   }
+
   if (dayName === 'Monday') return { [dayName]: 'CLOSED' };
+
   return { [dayName]: `Open from ${objDay.open}am until ${objDay.close - 12}pm` };
 }
 
@@ -104,7 +178,6 @@ function increasePrices(percentage) {
   data.prices.Senior = Math.round(data.prices.Senior * (1 + perc) * 100) / 100;
   data.prices.Child = Math.round(data.prices.Child * (1 + perc) * 100) / 100;
 }
-// const data = require('./data');
 
 function getEmployeeCoverage(idOrName) {
   if (idOrName === undefined) {
