@@ -55,8 +55,8 @@ function calculateEntry(entrants) {
   return Object.keys(entrants).reduce((accumulator, currentValue) => accumulator + (prices[currentValue] * entrants[currentValue]), 0);
 }
 
-function getAnimalMap(options = {}) {
-  // seu código aqui  
+function getAnimalMap(options) {
+  // seu código aqui 
 }
 
 function getSchedule(dayName) {
@@ -80,9 +80,7 @@ function getSchedule(dayName) {
 
 function getOldestFromFirstSpecies(id) {
   const idParam = employees.find((item) => item.id === id).responsibleFor[0];
-  const firstSpecieAnimal = species.find((elem) => elem.id === idParam).residents
-  .filter((item, _, array) => item.age === array
-  .reduce((acc, value) => Math.max(acc, value.age), 0))[0];
+  const firstSpecieAnimal = species.find((elem) => elem.id === idParam).residents.filter((item, _, array) => item.age === array.reduce((acc, value) => Math.max(acc, value.age), 0))[0];
   const { name, sex, age } = firstSpecieAnimal;
   return [name, sex, age];
 }
