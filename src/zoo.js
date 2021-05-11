@@ -18,8 +18,6 @@ function findSpecie(nameOrId, propertySpecie) {
   return (species.filter((specie) => specie[propertySpecie] === nameOrId))[0];
 }
 
-console.log(findSpecie('lions', 'name'));
-
 function getSpeciesByIds(...ids) {
   let arraySpeciesById = [];
   ids.forEach((id) => arraySpeciesById.push(findSpecie(id, 'id')));
