@@ -55,9 +55,11 @@ function createEmployee(personalInfo, associatedWith) {
 function isManager(id) {
   const managersGroups = employees.map((employee) => employee.managers);
   let managers = [];
-  managersGroups.forEach((managerGroup) => managers = [...managers, ...managerGroup]); 
+  managersGroups.forEach((managerGroup) => {
+    managers = [...managers, ...managerGroup];
+  });
   const result = managers.some((manager) => manager === id);
-  return result;  
+  return result;
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
