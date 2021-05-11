@@ -79,7 +79,7 @@ function countAnimals(species) {
   return animalsCount;
 }
 
-function calculateEntry(entrants) {
+function calculateEntry(entrants = {}) {
   let total = 0;
   Object.keys(entrants).forEach((key) => {
     if (key === 'Adult') {
@@ -90,6 +90,7 @@ function calculateEntry(entrants) {
       total += entrants[key] * data.prices.Child;
     }
   });
+
   return total;
 }
 
