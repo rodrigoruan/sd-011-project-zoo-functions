@@ -54,9 +54,9 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 
 function countAnimals(species) {
   // seu código aqui
-  const allSpecies = data.species.reduce(((curObject, { name, residents }) => {
-    curObject[name] = residents.length;
-    return curObject;
+  const allSpecies = data.species.reduce(((accObject, { name, residents }) => {
+    accObject[name] = residents.length;
+    return accObject;
   }), {});
 
   return (!species) ? allSpecies : data.species.find((element) => element.name === species).residents.length;
@@ -64,11 +64,56 @@ function countAnimals(species) {
 
 function calculateEntry({ Adult = 0, Senior = 0, Child = 0 } = 0) {
   // seu código aqui
-  return ((Adult * 49.99) + (Senior * 24.99) + (Child * 20.99));
+  return ((Adult * data.prices.Adult) + (Senior * data.prices.Senior) + (Child * data.prices.Child));
 }
 
-function getAnimalMap(options) {
+function getAnimalMap(object = { includeNames: false, sex: undefined, sorted: false }) {
   // seu código aqui
+  const createObject = (func) => ({
+    NE: func('NE'),
+    NW: func('NW'),
+    SE: func('SE'),
+    SW: func('SW'),
+  });
+
+  const residentNames = (acc, cur) => {
+    acc.push(cur.name);
+    return acc;
+  };
+
+  const filterSex = (resident) => resident.sex === object.sex;
+
+  const sexTrueOrFalse = (residents) => {
+    let residentsArray;
+    if (!object.sex) {
+      residentsArray = residents.reduce(residentNames, []);
+    } else {
+      residentsArray = residents.filter(filterSex).reduce(residentNames, []);
+    }
+    if (object.sorted === true) {
+      residentsArray.sort();
+    }
+    return residentsArray;
+  };
+
+  const nameTrueOrFalse = (accArray, name, residents) => {
+    if (object.includeNames === true) {
+      const objectSpecie = {};
+      objectSpecie[name] = sexTrueOrFalse(residents);
+      accArray.push(objectSpecie);
+    } else {
+      accArray.push(name);
+    }
+    return accArray;
+  };
+
+  const locateSpecies = (locate) => data.species.reduce((accArray, { name, location, residents }) => {
+    if (locate === location) {
+      nameTrueOrFalse(accArray, name, residents);
+    }
+    return (accArray);
+  }, []);
+  return createObject(locateSpecies);
 }
 
 function getSchedule(dayName) {
