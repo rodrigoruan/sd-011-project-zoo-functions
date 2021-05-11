@@ -48,8 +48,8 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 function countAnimals(species) {
   if (species === undefined) {
     const obj = {};
-    data.species.forEach((positions) => {
-      obj[positions.name] = positions.residents.length;
+    data.species.forEach(({ name, residents }) => {
+      obj[name] = residents.length;
     });
 
     return obj;
