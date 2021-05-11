@@ -67,7 +67,7 @@ function getSchedule(dayName) {
   const dataEntries = Object.entries(data.hours).reduce((acc, cur) => {
     const [key, value] = cur;
     const { open, close } = value;
-    const calcClose = close % 12;
+    const calcClose = close - 12;
     acc[key] = (close - open > 0) ? `Open from ${open}am until ${calcClose}pm` : 'CLOSED';
     return acc;
   }, {});
@@ -77,7 +77,12 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const rashId = employe.filter((person) => person.id === id)
+    .map((person) => person.responsibleFor[0]);
+
+  return animals.filter((specie) => specie.id === rashId[0])
+    .map((specie) => specie.residents.sort((a, b) => a.age < b.age)[0])
+    .reduce((acc, cur) => ([cur.name, cur.sex, cur.age]), []);
 }
 
 function increasePrices(percentage) {
