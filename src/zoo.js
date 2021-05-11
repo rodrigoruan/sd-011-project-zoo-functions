@@ -79,25 +79,24 @@ function calculateEntry(entrants = 0) {
 
 function getSchedule(dayName) {
   // seu código aqui
-  const days = Object.keys(hours).reduce((acc,curr) =>  {
+  const days = Object.keys(hours).reduce((acc, curr) => {
     const objeto = acc;
-    if(curr === 'Monday') {
-      acc[curr] = `CLOSED`;  
+    if (curr === 'Monday') {
+      acc[curr] = 'CLOSED';
     } else {
       acc[curr] = `Open from ${hours[curr].open}am until ${hours[curr].close - 12}pm`;
-    };
+    }
     return acc;
-  },{});
-  
-  if(!dayName) return days;
-  
-  const { open, close} = hours[dayName];
-  const Monday = `Monday : CLOSED`;
-  if(dayName === 'Monday') return Monday;
-  dayEspecific = `${dayName}: 'Open from ${open}am until ${close-12}pm'`
+  }, {});
+
+  if (!dayName) return days;
+
+  const { open, close } = hours[dayName];
+  const Monday = 'Monday : CLOSED';
+  if (dayName === 'Monday') return Monday;
+  const dayEspecific = `${dayName}: 'Open from ${open}am until ${close - 12}pm`;
   return dayEspecific;
 }
-console.log(getSchedule('Monday'));
 
 /* function getOldestFromFirstSpecies(id) {
   // seu código aqui
