@@ -226,7 +226,7 @@ function getOldestFromFirstSpecies(id) {
   const ages = specie[0].residents.map((resident) => resident.age);
   const older = Math.max(...ages);
   const oldest = specie[0].residents.find((resident) => resident.age === older);
-  return oldest;
+  return Object.values(oldest);
 }
 
 function increasePrices(percentage) {
