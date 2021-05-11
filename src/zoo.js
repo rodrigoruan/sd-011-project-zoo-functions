@@ -19,7 +19,9 @@ function getSpeciesByIds(...ids) {
   const filteredAnimals = [];
   // iterate species checking for ids
   idsToSearch.forEach((id) => {
-    species.map((specie) => specie.id === id ? filteredAnimals.push(specie) : '');
+    species.forEach((specie) => {
+      if (specie.id === id) filteredAnimals.push(specie);
+    });
   });
   return filteredAnimals;
 }
@@ -41,8 +43,12 @@ function getAnimalsOlderThan(animal, age) {
 
 function getEmployeeByName(employeeName) {
   let filteredEmployees = {};
-  let employeToFilter = employeeName;
-  employees.forEach((employee) => employee.firstName === employeToFilter || employee.lastName === employeToFilter ? filteredEmployees = employee : '');
+  let employeeToFilter = employeeName;
+  employees.forEach((employee) => {
+    if (employee.firstName === employeeToFilter || employee.lastName === employeeToFilter) {
+      filteredEmployees = employee;
+    }
+  });
   return filteredEmployees;
 }
 
@@ -79,9 +85,9 @@ function countAnimals(speciesToCount) {
 
 function calculateEntry(entrants = 0) {
   const { Adult, Child, Senior } = prices;
-  const adultsTotal = (entrants.Adult ?? 0) * Adult;
-  const childsTotal = (entrants.Child ?? 0) * Child;
-  const seniorsTotal = (entrants.Senior ?? 0) * Senior;
+  const adultsTotal = (entrants.Adult ? entrants.Adult : 0) * Adult;
+  const childsTotal = (entrants.Child ? entrants.Child : 0) * Child;
+  const seniorsTotal = (entrants.Senior ? entrants.Senior : 0) * Senior;
   return adultsTotal + childsTotal + seniorsTotal;
 }
 
