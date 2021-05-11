@@ -32,7 +32,7 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(i) {
   const managerIsYou = data.employees.find((employee) => employee.id === i);
-  if (managerIsYou.managers.length === 0) {
+  if (managerIsYou.managers.length < 2) {
     return true;
   }
   return false;
