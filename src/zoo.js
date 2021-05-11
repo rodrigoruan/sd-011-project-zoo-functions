@@ -85,8 +85,17 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  // seu código aqui.
+  let object = {};
+  if (!options) {
+    let regions = ['NE', 'NW', 'SE', 'SW'];
+    regions.forEach((region) => {
+      object[region] = (data.species.filter((specie) => specie.location === region)).map((specie) => specie.name);
+    });
+    return object;
+  }
 }
+console.log(getAnimalMap());
 
 function insertOpenDays(object) {
   for (let days in data.hours) {
@@ -116,7 +125,7 @@ function getOldestFromFirstSpecies(id) {
   // seu código aqui
   const employeeSelected = data.employees.find((employee) => employee.id === id);
   const firstAnimal = employeeSelected.responsibleFor[0];
-  const oldestAnimal = data.species.find((animal) => animal.id === firstAnimal).residents.reduce((acc, current) => (current.age > acc.age ? current : acc));
+  const oldestAnimal = data.species.find((animal) => animal.id === firstAnimal).residents.reduce((acc, current) => (current.age > acc.age ? current : acc), 0);
   return [oldestAnimal.name, oldestAnimal.sex, oldestAnimal.age];
 }
 
