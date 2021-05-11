@@ -158,12 +158,12 @@ function increasePrices(percentage) {
 
 // Arredondar foi bem complicado, consegui consultando esse site: https://metring.com.br/arredondar-numero-em-javascript
 
-function checkAnimalName(ids) {
+function checkAnimalName(animalsId) {
   const animalName = [];
-  ids.forEach((responsibleFor) => {
-    data.species.forEach((animal) => {
-      if (responsibleFor === animal.id) {
-        animalName.push(animal.name);
+  animalsId.forEach((id) => {
+    data.species.forEach((specie) => {
+      if (id === specie.id) {
+        animalName.push(specie.name);
       }
     });
   });
