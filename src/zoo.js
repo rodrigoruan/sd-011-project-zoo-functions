@@ -77,7 +77,7 @@ function countAnimals(searchSpecie) {
   if (searchSpecie === undefined) {
     species.forEach((specie) => {
       result[specie.name] = specie.residents.length;
-    });   
+    });
     return result;
   }
   const selectedSpecie = species.find((specie) => specie.name === searchSpecie);
