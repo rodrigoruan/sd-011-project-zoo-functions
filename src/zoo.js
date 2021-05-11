@@ -54,15 +54,11 @@ function countAnimals(specie) {
 
 function calculateEntry(entrants) {
   let valor = 0;
-  if (entrants !== {} && entrants !== undefined) {
-    const key = Object.keys(entrants);
-    key.forEach((element) => {
-      const qtd = entrants[element];
-      const price = prices[element];
-      valor += qtd * price;
+  if (entrants) {
+    Object.keys(entrants).forEach((element) => {
+      valor += entrants[element] * prices[element];
     });
   }
-
   return valor;
 }
 
