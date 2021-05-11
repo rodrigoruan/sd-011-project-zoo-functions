@@ -49,9 +49,15 @@ function isManager(id) {
   return employees.some(({ managers }) => managers.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu códinpm run lint
-
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  const newEmployee = {
+    id: id, 
+    firstName: firstName,
+    lastName: lastName, 
+    managers: managers, 
+    responsibleFor: responsibleFor,
+  };
+  return employees.push(newEmployee);
 }
 
 function countAnimals(species1) {
