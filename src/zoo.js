@@ -67,6 +67,12 @@ function calculateEntry(entrants = {}) {
 }
 
 const findAnimalPerLocation = (location) => species.filter((animal) => animal.location === location);
+const verifySortedTag = (element, arrayToSort) => {
+  if (element.sorted === true) {
+    return arrayToSort.sort();
+  }
+  return arrayToSort;
+};
 
 function getAnimalMap(options = {}) {
   const alllMap = { NE: [], NW: [], SE: [], SW: [] };
@@ -79,22 +85,30 @@ function getAnimalMap(options = {}) {
   }
   findAnimalPerLocation('NE').forEach((animal) => {
     const animalWithNames = {};
-    animalWithNames[animal.name] = animal.residents.map((animalWithName) => animalWithName.name);
+    const arrayWithNames = animal.residents.map((animalWithName) => animalWithName.name);
+    const animalNames = verifySortedTag(options, arrayWithNames);
+    animalWithNames[animal.name] = animalNames;
     alllMap.NE.push(animalWithNames);
   });
   findAnimalPerLocation('NW').forEach((animal) => {
     const animalWithNames = {};
-    animalWithNames[animal.name] = animal.residents.map((animalWithName) => animalWithName.name);
+    const arrayWithNames = animal.residents.map((animalWithName) => animalWithName.name);
+    const animalNames = verifySortedTag(options, arrayWithNames);
+    animalWithNames[animal.name] = animalNames;
     alllMap.NW.push(animalWithNames);
   });
   findAnimalPerLocation('SE').forEach((animal) => {
     const animalWithNames = {};
-    animalWithNames[animal.name] = animal.residents.map((animalWithName) => animalWithName.name);
+    const arrayWithNames = animal.residents.map((animalWithName) => animalWithName.name);
+    const animalNames = verifySortedTag(options, arrayWithNames);
+    animalWithNames[animal.name] = animalNames;
     alllMap.SE.push(animalWithNames);
   });
   findAnimalPerLocation('SW').forEach((animal) => {
     const animalWithNames = {};
-    animalWithNames[animal.name] = animal.residents.map((animalWithName) => animalWithName.name);
+    const arrayWithNames = animal.residents.map((animalWithName) => animalWithName.name);
+    const animalNames = verifySortedTag(options, arrayWithNames);
+    animalWithNames[animal.name] = animalNames;
     alllMap.SW.push(animalWithNames);
   });
   return alllMap;
