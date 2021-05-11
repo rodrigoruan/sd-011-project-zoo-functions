@@ -10,6 +10,7 @@ eslint no-unused-vars: [
 */
 
 const data = require('./data');
+const assert = require('assert');
 
 const stephanieId = '9e7d4524-363c-416a-8759-8aa7e50c0992';
 const olaId = 'fdb2543b-5662-46a7-badc-93d960fdc0a8';
@@ -92,9 +93,118 @@ function calculateEntry(entrants) {
   return total;
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+const NE = [];
+const NW = [];
+const SE = [];
+const SW = [];
+
+function animalMap() {
+  const animalMapObject = { 
+    NE: [],
+    NW: [],
+    SE: [],
+    SW: [],
+  }
+  data.species.forEach((specie) => {
+    if (specie.location === 'NE') {
+      animalMapObject.NE.push(specie.name);
+    }
+  });
+  data.species.forEach((specie) => {
+    if (specie.location === 'NW') {
+      animalMapObject.NW.push(specie.name);
+    }
+  });
+  data.species.forEach((specie) => {
+    if (specie.location === 'SE') {
+      animalMapObject.SE.push(specie.name);
+    }
+  });
+  data.species.forEach((specie) => {
+    if (specie.location === 'SW') {
+      animalMapObject.SW.push(specie.name);
+    }
+  });
+
+  return animalMapObject;
 }
+
+function getAnimalNames(name) {
+  const residentsNames = [];
+  data.species.forEach((specie) => {
+    if (specie.name === name) {
+      specie.residents.forEach((resident) => {
+        residentsNames.push(resident.name);
+      });
+    }
+  });
+  return { [name]: residentsNames };
+}
+
+function getAnimalNamesBySex(name, sex) {
+  const residentsNames = [];
+  data.species.forEach((specie) => {
+    if (specie.name === name) {
+      specie.residents.forEach((resident) => {
+        if (resident.sex === sex) {
+          residentsNames.push(resident.name);
+        }
+      });
+    }
+  });
+  return { [name]: residentsNames };
+}
+
+function animalWithNameMap(object) {
+  Object.keys(object).forEach((region) => {
+    object[region].forEach((animal, index) => {
+      object[region][index] = getAnimalNames(animal);
+    });
+  });
+}
+
+function animalWithNameMapBySex(object, sex) {
+  Object.keys(object).forEach((region) => {
+    object[region].forEach((animal, index) => {
+      object[region][index] = getAnimalNamesBySex(animal, sex);
+    });
+  });
+}
+
+function animalsSort(object, sort) {
+  if (sort === true) {
+    Object.keys(object).forEach((region) => {
+      object[region].forEach((animal) => {
+        animal[Object.keys(animal)].sort();
+      });
+    });
+  }
+}
+
+function getAnimalMap(options = {}) {
+  let objectAnimalMap = animalMap();
+
+  if (options.includeNames === true) {
+    if (options.sex !== undefined) {
+      animalWithNameMapBySex(objectAnimalMap, options.sex);
+    } else {
+      animalWithNameMap(objectAnimalMap);
+    }
+    animalsSort(objectAnimalMap, options.sorted);
+  }
+  return objectAnimalMap;
+}    
+
+let options = { sex: 'female' }
+let actual = getAnimalMap(options)['NE'][0];
+let expected = 'lions';
+assert.strictEqual(actual, expected);
+
+options = { sex: 'female', sorted: true }
+actual = getAnimalMap(options)['NE'][0];
+expected = 'lions';
+assert.strictEqual(actual, expected);
+// console.log(getAnimalMap({  sex: 'female', sorted: true }).NE[0]);
 
 function getSchedule(dayName) {
   // seu código aqui
@@ -113,6 +223,12 @@ function getEmployeeCoverage(idOrName) {
 }
 
 module.exports = {
+  animalMap,
+  animalsSort,
+  animalWithNameMap,
+  animalWithNameMapBySex,
+  getAnimalNames,
+  getAnimalNamesBySex,
   calculateEntry,
   getSchedule,
   countAnimals,
