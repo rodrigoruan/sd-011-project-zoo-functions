@@ -9,20 +9,20 @@ eslint no-unused-vars: [
 ]
 */
 
-const { species, employees, prices, hours } = require('./data');
-const data = require('./data');
+const { species, employees, prices, hours } = require("./data");
+const data = require("./data");
 
 // Esse objeto é nescessario para o mapeamento da função getEmployeeCoverage
 const animalTranslationMap = {
-  '0938aa23-f153-4937-9f88-4858b24d6bce': 'lions',
-  '533bebf3-6bbe-41d8-9cdf-46f7d13b62ae': 'otters',
-  'bb2a76d8-5fe3-4d03-84b7-dba9cfc048b5': 'elephants',
-  '78460a91-f4da-4dea-a469-86fd2b8ccc84': 'snakes',
-  '89be95b3-47e4-4c5b-b687-1fabf2afa274': 'frogs',
-  'baa6e93a-f295-44e7-8f70-2bcdc6f6948d': 'bears',
-  'e8481c1d-42ea-4610-8e11-1752cfc05a46': 'tigers',
-  'ef3778eb-2844-4c7c-b66c-f432073e1c6b': 'penguins',
-  '01422318-ca2d-46b8-b66c-3e9e188244ed': 'giraffes',
+  "0938aa23-f153-4937-9f88-4858b24d6bce": "lions",
+  "533bebf3-6bbe-41d8-9cdf-46f7d13b62ae": "otters",
+  "bb2a76d8-5fe3-4d03-84b7-dba9cfc048b5": "elephants",
+  "78460a91-f4da-4dea-a469-86fd2b8ccc84": "snakes",
+  "89be95b3-47e4-4c5b-b687-1fabf2afa274": "frogs",
+  "baa6e93a-f295-44e7-8f70-2bcdc6f6948d": "bears",
+  "e8481c1d-42ea-4610-8e11-1752cfc05a46": "tigers",
+  "ef3778eb-2844-4c7c-b66c-f432073e1c6b": "penguins",
+  "01422318-ca2d-46b8-b66c-3e9e188244ed": "giraffes",
 };
 
 function getSpeciesByIds(...ids) {
@@ -32,7 +32,7 @@ function getSpeciesByIds(...ids) {
 function getAnimalsOlderThan(animal, age) {
   const targetAnimal = species.find((specie) => specie.name === animal);
   const boolAnimalAge = targetAnimal.residents.every(
-    (resident) => resident.age >= age,
+    (resident) => resident.age >= age
   );
   return boolAnimalAge;
   // seu código aqui
@@ -44,7 +44,7 @@ function getEmployeeByName(employeeName) {
   }
   return employees.find(
     (employee) =>
-      employee.firstName === employeeName || employee.lastName === employeeName,
+      employee.firstName === employeeName || employee.lastName === employeeName
   );
   // seu código aqui
 }
@@ -57,9 +57,9 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   if (
-    id === '9e7d4524-363c-416a-8759-8aa7e50c0992'
-    || id === 'fdb2543b-5662-46a7-badc-93d960fdc0a8'
-    || id === '0e7b460e-acf4-4e17-bcb3-ee472265db83'
+    id === "9e7d4524-363c-416a-8759-8aa7e50c0992" ||
+    id === "fdb2543b-5662-46a7-badc-93d960fdc0a8" ||
+    id === "0e7b460e-acf4-4e17-bcb3-ee472265db83"
   ) {
     return true;
   }
@@ -72,7 +72,7 @@ function addEmployee(
   firstName,
   lastName,
   managers = [],
-  responsibleFor = [],
+  responsibleFor = []
 ) {
   let newEmployee = {
     id,
@@ -87,7 +87,7 @@ function addEmployee(
 }
 
 function countAnimals(speciesList) {
-  if (typeof speciesList === 'undefined') {
+  if (typeof speciesList === "undefined") {
     const objectAnimalList = {};
     species.forEach((__, index) => {
       objectAnimalList[species[index].name] = species[index].residents.length;
@@ -123,15 +123,15 @@ function getAnimalMap(options) {
 
 function getSchedule(dayName) {
   const schedule = {
-    Tuesday: 'Open from 8am until 6pm',
-    Wednesday: 'Open from 8am until 6pm',
-    Thursday: 'Open from 10am until 8pm',
-    Friday: 'Open from 10am until 8pm',
-    Saturday: 'Open from 8am until 10pm',
-    Sunday: 'Open from 8am until 8pm',
-    Monday: 'CLOSED',
+    Tuesday: "Open from 8am until 6pm",
+    Wednesday: "Open from 8am until 6pm",
+    Thursday: "Open from 10am until 8pm",
+    Friday: "Open from 10am until 8pm",
+    Saturday: "Open from 8am until 10pm",
+    Sunday: "Open from 8am until 8pm",
+    Monday: "CLOSED",
   };
-  if (typeof dayName === 'undefined') {
+  if (typeof dayName === "undefined") {
     return schedule;
   }
   let specificDay = [
@@ -153,9 +153,12 @@ function roundUpFixedTwo(value) {
 
 function increasePrices(percentage) {
   const percentageFunction = (value, base) => (value * base) / 100;
-  const adultNewPrice = percentageFunction(percentage, prices.Adult) + prices.Adult;
-  const seniorNewPrice = percentageFunction(percentage, prices.Senior) + prices.Senior;
-  const childNewPrice = percentageFunction(percentage, prices.Child) + prices.Child;
+  const adultNewPrice =
+    percentageFunction(percentage, prices.Adult) + prices.Adult;
+  const seniorNewPrice =
+    percentageFunction(percentage, prices.Senior) + prices.Senior;
+  const childNewPrice =
+    percentageFunction(percentage, prices.Child) + prices.Child;
   prices.Adult = roundUpFixedTwo(adultNewPrice);
   prices.Child = roundUpFixedTwo(childNewPrice);
   prices.Senior = roundUpFixedTwo(seniorNewPrice);
@@ -163,11 +166,12 @@ function increasePrices(percentage) {
 }
 
 function resolveAnimalName(ids) {
-  let animalName = [];
-  for (let index = 0; index < ids.length; index += 1) {
-    animalName.push(animalTranslationMap[ids[index]]);
-  }
-  return animalName;
+  return ids.map((id) => animalTranslationMap[id]);
+  // let animalName = [];
+  // for (let index = 0; index < ids.length; index += 1) {
+  //   animalName.push(animalTranslationMap[ids[index]]);
+  // }
+  // return animalName;
 }
 
 function getEmployeeCoverage(idOrName) {
@@ -178,7 +182,7 @@ function getEmployeeCoverage(idOrName) {
   if (!idOrName) {
     employees.forEach((element) => {
       employeeCoverage[employeeFullNameKey(element)] = resolveAnimalName(
-        element.responsibleFor,
+        element.responsibleFor
       );
     });
     return employeeCoverage;
@@ -186,13 +190,13 @@ function getEmployeeCoverage(idOrName) {
 
   const employeeFind = employees.find(
     (employee) =>
-      employee.firstName === idOrName
-      || employee.lastName === idOrName
-      || employee.id === idOrName,
+      employee.firstName === idOrName ||
+      employee.lastName === idOrName ||
+      employee.id === idOrName
   );
 
   employeeCoverage[employeeFullNameKey(employeeFind)] = resolveAnimalName(
-    employeeFind.responsibleFor,
+    employeeFind.responsibleFor
   );
 
   return employeeCoverage;
