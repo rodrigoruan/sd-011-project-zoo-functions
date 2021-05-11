@@ -40,14 +40,14 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(text) {
-  const AnimalsQuant = data.species.reduce((res, animal) => {
-    res[animal.name] = animal.residents.length;
-    return res;
-  }, {});
-  if (species) {
-    return AnimalsQuant[species];
-  }
-  return AnimalsQuant;
+  if (text === undefined) {
+    const all = {};
+    species.forEach((specie) => {
+      all[specie.name] = specie.residents.length;
+    });
+    return all;
+  } const oneSpecie = species.find((specie) => specie.name === text);
+  return oneSpecie.residents.length;
 }
 
 function calculateEntry(entrants) {
