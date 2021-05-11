@@ -80,9 +80,10 @@ function getOldestFromFirstSpecies(id) {
   const rashId = employe.filter((person) => person.id === id)
     .map((person) => person.responsibleFor[0]);
 
-  return animals.filter((specie) => specie.id === rashId[0])
-    .map((specie) => specie.residents.sort((a, b) => a.age < b.age)[0])
-    .reduce((acc, cur) => ([cur.name, cur.sex, cur.age]), []);
+  const animal = animals.filter((specie) => specie.id === rashId[0])
+    .map((specie) => specie.residents.sort((a, b) => a.age < b.age)[0]);
+
+  return animal.reduce((acc, cur) => ([cur.name, cur.sex, cur.age]), []);
 }
 
 function increasePrices(percentage) {
