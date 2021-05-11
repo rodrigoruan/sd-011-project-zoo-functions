@@ -61,13 +61,17 @@ function countAnimals(specie) {
   return specie ? findName.residents.length : species.reduce(allAnimals, {});
 }
 
-// function calculateEntry(entrants) {
-//  if (entrants === undefined || Object.entries(entrants).length === 0) {
-//    return 0;
-//  }
-//  const price = (total, age) => total + (prices[age] * entrants[age]);
-// return Object.keys(prices).reduce(price, 0);
-// }
+function calculateEntry(entrants) {
+  if (entrants === undefined || Object.entries(entrants).length === 0) {
+    return 0;
+  }
+  const price = (total, age) =>
+    total + (data.prices[age] * entrants[age]);
+  const arrayPrices = Object.keys(entrants);
+ // console.log(price);
+  return arrayPrices.reduce(price, 0);
+}
+console.log(calculateEntry({ 'Adult': 1 , 'Child': 2}));
 function getAnimalMap(options) {
 
 }
@@ -89,7 +93,7 @@ function getEmployeeCoverage(idOrName) {
 }
 
 module.exports = {
-  // calculateEntry,
+  calculateEntry,
   getSchedule,
   countAnimals,
   getAnimalMap,
