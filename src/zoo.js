@@ -12,15 +12,16 @@ eslint no-unused-vars: [
 const { employees, species } = require('./data');
 const data = require('./data');
 
-function getSpeciesByIds(ids) {
+function getSpeciesByIds(...ids) {
 //   const eachId = (item) => item;
 //   species.find((item) => item.id === ids.forEach(eachId));
 }
 // getSpeciesByIds(['0938aa23-f153-4937-9f88-4858b24d6bce', 'e8481c1d-42ea-4610-8e11-1752cfc05a46']);
 
 function getAnimalsOlderThan(animal, age) {
-  const residentAnimals = species.find((item) => item.name === animal).residents;
-  return residentAnimals.every((item) => item.age > age);
+  return species.find((specie) => specie.name === animal)
+    .residents
+    .every((resident) => resident.age > age);
 }
 
 function getEmployeeByName(employeeName) {
@@ -28,27 +29,11 @@ function getEmployeeByName(employeeName) {
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  const { id, firstName, lastName } = personalInfo;
-  const { managers, responsibleFor } = associatedWith;
-  const newEmployee = {
-    id,
-    firstName,
-    lastName,
-    managers,
-    responsibleFor,
-  };
-  return newEmployee;
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
-  let boss = [];
-  employees.forEach((item) => {
-    for (let i = 0; i < item.managers.length; i += 1) {
-      boss.push(item.managers[i]);
-    }
-  });
-  boss = boss.sort().filter((elem, index, self) => index === self.indexOf(elem));
-  return boss.some((manager) => id === manager);
+  return employees.some(({ managers }) => managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -63,7 +48,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(Species) {
-  //
+  // seu código aqui
 }
 
 function calculateEntry(entrants) {
