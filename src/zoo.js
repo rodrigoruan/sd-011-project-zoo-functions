@@ -94,16 +94,20 @@ function calculateEntry(entrants = { Adult: 0, Child: 0, Senior: 0 }) {
   return total;
 }
 
-const defaultAnimalMap = (result) => {
-  if (result === 'lions') return result;
-  let newResult = result;
+const defaultAnimalMap = () => {
+  let result = {
+    NE: [],
+    NW: [],
+    SE: [],
+    SW: [],
+  };
   species.forEach((specie) => {
-    if (specie.location === 'NE') newResult.NE.push(specie.name);
-    if (specie.location === 'NW') newResult.NW.push(specie.name);
-    if (specie.location === 'SE') newResult.SE.push(specie.name);
-    if (specie.location === 'SW') newResult.SW.push(specie.name);
+    if (specie.location === 'NE') result.NE.push(specie.name);
+    if (specie.location === 'NW') result.NW.push(specie.name);
+    if (specie.location === 'SE') result.SE.push(specie.name);
+    if (specie.location === 'SW') result.SW.push(specie.name);
   });
-  return newResult;
+  return result;
 };
 
 const namedAnimalMap = (result, includeNames) => {
@@ -173,16 +177,16 @@ function getAnimalMap(options = { includeNames: undefined, sex: undefined, sorte
   const { includeNames, sex, sorted } = options;
   let result = 'lions';
   if (includeNames === true) {
-    result = "namedAnimalMap(result)";
-    if (sex === 'male' || sex === 'female') result += "genreAnimalMap(result)";
-    if (sorted === true) result += "sortedAnimalMap(result)";
+    result = namedAnimalMap(result);
+    if (sex === 'male' || sex === 'female') result = genreAnimalMap(result);
+    if (sorted === true) result = sortedAnimalMap(result);
   } else {
-    if ([sex, sorted].every((element) => element === undefined)) result = 'defaultAnimalMap(result)';
+    if ([sex, sorted].every((element) => element === undefined)) result = defaultAnimalMap();
   }
   return result;
 }
 
-// console.log(getAnimalMap(options = { includeNames: true, sex: 'female', sorted: false }));
+console.log(getAnimalMap(options = { includeNames: undefined, sex: undefined, sorted: undefined }));
 
 const selectedDaySchedule = (dayName) => {
   let result = {};
