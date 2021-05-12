@@ -51,8 +51,44 @@ function calculateEntry(entrants) {
   return Object.keys(entrants).reduce((acc, curr) => acc + entrants[curr] * prices[curr], 0);
 }
 
-function getAnimalMap(options) {
+function locationAndResidents() {
+  const objeto = {};
+  species.forEach((animal) => {
+    if (!objeto[animal.location]) {
+      objeto[animal.location] = [];
+    }
+    objeto[animal.location].push(animal.name);
+  });
+  return objeto;
 }
+
+function animalsNames(sorted, sex) {
+  const objeto = { NE: [], NW: [], SE: [], SW: [] };
+  species.forEach((animal) => {
+    let animalNames;
+    if (sex) {
+      animalNames = animal.residents.filter((elemento) => elemento.sex === sex).map(({ name }) => name);
+    } else {
+      animalNames = animal.residents.map(({ name }) => name);
+    }
+    if (sorted) {
+      animalNames.sort();
+    }
+    objeto[animal.location].push({ [animal.name]: animalNames });
+  });
+  return objeto;
+}
+function getAnimalMap(options = {}) {
+  let obj = {};
+  const { includeNames, sorted, sex } = options;
+  if (includeNames) {
+    obj = animalsNames(sorted, sex);
+  } else {
+    obj = locationAndResidents();
+  }
+  return obj;
+}
+console.log(getAnimalMap({ includeNames: true }));
 
 function getSchedule(dayName) {
   let schedule = {};
@@ -101,7 +137,6 @@ function getEmployeeCoverage(idOrName) {
   }
   return animalPessoa(idOrName);
 }
-console.log(getEmployeeCoverage());
 module.exports = {
   calculateEntry,
   getSchedule,
