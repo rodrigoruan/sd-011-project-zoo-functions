@@ -160,12 +160,14 @@ const sortedAnimalMap = (result) => {
 
 function getAnimalMap(options = { includeNames: undefined, sex: undefined, sorted: undefined }) {
   const { includeNames, sex, sorted } = options;
-  let result = 'lions';
+  let result = {};
   if (includeNames === true) {
     result = namedAnimalMap();
     if (sex === 'male' || sex === 'female') result = genreAnimalMap(result, sex);
     if (sorted === true) result = sortedAnimalMap(result);
-  } else if ([sex, sorted].every((element) => element === undefined)) result = defaultAnimalMap();
+    return result;
+  }
+  result = defaultAnimalMap();
   return result;
 }
 
