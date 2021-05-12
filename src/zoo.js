@@ -144,18 +144,18 @@ const genreAnimalMap = (result, sex) => {
   return updatedResult;
 };
 
-const sortedAnimalMap = (result, sorted) => {
-  if (sorted !== true) return result;
-  let newResult = result;
+const sortedAnimalMap = (result) => {
+  let newResult = { ...result };
   const { NE, NW, SE, SW } = newResult;
-  const regions = [NE, NW, SE, SW];
+  const regions = ['NE', 'NW', 'SE', 'SW'];
   regions.forEach((region) => {
-    region.forEach((specieRegion) => {
-      const animalsNames = Object.values(specieRegion);
-      animalsNames[0].sort();
+    newResult[region].forEach((specieRegion, index) => {
+      const animalsNames = Object.values(specieRegion)[0];
+      const specieName = Object.keys(specieRegion)[0]
+      newResult[region][index][specieName] = animalsNames.sort();
     });
   });
-  return result;
+  return newResult;
 };
 
 function getAnimalMap(options = { includeNames: undefined, sex: undefined, sorted: undefined }) {
@@ -168,8 +168,6 @@ function getAnimalMap(options = { includeNames: undefined, sex: undefined, sorte
   } else if ([sex, sorted].every((element) => element === undefined)) result = defaultAnimalMap();
   return result;
 }
-
-console.log(getAnimalMap(options = { includeNames: true, sex: 'female', sorted: undefined }));
 
 const selectedDaySchedule = (dayName) => {
   let result = {};
