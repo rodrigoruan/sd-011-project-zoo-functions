@@ -9,7 +9,8 @@ eslint no-unused-vars: [
 ]
 */
 
-const { species, employees } = require('./data');
+// const { create } = require('eslint/lib/rules/*');
+const { species, employees, hours, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -80,9 +81,9 @@ function calculateEntry(entrants) {
   if (entrants === '' || !entrants) return 0;
   const { Adult = 0, Senior = 0, Child = 0 } = entrants;
 
-  const prices = Adult * data.prices.Adult + Senior * data.prices.Senior + Child * data.prices.Child;
+  const finalPrice = Adult * data.prices.Adult + Senior * data.prices.Senior + Child * data.prices.Child;
 
-  return prices;
+  return finalPrice;
 }
 
 console.log(calculateEntry({ Adult: 2, Child: 3, Senior: 1 }));
@@ -93,6 +94,12 @@ function getAnimalMap(options) {
 
 function getSchedule(dayName) {
   // seu código aqui
+  // const fullSchedule = Object.entries(hours);
+  // if (!dayName) {
+  //   return fullSchedule.reduce((acc, day, index) => {
+  //     acc[index] = `Open from ${day.open}am until ${day}`
+  //   })
+  // }
 }
 
 function getOldestFromFirstSpecies(id) {
@@ -109,6 +116,11 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   // seu código aqui
+  // UTILIZADO PRA FAZER O ARREDONDAMENTO:
+  // https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
+  Object.keys(data.prices).forEach((value) => { data.prices[value] *= (1 + (percentage / 100)); });
+  // Math.round((num + Number.EPSILON) * 100) / 100
+  Object.keys(data.prices).forEach((value) => { data.prices[value] = Math.round((data.prices[value] + Number.EPSILON) * 100) / 100; });
 }
 
 function getEmployeeCoverage(idOrName) {
