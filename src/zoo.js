@@ -163,8 +163,20 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const priceObj = data.prices;
+
+  priceObj.Adult = (priceObj.Adult * (1 + (percentage / 100)) + 0.005);
+  priceObj.Senior = (priceObj.Senior * (1 + (percentage / 100)) + 0.005);
+  priceObj.Child = (priceObj.Child * (1 + (percentage / 100)) + 0.005);
+
+  priceObj.Adult = Math.round(priceObj.Adult * 1e2) / 1e2;
+  priceObj.Senior = Math.round(priceObj.Senior * 1e2) / 1e2;
+  priceObj.Child = Math.round(priceObj.Child * 1e2) / 1e2;
+  return priceObj;
 }
+/*
+  O arredondamento do return foi retirado de "https://stackoverflow.com/questions/2283566/how-can-i-round-a-number-in-javascript-tofixed-returns-a-string"
+*/
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
