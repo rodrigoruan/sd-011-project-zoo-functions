@@ -127,24 +127,22 @@ function getAnimalMap(options = {}) {
 
 // Task 10
 // Obj entries: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+// lint prefer-destructuring: https://github.com/airbnb/javascript/issues/1791
 
 const getSchedule = (dayName) => {
   let schedule = {};
 
+  // conditional to get day and the data to set the schedule
   Object.entries(data.hours).forEach((items) => {
-    if (items[0] === 'Monday') {
-      schedule[items[0]] = 'CLOSED';
-    } else {
-      (schedule[items[0]] = `Open from ${items[1].open}am until ${items[1].close - 12}pm`);
-    }
+    if (items[0] === 'Monday') schedule[items[0]] = 'CLOSED';
+    else (schedule[items[0]] = `Open from ${items[1].open}am until ${items[1].close - 12}pm`);
   });
 
+  // getDay
   let getDay = Object.entries(schedule).find((items) => items[0] === dayName);
 
-  if (!dayName) {
-    return schedule;
-  }
-
+  // returns
+  if (!dayName) return schedule;
   return { [getDay[0]]: getDay[1] };
 };
 
