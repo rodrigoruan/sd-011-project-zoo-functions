@@ -90,15 +90,31 @@ function getOldestFromFirstSpecies(id) {
 function increasePrices(percentage) {
   const result = Object.entries(data.prices).reduce((acc, [key, value]) => {
     const values = value + value * (percentage / 100);
-    acc[key] = Math.round(values * 100) / 100; // rounds the last decimal numbers to x.99
+    acc[key] = Math.round(values * 100) / 100;
     return acc;
   }, {});
   data.prices = result;
   return result;
 }
 
+function getAnimalByIdOrName(...ids) {
+  const animal = [];
+  ids.forEach((rash) => animal.push((animals.find((specie) => specie.id === rash)).name));
+  return animal;
+}
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  let responsables = {};
+  let singleResponsable = {};
+  employe.forEach((employee) => {
+    const employeResponsibles = getAnimalByIdOrName(...employee.responsibleFor);
+    responsables[`${employee.firstName} ${employee.lastName}`] = employeResponsibles;
+    if (employee.firstName === idOrName || employee.lastName === idOrName || employee.id === idOrName) {
+      singleResponsable = { [`${employee.firstName} ${employee.lastName}`]: employeResponsibles };
+    }
+  });
+  if (idOrName) return singleResponsable;
+   return responsables;
 }
 
 module.exports = {
