@@ -115,7 +115,6 @@ function getAnimalMap(options) {
   }, {});
   return fullList;
 }
-console.log(getAnimalMap({ includeNames: true, sorted: true }));
 
 function getSchedule(dayName) {
   const scheduleWorkingHours = Object.values(data.hours).reduce((acc, workingHours, index) => {
