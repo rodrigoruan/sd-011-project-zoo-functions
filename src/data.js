@@ -257,7 +257,8 @@ module.exports = {
         lionId,
         tigersId,
         bearsId,
-        'ef3778eb-2844-4c7c-b66c-f432073e1c6b'],
+        'ef3778eb-2844-4c7c-b66c-f432073e1c6b',
+      ],
     },
     {
       id: olaId,
