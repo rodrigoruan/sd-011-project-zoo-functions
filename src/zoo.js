@@ -177,7 +177,7 @@ function increasePrices(percentage) {
 // Task 13
 
 function getEmployeeCoverage(idOrName) {
-  let employeesCoverage = {};
+  // let employeesCoverage = {};
 
   // in progress
 }
