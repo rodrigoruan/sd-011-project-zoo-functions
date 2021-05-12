@@ -146,8 +146,18 @@ const getSchedule = (dayName) => {
   return { [getDay[0]]: getDay[1] };
 };
 
+// Task 11
+// Obj values: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Object/values
+
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  // get animals by the employees who are responsible for by ID
+  let idAnimals = data.employees.find((items) => items.id === id).responsibleFor[0];
+
+  // 1) find the idAnimals in data.species, 2) reduce the search for olders animals
+  const OlderAnimals = Object.values(data.species.find((items) => items.id === idAnimals)
+    .residents.reduce((acc, item) => (acc.age < item.age ? item : acc)));
+
+  return OlderAnimals;
 }
 
 function increasePrices(percentage) {
