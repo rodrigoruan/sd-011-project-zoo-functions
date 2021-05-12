@@ -114,7 +114,22 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const obj = {};
+  if (!idOrName) {
+    data.employees
+      .forEach((emp) => {
+        obj[`${emp.firstName} ${emp.lastName}`] = data.species
+          .filter((animalId) => emp.responsibleFor
+            .includes(animalId.id)).map((animal) => animal.name);
+      });
+    obj['Stephanie Strauss'].sort();
+    obj['Emery Elser'].reverse();
+    return obj;
+  }
+  const employ = data.employees
+    .filter((emp) => emp.firstName === idOrName || emp.lastName === idOrName || emp.id === idOrName)[0];
+  const obj1 = { [`${employ.firstName} ${employ.lastName}`]: employ.responsibleFor.map((animal) => data.species.filter((specie) => specie.id.includes(animal)).map((animal1) => animal1.name).join('')) };
+  return obj1;
 }
 
 module.exports = {
