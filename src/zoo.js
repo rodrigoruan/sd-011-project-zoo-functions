@@ -48,9 +48,30 @@ function calculateEntry(entrants) {
   return Object.entries(entrants).reduce((accumulator, [key, value]) => accumulator + prices[key] * value, 0);
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+function specieLocation(specie, sorted, sex) {
+  const maped = {};
+  maped[specie] = species.find((resident) => resident.name === specie).residents;
+  if (sex) {
+    maped[specie] = maped[specie].filter((resident) => resident.sex === sex);
+  }
+  maped[specie] = maped[specie].map(({ name }) => name);
+  if (sorted) maped[specie].sort();
+  return maped;
 }
+
+function getAnimalMap(options = {}) {
+  const localMaped = species.reduce((acc, specie) => {
+    if (!acc[specie.location]) acc[specie.location] = [];
+    if (!options.includeNames) {
+      acc[specie.location].push(specie.name);
+    } else {
+      acc[specie.location].push(specieLocation(specie.name, options.sorted, options.sex));
+    }
+    return acc;
+  }, {});
+  return localMaped;
+}
+console.log(getAnimalMap());
 
 function getSchedule(dayName) {
   const schedule = Object.entries(hours).reduce((acc, [day, { open, close }]) => ({ ...acc, [day]: open - close === 0 ? 'CLOSED' : `Open from ${open}am until ${close - 12}pm` }), {});
@@ -77,7 +98,6 @@ function getEmployeeCoverage(idOrName) {
   }
   return noParam;
 }
-console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 
 module.exports = {
   calculateEntry,
