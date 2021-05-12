@@ -69,13 +69,6 @@ function calculateEntry({ Adult = 0, Senior = 0, Child = 0 } = 0) {
 
 function getAnimalMap(object = { includeNames: false, sex: undefined, sorted: false }) {
   // seu código aqui
-  const createObject = (func) => ({
-    NE: func('NE'),
-    NW: func('NW'),
-    SE: func('SE'),
-    SW: func('SW'),
-  });
-
   const residentNames = (acc, cur) => {
     acc.push(cur.name);
     return acc;
@@ -113,12 +106,38 @@ function getAnimalMap(object = { includeNames: false, sex: undefined, sorted: fa
     }
     return (accArray);
   }, []);
+
+  const createObject = (func) => ({
+    NE: func('NE'),
+    NW: func('NW'),
+    SE: func('SE'),
+    SW: func('SW'),
+  });
+
   return createObject(locateSpecies);
 }
 
+const allHours = Object.keys(data.hours).reduce((accObject, curName) => {
+  if (data.hours[curName].open === 0) {
+    accObject[curName] = 'CLOSED';
+  } else {
+    accObject[curName] = `Open from ${data.hours[curName].open}am until ${data.hours[curName].close - 12}pm`;
+  }
+  return accObject;
+}, {});
+
 function getSchedule(dayName) {
   // seu código aqui
+  const dayHour = Object.keys(allHours).reduce((accObject, curName) => {
+    if (curName === dayName) {
+      accObject[curName] = allHours[curName];
+    }
+    return accObject;
+  }, {});
+  return (!dayName) ? allHours : dayHour;
 }
+
+console.log(getSchedule());
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
