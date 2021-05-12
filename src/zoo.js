@@ -91,40 +91,29 @@ function getAnimalMap(options) {
   }, []);
 
   // Cria lista sucinta (região + espécie).
-  const getSpeciesListByRegion = () => {
-    const fullList = arrayOfRegions.reduce((acc, region) => {
-      const speciesListByRegion = data.species.filter((specie) => specie.location === region).map((list) => list.name);
+
+  const fullList = arrayOfRegions.reduce((acc, region) => {
+    const speciesListByRegion = data.species.filter((specie) => specie.location === region).map((list) => list.name);
+
+    if (!options || !options.includeNames) {
       acc[region] = speciesListByRegion;
       return acc;
-    }, {});
-    return fullList;
-  };
+    }
 
-  // Cria lista ampliada (região + specie + residents).
-  const getSpeciesAndResidentsByRegion = () => {
-    const fullList = arrayOfRegions.reduce((acc, region) => {
-      const speciesListByRegion = data.species.filter((specie) => specie.location === region).map((list) => list.name);
+    const getResidentsList = (animalSpecie) => {
+      const defaultResidentList = data.species.find((specie) => specie.name === animalSpecie).residents.map((resident) => resident.name);
+      const ResidentListFilteredBySex = data.species.find((specie) => specie.name === animalSpecie).residents.filter((resid) => resid.sex === 'female').map((resident) => resident.name);
+      const sexOption = options.sex ? ResidentListFilteredBySex : defaultResidentList;
+      return options.sorted ? sexOption.sort() : sexOption;
+    };
+    const specieAndResidentListByRegion = speciesListByRegion.map((animal) => ({ [animal]: getResidentsList(animal) }));
 
-      const getResidentsList = (animalSpecie) => {
-        const defaultResidentList = data.species.find((specie) => specie.name === animalSpecie).residents.map((resident) => resident.name);
-        const ResidentListFilteredBySex = data.species.find((specie) => specie.name === animalSpecie).residents.filter((resid) => resid.sex === 'female').map((resident) => resident.name);
-        const sexOption = options.sex ? ResidentListFilteredBySex : defaultResidentList;
-        return options.sorted ? sexOption.sort() : sexOption;
-      };
-
-      const specieAndResidentListByRegion = speciesListByRegion.map((animal) => ({ [animal]: getResidentsList(animal) }));
-
+    if (options.includeNames === true) {
       acc[region] = specieAndResidentListByRegion;
-
       return acc;
-    }, {});
-    return fullList;
-  };
-  if (!options || !options.includeNames) {
-    return getSpeciesListByRegion();
-  } if (options.includeNames === true) {
-    return getSpeciesAndResidentsByRegion();
-  }
+    }
+  }, {});
+  return fullList;
 }
 console.log(getAnimalMap({ includeNames: true, sorted: true }));
 
