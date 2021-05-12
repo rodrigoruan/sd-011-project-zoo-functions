@@ -114,7 +114,7 @@ function getEmployeeCoverage(idOrName) {
     }
   });
   if (idOrName) return singleResponsable;
-   return responsables;
+  return responsables;
 }
 
 module.exports = {
