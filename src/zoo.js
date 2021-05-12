@@ -71,12 +71,12 @@ function countAnimals(speciess) {
 function calculateEntry(entrants) {
   let total = 0;
 
- for (value in entrants) {
+  for (let value in entrants) {
    if (Object.keys(entrants)[value] === Object.keys(data.prices)[value]) {
-     total += entrants[value] * data.prices[value]
-   }
- } 
- return total;
+     total += entrants[value] * data.prices[value];
+    }
+  }
+  return total;
 }
 
 function getAnimalMap(options) {
