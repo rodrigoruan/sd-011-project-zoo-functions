@@ -16,6 +16,7 @@ function getSpeciesByIds(ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
+  
   // seu código aqui
 }
 
@@ -40,21 +41,21 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  if (typeof entrants === 'undefined' || !entrants) {
+  if (typeof entrants === 'undefined') {
     return 0;
   }
-  const adultPrice = data.prices.Adult;
-  let adultNumbers = entrants.Adult;
-  let adultPriceTotal = adultPrice * adultNumbers;
-  const childPrice = data.prices.Child;
-  let childNumbers = entrants.Child;
-  let childPriceTotal = childPrice * childNumbers;
-  const seniorPrice = data.prices.Senior;
-  let seniorNumbers = entrants.Senior;
-  let seniorPriceTotal = seniorPrice * seniorNumbers;
-  return adultPriceTotal + childPriceTotal + seniorPriceTotal;
-}
-
+  
+  let priceTotal = 0;
+  if (entrants.Adult) priceTotal += data.prices.Adult * entrants.Adult;
+  if (entrants.Child) priceTotal += data.prices.Child * entrants.Child;
+  if (entrants.Senior) priceTotal += data.prices.Senior * entrants.Senior;
+  return priceTotal;
+  }
+console.log(calculateEntry({
+  'Adult': 1,
+  'Child': 1,
+  'Senior': 1,
+}));
 function getAnimalMap(options) {
   // seu código aqui
 }
