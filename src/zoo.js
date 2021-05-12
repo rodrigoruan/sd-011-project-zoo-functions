@@ -60,6 +60,7 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
+  return employees.some((employee) => employee.managers.some((managers) => managers === id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
