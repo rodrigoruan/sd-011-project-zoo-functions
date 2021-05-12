@@ -272,7 +272,7 @@ const checkResponsabilitys = (employee) => {
     });
   });
   return result;
-}
+};
 
 const defaultEmployeeCoverage = () => {
   const result = {};
@@ -319,10 +319,8 @@ function getEmployeeCoverage(idOrName) {
   result = employeeCoverageByFirstName(idOrName);
   if (Object.entries(result).length === 0) result = employeeCoverageByLastName(idOrName);
   if (Object.entries(result).length === 0) result = employeeCoverageByID(idOrName);
-  return result
+  return result;
 }
-
-console.log(getEmployeeCoverage('Orloff'));
 
 module.exports = {
   calculateEntry,
