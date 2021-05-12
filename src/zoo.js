@@ -165,9 +165,7 @@ function getAnimalMap(options = { includeNames: undefined, sex: undefined, sorte
     result = namedAnimalMap();
     if (sex === 'male' || sex === 'female') result = genreAnimalMap(result, sex);
     if (sorted === true) result = sortedAnimalMap(result);
-  } else {
-    if ([sex, sorted].every((element) => element === undefined)) result = defaultAnimalMap();
-  }
+  } else if ([sex, sorted].every((element) => element === undefined)) result = defaultAnimalMap();
   return result;
 }
 
