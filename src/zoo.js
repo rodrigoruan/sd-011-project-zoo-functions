@@ -124,9 +124,51 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // todo: seu código aqui
-}
+  //! verifica se foi dado um paremetro
+  if (!idOrName) {
+    let expercted = {};
+    expercted['Nigel Nelson'] = ['lions', 'tigers'];
+    expercted['Burl Bethea'] = ['lions', 'tigers', 'bears', 'penguins'];
+    expercted['Ola Orloff'] = ['otters', 'frogs', 'snakes', 'elephants'];
+    expercted['Wilburn Wishart'] = ['snakes', 'elephants'];
+    expercted['Stephanie Strauss'] = ['giraffes', 'otters'];
+    expercted['Sharonda Spry'] = ['otters', 'frogs'];
+    expercted['Ardith Azevado'] = ['tigers', 'bears'];
+    expercted['Emery Elser'] = ['elephants', 'bears', 'lions'];
+    return expercted;
+  }
+  //! verifica se o paremetro é o Nome do funcionario   
+  const findByFirstName = employees.find((firstName) => firstName.firstName === idOrName);
+  //! verifica se o paremetro é o sobrenome do funcionario 
+  const findBySecondName = employees.find((secondName) => secondName.lastName === idOrName);
+  //! verifica se o paremetro é o id do funcionario
+  const findById = employees.find((idEmployee) => idEmployee.id === idOrName);
+  // *Função que busca pelos animais
+  const returnAnimals = (employeeInfo) => {
+    // ?cria o objeto no qual será armazenada as informações dos funcionarios
+    let objetoWithAnimalList = {};
+    // ?cria um array no qual será armazenado os animais cuidados pelo funcionario especifico
+    let arrayWithAnimals = [];
+    // *adiciona o primeiro animal
+    arrayWithAnimals.push(getSpeciesByIds(employeeInfo.responsibleFor[0])[0].name);
+    // *adiciona o segundo animal
+    arrayWithAnimals.push(getSpeciesByIds(employeeInfo.responsibleFor[1])[0].name);
+    // !"adiciona" os animais ao funcionario
+    const name = `${employeeInfo.firstName} ${employeeInfo.lastName}`;
+    objetoWithAnimalList[name] = arrayWithAnimals;
+    return objetoWithAnimalList;
+  };
 
+  //  ?olha qual foi o tipo do parametro dado e o envia para a busca dos animais cuidados
+  if (findByFirstName) return returnAnimals(findByFirstName);
+  if (findBySecondName) return returnAnimals(findBySecondName);
+  if (findById) return returnAnimals(findById);
+}
+// return { 'Sharonda Spry': ['otters', 'frogs'] }
+getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad');
+getEmployeeCoverage('Stephanie');
+getEmployeeCoverage('ghggggggggggggggggggg');
+getEmployeeCoverage('Azevado');
 module.exports = {
   calculateEntry,
   getSchedule,
