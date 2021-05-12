@@ -9,6 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
+const { prices } = require('./data');
 const data = require('./data');
 
 // Caso receba nenhum parâmetro, necessário retornar um array vazio'
@@ -65,32 +66,41 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
+// Sem parâmetros, retorna animais e suas quantidades
+// Com o nome de uma espécie de animal, retorna somente a quantidade'
+
 function countAnimals(species) {
-  // seu código aqui
+  // seu código aqui condição ? find, reduce
 }
 
+// Retorna 0 se nenhum argumento for passado
+// Retorna 0 se um objeto vazio for passado
+// Retorna o preço total a ser cobrado dado o número de adultos, crianças e idosos
+
 function calculateEntry(entrants) {
-  // seu código aqui
+  // seu código aqui reduce
+  if (!entrants || entrants === {}) return 0;
+  return Object.keys(entrants).reduce((acumulador, number) => acumulador + (prices[number] * entrants[number]), 0);
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  // seu código aqui reduce
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  // seu código aqui condição if com ...
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  // seu código aqui *
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  // seu código aqui condição ?
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  // seu código aqui *
 }
 
 module.exports = {
