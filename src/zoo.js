@@ -170,12 +170,16 @@ function increasePrices(percentage) {
   // add percentage to prices
   prices.forEach((items) => { data.prices[items] *= 1 + (percentage / 100); });
 
-  // Round the value
+  // round the value
   prices.forEach((items) => { data.prices[items] = Math.round(data.prices[items] * 100) / 100; });
 }
 
+// Task 13
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  let employeesCoverage = {};
+
+  // in progress
 }
 
 module.exports = {
