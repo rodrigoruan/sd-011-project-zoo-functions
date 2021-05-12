@@ -87,16 +87,25 @@ function getAnimalMap(options) {
   // seu código aqui reduce
 }
 
+// Sem parâmetros, retorna um cronograma legível para humanos
+// Se um único dia for passado, retorna somente este dia em um formato legível para humanos
+
 function getSchedule(dayName) {
   // seu código aqui condição if com ...
+
 }
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui *
 }
 
+// Ao passar uma porcentagem, incrementa todos os preços, arrendondados em duas casas decimais
+
 function increasePrices(percentage) {
   // seu código aqui condição ?
+  Object.keys(prices).forEach((value) => {
+    prices[value] = Math.round(prices[value] * (1 + (percentage * 0.01)) * 100) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
