@@ -1,0 +1,13 @@
+user.name=Cris Lustosa
+user.email=cmlustosa@gmail.com
+core.editor=code --wait
+core.repositoryformatversion=0
+core.filemode=true
+core.bare=false
+core.logallrefupdates=true
+remote.origin.url=git@github.com:tryber/sd-011-project-zoo-functions.git
+remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+branch.master.remote=origin
+branch.master.merge=refs/heads/master
+branch.CrisLustosa-project-zoo-functions.remote=origin
+branch.CrisLustosa-project-zoo-functions.merge=refs/heads/CrisLustosa-project-zoo-functions
