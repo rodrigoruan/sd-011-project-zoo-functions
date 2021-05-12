@@ -90,7 +90,12 @@ function getAnimalMap(options) {
     return acc;
   }, []);
 
-  // Cria lista sucinta (região + espécie).
+  const getResidentsList = (animalSpecie) => {
+    const defaultResidentList = data.species.find((specie) => specie.name === animalSpecie).residents.map((resident) => resident.name);
+    const sexFilteredResidentList = data.species.find((specie) => specie.name === animalSpecie).residents.filter((resid) => resid.sex === options.sex).map((resident) => resident.name);
+    const sexOption = options.sex ? sexFilteredResidentList : defaultResidentList;
+    return options.sorted ? sexOption.sort() : sexOption;
+  };
 
   const fullList = arrayOfRegions.reduce((acc, region) => {
     const speciesListByRegion = data.species.filter((specie) => specie.location === region).map((list) => list.name);
@@ -100,18 +105,13 @@ function getAnimalMap(options) {
       return acc;
     }
 
-    const getResidentsList = (animalSpecie) => {
-      const defaultResidentList = data.species.find((specie) => specie.name === animalSpecie).residents.map((resident) => resident.name);
-      const ResidentListFilteredBySex = data.species.find((specie) => specie.name === animalSpecie).residents.filter((resid) => resid.sex === 'female').map((resident) => resident.name);
-      const sexOption = options.sex ? ResidentListFilteredBySex : defaultResidentList;
-      return options.sorted ? sexOption.sort() : sexOption;
-    };
     const specieAndResidentListByRegion = speciesListByRegion.map((animal) => ({ [animal]: getResidentsList(animal) }));
 
     if (options.includeNames === true) {
       acc[region] = specieAndResidentListByRegion;
       return acc;
     }
+    return acc;
   }, {});
   return fullList;
 }
