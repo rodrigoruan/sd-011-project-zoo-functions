@@ -9,11 +9,11 @@ eslint no-unused-vars: [
 ]
 */
 
-const { species, employees } = require('./data');
+const { species, employees, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  return species.filter((type) => ids.some((id) => type.id === id));
+  return species.filter((specie) => ids.some((id) => specie.id === id));
 }
 
 function getAnimalsOlderThan(animal, age) {
@@ -34,18 +34,31 @@ function createEmployee(personalInfo, associatedWith) {
 function isManager(id) {
   return employees.some(({ managers }) => managers.includes(id));
 }
-console.log(isManager());
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  return employees.push({
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  });
 }
 
-function countAnimals() {
-  // seu código aqui
+function countAnimals(animal) {
+  const countForSpecies = species.reduce((count, specie) => {
+    count[specie.name] = specie.residents.length;
+    return count;
+  }, {});
+  if (animal !== undefined) {
+    return countForSpecies[animal];
+  }
+  return countForSpecies;
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (typeof entrants !== 'object' || Object.keys(entrants).length === 0) return 0;
+  return Object.keys(entrants).reduce((acc, key) => acc + entrants[key] * prices[key], 0);
 }
 
 function getAnimalMap(options) {
