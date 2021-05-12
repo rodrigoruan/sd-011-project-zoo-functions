@@ -61,8 +61,18 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
+// Esta função é responsável por contabilizar a quantidade de animais.
+// Sem parâmetros, retorna um objeto (animais e suas quantidade)
+// Com o nome de uma espécie de animal, retorna um número (somente a quantidade)
 function countAnimals(species) {
-  // seu código aqui
+  if (species === undefined) {
+    let totalAnimals = {};
+    animalNames.forEach((animal) => {
+      totalAnimals[animal.name] = animal.residents.length;
+    });
+    return totalAnimals;
+  }
+  return animalNames.find((animalsBySpecies) => animalsBySpecies.name === species).residents.length;
 }
 
 function calculateEntry(entrants) {
