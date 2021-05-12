@@ -110,31 +110,19 @@ const defaultAnimalMap = () => {
   return result;
 };
 
-const namedAnimalMap = (result, includeNames) => {
-  if (includeNames !== true || result === 'lions') return result;
-  const { NE, NW, SE, SW } = result;
-  const newResult = { NE: [], NW: [], SE: [], SW: [] };
-  NE.forEach((specieNE, index) => {
-    newResult.NE[index] = { [specieNE]: [] };
-    const specieInfoNE = species.find((specie) => specie.name === specieNE);
-    specieInfoNE.residents.forEach((resident) => newResult.NE[index][specieNE].push(resident.name));
+const namedAnimalMap = () => {
+  let result = defaultAnimalMap();
+  const regions = Object.keys(result);
+  regions.forEach((regionSpecies) => {
+    result[regionSpecies].forEach((regionSpecie, index) => {
+      const specieInfo = species.find((specie) => specie.name === regionSpecie);
+      result[regionSpecies][index] = { [regionSpecie]: [] };
+      specieInfo.residents.forEach((resident) => {
+        result[regionSpecies][index][regionSpecie].push(resident.name);
+      });
+    });
   });
-  NW.forEach((specieNW, index) => {
-    newResult.NW[index] = { [specieNW]: [] };
-    const specieInfoNW = species.find((specie) => specie.name === specieNW);
-    specieInfoNW.residents.forEach((resident) => newResult.NW[index][specieNW].push(resident.name));
-  });
-  SE.forEach((specieSE, index) => {
-    newResult.SE[index] = { [specieSE]: [] };
-    const specieInfoSE = species.find((specie) => specie.name === specieSE);
-    specieInfoSE.residents.forEach((resident) => newResult.SE[index][specieSE].push(resident.name));
-  });
-  SW.forEach((specieSW, index) => {
-    newResult.SW[index] = { [specieSW]: [] };
-    const specieInfoSW = species.find((specie) => specie.name === specieSW);
-    specieInfoSW.residents.forEach((resident) => newResult.SW[index][specieSW].push(resident.name));
-  });
-  return newResult;
+  return result;
 };
 
 const genreAnimalMap = (result, sex) => {
@@ -177,7 +165,7 @@ function getAnimalMap(options = { includeNames: undefined, sex: undefined, sorte
   const { includeNames, sex, sorted } = options;
   let result = 'lions';
   if (includeNames === true) {
-    result = namedAnimalMap(result);
+    result = namedAnimalMap();
     if (sex === 'male' || sex === 'female') result = genreAnimalMap(result);
     if (sorted === true) result = sortedAnimalMap(result);
   } else {
@@ -186,7 +174,7 @@ function getAnimalMap(options = { includeNames: undefined, sex: undefined, sorte
   return result;
 }
 
-console.log(getAnimalMap(options = { includeNames: undefined, sex: undefined, sorted: undefined }));
+console.table(getAnimalMap(options = { includeNames: true, sex: undefined, sorted: undefined }).NE);
 
 const selectedDaySchedule = (dayName) => {
   let result = {};
