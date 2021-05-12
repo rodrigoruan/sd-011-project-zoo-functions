@@ -12,7 +12,7 @@ eslint no-unused-vars: [
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  return data.species.filter((getSpecies) => ids.some((id) => getSpecies.id === id));
+  return data.species.filter((getSpecies) => ids.includes(getSpecies.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
@@ -28,7 +28,7 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  return data.employees.some((employees) => employees.managers.some((value) => value === id));
+  return data.employees.some((employee) => employee.managers.some((value) => value === id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -52,8 +52,58 @@ function calculateEntry(entrants) {
   return Object.entries(entrants).reduce((acc, current) => acc + (current[1] * data.prices[current[0]]), 0);
 }
 
+// funcoes do DESAFIO 9
+
+const getAnimalsByLocation = (result, { name, location }) => {
+  if (!result[location]) {
+    return { ...result, [location]: [name] };
+  }
+
+  result[location].push(name);
+
+  return result;
+};
+
+const getResidentsBySex = (animal, sex) => animal
+  .residents.reduce((residentsBySex, resident) => {
+    if (resident.sex === sex) {
+      residentsBySex.push(resident.name);
+    }
+    return residentsBySex;
+  }, []);
+
+const getAnimalsByLocationWithNames = ([result, sorted, sex], animal) => {
+  let residents = [];
+  if (sex) residents = getResidentsBySex(animal, sex);
+  else residents = animal.residents.map(({ name }) => name);
+
+  if (sorted) residents.sort();
+
+  if (!result[animal.location]) {
+    return [{
+      ...result,
+      [animal.location]: [{
+        [animal.name]: residents,
+      }],
+    }, sorted, sex];
+  }
+  result[animal.location].push(...[{
+    [animal.name]: residents,
+  }]);
+
+  return [result, sorted, sex];
+};
+
 function getAnimalMap(options) {
-  // seu código aqui
+  if (!options || !options.includeNames) {
+    return data.species.reduce(getAnimalsByLocation, {});
+  }
+
+  const { includeNames, sorted, sex } = options;
+
+  if (includeNames) {
+    return data.species.reduce(getAnimalsByLocationWithNames, [{}, sorted, sex])[0];
+  }
 }
 
 function getSchedule(dayName) {
