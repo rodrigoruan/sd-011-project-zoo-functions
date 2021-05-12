@@ -57,11 +57,11 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(speciess) {
-  const specieName = data.species.find((species) => speciess === species.name);
+  const specieName = data.species.find((animals) => speciess === animals.name);
   const speciesNames = data.species.reduce((acc, animais) => {
     acc[animais.name] = animais.residents.length;
     return acc;
-  }, {})
+  }, {});
   if (speciess === undefined) {
     return speciesNames;
   }
