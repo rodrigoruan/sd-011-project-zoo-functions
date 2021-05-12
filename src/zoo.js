@@ -126,25 +126,22 @@ const namedAnimalMap = () => {
 };
 
 const genreAnimalMap = (result, sex) => {
-  if (result = 'lions') return result;
-  let newResult = result;
-  const { NE, NW, SE, SW } = newResult;
-  const regions = [NE, NW, SE, SW];
-  regions.forEach((region) => {
-    region.forEach((specieRegion, index1) => {
-      const currentSpecie = Object.keys(specieRegion)[0];
+  let updatedResult = { ...result };
+  const regions = Object.keys(updatedResult);
+  regions.forEach((regionSpecies) => {
+    updatedResult[regionSpecies].forEach((regionSpecie, index1) => {
+      const currentSpecie = Object.keys(regionSpecie)[0];
       const specieInfo = species.find((specie) => currentSpecie === specie.name);
-      console.log(specieInfo);
       let splicePointer = 0;
       specieInfo.residents.forEach((resident, index2) => {
         if (resident.sex !== sex) {
-          region[index1][currentSpecie].splice(index2 + splicePointer, 1);
+          updatedResult[regionSpecies][index1][currentSpecie].splice(index2 + splicePointer, 1);
           splicePointer -= 1;
         }
       });
     });
   });
-  return newResult;
+  return updatedResult;
 };
 
 const sortedAnimalMap = (result, sorted) => {
@@ -166,7 +163,7 @@ function getAnimalMap(options = { includeNames: undefined, sex: undefined, sorte
   let result = 'lions';
   if (includeNames === true) {
     result = namedAnimalMap();
-    if (sex === 'male' || sex === 'female') result = genreAnimalMap(result);
+    if (sex === 'male' || sex === 'female') result = genreAnimalMap(result, sex);
     if (sorted === true) result = sortedAnimalMap(result);
   } else {
     if ([sex, sorted].every((element) => element === undefined)) result = defaultAnimalMap();
@@ -174,7 +171,7 @@ function getAnimalMap(options = { includeNames: undefined, sex: undefined, sorte
   return result;
 }
 
-console.table(getAnimalMap(options = { includeNames: true, sex: undefined, sorted: undefined }).NE);
+console.log(getAnimalMap(options = { includeNames: true, sex: 'female', sorted: undefined }));
 
 const selectedDaySchedule = (dayName) => {
   let result = {};
