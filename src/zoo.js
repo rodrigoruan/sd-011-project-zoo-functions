@@ -129,7 +129,7 @@ function getAnimalMap(options = {}) {
 // Obj entries: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
 // lint prefer-destructuring: https://github.com/airbnb/javascript/issues/1791
 
-const getSchedule = (dayName) => {
+function getSchedule(dayName) {
   let schedule = {};
 
   // conditional to get day and the data to set the schedule
@@ -144,7 +144,7 @@ const getSchedule = (dayName) => {
   // returns
   if (!dayName) return schedule;
   return { [getDay[0]]: getDay[1] };
-};
+}
 
 // Task 11
 // Obj values: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Object/values
@@ -160,8 +160,18 @@ function getOldestFromFirstSpecies(id) {
   return OlderAnimals;
 }
 
+// Task 12
+// Obj keys: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+
 function increasePrices(percentage) {
-  // seu código aqui
+  // get prices by keys
+  const prices = Object.keys(data.prices);
+
+  // add percentage to prices
+  prices.forEach((items) => { data.prices[items] *= 1 + (percentage / 100); });
+
+  // Round the value
+  prices.forEach((items) => { data.prices[items] = Math.round(data.prices[items] * 100) / 100; });
 }
 
 function getEmployeeCoverage(idOrName) {
