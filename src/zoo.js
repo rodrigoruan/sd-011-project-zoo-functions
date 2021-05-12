@@ -264,16 +264,21 @@ function increasePrices(percentage) {
   return prices;
 }
 
+const checkResponsabilitys = (employee) => {
+  let result = [];
+  employee.responsibleFor.forEach((responsility) => {
+    species.forEach((specie) => {
+      if (specie.id === responsility) result.push(specie.name);
+    });
+  });
+  return result;
+}
+
 const defaultEmployeeCoverage = () => {
   const result = {};
   employees.forEach((employee) => {
     const fullName = `${employee.firstName} ${employee.lastName}`;
-    result[fullName] = [];
-    employee.responsibleFor.forEach((responsility) => {
-      species.forEach((specie) => {
-        if (specie.id === responsility) result[fullName].push(specie.name);
-      });
-    });
+    result[fullName] = checkResponsabilitys(employee);
   });
   return result;
 };
@@ -283,12 +288,7 @@ const employeeCoverageByFirstName = (firstName) => {
   const employeeByFirstName = employees.find((employee) => employee.firstName === firstName);
   if (employeeByFirstName !== undefined) {
     const fullName = `${employeeByFirstName.firstName} ${employeeByFirstName.lastName}`;
-    result[fullName] = [];
-    employeeByFirstName.responsibleFor.forEach((responsility) => {
-      species.forEach((specie) => {
-        if (specie.id === responsility) result[fullName].push(specie.name);
-      });
-    });
+    result[fullName] = checkResponsabilitys(employeeByFirstName);
   }
   return result;
 };
@@ -298,12 +298,7 @@ const employeeCoverageByLastName = (lastName) => {
   const employeeByLastName = employees.find((employee) => employee.lastName === lastName);
   if (employeeByLastName !== undefined) {
     const fullName = `${employeeByLastName.firstName} ${employeeByLastName.lastName}`;
-    result[fullName] = [];
-    employeeByLastName.responsibleFor.forEach((responsility) => {
-      species.forEach((specie) => {
-        if (specie.id === responsility) result[fullName].push(specie.name);
-      });
-    });
+    result[fullName] = checkResponsabilitys(employeeByLastName);
   }
   return result;
 };
@@ -313,12 +308,7 @@ const employeeCoverageByID = (id) => {
   const employeeByID = employees.find((employee) => employee.id === id);
   if (employeeByID !== undefined) {
     const fullName = `${employeeByID.firstName} ${employeeByID.lastName}`;
-    result[fullName] = [];
-    employeeByID.responsibleFor.forEach((responsility) => {
-      species.forEach((specie) => {
-        if (specie.id === responsility) result[fullName].push(specie.name);
-      });
-    });
+    result[fullName] = checkResponsabilitys(employeeByID);
   }
   return result;
 };
