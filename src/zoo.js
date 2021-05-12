@@ -57,7 +57,7 @@ function isManager(id) {
 
 // A função irá adicionar uma nova pessoa colaboradora ao array employees, presente no arquivo data.js.
 // Adiciona um funcionário no fim da lista
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   return employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
