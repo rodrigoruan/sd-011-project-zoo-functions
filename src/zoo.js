@@ -90,7 +90,8 @@ function countAnimals(species, getAnimals) {
 
 function calculateEntry(entrants) {
   return entrants
-    ? Object.keys(entrants).reduce((acc, curr) => (acc + (data.prices[curr] * entrants[curr])), 0)
+    // acc = accumulator
+    ? Object.keys(entrants).reduce((acc, item) => (acc + (data.prices[item] * entrants[item])), 0)
     : 0;
 }
 
@@ -128,7 +129,23 @@ function getAnimalMap(options = {}) {
 // Obj entries: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
 
 const getSchedule = (dayName) => {
-  // in progress
+  let schedule = {};
+
+  Object.entries(data.hours).forEach((items) => {
+    if (items[0] === 'Monday') {
+      schedule[items[0]] = 'CLOSED';
+    } else {
+      (schedule[items[0]] = `Open from ${items[1].open}am until ${items[1].close - 12}pm`);
+    }
+  });
+
+  let getDay = Object.entries(schedule).find((items) => items[0] === dayName);
+
+  if (!dayName) {
+    return schedule;
+  }
+
+  return { [getDay[0]]: getDay[1] };
 };
 
 function getOldestFromFirstSpecies(id) {
