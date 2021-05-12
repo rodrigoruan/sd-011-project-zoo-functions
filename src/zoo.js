@@ -20,22 +20,31 @@ const getEmployeeByName = (employeeName) => {
   if (!employeeName) {
     return {};
   }
-
   return employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName);
 };
 
-const createEmployee = (personalInfo, associatedWith) => ({...personalInfo, ...associatedWith});
+const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...associatedWith });
 
 const isManager = (id) => employees.some(({ managers }) => managers.includes(id));
 
 const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []) => employees.push({ id, firstName, lastName, managers, responsibleFor });
 
-function countAnimals(species2) {
-  // seu código aqui
+const countAnimals = (animals) => {
+  const animalsCount = {};
+  if (!animals) {
+    species.forEach((element) => {
+      animalsCount[element.name] = element.residents.length
+    });
+    return animalsCount;
+  }
+  return species.find((specie) => specie.name === animals).residents.length
 }
 
-function calculateEntry(entrants) {
-  // seu código aqui
+console.log(countAnimals(species))
+
+const calculateEntry = (entrants) => {
+  
+  
 }
 
 function getAnimalMap(options) {
