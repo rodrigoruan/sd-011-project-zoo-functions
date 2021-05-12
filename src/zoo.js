@@ -80,29 +80,53 @@ function calculateEntry(entrants) {
   return totalPaid;
 }
 
-function getAnimalMap({ includeNames, sorted, sex }) {
-  // const filterByRegion = (local) => data.species.filter((specie) => specie.location === local).reduce((animalAcc, specie) => animalAcc.push(specie.name));
-  // if (includeNames) {
-  //   const getResidentListByRegion = (local) => {
-  //     data.species
-  //       .filter((specie) => specie.location === local)
-  //       .forEach((specie) => specie
-  //         .map(() => {
-  //           specie.name = [];
-  //           specie.name.push(specie.residents);
-  //           if (sorted) return specie.name.sort(); return specie.name;
-  //         }));
-  //   };
-  //   residentListNE = { ...getResidentListByRegion('NE') };
-  //   residentListNW = { ...getResidentListByRegion('NW') };
-  //   residentListSE = { ...getResidentListByRegion('SE') };
-  //   residentListSW = { ...getResidentListByRegion('SW') };
+function getAnimalMap(options) {
+  // Cria lista de regiões.
+  const arrayOfRegions = data.species.reduce((acc, specie) => {
+    if (acc.some((location) => location === specie.location)) {
+      return acc;
+    }
+    acc.push(specie.location);
+    return acc;
+  }, []);
 
-  //   return data.species.map(() => ({ NE: [...getResidentListByRegion('NE')], NW: [...getResidentListByRegion('NW')], SE: [...getResidentListByRegion('SE')], SW: [...getResidentListByRegion('SW')] }));
-  // }
-  // data.species.map(() => ({ NE: filterByRegion('NE'), NW: filterByRegion('NW'), SE: filterByRegion('SE'), SW: filterByRegion('SW') }));
+  // Cria lista sucinta (região + espécie).
+  const getSpeciesListByRegion = () => {
+    const fullList = arrayOfRegions.reduce((acc, region) => {
+      const speciesListByRegion = data.species.filter((specie) => specie.location === region).map((list) => list.name);
+      acc[region] = speciesListByRegion;
+      return acc;
+    }, {});
+    return fullList;
+  };
+
+  // Cria lista ampliada (região + specie + residents).
+  const getSpeciesAndResidentsByRegion = () => {
+    const fullList = arrayOfRegions.reduce((acc, region) => {
+      const speciesListByRegion = data.species.filter((specie) => specie.location === region).map((list) => list.name);
+
+      const getResidentsList = (animalSpecie) => {
+        const defaultResidentList = data.species.find((specie) => specie.name === animalSpecie).residents.map((resident) => resident.name);
+        const ResidentListFilteredBySex = data.species.find((specie) => specie.name === animalSpecie).residents.filter((resid) => resid.sex === 'female').map((resident) => resident.name);
+        const sexOption = options.sex ? ResidentListFilteredBySex : defaultResidentList;
+        return options.sorted ? sexOption.sort() : sexOption;
+      };
+
+      const specieAndResidentListByRegion = speciesListByRegion.map((animal) => ({ [animal]: getResidentsList(animal) }));
+
+      acc[region] = specieAndResidentListByRegion;
+
+      return acc;
+    }, {});
+    return fullList;
+  };
+  if (!options || !options.includeNames) {
+    return getSpeciesListByRegion();
+  } if (options.includeNames === true) {
+    return getSpeciesAndResidentsByRegion();
+  }
 }
-// console.log(data.species.filter((specie) => specie.location === 'NE'));
+console.log(getAnimalMap({ includeNames: true, sorted: true }));
 
 function getSchedule(dayName) {
   const scheduleWorkingHours = Object.values(data.hours).reduce((acc, workingHours, index) => {
