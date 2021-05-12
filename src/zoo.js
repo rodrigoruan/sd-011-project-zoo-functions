@@ -191,9 +191,38 @@ function increasePrices(percentage) {
   return objIncreasedPrices;
 }
 
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+function filterEmployee(idOrName) {
+  if (idOrName) {
+    return employees.filter((employee) => (idOrName === employee.id || idOrName === employee.firstName || idOrName === employee.lastName || idOrName === `${employee.firstName} ${employee.lastName}`));
+  }
+  return employees;
 }
+
+function getNameEmployees(arrayEmployee) {
+  return `${arrayEmployee.firstName} ${arrayEmployee.lastName}`;
+}
+
+function getSpeciesByEmployee(arrayEmplyoee) {
+  const namesSpeciesFiltered = [];
+  const emplyoeeResponsible = arrayEmplyoee.responsibleFor;
+  const filterSpecie = emplyoeeResponsible.forEach((specieId) => {
+    namesSpeciesFiltered.push(species.find((specie) => specie.id === specieId).name);
+  });
+  return namesSpeciesFiltered;
+}
+
+function getEmployeeCoverage(idOrName) {
+  const employeeFiltered = filterEmployee(idOrName);
+  const emplyoeeCoverage = {};
+  const createObjectEmplyoeesCoverage = employeeFiltered.forEach((employee) => {
+    const nameEmployee = getNameEmployees(employee);
+    const namesSpecies = getSpeciesByEmployee(employee);
+    emplyoeeCoverage[nameEmployee] = namesSpecies;
+  });
+  // console.log(emplyoeeCoverage);
+  return emplyoeeCoverage;
+}
+getEmployeeCoverage('Sharonda Spry');
 
 module.exports = {
   calculateEntry,
