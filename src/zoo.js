@@ -96,6 +96,18 @@ function countAnimals(animals) {
 
 function calculateEntry(entrants) {
   // seu código aqui
+  if (!entrants) {
+    return 0;
+  }
+
+  const { prices } = data;
+
+  const adultTicketsValue = (prices.Adult * entrants.Adult || 0);
+  const seniorTicketsValue = (prices.Senior * entrants.Senior || 0);
+  const childTicketsValue = (prices.Child * entrants.Child || 0);
+
+  const TicketsPriceSum = adultTicketsValue + seniorTicketsValue + childTicketsValue;
+  return TicketsPriceSum;
 }
 
 function getAnimalMap(options) {
