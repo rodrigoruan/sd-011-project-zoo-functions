@@ -52,11 +52,13 @@ function createEmployee(personalInfo, associatedWith) {
 // Verifica se uma pessoa colaboradora, a partir de seu id, ocupa cargo de gerência.
 // Testa se o id passado é de um gerente
 function isManager(id) {
-  // seu código aqui
+  return employees.some(({ managers }) => managers.includes(id));
 }
 
+// A função irá adicionar uma nova pessoa colaboradora ao array employees, presente no arquivo data.js.
+// Adiciona um funcionário no fim da lista
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+  return employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(species) {
