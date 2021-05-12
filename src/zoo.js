@@ -151,7 +151,7 @@ const sortedAnimalMap = (result) => {
   regions.forEach((region) => {
     newResult[region].forEach((specieRegion, index) => {
       const animalsNames = Object.values(specieRegion)[0];
-      const specieName = Object.keys(specieRegion)[0]
+      const specieName = Object.keys(specieRegion)[0];
       newResult[region][index][specieName] = animalsNames.sort();
     });
   });
@@ -163,7 +163,7 @@ function getAnimalMap(options = { includeNames: undefined, sex: undefined, sorte
   let result = defaultAnimalMap();
   if (includeNames === true) {
     result = namedAnimalMap();
-    if (sex === 'male' || sex === 'female') result = genreAnimalMap(result, sex);
+    if (sex !== undefined) result = genreAnimalMap(result, sex);
     if (sorted === true) result = sortedAnimalMap(result);
   }
   return result;
