@@ -13,6 +13,7 @@ const { species } = require('./data');
 const { employees } = require('./data');
 const data = require('./data');
 const { hours } = require('./data');
+const { prices } = require('./data');
 
 function getSpeciesByIds(...ids) {
   return species.filter((specie) => ids.includes(specie.id));
@@ -151,19 +152,14 @@ function selectedDays(dayName) {
 }
 
 function getSchedule(dayName) {
-  // console.log(hours);
   const objSchedule = {};
   const daysSelected = selectedDays(dayName);
 
   const arrayDay = Object.entries(daysSelected).forEach((day) => {
-    // console.log(day);
     let dayEach = day[0];
-    // console.log(dayEach);
     const hoursInDay = stringHoursDay(day);
-    // console.log(hoursInDay);
     objSchedule[dayEach] = hoursInDay;
   });
-  // console.log(objSchedule);
   return objSchedule;
 }
 
@@ -183,10 +179,16 @@ function getOldestFromFirstSpecies(id) {
   const oldestResident = filterResidents(arrayResidents);
   return oldestResident;
 }
-// getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992');
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const objIncreasedPrices = {};
+  const actualPrices = Object.entries(prices).forEach((key) => {
+    const visitant = key[0];
+    const price = key[1];
+    const increasedPrice = price * (1 + (percentage / 100));
+    data.prices[visitant] = Math.round(increasedPrice * 100) / 100;
+  });
+  return objIncreasedPrices;
 }
 
 function getEmployeeCoverage(idOrName) {
