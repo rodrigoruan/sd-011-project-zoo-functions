@@ -53,58 +53,43 @@ function calculateEntry(entrants) {
   return Object.entries(entrants).reduce((acc, current) => acc + (current[1] * data.prices[current[0]]), 0);
 }
 
-// funcoes do DESAFIO 9
-
-const getAnimalsByLocation = (result, { name, location }) => {
-  if (!result[location]) {
-    return { ...result, [location]: [name] };
-  }
-
-  result[location].push(name);
-
-  return result;
-};
-
-const getResidentsBySex = (animal, sex) => animal
-  .residents.reduce((residentsBySex, resident) => {
-    if (resident.sex === sex) {
-      residentsBySex.push(resident.name);
+function locationAndResidents() {
+  const object = {};
+  data.species.forEach((animal) => {
+    if (!object[animal.location]) {
+      object[animal.location] = [];
     }
-    return residentsBySex;
-  }, []);
+    object[animal.location].push(animal.name);
+  });
+  return object;
+}
 
-const getAnimalsByLocationWithNames = ([result, sorted, sex], animal) => {
-  let residents = [];
-  if (sex) residents = getResidentsBySex(animal, sex);
-  else residents = animal.residents.map(({ name }) => name);
+function animalsNames(sorted, sex) {
+  const object = { NE: [], NW: [], SE: [], SW: [] };
+  data.species.forEach((animal) => {
+    let animalNames;
+    if (sex) {
+      animalNames = animal.residents.filter((elemento) => elemento.sex === sex).map(({ name }) => name);
+    } else {
+      animalNames = animal.residents.map(({ name }) => name);
+    }
+    if (sorted) {
+      animalNames.sort();
+    }
+    object[animal.location].push({ [animal.name]: animalNames });
+  });
+  return object;
+}
 
-  if (sorted) residents.sort();
-
-  if (!result[animal.location]) {
-    return [{
-      ...result,
-      [animal.location]: [{
-        [animal.name]: residents,
-      }],
-    }, sorted, sex];
-  }
-  result[animal.location].push(...[{
-    [animal.name]: residents,
-  }]);
-
-  return [result, sorted, sex];
-};
-
-function getAnimalMap(options) {
-  if (!options || !options.includeNames) {
-    return data.species.reduce(getAnimalsByLocation, {});
-  }
-
+function getAnimalMap(options = {}) {
+  let obj = {};
   const { includeNames, sorted, sex } = options;
-
   if (includeNames) {
-    return data.species.reduce(getAnimalsByLocationWithNames, [{}, sorted, sex])[0];
+    obj = animalsNames(sorted, sex);
+  } else {
+    obj = locationAndResidents();
   }
+  return obj;
 }
 
 function getSchedule(dayName) {
@@ -135,9 +120,6 @@ function getOldestFromFirstSpecies(id) {
 
   return [name, sex, age];
 }
-
-// retorna um array com nome, sexo e idade do animal
-// mais velho dessa espécie'
 
 function increasePrices(percentage) {
   // seu código aqui
