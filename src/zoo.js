@@ -53,7 +53,7 @@ function calculateEntry(entrants) {
   return Object.entries(entrants).reduce((acc, current) => acc + (current[1] * data.prices[current[0]]), 0);
 }
 
-function locationAndResidents() {
+function getAnimalsByLocation() {
   const object = {};
   data.species.forEach((animal) => {
     if (!object[animal.location]) {
@@ -64,31 +64,36 @@ function locationAndResidents() {
   return object;
 }
 
-function animalsNames(sorted, sex) {
+function returnAnimalNames(sorted, sex) {
   const object = { NE: [], NW: [], SE: [], SW: [] };
   data.species.forEach((animal) => {
     let animalNames;
+
     if (sex) {
       animalNames = animal.residents.filter((elemento) => elemento.sex === sex).map(({ name }) => name);
     } else {
       animalNames = animal.residents.map(({ name }) => name);
     }
+
     if (sorted) {
       animalNames.sort();
     }
     object[animal.location].push({ [animal.name]: animalNames });
   });
+
   return object;
 }
 
 function getAnimalMap(options = {}) {
   let obj = {};
   const { includeNames, sorted, sex } = options;
+
   if (includeNames) {
-    obj = animalsNames(sorted, sex);
+    obj = returnAnimalNames(sorted, sex);
   } else {
-    obj = locationAndResidents();
+    obj = getAnimalsByLocation();
   }
+
   return obj;
 }
 
@@ -122,7 +127,11 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const { Adult, Senior, Child } = data.prices;
+
+  data.prices.Adult = parseFloat((Adult + (Math.ceil(Adult * percentage) / 100)).toFixed(2));
+  data.prices.Senior = parseFloat((Senior + (Math.ceil(Senior * percentage) / 100)).toFixed(2));
+  data.prices.Child = parseFloat((Child + (Math.ceil(Child * percentage) / 100)).toFixed(2));
 }
 
 function getEmployeeCoverage(idOrName) {
