@@ -96,13 +96,11 @@ function getSchedule(dayName) {
 function getOldestFromFirstSpecies(id) {
   // localizar o funcionario pelo id e buscar o primeiro animal que ele é responsável: retorna somente o id do animal
   const employeeResponsive = employees.find((employee) => employee.id === id).responsibleFor[0];
-  // localizar a especie pertencente ao id: retorna um objeto com as informações do animal que aquele funcionário é responsável; 
+  // localizar a especie pertencente ao id: retorna um objeto com as informações do animal que aquele funcionário é responsável
   const firstSpecie = species.find((specie) => specie.id === employeeResponsive);
   // Procurar o animal mais velho e retornar o array com as informações: name, sex e age.
   return Object.values(firstSpecie.residents.reduce((OldAnimal, animalAtual) => (OldAnimal.age > animalAtual.age ? OldAnimal : animalAtual)));
 }
-
-console.log(getOldestFromFirstSpecies('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 
 function increasePrices(percentage) {
   // seu código aqui
