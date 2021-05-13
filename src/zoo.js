@@ -8,9 +8,8 @@ eslint no-unused-vars: [
   }
 ]
 */
-
 const data = require('./data');
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 
 const getSpeciesByIds = (...ids) => species.filter((specie) => ids.includes(specie.id));
 
@@ -37,27 +36,22 @@ const countAnimals = (animals) => {
     });
     return animalsCount;
   }
-  return species.find(({ specie }) => specie === animals);
+  return species.find((specie) => specie.name === animals).residents.length;
 };
 
 const calculateEntry = (entrants) => {
-  let total = 0;
   if (!entrants || {}) {
-    return total;
+    return 0;
   }
-  Object.keys(entrants).forEach((el) => {
-    total += prices[el] * entrants[el];
-  });
-  return total;
+  return Object.entries(entrants).reduce((acumulador, [item, value]) => acumulador + (prices[item] * value), 0);
 };
 
 function getAnimalMap(options) {
   // seu código aqui
 }
 
-function getSchedule(dayName) {
-  // seu código aqui
-}
+const getSchedule = (dayName) => {
+};
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
