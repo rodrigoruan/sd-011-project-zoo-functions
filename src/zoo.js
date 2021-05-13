@@ -82,7 +82,7 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  species.map()
+  species.map();
 }
 
 function getSchedule(dayName) {
@@ -90,13 +90,13 @@ function getSchedule(dayName) {
   const days = Object.keys(hours);
   days.forEach((value) => {
     if (hours[value].open === 0) {
-      horarios[value] = `CLOSED`
+      horarios[value] = 'CLOSED';
     } else {
-     horarios[value] = `Open from ${hours[value].open}am until ${hours[value].close - 12}pm`
+      horarios[value] = `Open from ${hours[value].open}am until ${hours[value].close - 12}pm`;
     }
   });
   if (dayName) {
-    return {[dayName]:horarios[dayName]};
+    return { [dayName]:horarios[dayName] };
   }
   return horarios;
 }
