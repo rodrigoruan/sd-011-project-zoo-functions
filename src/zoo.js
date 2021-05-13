@@ -132,7 +132,7 @@ function handleAnimalsWithName(options) {
 }
 
 function getAnimalMap(options) {
-  if (options === undefined || !options.includeNames) {
+  if (!options || !options.includeNames) {
     return handleAnimals();
   }
   if (options && options.includeNames === true) {
@@ -191,7 +191,16 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const employee = data.employees.find(({ id, firstName, lastName }) => idOrName === id || idOrName === firstName || idOrName === lastName);
+  let obj = {};
+  if (!idOrName) {
+    data.employees.forEach((elementEmployee) => {
+      obj[`${elementEmployee.firstName} ${elementEmployee.lastName}`] = elementEmployee.responsibleFor.map((animal1) => data.species.find((animal2) => animal2.id === animal1).name);
+    });
+    return obj;
+  }
+  obj[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor.map((animal1) => data.species.find((animal2) => animal2.id === animal1).name);
+  return obj;
 }
 
 module.exports = {
