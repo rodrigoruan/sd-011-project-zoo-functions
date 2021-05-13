@@ -18,16 +18,27 @@ function getSpeciesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
-  const [testedAnimal] = data.species.filter((specie) => specie.name === animal);
-  return testedAnimal.residents.every((resident) => resident.age >= age);
+  const getAnimalByName = (specie) => specie.name === animal;
+  const [testedAnimal] = data.species.filter(getAnimalByName);
+  const checkAge = (resident) => resident.age >= age;
+  return testedAnimal.residents.every(checkAge);
 }
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
+  if(!employeeName) {
+    const emptyObject = {};
+    return emptyObject;
+  }
+  const verifyEmployeeName = (employee) => employee.firstName === employeeName || employee.lastName === employeeName;
+  const [employ] = data.employees.filter(verifyEmployeeName);
+  return employ;
 }
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
+  const employee = {...personalInfo, ...associatedWith};
+  return employee;
 }
 
 function isManager(id) {
