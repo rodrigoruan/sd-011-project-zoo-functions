@@ -39,10 +39,7 @@ const countAnimals = (animals) => {
   return species.find((specie) => specie.name === animals).residents.length;
 };
 
-const calculateEntry = (entrants) => {
-  if (!entrants || {}) {
-    return 0;
-  }
+const calculateEntry = (entrants = {}) => {
   return Object.entries(entrants).reduce((acumulador, [item, value]) => acumulador + (prices[item] * value), 0);
 };
 
