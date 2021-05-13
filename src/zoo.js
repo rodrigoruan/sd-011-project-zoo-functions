@@ -9,6 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
+const { prices, hours } = require('./data');
 const data = require('./data');
 
 const { species, employees } = data;
@@ -70,7 +71,6 @@ function countAnimals(species1) {
   }
   return obj;
 }
-console.log(countAnimals('tigers'));
 
 // function countAnimals(species1) {
 //   if(species1 === undefined) {
@@ -81,7 +81,34 @@ console.log(countAnimals('tigers'));
 // console.log(countAnimals('lions'));
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  // if (!entrants || Object.keys(entrants).length === 0) {
+  //   return 0;
+  // }
+
+  // if (!entrants.Adult) {
+  //   entrants.Adult = 0;
+  // }
+
+  // if (!entrants.Senior) {
+  //   entrants.Senior = 0;
+  // }
+
+  // if (!entrants.Child) {
+  //   entrants.Child = 0;
+  // }
+
+  // const tickets = [
+  //   entrants.Adult,
+  //   entrants.Senior,
+  //   entrants.Child,
+  // ];
+  // const arrayPrices = Object.values(prices);
+  // let multi = [];
+  // tickets.forEach((ammount, index) => {
+  //   multi.push(ammount * arrayPrices[index]);
+  // });
+  // let sumPrices = multi[0] + multi[1] + multi[2];
+  // return sumPrices;
 }
 
 function getAnimalMap(options) {
@@ -89,7 +116,21 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  let list = {};
+  const workingDays = Object.keys(hours);
+  workingDays.forEach((day) => {
+    let open1 = hours[day].open;
+    let close1 = hours[day].close;
+    if (day !== 'Monday') {
+      list[day] = `Open from ${open1}am until ${close1 - 12}pm`;
+    } else {
+      list[day] = 'CLOSED';
+    }
+  });
+  if (!dayName) {
+    return list;
+  }
+  return { [dayName]: list[dayName] };
 }
 
 function getOldestFromFirstSpecies(id) {
