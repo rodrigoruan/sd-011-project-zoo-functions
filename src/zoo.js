@@ -61,11 +61,10 @@ function countAnimals(species) {
   // seu código aqui:
   const animalAndQtd = {}; // Poderia já passar as entradas esperadas aqui, mas acho que não seria um forma muito ideal (digo: ética) ;-)
 
-  data.species.forEach((type) => {
-    animalAndQtd[type.name] = type.residents.length; // Cria as entradas do objeto (animalAndQtd) de forma dinâmica: buscando direito em data.js
+  data.species.forEach((type) => { // Cria as entradas do objeto (animalAndQtd) de forma dinâmica: buscando direito em data.js
+    animalAndQtd[type.name] = type.residents.length;
   });
   if (species === undefined) { // Retorna o objeto caso não seja passado parâmetro para a função:
-    // return animalAndQtd;
     return animalAndQtd;
   }
 
