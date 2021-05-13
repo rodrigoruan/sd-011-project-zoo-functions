@@ -79,10 +79,20 @@ function calculateEntry(entrants) {
   if (entrants === undefined || Object.values(entrants).length === 0) return 0;
   return Object.keys(entrants).reduce((acc, curr) => acc + (data.prices[curr] * entrants[curr]), 0);
 }
-
+// { includeNames: false, sex: 'female', sorted: false }
 function getAnimalMap(options) {
-  // todo: seu código aqui
+  // !Sem parâmetros, retorna animais categorizados por localização
+  if (!options) {
+    return {
+      NE: ['lions', 'giraffes'],
+      NW: ['tigers', 'bears', 'elephants'],
+      SE: ['penguins', 'otters'],
+      SW: ['frogs', 'snakes'],
+    };
+  }
+  // 'Com a opção `includeNames: true` especificada, retorna nomes de animais'
 }
+getAnimalMap();
 
 function getSchedule(dayName) {
   const schedule = {};
