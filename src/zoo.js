@@ -9,8 +9,8 @@ eslint no-unused-vars: [
 ]
 */
 
-const { prices } = require('./data');
 const data = require('./data');
+const { prices, hours } = require('./data');
 
 function getSpeciesByIds(...ids) {
   return data.species.filter((specie) => ids.includes(specie.id));
@@ -64,24 +64,113 @@ function calculateEntry({ Adult = 0, Child = 0, Senior = 0 } = 0) {
   return Adult * prices.Adult + Child * prices.Child + Senior * prices.Senior;
 }
 
+const specieLocationWithoutParameters = (arrCardinalsLocations) => {
+  const resultLocations = {};
+
+  arrCardinalsLocations.forEach((location) => {
+    const filterResult = data.species.filter((specie) => specie.location === location)
+      .map((specie) => specie.name);
+    resultLocations[location] = filterResult;
+  });
+
+  return resultLocations;
+};
+
+const filteredParameters = (arrCardinalsLocations, sorted, sex) => {
+  const filteredResultParameters = {};
+  arrCardinalsLocations.forEach((location) => {
+    const filterResult = data.species.filter((specie) => specie.location === location)
+      .map((specie) => {
+        let objSpeciesKey;
+        let objSpeciesValue;
+        if (sex) {
+          objSpeciesKey = specie.name;
+          objSpeciesValue = specie.residents
+            .filter((resident) => resident.sex === sex)
+            .map((resident) => resident.name);
+        } else {
+          objSpeciesKey = specie.name;
+          objSpeciesValue = specie.residents.map((resident) => resident.name);
+        } if (sorted === true) {
+          return { [objSpeciesKey]: objSpeciesValue.sort() };
+        } return { [objSpeciesKey]: objSpeciesValue };
+      });
+    filteredResultParameters[location] = filterResult;
+  }); return filteredResultParameters;
+};
+
+const parametersSelected = (options) => {
+  if (options && options.sorted) {
+    const { sorted } = options;
+    return sorted;
+  }
+
+  if (options && options.sex) {
+    const { sex } = options;
+    return sex;
+  }
+};
+
 function getAnimalMap(options) {
-  // seu código aqui
+  const arrCardinalsLocations = ['NE', 'NW', 'SE', 'SW'];
+  parametersSelected(options);
+
+  if (options && options.includeNames === true) {
+    const { sex } = options;
+    const { sorted } = options;
+
+    return filteredParameters(arrCardinalsLocations, sorted, sex);
+  }
+  return specieLocationWithoutParameters(arrCardinalsLocations);
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const schedule = {};
+  const days = Object.values(hours);
+
+  days.forEach((day, index) => {
+    const time = Object.keys(hours)[index];
+    const hour = days[index];
+    Object.assign(schedule, { [time]: `Open from ${hour.open}am until ${hour.close - 12}pm` });
+  });
+
+  Object.assign(schedule, { Monday: 'CLOSED' });
+  return (dayName !== undefined ? { [dayName]: schedule[dayName] } : schedule);
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const responsible = data.employees.find((employee) => employee.id === id);
+  const firstAnimalsSpecies = data.species.find((specie) => specie.id === responsible.responsibleFor[0]);
+  const { age, name, sex } = firstAnimalsSpecies.residents.reduce((accumulator, currentValue) => (currentValue.age > accumulator.age ? currentValue : accumulator), { age: 0 });
+
+  return [name, sex, age];
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  Object.keys(prices).forEach((index) => {
+    prices[index] = (Math.round(prices[index] * (1 + (percentage / 100)) * 100) / 100);
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (!idOrName) {
+    const employeeAnimals = {};
+    const employeeResponsible = data.employees.map((employee) => employee.responsibleFor
+      .map((specieId) => data.species.find((specie) => specieId === specie.id).name));
+    data.employees.forEach(({ firstName, lastName }, index) => {
+      const fullName = `${firstName} ${lastName}`;
+      employeeAnimals[fullName] = employeeResponsible[index];
+    });
+
+    return employeeAnimals;
+  }
+
+  const { firstName, lastName, responsibleFor } = data.employees
+    .find((employee) => employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName);
+
+  return { [`${firstName} ${lastName}`]: responsibleFor
+    .map((specieId) => data.species
+      .find((specie) => specie.id === specieId).name) };
 }
 
 module.exports = {
