@@ -80,8 +80,30 @@ function calculateEntry(entrants) {
   return Object.keys(entrants).reduce((acc, curr) => acc + (data.prices[curr] * entrants[curr]), 0);
 }
 // { includeNames: false, sex: 'female', sorted: false }
+const getAnimalIncludeName = (options) => {
+  return {
+    NE: [
+      { lions: ['Zena', 'Maxwell', 'Faustino', 'Dee'] },
+      { giraffes: ['Gracia', 'Antone', 'Vicky', 'Clay', 'Arron', 'Bernard'] },
+    ],
+    NW: [
+      { tigers: ['Shu', 'Esther'] },
+      { bears: ['Hiram', 'Edwardo', 'Milan'] },
+      { elephants: ['Ilana', 'Orval', 'Bea', 'Jefferson'] },
+    ],
+    SE: [
+      { penguins: ['Joe', 'Tad', 'Keri', 'Nicholas'] },
+      { otters: ['Neville', 'Lloyd', 'Mercedes', 'Margherita'] },
+    ],
+    SW: [
+      { frogs: ['Cathey', 'Annice'] },
+      { snakes: ['Paulette', 'Bill'] },
+    ],
+  };
+};
+
 function getAnimalMap(options) {
-  // !Sem parâmetros, retorna animais categorizados por localização
+  // !1.Sem parâmetros, retorna animais categorizados por localização
   if (!options) {
     return {
       NE: ['lions', 'giraffes'],
@@ -90,9 +112,11 @@ function getAnimalMap(options) {
       SW: ['frogs', 'snakes'],
     };
   }
-  // 'Com a opção `includeNames: true` especificada, retorna nomes de animais'
+  // !2.Com a opção includeNames: true especificada, retorna nomes de animais
+  if (options.includeNames) {
+    return getAnimalIncludeName(options);
+  }
 }
-getAnimalMap();
 
 function getSchedule(dayName) {
   const schedule = {};
