@@ -110,7 +110,6 @@ function getOldestFromFirstSpecies(id) {
     .residents.sort((age1, age2) => age2.age - age1.age)[0]);
 }
 
-
 function increasePrices(percentage) {
   let { Adult, Senior, Child } = prices;
   Adult = Number(Adult);
