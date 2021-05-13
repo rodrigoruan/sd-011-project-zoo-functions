@@ -118,9 +118,9 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   let porcentagem = percentage / 100;
-  data.prices.Adult = (Math.round((prices.Adult + (prices.Adult * porcentagem)) * 100)) / 100;
-  data.prices.Child = (Math.round((prices.Child + (prices.Child * porcentagem)) * 100)) / 100;
-  data.prices.Senior = (Math.round((prices.Senior + (prices.Senior * porcentagem)) * 100)) / 100;
+  prices.Adult = (Math.round((prices.Adult + (prices.Adult * porcentagem)) * 100)) / 100;
+  prices.Child = (Math.round((prices.Child + (prices.Child * porcentagem)) * 100)) / 100;
+  prices.Senior = (Math.round((prices.Senior + (prices.Senior * porcentagem)) * 100)) / 100;
   return prices;
 }
 
