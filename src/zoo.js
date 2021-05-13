@@ -26,7 +26,9 @@ function getEmployeeByName(employeeName) {
   if (!employeeName) {
     return {};
   }
-  return employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
+  return employees.find(
+    (employee) => employee.firstName === employeeName || employee.lastName === employeeName,
+  );
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -66,7 +68,9 @@ function countAnimals(animal) {
 
 function calculateEntry(entrants) {
   if (typeof entrants !== 'object' || Object.keys(entrants).length === 0) return 0;
-  return Object.keys(entrants).reduce((acc, key) => acc + entrants[key] * prices[key], 0);
+  return Object.keys(entrants).reduce(
+    (acc, key) => acc + entrants[key] * prices[key], 0,
+  );
 }
 
 function getAnimalMap(options) {
@@ -77,8 +81,11 @@ function getSchedule(dayName) {
   const agenda = {};
 
   Object.keys(hours).forEach((day) => {
-    if (day !== 'Monday') agenda[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
-    else agenda[day] = 'CLOSED';
+    if (day !== 'Monday') {
+      agenda[day] = `Open from ${hours[day].open}am until ${
+        hours[day].close - 12
+      }pm`;
+    } else agenda[day] = 'CLOSED';
   });
   if (dayName) {
     return { [dayName]: agenda[dayName] };
@@ -87,8 +94,15 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  // localizar o funcionario pelo id e buscar o primeiro animal que ele é responsável: retorna somente o id do animal
+  const employeeResponsive = employees.find((employee) => employee.id === id).responsibleFor[0];
+  // localizar a especie pertencente ao id: retorna um objeto com as informações do animal que aquele funcionário é responsável; 
+  const firstSpecie = species.find((specie) => specie.id === employeeResponsive);
+  // Procurar o animal mais velho e retornar o array com as informações: name, sex e age.
+  return Object.values(firstSpecie.residents.reduce((OldAnimal, animalAtual) => (OldAnimal.age > animalAtual.age ? OldAnimal : animalAtual)));
 }
+
+console.log(getOldestFromFirstSpecies('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 
 function increasePrices(percentage) {
   // seu código aqui
