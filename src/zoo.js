@@ -57,8 +57,43 @@ function calculateEntry(entrants) {
   } return total;
 }
 
-function getAnimalMap(options) {
+function locationAndResidents() {
+  const objeto = {};
+  species.forEach((animal) => {
+    if (!objeto[animal.location]) {
+      objeto[animal.location] = [];
+    }
+    objeto[animal.location].push(animal.name);
+  });
+  return objeto;
+}
 
+function animalNames(sorted, sex) {
+  const objeto = { NE: [], NW: [], SE: [], SW: [] };
+  species.forEach((animal) => {
+    let animalsNames;
+    if (sex) {
+      animalsNames = animal.residents.filter((elemento) => elemento.sex === sex).map(({ name }) => name);
+    } else {
+      animalsNames = animal.residents.map(({ name }) => name);
+    }
+    if (sorted) {
+      animalsNames.sort();
+    }
+    objeto[animal.location].push({ [animal.name]: animalsNames });
+  });
+  return objeto;
+}
+
+function getAnimalMap(options = {}) {
+  let obj = {};
+  const { includeNames, sorted, sex } = options;
+  if (includeNames) {
+    obj = animalNames(sorted, sex);
+  } else {
+    obj = locationAndResidents();
+  }
+  return obj;
 }
 
 function getSchedule(dayName) {
