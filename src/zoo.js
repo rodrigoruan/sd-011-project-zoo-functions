@@ -59,7 +59,7 @@ function calculateEntry(entrants = 0) {
 
 const InsertAnimalNames = (objAll, animalNames, sorted) => {
   objAll = Object.entries(objAll).reduce((acc, value) => {
-    acc[value[0]] = value[1].map((animal) => ({ [animal]: sorted ? animalNames[animal].sort() : animalNames[animal] }));
+    acc[value[0]] = value[1].map((animal) => ({ [animal]: (sorted ? animalNames[animal].sort() : animalNames[animal]) }));
     return acc;
   }, {});
   return objAll;
@@ -78,17 +78,12 @@ function getAnimalMap(options = {}) {
     return objAll;
   }
   let animalNames = {};
-  if (options.sex) {
-    animalNames = data.species.reduce((acc, value) => {
-      acc[value.name] = value.residents.filter((al) => al.sex === options.sex).map((an) => an.name);
-      return acc;
-    }, {});
-  } else {
-    animalNames = data.species.reduce((acc, value) => {
-      acc[value.name] = value.residents.map((al) => al.name);
-      return acc;
-    }, {});
-  }
+  animalNames = data.species.reduce((acc, value) => {
+    acc[value.name] = options.sex
+      ? value.residents.filter((al) => al.sex === options.sex).map((an) => an.name)
+      : value.residents.map((an) => an.name);
+    return acc;
+  }, {});
   objAll = InsertAnimalNames(objAll, animalNames, options.sorted);
   return objAll;
 }
