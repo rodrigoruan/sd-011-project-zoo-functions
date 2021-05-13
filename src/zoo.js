@@ -55,7 +55,13 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  let result = 0;
+  if (!entrants || Object.entries(entrants).length === 0) {
+    return 0;
+  }
+  const allKeys = Object.keys(entrants);
+  allKeys.forEach((key) => { result += data.prices[key] * entrants[key]; });
+  return result;
 }
 
 function getAnimalMap(options) {
@@ -67,7 +73,7 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(ides) {
-  // seu código aqui
+
 }
 
 function increasePrices(percentage) {
