@@ -138,33 +138,19 @@ function increasePrices(percentage) {
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
-  let employerNames = [];
-  if (!idOrName) {
-    employerNames = data.employees.map((employer) => [employer.firstName, employer.lastName]);
-
-    const animasIds = employerNames.map((employe) => data.employees.filter((animalId) => animalId.firstName === employe[0])[0].responsibleFor);
-
-    const animalsNames = animasIds.map((animalsId) => animalsId.map((anima) => data.species.find((an) => an.id === anima).name));
-
-    const fullNames = employerNames.map((fullname) => `${fullname[0]} ${fullname[1]}`);
-    const objCoverage = fullNames.reduce((acc, element, index) => {
-      acc[element] = animalsNames[index];
-      return acc;
-    }, {});
-    return objCoverage;
-  }
-  employerNames = data.employees.filter((employe) => employe.id === idOrName || employe.firstName === idOrName || employe.lastName === idOrName).map((employer) => [employer.firstName, employer.lastName]);
-  const animasIds = employerNames.map((employe) => data.employees.filter((animalId) => animalId.firstName === employe[0])[0].responsibleFor);
-
-  const animalsNames = [];
-  animasIds[0].forEach((animalsId, index) => animalsNames.push(data.species.find((an) => an.id === animalsId).name));
-
+  const employerNames = data.employees.map((employer) => [employer.firstName, employer.lastName, employer.responsibleFor]);
+  const animalsNames = employerNames.map((animalsId) => animalsId[2].map((anima) => data.species.find((an) => an.id === anima).name));
   const fullNames = employerNames.map((fullname) => `${fullname[0]} ${fullname[1]}`);
   const objCoverage = fullNames.reduce((acc, element, index) => {
-    acc[element] = animalsNames;
+    acc[element] = animalsNames[index];
     return acc;
   }, {});
-  return objCoverage;
+  if (!idOrName) {
+    return objCoverage;
+  }
+  const employe = data.employees.find(({ id, firstName, lastName }) => id === idOrName || firstName === idOrName || lastName === idOrName);
+  const employeFullName = `${employe.firstName} ${employe.lastName}`;
+  return ({ [employeFullName]: objCoverage[employeFullName] });
 }
 
 module.exports = {
