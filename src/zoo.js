@@ -80,8 +80,29 @@ function countAnimals(species) {
   return retorno;
 }
 
+let adult = 0;
+let senior = 0;
+let child = 0;
+
+function calculateParameter(element, entrants) {
+  if (element === 'Adult') adult = entrants.Adult;
+  if (element === 'Senior') senior = entrants.Senior;
+  if (element === 'Child') child = entrants.Child;
+}
+
 function calculateEntry(entrants) {
   // seu código aqui
+  let retorno = 0;
+  if (entrants !== undefined && Object.keys(entrants).length !== 0) {
+    Object.keys(entrants).forEach((element) => {
+      calculateParameter(element, entrants);
+    });
+    retorno = (adult * 49.99) + (senior * 24.99) + (child * 20.99);
+  }
+  adult = 0;
+  senior = 0;
+  child = 0;
+  return retorno;
 }
 
 function getAnimalMap(options) {
