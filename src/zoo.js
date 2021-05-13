@@ -40,18 +40,17 @@ function isManager(id) {
   // seu código aqui
 }
 
-
-function addEmployee (id, firstName, lastName, managers = [], responsibleFor = []) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
     const newEmployee = {
-      id,
-      firstName,
-      lastName,
-      managers,
-      responsibleFor,
+  id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
     };
-    data.employees.push(newEmployee);
-    return data.employees;
-}
+  data.employees.push(newEmployee);
+  return data.employees;
+ }
 
 function countAnimals(species) {
   // seu código aqui
