@@ -71,7 +71,7 @@ function getSpeciesByLocation(locations) {
   });
   return result;
 }
-console.log(getSpeciesByLocation(['NE', 'NW', 'SE', 'SW']));
+// console.log(getSpeciesByLocation(['NE', 'NW', 'SE', 'SW']));
 
 function getSpeciesAndNamesByLocation(locations, sorted, sex) {
   const result = {};
@@ -101,7 +101,7 @@ function getAnimalMap(options) {
   }
   return getSpeciesAndNamesByLocation(locations, sorted, sex);
 }
-console.log(getAnimalMap({ includeNames: true }));
+// console.log(getAnimalMap({ includeNames: true }));
 
 function getSchedule(dayName) {
   // seu código aqui
