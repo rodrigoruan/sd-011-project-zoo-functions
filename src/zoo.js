@@ -80,35 +80,37 @@ function countAnimals(species1) {
 // }
 // console.log(countAnimals('lions'));
 
+function sumPrices(entrants) {
+  if (!entrants.Adult) {
+    entrants.Adult = 0;
+  }
+
+  if (!entrants.Senior) {
+    entrants.Senior = 0;
+  }
+
+  if (!entrants.Child) {
+    entrants.Child = 0;
+  }
+  const tickets = [
+    entrants.Adult,
+    entrants.Senior,
+    entrants.Child,
+  ];
+  const arrayPrices = Object.values(prices);
+  let multi = [];
+  tickets.forEach((ammount, index) => {
+    multi.push(ammount * arrayPrices[index]);
+  });
+  let sumTickets = multi[0] + multi[1] + multi[2];
+  return sumTickets;
+}
+
 function calculateEntry(entrants) {
-  // if (!entrants || Object.keys(entrants).length === 0) {
-  //   return 0;
-  // }
-
-  // if (!entrants.Adult) {
-  //   entrants.Adult = 0;
-  // }
-
-  // if (!entrants.Senior) {
-  //   entrants.Senior = 0;
-  // }
-
-  // if (!entrants.Child) {
-  //   entrants.Child = 0;
-  // }
-
-  // const tickets = [
-  //   entrants.Adult,
-  //   entrants.Senior,
-  //   entrants.Child,
-  // ];
-  // const arrayPrices = Object.values(prices);
-  // let multi = [];
-  // tickets.forEach((ammount, index) => {
-  //   multi.push(ammount * arrayPrices[index]);
-  // });
-  // let sumPrices = multi[0] + multi[1] + multi[2];
-  // return sumPrices;
+  if (!entrants || Object.keys(entrants).length === 0) {
+    return 0;
+  }
+  return sumPrices(entrants);
 }
 
 function getAnimalMap(options) {
