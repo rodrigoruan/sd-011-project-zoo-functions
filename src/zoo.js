@@ -75,8 +75,63 @@ function calculateEntry(entrants) {
     .reduce((acc, current) => acc + (current[1] * data.prices[current[0]]), 0);
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+// Auxiliary 9
+
+const auxiliarSexSort = (obj, options) => {
+  const obj1 = obj;
+  data.species.forEach((animal) => { obj1[animal.location] = []; });
+  Object.keys(obj1).forEach((el) => { obj1[el] = data.species.filter((e) => e.location === el).map((animal) => animal.name); });
+  Object.keys(obj).forEach((e) => { obj1[e] = obj1[e].map((animal) => species.find((animalName) => animalName.name === animal)).reduce((acc, current) => { acc.push({ [current.name]: (current.residents.filter((animal) => animal.sex === options.sex).map((ej) => ej.name)).sort() }); return acc; }, []); });
+  return obj1;
+};
+
+const auxiliarSex = (obj, options) => {
+  const obj1 = obj;
+  if (options.sorted) {
+    return auxiliarSexSort(obj, options);
+  }
+  data.species.forEach((animal) => { obj1[animal.location] = []; });
+  Object.keys(obj1).forEach((el) => { obj1[el] = data.species.filter((e) => e.location === el).map((animal) => animal.name); });
+  Object.keys(obj).forEach((e) => { obj1[e] = obj1[e].map((animal) => species.find((animalName) => animalName.name === animal)).reduce((acc, current) => { acc.push({ [current.name]: (current.residents.filter((animal) => animal.sex === options.sex).map((ej) => ej.name)) }); return acc; }, []); });
+  return obj1;
+};
+
+const auxiliarSort = (obj, options) => {
+  const obj1 = obj;
+  if (options.sex) {
+    return auxiliarSexSort(obj, options);
+  }
+  data.species.forEach((animal) => { obj1[animal.location] = []; });
+  Object.keys(obj1).forEach((el) => { obj1[el] = data.species.filter((e) => e.location === el).map((animal) => animal.name); });
+  Object.keys(obj1).forEach((e) => { obj1[e] = obj1[e].map((animal) => species.find((animalName) => animalName.name === animal)).reduce((acc, current) => { acc.push({ [current.name]: (current.residents.map((animal) => animal.name)).sort() }); return acc; }, []); });
+  return obj1;
+};
+
+const auxiliarName = (obj, options) => {
+  const obj1 = obj;
+  data.species.forEach((animal) => { obj1[animal.location] = []; });
+  Object.keys(obj1).forEach((el) => { obj1[el] = data.species.filter((e) => e.location === el).map((animal) => animal.name); });
+  Object.keys(obj1).forEach((e) => { obj1[e] = obj1[e].map((animal) => species.find((animalName) => animalName.name === animal)).reduce((acc, current) => { acc.push({ [current.name]: (current.residents.map((animal) => animal.name)) }); return acc; }, []); });
+  if (options.sorted) {
+    return auxiliarSort(obj1);
+  }
+  return obj1;
+};
+
+function getAnimalMap(options = {}) {
+  const obj = {};
+  data.species.forEach((animal) => { obj[animal.location] = []; });
+  Object.keys(obj).forEach((el) => { obj[el] = data.species.filter((e) => e.location === el).map((animal) => animal.name); });
+  if (options.includeNames) {
+    if (options.sorted) {
+      return auxiliarSort(obj, options);
+    }
+    if (options.sex) {
+      return auxiliarSex(obj, options);
+    }
+    return auxiliarName(obj, options);
+  }
+  return obj;
 }
 
 function getSchedule(dayName) {
