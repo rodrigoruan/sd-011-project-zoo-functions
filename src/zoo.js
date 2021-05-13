@@ -45,7 +45,30 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
+// const expected = {
+// 'Tuesday': 'Open from 8am until 6pm',
+// 'Wednesday': 'Open from 8am until 6pm',
+// 'Thursday': 'Open from 10am until 8pm',
+// 'Friday': 'Open from 10am until 8pm',
+// 'Saturday': 'Open from 8am until 10pm',
+// 'Sunday': 'Open from 8am until 8pm',
+// 'Monday': 'CLOSED'
+// };
+
 const getSchedule = (dayName) => {
+  const schedule = {};
+
+  Object.entries(hours).forEach((el) => {
+    if (el[0] === 'Monday') {
+      schedule[el[0]] = 'CLOSED';
+    } else {
+      schedule[el[0]] = `Open from ${el[1].open}am until ${el[1].close - 12}pm`;
+    }
+  });
+  let day = Object.entries(schedule).find((el) => el[0] === dayName);
+  if (!dayName) {
+    return schedule;
+  } return { [day[0]]: day[1] };
 };
 
 function getOldestFromFirstSpecies(id) {
