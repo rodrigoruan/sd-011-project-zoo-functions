@@ -13,26 +13,14 @@ const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   // seu código aqui
-  const arrayIds = data.species.filter(animal => {
-    if(ids.includes(animal.id)){
-      return animal.id;
+  let arrayIds = [];
+  data.species.forEach((animal) => {
+    if (ids.includes(animal.id)) {
+      arrayIds.push(animal);
     }
   });
   return arrayIds;
 }
-// console.log(getSpeciesByIds('bb2a76d8-5fe3-4d03-84b7-dba9cfc048b5', 'baa6e93a-f295-44e7-8f70-2bcdc6f6948d', '0938aa23-f153-4937-9f88-4858b24d6bce'));
-
-
-
-
-
-
-
-
-
-
-
-
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
