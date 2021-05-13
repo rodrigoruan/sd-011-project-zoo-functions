@@ -75,17 +75,36 @@ function countAnimals(species) {
   return animalNames.find((animalsBySpecies) => animalsBySpecies.name === species).residents.length;
 }
 
+// A partir da quantidade de visitantes e a faixa etária de cada um, esta função é responsável por retornar o preço total a ser cobrado
+// O parâmetro entrants recebe um objeto que contém as chaves Adult, Child e Senior, com suas respectivas quantidades de pessoas
+// Retorna 0 se nenhum argumento for passado
+// Retorna 0 se um objeto vazio for passado
+// Retorna o preço total a ser cobrado dado o número de adultos, crianças e idosos
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === undefined) {
+    return 0;
+  }
+  return Object.keys(entrants).reduce((accumulator, currentValue) => {
+    return accumulator + prices[currentValue] * entrants[currentValue];
+  }, 0);
 }
+// console.log(calculateEntry());
+// console.log(calculateEntry({}));
 
 function getAnimalMap(options) {
   // seu código aqui
 }
 
+// A função é responsável por disponibilizar as informações de horário para uma consulta, que pode querer ter acesso a todo o cronograma da semana ou apenas o cronograma de um dia específico
+// Analise o teste unitário para entender os retornos que são esperados para esta função
+// Sem parâmetros, retorna um cronograma legível para humanos
+// Se um único dia for passado, retorna somente este dia em um formato legível para humanos
 function getSchedule(dayName) {
-  // seu código aqui
+  if (dayName === undefined) {
+    return data.hours;
+  }
 }
+// console.log(getSchedule());
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
