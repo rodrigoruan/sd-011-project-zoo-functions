@@ -9,13 +9,12 @@ eslint no-unused-vars: [
 ]
 */
 
-const { employees, prices } = require('./data');
+const { employees, prices, species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   // seu código aqui
-  const { species } = data;
-  return species.filter((specie) => ids.some((id) => id === specie.id));
+  return data.species.filter((specie) => ids.some((id) => id === specie.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
@@ -45,16 +44,16 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return data.employees.push(objt);
 }
 
-function countAnimals(species) {
+function countAnimals(specie) {
   // seu código aqui
-  if (!species) {
+  if (!specie) {
     return data.species.reduce((acc, animal) => {
       acc[animal.name] = animal.residents.length;
       return acc;
     }, {});
   }
 
-  return data.species.find((spec) => spec.name === species).residents.length;
+  return data.species.find((spec) => spec.name === specie).residents.length;
 }
 
 function calculateEntry(entrants) {
@@ -81,8 +80,13 @@ function getSchedule(dayName) {
   } return agenda;
 }
 
-function getOldestFromFirstSpecies(id) {
+function getOldestFromFirstSpecies(idFuncionario) {
   // seu código aqui
+  const compareId = data.employees.find((employe) => employe.id === idFuncionario).responsibleFor[0];
+  const oldAnimal = data.species.find((animais) => animais.id === compareId).residents.sort((a, b) => b.age - a.age)[0];
+  const { name, sex, age } = oldAnimal;
+
+  return [name, sex, age];
 }
 
 function increasePrices(percentage) {
