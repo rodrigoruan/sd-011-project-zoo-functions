@@ -99,8 +99,44 @@ function calculateEntry(entrants = 0) {
   return adultsTotal + childsTotal + seniorsTotal;
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+function getAnimalMap({ includeName = false, sorted = false, sex = false }) {
+  const NE = species.filter(({ location }) => location === 'NE');
+  const NW = [];
+  const SE = [];
+  const SW = [];
+
+  // species.forEach((specie) => {
+  //   if (specie.location === 'NE') {
+  //     if (includeName) {
+  //       if (sorted && sex) {
+  //         // SORTED && SEX
+  //         NE[specie.name] = specie.residents.map((animal) => {
+  //           if (animal.name && animal.sex === 'male') {
+  //             return animal.name;
+  //           }
+  //           return animal.name;
+  //         });
+  //         return NE[specie.name] = NE[specie.name].sort();
+  //       }
+  //       // ONLY SORTED
+  //       NE[specie.name] = specie.residents.map(({ name }) => name);
+  //       return NE[specie.name] = NE[specie.name].sort();
+  //     }
+  //     NE[specie.name] = specie.residents.map(({ name }) => name);
+  //   };
+
+  //   // DEPOIS DE TODOS OS CASOS NE.push(specie.name);
+  //   if (specie.location === 'NW') NW.push(specie.name);
+  //   if (specie.location === 'SE') SE.push(specie.name);
+  //   if (specie.location === 'SW') SW.push(specie.name);
+  // });
+
+  return {
+    NE,
+    NW,
+    SE,
+    SW,
+  };
 }
 
 function getSchedule(dayName) {
@@ -108,7 +144,17 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  let olderAge = 0;
+  let olderResident;
+  const animalId = employees.find((employee) => employee.id === id).responsibleFor[0];
+  const specieFiltred = species.find((specie) => specie.id === animalId).residents;
+  specieFiltred.forEach((resident) => {
+    if (resident.age >= olderAge) {
+      olderAge = resident.age;
+      olderResident = Object.values(resident);
+    }
+  });
+  return olderResident;
 }
 
 function increasePrices(percentage) {
