@@ -128,8 +128,16 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const getAnimal = data.employees.find((employee) => employee.id === id).responsibleFor[0];
+  const animalArr = data.species.find((animal) => getAnimal === animal.id).residents;
+  const getOldest = animalArr.sort((a, b) => b.age - a.age);
+  const { name, sex, age } = getOldest[0];
+
+  return [name, sex, age];
 }
+
+// retorna um array com nome, sexo e idade do animal
+// mais velho dessa espécie'
 
 function increasePrices(percentage) {
   // seu código aqui
