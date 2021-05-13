@@ -96,7 +96,7 @@ function getSchedule(dayName) {
     }
   });
   if (dayName) {
-    return { [dayName]:horarios[dayName] };
+    return { [dayName]: horarios[dayName] };
   }
   return horarios;
 }
