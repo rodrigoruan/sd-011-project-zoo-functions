@@ -65,7 +65,7 @@ function countAnimals(species1) {
 }
 
 function calculateEntry(entrants) {
-  if(!entrants || Object.keys(entrants).length === 0) {
+  if (!entrants || Object.keys(entrants).length === 0) {
     return 0;
   }
   return Object.entries(entrants)
