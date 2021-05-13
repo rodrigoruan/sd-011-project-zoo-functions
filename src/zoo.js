@@ -164,11 +164,6 @@ function getEmployeeCoverage(idOrName) {
   if (findBySecondName) return returnAnimals(findBySecondName);
   if (findById) return returnAnimals(findById);
 }
-// return { 'Sharonda Spry': ['otters', 'frogs'] }
-getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad');
-getEmployeeCoverage('Stephanie');
-getEmployeeCoverage('ghggggggggggggggggggg');
-getEmployeeCoverage('Azevado');
 module.exports = {
   calculateEntry,
   getSchedule,
