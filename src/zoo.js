@@ -128,10 +128,6 @@ function getOldestFromFirstSpecies(id) {
 function increasePrices(percentage) {
   // seu código aqui
   let { Adult, Senior, Child } = data.prices;
-  Child = Number(Child);
-  Senior = Number(Senior);
-  Adult = Number(Adult);
-
   Child += ((percentage * Child) / 100) + 0.001;
   Senior += ((percentage * Senior) / 100) + 0.001;
   Adult += ((percentage * Adult) / 100) + 0.001;
