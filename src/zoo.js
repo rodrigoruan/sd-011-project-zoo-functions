@@ -18,10 +18,13 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
+  data.species.filter((age));
   // seu código aqui
 }
 
 function getEmployeeByName(employeeName) {
+  if (!employeeName) return {};
+  return data.employees.find((elemento) => elemento.firstName === employeeName || elemento.lastName === employeeName);
   // seu código aqui
 }
 
