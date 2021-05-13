@@ -84,9 +84,7 @@ function calculateEntry(entrants) {
   if (entrants === undefined) {
     return 0;
   }
-  return Object.keys(entrants).reduce((accumulator, currentValue) => {
-    return accumulator + prices[currentValue] * entrants[currentValue];
-  }, 0);
+  return Object.keys(entrants).reduce((accumulator, currentValue) => accumulator + prices[currentValue] * entrants[currentValue], 0);
 }
 /**
 * Consultei o repositório de Samuel Silva Melo para resolver essa parte
