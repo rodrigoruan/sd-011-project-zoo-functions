@@ -9,7 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -68,7 +68,19 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const weekHours = Object.keys(hours);
+  const schedule = {};
+  weekHours.forEach((day) => {
+    if (hours[day].open === hours[day].close) {
+      schedule[day] = 'CLOSED';
+    } else {
+      schedule[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
+    }
+    return schedule;
+  });
+  return dayName === undefined
+    ? schedule
+    : { [dayName]: schedule[dayName] };
 }
 
 function getOldestFromFirstSpecies(id) {
