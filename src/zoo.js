@@ -153,8 +153,46 @@ function increasePrices(percentage) {
   prices.Child = parseFloat(((prices.Child * (1 + (percentage / 100))) + 0.001).toFixed(2));
 }
 
+function employeeResponsibleForSpecies(employee) {
+  const { species } = data;
+
+  const employeeResponsibleFor = [];
+  for (let index = 0; index < employee.responsibleFor.length; index += 1) {
+    const currentSpecie = species.find((specie) => employee.responsibleFor[index] === specie.id);
+    employeeResponsibleFor.push(currentSpecie.name);
+  }
+  return employeeResponsibleFor;
+}
+
+function allEmployeesCoverage() {
+  const { employees } = data;
+  const allEmployees = {};
+
+  employees.forEach((employee) => {
+    const currentEmployee = `${employee.firstName} ${employee.lastName}`;
+    allEmployees[currentEmployee] = employeeResponsibleForSpecies(employee);
+  });
+
+  return allEmployees;
+}
+
+function employeeCoverage(idOrName) {
+  const { employees } = data;
+
+  const employeeFound = employees.find((employee) => employee.id === idOrName
+    || employee.firstName === idOrName
+    || employee.lastName === idOrName);
+  const currentEmployee = `${employeeFound.firstName} ${employeeFound.lastName}`;
+  const employeeAndSpecies = { [currentEmployee]: employeeResponsibleForSpecies(employeeFound) };
+  return employeeAndSpecies;
+}
+
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+  if (!idOrName) {
+    return allEmployeesCoverage();
+  }
+  return employeeCoverage(idOrName);
 }
 
 module.exports = {
