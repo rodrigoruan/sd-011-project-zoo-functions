@@ -148,7 +148,7 @@ function getEmployeeCoverage(idOrName) {
   if (!idOrName) {
     return objCoverage;
   }
-  const employe = data.employees.find(({ id, firstName, lastName }) => id === idOrName || firstName === idOrName || lastName === idOrName);
+  const employe = data.employees.find((value) => Object.values(value).find((values) => values === idOrName));
   const employeFullName = `${employe.firstName} ${employe.lastName}`;
   return ({ [employeFullName]: objCoverage[employeFullName] });
 }
