@@ -26,8 +26,6 @@ function getEmployeeByName(employeeName) {
   return {};
 }
 
-
-
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
 }
