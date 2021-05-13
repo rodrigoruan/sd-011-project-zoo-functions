@@ -146,7 +146,6 @@ function getEmployeeCoverage(idOrName) {
 
   return object;
 }
-console.log(getEmployeeCoverage('Nigel'));
 
 module.exports = {
   calculateEntry,
