@@ -88,6 +88,10 @@ function calculateEntry(entrants) {
     return accumulator + prices[currentValue] * entrants[currentValue];
   }, 0);
 }
+/**
+* Consultei o repositório de Samuel Silva Melo para resolver essa parte
+* Link: https://github.com/tryber/sd-011-project-zoo-functions/pull/117/commits/4e179e996adb153ce60b88e11a3edc28dae2b64e
+*/
 // console.log(calculateEntry());
 // console.log(calculateEntry({}));
 
