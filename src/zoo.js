@@ -40,8 +40,8 @@ function isManager(id) {
   // seu código aqui
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  function addEmployee (id, firstName, lastName, managers, responsibleFor = [], responsibleFor = []) {
+
+function addEmployee (id, firstName, lastName, managers, responsibleFor = [], responsibleFor = []) {
     const newEmployee = {
       id,
       firstName,
