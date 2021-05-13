@@ -58,7 +58,20 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  // seu código aqui:
+  const animalAndQtd = {}; // Poderia já passar as entradas esperadas aqui, mas acho que não seria um forma muito ideal (digo: ética) ;-)
+
+  data.species.forEach((type) => {
+    animalAndQtd[type.name] = type.residents.length; // Cria as entradas do objeto (animalAndQtd) de forma dinâmica: buscando direito em data.js
+  });
+  if (species === undefined) { // Retorna o objeto caso não seja passado parâmetro para a função:
+    // return animalAndQtd;
+    return animalAndQtd;
+  }
+
+  // Retorna dinamicamente a quantidade de animais relacionada ao parâmetro (species) passado. Busca direto em data.js.
+  const match = data.species.find((type) => type.name === species);
+  return match.residents.length;
 }
 
 function calculateEntry(entrants) {
