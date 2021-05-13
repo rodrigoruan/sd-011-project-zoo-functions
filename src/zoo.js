@@ -152,8 +152,19 @@ function increasePrices(percentage) {
   return data.prices;
 }
 
+const getSpecieNameById = (id) => getSpeciesByIds(id)[0];
+const getName = (id) => getSpecieNameById(id).name;
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  return data.employees.reduce((object, employee) => {
+    const { id, firstName, lastName, responsibleFor } = employee;
+    const employeeName = `${firstName} ${lastName}`;
+    const list = [id, firstName, lastName];
+    if (idOrName) {
+      return (list.includes(idOrName)) ? createObject(employeeName, responsibleFor.map(getName)) : object;
+    }
+    return Object.assign(object, createObject(employeeName, responsibleFor.map(getName)));
+  }, {});
 }
 
 module.exports = {
