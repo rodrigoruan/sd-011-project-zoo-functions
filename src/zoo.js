@@ -64,22 +64,42 @@ function calculateEntry(entrants) {
 function getSpeciesByLocation(locations) {
   const result = {};
   locations.forEach((location) => {
-    const speciesFromLocation = species.filter((specie) => specie.location === location).map((specie) => specie.name);
+    const speciesFromLocation = species
+      .filter((specie) => specie.location === location)
+      .map((specie) => specie.name);
     result[location] = speciesFromLocation;
   });
   return result;
 }
+console.log(getSpeciesByLocation(['NE', 'NW', 'SE', 'SW']));
 
-function getAnimalMap(options = {}) {
+function getSpeciesAndNamesByLocation(locations, sorted, sex) {
+  const result = {};
+  locations.forEach((location) => {
+    const speciesAndNamesFromLocation = species
+      .filter((specie) => specie.location === location)
+      .map((specie) => {
+        const key = specie.name;
+        const value = specie.residents.filter((resident) => (sex ? resident.sex === sex : true)).map((resident) => resident.name);
+        if (sorted) value.sort();
+        return { [key]: value };
+      });
+    result[location] = speciesAndNamesFromLocation;
+  });
+  return result;
+}
+
+function getAnimalMap(options) {
   // seu código aqui
   const locations = ['NE', 'NW', 'SE', 'SW'];
-  const speciesByLocation = getSpeciesByLocation(locations);
-  if (options.includeNames) {
-    const residentNameNE = speciesByLocation.NE.map((specie) => species.find((specieName) => specieName.name === specie).residents.map((resident) => resident.name)); // array com arrays contendo os nomes dos residentes de cada specie
-    speciesByLocation.NE = speciesByLocation.NE.map((specie, index) => ({ [specie]: residentNameNE[index] }));
-    console.log(residentNameNE);
+  if (!options) {
+    return getSpeciesByLocation(locations);
   }
-  return speciesByLocation.NE;
+  const { includeNames, sex, sorted } = options;
+  if (!includeNames) {
+    return getSpeciesByLocation(locations);
+  }
+  return getSpeciesAndNamesByLocation(locations, sorted, sex);
 }
 console.log(getAnimalMap({ includeNames: true }));
 
