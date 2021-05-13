@@ -100,9 +100,20 @@ function getSchedule(dayName) {
   }
   return horarios;
 }
-console.log(getSchedule('Monday'));
+
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  let animalMaisVelho = [];
+  let idade = 0;
+  const funcionario = employees.find((value) => value.id === id);
+  const animal = species.find((value2) => value2.id === funcionario.responsibleFor[0]);
+  animal.residents.forEach((value3) => {
+    if (value3.age > idade) {
+      idade = value3.age;
+      animalMaisVelho = [value3.name, value3.sex, idade];
+    }
+  });
+
+  return animalMaisVelho;
 }
 
 function increasePrices(percentage) {
