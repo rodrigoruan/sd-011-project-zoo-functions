@@ -112,9 +112,19 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const employee = employees.find(({ id, lastName, firstName }) => idOrName === id || idOrName === lastName || idOrName === firstName);
+  let newObj = {};
+  if (!idOrName) {
+    employees.forEach((func) => {
+      newObj[`${func.firstName} ${func.lastName}`] = func.responsibleFor.map((animals) => species.find((animals2) => animals2.id === animals).name);
+    });
+    return newObj;
+  }
+  newObj[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor.map((animals) => species.find((animals2) => animals2.id === animals).name);
+  return newObj;
 }
 
+//  desafio 13 realizado com auxilio da colega Gabriela Azevedo;
 module.exports = {
   calculateEntry,
   getSchedule,
