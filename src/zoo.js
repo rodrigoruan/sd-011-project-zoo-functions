@@ -52,7 +52,9 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   // seu código aqui
+  return data.employees.some((element) => element.managers.includes(id));
 }
+// console.log(isManager('b0dc644a-5335-489b-8a2c-4e086c7819a2'));
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
