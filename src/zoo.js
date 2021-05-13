@@ -26,7 +26,7 @@ function getAnimalsOlderThan(animal, age) {
 
 function getEmployeeByName(employeeName) {
   // seu código aqui
-  if(!employeeName) {
+  if (!employeeName) {
     const emptyObject = {};
     return emptyObject;
   }
@@ -37,7 +37,7 @@ function getEmployeeByName(employeeName) {
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
-  const employee = {...personalInfo, ...associatedWith};
+  const employee = { ...personalInfo, ...associatedWith };
   return employee;
 }
 
