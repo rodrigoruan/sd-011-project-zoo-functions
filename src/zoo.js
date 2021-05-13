@@ -9,7 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
-const { employees, hours } = require('./data');
+const { employees, hours, species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -70,17 +70,23 @@ function getSchedule(dayName) {
   if (dayName === 'Monday') return { Monday: 'CLOSED' };
   if (dayName === undefined) {
     return Object.keys(hours).reduce((acc, currDay) => {
-      acc[currDay] = `Open from ${hours[currDay].open}am until ${hours[currDay].close - 12}pm`;
+      acc[currDay] = `Open from ${hours[currDay].open}am until ${hours[currDay].close - 12}pm`; // o acc recebe como chave o currday e como valor a template mostrada
       acc.Monday = 'CLOSED';
       return acc;
     }, {});
   }
   return { [dayName]: `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm` };
 }
-
+// feito com a dica da Laura Gusmão
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const findEmployees = employees.find((employee) => employee.id === id); // encontra o Id utilizado como parâmetro
+  const findAnimals = findEmployees.responsibleFor[0]; // acessa a primeira espécie do animal gerenciado pelo funcionário
+  const getIdAnimals = species.find((animalsId) => animalsId.id === findAnimals); // dessa forma eu acesso o objeto que tem o id que eu encontrei anteriormente
+  const getHighestAge = getIdAnimals.residents.reduce((acc, getAnimalAge) => (acc.age > getAnimalAge.age ? acc : getAnimalAge));
+  const justValues = Object.values(getHighestAge);
+  return justValues;
 }
+console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function increasePrices(percentage) {
   // seu código aqui
