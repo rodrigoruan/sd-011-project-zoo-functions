@@ -38,7 +38,7 @@ function createEmployee(personalInfo, associatedWith) {
 
 function isManager(id) {
   const employees = data.employees.map((values) => values.managers);
-  const manager = employees.some(items) => items.some((value) => value ===id));
+  const manager = employees.some((items) => items.some((value) => value === id));
   return manager
 }
 
