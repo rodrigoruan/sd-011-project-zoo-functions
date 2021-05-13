@@ -143,10 +143,14 @@ function getOldestFromFirstSpecies(id) {
 
   return Object.values(oldestAnimal[0]);
 }
-console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function increasePrices(percentage) {
   // seu código aqui
+  const { prices } = data;
+
+  prices.Adult = parseFloat((prices.Adult * (1 + (percentage / 100)) + 0.001).toFixed(2));
+  prices.Senior = parseFloat((prices.Senior * (1 + (percentage / 100)) + 0.001).toFixed(2));
+  prices.Child = parseFloat(((prices.Child * (1 + (percentage / 100))) + 0.001).toFixed(2));
 }
 
 function getEmployeeCoverage(idOrName) {
