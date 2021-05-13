@@ -39,9 +39,7 @@ const countAnimals = (animals) => {
   return species.find((specie) => specie.name === animals).residents.length;
 };
 
-const calculateEntry = (entrants = {}) => {
-  return Object.entries(entrants).reduce((acumulador, [item, value]) => acumulador + (prices[item] * value), 0);
-};
+const calculateEntry = (entrants = {}) => Object.entries(entrants).reduce((acumulador, [item, value]) => acumulador + (prices[item] * value), 0);
 
 function getAnimalMap(options) {
   // seu código aqui
