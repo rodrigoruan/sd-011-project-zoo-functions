@@ -71,9 +71,16 @@ const getSchedule = (dayName) => {
   } return { [day[0]]: day[1] };
 };
 
-function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+const getOldestFromFirstSpecies = (id) => {
+  let animals = employees.find((employee) => employee.id === id).responsibleFor[0];
+
+  return Object.values(species.find((specie) => specie.id === animals).residents.reduce((acc, index) => {
+    if (acc.age < index.age) {
+      return index;
+    } return acc;
+  }))
 }
+
 
 function increasePrices(percentage) {
   // seu código aqui
