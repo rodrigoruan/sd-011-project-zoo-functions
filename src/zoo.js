@@ -61,17 +61,43 @@ function calculateEntry(entrants) {
   return sum;
 }
 
-// const objAnimals = {};
-// const animalsNames = species.map((animal) => animal.name);
-// const animals = species.reduce((acc, value) => objAnimals[value.location] = objAnimals[value.location] + [value.name], objAnimals);
-// console.log(objAnimals);
+const getAnimalByLocation = () => {
+  const obj = {};
+  species.forEach((animal) => {
+    if (!obj[animal.location]) {
+      obj[animal.location] = [];
+    }
+    obj[animal.location].push(animal.name);
+  });
+  return obj;
+};
 
-// const getAnimalByLocation = (animal, location) => {
+const getAnimalByNames = (sorted, sex) => {
+  const animalsLocations = { NE: [], NW: [], SE: [], SW: [] };
+  species.forEach((animalName) => {
+    let animalNames;
+    if (sex) {
+      animalNames = animalName.residents.filter((animalSex) => animalSex.sex === sex).map(({ name }) => name);
+    } else {
+      animalNames = animalName.residents.map(({ name }) => name);
+    }
+    if (sorted) {
+      animalNames.sort();
+    }
+    animalsLocations[animalName.location].push({ [animalName.name]: animalNames });
+  });
+  return animalsLocations;
+};
 
-// };
-
-function getAnimalMap(options) {
-  // if (!options) return
+function getAnimalMap(options = {}) {
+  let emptyObj = {};
+  const { includeNames, sex, sorted } = options;
+  if (includeNames) {
+    emptyObj = getAnimalByNames(sorted, sex);
+  } else {
+    emptyObj = getAnimalByLocation();
+  }
+  return emptyObj;
 }
 
 function getSchedule(dayName) {
