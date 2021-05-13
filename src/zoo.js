@@ -78,13 +78,11 @@ const getOldestFromFirstSpecies = (id) => {
     if (acc.age < index.age) {
       return index;
     } return acc;
-  }))
-}
+  }));
+};
 
-
-function increasePrices(percentage) {
-  // seu código aqui
-}
+const increasePrices = (percentage) => Object.keys(prices).forEach((items) => prices[items] *= 1 + (percentage / 100) + 0.00100);
+ // Object.keys(prices).forEach((items) => prices[items] = Math.round(prices[items] * 100) / 100);
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
