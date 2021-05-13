@@ -58,15 +58,8 @@ function calculateEntry(entrants = 0) {
 }
 
 const InsertAnimalNames = (objAll, animalNames, sorted) => {
-  if (sorted) {
-    objAll = Object.entries(objAll).reduce((acc, value) => {
-      acc[value[0]] = value[1].map((animal) => ({ [animal]: animalNames[animal].sort() }));
-      return acc;
-    }, {});
-    return objAll;
-  }
   objAll = Object.entries(objAll).reduce((acc, value) => {
-    acc[value[0]] = value[1].map((animal) => ({ [animal]: animalNames[animal] }));
+    acc[value[0]] = value[1].map((animal) => ({ [animal]: sorted ? animalNames[animal].sort() : animalNames[animal] }));
     return acc;
   }, {});
   return objAll;
