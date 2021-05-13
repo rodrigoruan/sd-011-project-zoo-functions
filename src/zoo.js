@@ -17,13 +17,13 @@ function getSpeciesByIds(...ids) {
   return animais;
 }
 
-function getAnimalsOlderThan(animal, age) {
+function getAnimalsOlderThan(animal, age) { // Fonte: Trybe Course + Lógica
   // seu código aqui
   const choosen = data.species.find((options) => options.name === animal);
   return choosen.residents.every((spec) => spec.age >= age);
 }
 
-function getEmployeeByName(employeeName) {
+function getEmployeeByName(employeeName) { // Fonte: Trybe Course + Lógica
   // seu código aqui
   if (employeeName === undefined) {
     return {};
@@ -31,7 +31,7 @@ function getEmployeeByName(employeeName) {
   return data.employees.find((option) => (option.firstName === employeeName || option.lastName === employeeName));
 }
 
-function createEmployee(personalInfo, associatedWith) {
+function createEmployee(personalInfo, associatedWith) { // Fonte: Trybe Course + Lógica
   // seu código aqui
   return {
     ...personalInfo,
@@ -39,13 +39,13 @@ function createEmployee(personalInfo, associatedWith) {
   };
 }
 
-function isManager(id) {
+function isManager(id) { // Fonte: Trybe Course + Lógica
   // seu código aqui
   // return data.employees.some((options) => Object.values(options.managers).some((manager) => manager === id));
   return data.employees.some((options) => options.managers.some((manager) => manager === id)); // Também funcionaria da forma acima
 }
 
-function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) { // Fonte: Trybe Course + Lógica
   // seu código aqui
   const newEmployee = {
     id,
