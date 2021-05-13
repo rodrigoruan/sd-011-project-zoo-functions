@@ -1,10 +1,10 @@
 /*
 eslint no-unused-vars: [
-  "error",
+  'error',
   {
-    "args": "none",
-    "vars": "local",
-    "varsIgnorePattern": "data"
+    'args': 'none',
+    'vars': 'local',
+    'varsIgnorePattern': 'data'
   }
 ]
 */
@@ -47,8 +47,15 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return employees;
 }
 
-function countAnimals(speciesToCount) {
-  // seu código aqui
+function countAnimals(speciesToCount = undefined) {
+  let allSpecies = {};
+  if (speciesToCount !== undefined) {
+    return species.find((object) => object.name === speciesToCount).residents.length;
+  }
+  species.forEach((object) => {
+    allSpecies[object.name] = object.residents.length;
+  });
+  return allSpecies;
 }
 
 function calculateEntry(entrants) {
