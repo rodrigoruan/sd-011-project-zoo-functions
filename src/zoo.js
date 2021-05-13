@@ -57,6 +57,21 @@ function calculateEntry(entrants = 0) {
   return Object.entries(entrants).reduce((acc, person) => acc + (person[1] * data.prices[person[0]]), 0);
 }
 
+const InsertAnimalNames = (objAll, animalNames, sorted) => {
+  if (sorted) {
+    objAll = Object.entries(objAll).reduce((acc, value) => {
+      acc[value[0]] = value[1].map((animal) => ({ [animal]: animalNames[animal].sort() }));
+      return acc;
+    }, {});
+    return objAll;
+  }
+  objAll = Object.entries(objAll).reduce((acc, value) => {
+    acc[value[0]] = value[1].map((animal) => ({ [animal]: animalNames[animal] }));
+    return acc;
+  }, {});
+  return objAll;
+};
+
 function getAnimalMap(options = {}) {
   // seu código aqui
   let objAll = data.species.reduce((acc, value) => {
@@ -70,27 +85,18 @@ function getAnimalMap(options = {}) {
     return objAll;
   }
   let animalNames = {};
-  animalNames = data.species.reduce((acc, value) => {
-    acc[value.name] = value.residents.map((al) => al.name);
-    return acc;
-  }, {});
   if (options.sex) {
     animalNames = data.species.reduce((acc, value) => {
       acc[value.name] = value.residents.filter((al) => al.sex === options.sex).map((an) => an.name);
       return acc;
     }, {});
+  } else {
+    animalNames = data.species.reduce((acc, value) => {
+      acc[value.name] = value.residents.map((al) => al.name);
+      return acc;
+    }, {});
   }
-  if (options.sorted) {
-    objAll.NE = objAll.NE.map((value) => ({ [value]: animalNames[value].sort() }));
-    objAll.NW = objAll.NW.map((value) => ({ [value]: animalNames[value].sort() }));
-    objAll.SE = objAll.SE.map((value) => ({ [value]: animalNames[value].sort() }));
-    objAll.SW = objAll.SW.map((value) => ({ [value]: animalNames[value].sort() }));
-    return objAll;
-  }
-  objAll.NE = objAll.NE.map((value) => ({ [value]: animalNames[value] }));
-  objAll.NW = objAll.NW.map((value) => ({ [value]: animalNames[value] }));
-  objAll.SE = objAll.SE.map((value) => ({ [value]: animalNames[value] }));
-  objAll.SW = objAll.SW.map((value) => ({ [value]: animalNames[value] }));
+  objAll = InsertAnimalNames(objAll, animalNames, options.sorted);
   return objAll;
 }
 
