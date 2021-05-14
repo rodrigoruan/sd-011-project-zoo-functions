@@ -13,13 +13,13 @@ const data = require('./data');
 // Usar o spread para procurar todos os valores passados
 function getSpeciesByIds(...ids) {
   return data.species.filter(({ id }) => ids.includes((id)));
-  // Função Filter juntamente com includes para localizar todos os IDS passados nos parâmetros
+  // Função Filter juntamente com includes para localizar todos os IDS passados nos parâmetros.Localiza através das chaves nos objetos
 }
 
 function getAnimalsOlderThan(animal, minAge) {
-  const names = data.species.find(({ name }) => name === animal);
+  const nameofTheAnimal = data.species.find(({ name }) => name === animal);
   // função Find procura as ocorrências do primeiro parâmetro (a espécie de animal) na base de dados
-  return names.residents.every(({ age }) => age >= minAge);
+  return nameofTheAnimal.residents.every(({ age }) => age >= minAge);
   // retorna true se todos os animais da espécie tem a idade maior que o parâmetro passado.
 }
 
@@ -27,7 +27,7 @@ function getEmployeeByName(employeeName) {
   if (employeeName !== undefined) {
     return data.employees.find(({ firstName, lastName }) =>
       employeeName === firstName || employeeName === lastName);
-  // Procura o nome e o sobrenome do funcionário na base de dados
+  // Procura o nome ou o sobrenome do funcionário na base de dados
   }
   return {};
 }
@@ -116,8 +116,7 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  const priceCategories = Object.keys(data.prices);
-  priceCategories.forEach((category) => {
+  Object.keys(data.prices).forEach((category) => {
     let newPrice = data.prices[category] * (1 + (percentage / 100));
     newPrice = Math.round(newPrice * 100) / 100;
     data.prices[category] = newPrice;
@@ -126,7 +125,20 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  let coverage = {};
+  // Código para quando nenhum termo é procurado
+  if (!idOrName) {
+    data.employees.forEach((worker) => {
+      coverage[`${worker.firstName} ${worker.lastName}`] = worker.responsibleFor.map((coveredAnimals) =>
+        data.species.find((species) => species.id === coveredAnimals).name);
+    });
+    return coverage;
+  }
+  // Para quando alguma informação é passada no parâmetro
+  const worker = data.employees.find(({ id, firstName, lastName }) => idOrName === id || idOrName === firstName || idOrName === lastName);
+  coverage[`${worker.firstName} ${worker.lastName}`] = worker.responsibleFor.map((coveredAnimals) =>
+    data.species.find((species) => species.id === coveredAnimals).name);
+  return coverage;
 }
 
 module.exports = {
