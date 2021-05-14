@@ -36,7 +36,6 @@ console.log(getAnimalsOlderThan('otters', 7));
 console.log(getAnimalsOlderThan('penguins', 10));
 
 const { employees } = require('./data');
-//const data = require('./data');
 
 function getEmployeeByName(employeeName) {
   if (employeeName === undefined) {
@@ -51,7 +50,6 @@ function getEmployeeByName(employeeName) {
 console.log(getEmployeeByName());
 console.log(getEmployeeByName('Emery'));
 console.log(getEmployeeByName('Wishart'));
-
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
