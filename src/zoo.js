@@ -87,7 +87,7 @@ function getSchedule(dayName) {
     Monday: 'CLOSED',
   };
   if (dayName !== undefined) {
-    return days[dayName];
+    return { [dayName]: days[dayName] };
   } return days;
 }
 
