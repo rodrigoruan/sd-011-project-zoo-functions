@@ -9,7 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
-const { employees, species } = require('./data');
+const { employees, species, prices, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -38,14 +38,7 @@ function isManager(id) {
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  const newEmployee = {
-    id,
-    firstName,
-    lastName,
-    managers,
-    responsibleFor,
-  };
-  employees.push(newEmployee);
+  employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
 function countAnimals(Species) {
@@ -61,15 +54,38 @@ function countAnimals(Species) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants || Object.keys(entrants).length === 0) {
+    return 0;
+  }
 }
+// PRICES NÂO È ARRAY
+//   const Total = (acc, person) => {
+//     acc = prices[person] * entrants[person];
+//     return acc;
+//   };
+//   const getNumbers = ({ entrants }) => entrants;
+//   return entrants.map(getNumbers); //.reduce(Total)
+// }
+// console.log(calculateEntry({ Adult: 2, Child: 3, Senior: 1 }));
 
 function getAnimalMap(options) {
   // seu código aqui
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  let week = Object.entries(hours); // HOURS NÃO È ARRAY
+  if (dayName) {
+    week = week.filter((item) => item[0] === dayName);
+  }
+  const schedWriter = (acc, cur) => {
+    let text = '';
+    if (cur[0] !== 'Monday') {
+      text = `Open from ${cur[1].open}am until ${cur[1].close - 12}pm`;
+    } else text = 'CLOSED';
+    acc[cur[0]] = text;
+    return acc;
+  };
+  return week.reduce(schedWriter, { });
 }
 
 function getOldestFromFirstSpecies(id) {
