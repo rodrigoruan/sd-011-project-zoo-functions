@@ -17,8 +17,8 @@ function getSpeciesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, age) {
   return data.species
-    .find((animals) => animal.includes(animals.name))
-    .residents.every((animals) => animals.age > age);
+  .find((animals) => animal.includes(animals.name))
+  .residents.every((animals) => animals.age > age);
 }
 
 function getEmployeeByName(employeeName) {
@@ -26,7 +26,7 @@ function getEmployeeByName(employeeName) {
     return {};
   }
   return data.employees
-    .find((person) => employeeName.includes(person.firstName) || employeeName.includes(person.lastName));
+  .find((person) => employeeName.includes(person.firstName) || employeeName.includes(person.lastName));
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -44,7 +44,7 @@ function createEmployee(personalInfo, associatedWith) {
 function isManager(id) {
   // Recebi ajuda de Laura Gusmão e Mikaela Braga
   return data.employees
-    .some((person) => person.managers.includes(id));
+  .some((person) => person.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -75,7 +75,7 @@ function calculateEntry(entrants) {
   }
   // Recebi ajuda de Mikaela Braga
   return Object.keys(entrants)
-    .reduce((acc, person) => acc + entrants[person] * data.prices[person], 0);
+  .reduce((acc, person) => acc + entrants[person] * data.prices[person], 0);
 }
 
 function getAnimalMap(options) {
@@ -105,8 +105,8 @@ function getOldestFromFirstSpecies(id) {
   }, {});
   let animal = person.responsibleFor[0];
   animal = data.species
-    .find((animals) => animals.id.includes(animal))
-    .residents.sort((ageA, ageB) => ageB.age - ageA.age);
+  .find((animals) => animals.id.includes(animal))
+  .residents.sort((ageA, ageB) => ageB.age - ageA.age);
   return Object.values(animal[0]);
 }
 
@@ -118,7 +118,38 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const object = data.employees.reduce((acc, person) => {
+    acc[`${person.firstName} ${person.lastName}`] = data.species.reduce((acc2, animal) => {
+      for (let index in person.responsibleFor) {
+        person.responsibleFor[index] === animal.id ? acc2[index] = animal.name : 0;
+      }
+      return acc2;
+    }, []);
+    return acc;
+  }, {});
+  if (idOrName === undefined) {
+    return object;
+  }
+  
+  const idTrueOrFalse = data.employees.some((value) => value.id === (idOrName));
+  if (idTrueOrFalse === true) {
+    return data.employees.filter((value) => value.id === (idOrName)).reduce((acc, person) => {
+      acc[`${person.firstName} ${person.lastName}`] = object[`${person.firstName} ${person.lastName}`];
+      return acc;
+    }, {});
+  }
+  if (idTrueOrFalse === false && data.employees.some((value) => value.firstName === (idOrName)) === true) {
+    return data.employees.filter((value) => value.firstName === (idOrName)).reduce((acc, person) => {
+      acc[`${person.firstName} ${person.lastName}`] = object[`${person.firstName} ${person.lastName}`];
+      return acc;
+    }, {});
+  }
+  if (idTrueOrFalse === false && data.employees.some((value) => value.lastName === (idOrName)) === true) {
+    return data.employees.filter((value) => value.lastName === (idOrName)).reduce((acc, person) => {
+      acc[`${person.firstName} ${person.lastName}`] = object[`${person.firstName} ${person.lastName}`];
+      return acc;
+    }, {});
+  }
 }
 
 module.exports = {
