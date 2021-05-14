@@ -83,7 +83,7 @@ function getSchedule(dayName) {
     Thursday: `Open from ${data.hours.Thursday.open} until ${data.hours.Thursday.close - 12}pm`,
     Friday: `Open from ${data.hours.Friday.open} until ${data.hours.Friday.close - 12}pm`,
     Sunday: `Open from ${data.hours.Sunday.open} until ${data.hours.Sunday.close - 12}pm`,
-    Tuesday: 'Closed',
+    Monday: 'Closed',
   };
   if (!dayName) {
     return schedule;
