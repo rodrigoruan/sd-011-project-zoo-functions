@@ -175,6 +175,7 @@ function increasePrices(percentage) {
 }
 
 // Task 13
+// Js map: https://www.w3schools.com/jsref/jsref_map.asp
 
 function getEmployeeCoverage(idOrName) {
   let employeesCoverage = {}; // empty object
