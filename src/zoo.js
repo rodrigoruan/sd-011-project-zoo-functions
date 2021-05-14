@@ -86,13 +86,13 @@ function calculateEntry(entrants) {
 }
 
 const getNames = (residents, sex, sorted) => {
-  const residentName = residents.reduce((allResidents, resident) => 
-    (sex && resident.sex !== sex ? 
-      allResidents : 
-      allResidents.concat(resident.name)), []);
-  return sorted ? 
-    residentName.sort() : 
-    residentName;
+  const residentName = residents.reduce((allResidents, resident) =>
+    (sex && resident.sex !== sex
+      ? allResidents
+      : allResidents.concat(resident.name)), []);
+  return sorted
+    ? residentName.sort()
+    : residentName;
 };
 
 // Sem nada no parâmetro, o options é um objeto vazio
@@ -101,10 +101,9 @@ function getAnimalMap(options = {}) {
   // Função para criar o array de cada região ainda vazio
   ['NE', 'NW', 'SE', 'SW'].forEach((zone) => { animalsLocation[zone] = []; });
   // Colocando cada espécie na sua zona usando a destruturação de species
-  animals.map((species) => (options.includeNames ? 
-    animalsLocation[species.location].push({ [species.name]
-      : getNames(species.residents, options.sex, options.sorted ) }) 
-      : animalsLocation[species.location].push(species.name)
+  animals.map((species) => (options.includeNames
+    ? animalsLocation[species.location].push({ [species.name]: getNames(species.residents, options.sex, options.sorted) })
+    : animalsLocation[species.location].push(species.name)
   ));
   return animalsLocation;
 }
@@ -131,7 +130,7 @@ function getSchedule(dayName) {
 function getOldestFromFirstSpecies(id) {
   const employee = data.employees.find((worker) => worker.id === id);
   const firstSpecies = employee.responsibleFor[0];
-  const resident = data.species.find((animals) => animals.id === firstSpecies).residents;
+  const resident = data.species.find((indAnimals) => indAnimals.id === firstSpecies).residents;
   const oldestAnimal = resident.reduce((firstAnimal, secondAnimal) =>
     (firstAnimal.age > secondAnimal.age ? firstAnimal : secondAnimal));
   return ([oldestAnimal.name, oldestAnimal.sex, oldestAnimal.age]);
