@@ -32,11 +32,11 @@ function createEmployee(personalInfo, associatedWith) {
   return { ...personalInfo, ...associatedWith };
 }
 
-function isManager(id) {}
-
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function isManager(id) {
+  return data.employees.some((element) => element.managers.includes(id));
 }
+
+function addEmployee(id, firstName, lastName, managers, responsibleFor) {}
 
 function countAnimals(species) {
   // seu código aqui
