@@ -107,7 +107,6 @@ function calculateEntry(entrants) {
 
 function getAnimalMap(options) {
   // seu código aqui
-
 }
 
 function getSchedule(dayName) {
@@ -150,10 +149,53 @@ function increasePrices(percentage) {
   data.prices.Child = Math.round(data.prices.Child * aumento * 100) / 100;
   return data.prices;
 }
-// console.log(increasePrices(30));
+
+let retorno = {};
+let arrayAnimals = [];
+let arrayAnimals2 = [];
+
+function buildReturn(element) {
+  element.responsibleFor.forEach((animalId2) => {
+    data.species.forEach((animal2) => {
+      if (animal2.id === animalId2) arrayAnimals2.push(animal2.name);
+    });
+  });
+  retorno[`${element.firstName} ${element.lastName}`] = arrayAnimals2;
+  arrayAnimals2 = [];
+}
+
+function achaEmpregadoDefined(idOrName) {
+  retorno = {};
+  data.employees.forEach((element) => {
+    if (element.id === idOrName || element.firstName === idOrName || element.lastName === idOrName) {
+      buildReturn(element);
+    }
+  });
+}
+
+function achaEmpregadoUnDefined(idOrName) {
+  retorno = {};
+  data.employees.forEach((element) => { // percorre todos os empregados
+    element.responsibleFor.forEach((animalId) => { // em empregados percorre o array da chave responsibleFor, onde está o Id dos animais
+      data.species.forEach((animal) => { // verifica qual é o nome daquele Id, que está em employees.responsibleFor
+        if (animal.id === animalId) arrayAnimals.push(animal.name);
+      });
+    });
+    retorno[`${element.firstName} ${element.lastName}`] = arrayAnimals;
+    arrayAnimals = [];
+  });
+}
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+  if (idOrName === undefined) {
+    // 1 - se idOrName = undefined
+    achaEmpregadoUnDefined(idOrName);
+  } else {
+    // 2 - idOrName pode ser igual ao id do funcionário, ou ao seu first name, ou ao seu last name
+    achaEmpregadoDefined(idOrName);
+  }
+  return retorno;
 }
 
 module.exports = {
