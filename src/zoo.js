@@ -35,6 +35,9 @@ function getAnimalsOlderThan(animal, age) {
 console.log(getAnimalsOlderThan('otters', 7));
 console.log(getAnimalsOlderThan('penguins', 10));
 
+// solução com o apoio da aula de revisão de Trybers e consultas aos sites:
+// https://www.youtube.com/watch?v=rAzHvYnQ8DY
+// https://www.youtube.com/watch?v=nYRIRZBHQ3s
 const { employees } = require('./data');
 
 function getEmployeeByName(employeeName) {
