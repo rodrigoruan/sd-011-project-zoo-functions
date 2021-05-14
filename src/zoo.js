@@ -107,10 +107,25 @@ function calculateEntry(entrants) {
 
 function getAnimalMap(options) {
   // seu código aqui
+
 }
 
 function getSchedule(dayName) {
   // seu código aqui
+  let retorno = { [`${dayName}`]: 'CLOSED' }; const chaves = Object.keys(data.hours); const valores = Object.values(data.hours);
+  if (dayName === undefined) {
+    retorno = {};
+    chaves.forEach((element, index) => {
+      retorno[`${element}`] = `Open from ${valores[index].open}am until ${valores[index].close - 12}pm`;
+    });
+    retorno.Monday = 'CLOSED';
+  }
+  if (dayName !== 'Monday' && dayName !== undefined) {
+    retorno = {};
+    const keys = Object(data.hours[`${dayName}`]);
+    retorno = { [`${dayName.toString()}`]: `Open from ${keys.open}am until ${keys.close - 12}pm` };
+  }
+  return retorno;
 }
 
 function getOldestFromFirstSpecies(id) {
