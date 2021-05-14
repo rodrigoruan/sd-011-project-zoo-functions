@@ -9,7 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
-const { employees } = require('./data');
+const { employees, species, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -66,14 +66,14 @@ function addEmployee(newId, newFirstName, newLastName, newManagers = [], newResp
   return data.employees.push(newEmployee);
 }
 
-function countAnimals(species) {
+function countAnimals(specie) {
   // seu código aqui
-  if (species === undefined) {
+  if (specie === undefined) {
     let animalObject = {};
     data.species.forEach((animal) => { animalObject[`${animal.name}`] = animal.residents.length; });
     return animalObject;
   }
-  return data.species.find((animals) => animals.name === species).residents.length;
+  return data.species.find((animals) => animals.name === specie).residents.length;
 }
 
 function calculateEntry(entrants) {
@@ -85,12 +85,53 @@ function calculateEntry(entrants) {
   return allEntrants;
 }
 
+function animalsByLocation() {
+  const animalsLocation = {
+    NE: [],
+    NW: [],
+    SE: [],
+    SW: [],
+  };
+  data.species.forEach((specie) => {
+    animalsLocation[specie.location].push(specie.name);
+  });
+  return animalsLocation;
+}
+
+function animalsNames(sorted, sex) {
+  const animalsLocation = {
+    NE: [],
+    NW: [],
+    SE: [],
+    SW: [],
+  };
+  species.forEach((specie) => {
+    let names;
+    if (sex !== undefined) {
+      const namesForSex = specie.residents.filter((resident) => resident.sex === sex);
+      names = namesForSex.map((resident) => resident.name);
+    } else {
+      names = specie.residents.map((resident) => resident.name);
+    }
+    if (sorted === true) {
+      names.sort();
+    }
+    animalsLocation[specie.location].push({ [specie.name]: names });
+  });
+  return animalsLocation;
+}
+
 function getAnimalMap(options) {
   // seu código aqui
+  if (options !== undefined && options.includeNames === true) {
+    return animalsNames(options.sorted, options.sex);
+  }
+  return animalsByLocation();
 }
 
 function getSchedule(dayName) {
   // seu código aqui
+  
 }
 
 function getOldestFromFirstSpecies(id) {
