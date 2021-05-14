@@ -9,7 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
-const { prices } = require('./data');
+const { prices, species } = require('./data');
 const data = require('./data');
 
 // Caso receba nenhum parâmetro, necessário retornar um array vazio'
@@ -20,16 +20,16 @@ const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   // seu código aqui
-  return data.species.filter((species) => ids.includes(species.id));
+  return data.species.filter((species1) => ids.includes(species1.id));
 }
 
 // Ao passar o nome de uma espécie e uma idade,
 // testa se todos os animais desta espécie possuem a idade mínima especificada'
 // O every()método verifica se todos os elementos em uma matriz passam em um teste
 
-function getAnimalsOlderThan(species, age) {
+function getAnimalsOlderThan(specie, age) {
   // seu código aqui
-  return data.species.find((nome) => nome.name === species).residents.every((idade) => idade.age >= age);
+  return data.species.find((nome) => nome.name === specie).residents.every((idade) => idade.age >= age);
 }
 
 // Sem parâmetros, retorna um objeto vazio'
@@ -69,8 +69,16 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 // Sem parâmetros, retorna animais e suas quantidades
 // Com o nome de uma espécie de animal, retorna somente a quantidade'
 
-function countAnimals(species) {
+function countAnimals(specie) {
   // seu código aqui condição ? find, reduce
+  const totalAnimals = {};
+  if (!specie) {
+    species.forEach((value) => {
+      totalAnimals[value.name] = value.residents.length;
+    });
+    return totalAnimals;
+  }
+  return species.find((specie1) => specie === specie1.name).residents.length;
 }
 
 // Retorna 0 se nenhum argumento for passado
