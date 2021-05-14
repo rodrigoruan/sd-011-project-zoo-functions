@@ -42,7 +42,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(specie) {
-  }
+}
 
 function calculateEntry(entrants) {
 
@@ -62,7 +62,7 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  }
+}
 
 
 module.exports = {
