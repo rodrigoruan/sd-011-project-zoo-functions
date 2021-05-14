@@ -9,7 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
-const { prices, species } = require('./data');
+const { prices, species, hours } = require('./data');
 const data = require('./data');
 
 // Caso receba nenhum parâmetro, necessário retornar um array vazio'
@@ -70,7 +70,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 // Com o nome de uma espécie de animal, retorna somente a quantidade'
 
 function countAnimals(specie) {
-  // seu código aqui condição ? find, reduce
+  // seu código aqui
   const totalAnimals = {};
   if (!specie) {
     species.forEach((value) => {
@@ -86,21 +86,34 @@ function countAnimals(specie) {
 // Retorna o preço total a ser cobrado dado o número de adultos, crianças e idosos
 
 function calculateEntry(entrants) {
-  // seu código aqui reduce
+  // seu código aqui
   if (!entrants || entrants === {}) return 0;
   return Object.keys(entrants).reduce((acumulador, number) => acumulador + (prices[number] * entrants[number]), 0);
 }
 
 function getAnimalMap(options) {
-  // seu código aqui reduce
+  // seu código aqui
 }
 
 // Sem parâmetros, retorna um cronograma legível para humanos
 // Se um único dia for passado, retorna somente este dia em um formato legível para humanos
 
 function getSchedule(dayName) {
-  // seu código aqui condição if com ...
-
+  // seu código aqui
+  const schedule = {};
+  Object.keys(hours).map((value) => Object.keys(hours[value]).forEach(() => {
+    if (hours[value].open === 0) {
+      schedule[value] = 'CLOSED';
+    } else {
+      schedule[value] = `Open from ${hours[value].open}am until ${hours[value].close - 12}pm`;
+    }
+  }));
+  if (!dayName) {
+    return schedule;
+  }
+  return {
+    [dayName]: schedule[dayName],
+  };
 }
 
 function getOldestFromFirstSpecies(id) {
@@ -110,7 +123,7 @@ function getOldestFromFirstSpecies(id) {
 // Ao passar uma porcentagem, incrementa todos os preços, arrendondados em duas casas decimais
 
 function increasePrices(percentage) {
-  // seu código aqui condição ?
+  // seu código aqui
   Object.keys(prices).forEach((value) => {
     prices[value] = Math.round(prices[value] * (1 + (percentage * 0.01)) * 100) / 100;
   });
