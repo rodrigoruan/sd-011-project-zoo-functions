@@ -40,8 +40,8 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
-function countAnimals(Species) {
-  if (!Species) {
+function countAnimals(species) {
+  if (!species) {
     const speciesTotals = {};
     const criaObjeto = (animal) => {
       speciesTotals[animal.name] = animal.residents.length;
@@ -49,7 +49,7 @@ function countAnimals(Species) {
     data.species.forEach(criaObjeto);
     return speciesTotals;
   }
-  return data.species.find((specie) => specie.name === Species).residents.length;
+  return data.species.find((specie) => specie.name === species).residents.length;
 }
 
 function calculateEntry(entrants) {
@@ -99,7 +99,16 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  let array = data.employees;
+  if (idOrName) {
+    array = array.filter((employee) => employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName);
+  }
+  const populateObject = (acc, cur) => {
+    acc[`${cur.firstName} ${cur.lastName}`] = cur.responsibleFor
+      .map((id) => data.species.find((specie) => specie.id === id).name);
+    return acc;
+  };
+  return array.reduce(populateObject, { });
 }
 
 module.exports = {
