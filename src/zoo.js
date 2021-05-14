@@ -85,10 +85,10 @@ const formatTime = (hour) => {
 function getSchedule(dayName) {
   // seu código aqui
   const days = [...Object.keys(hours)];
-  const shifts = [...Object.values(hours)];
+  const openHours = [...Object.values(hours)];
   const stdSchedule = days.reduce((obj, el, index) => {
-    obj[el] = `Open from ${shifts[index].open}am until ${formatTime(shifts[index].close)}pm`;
-    if (formatTime(shifts[index].close) === 'CLOSED') obj[el] = 'CLOSED';
+    obj[el] = `Open from ${openHours[index].open}am until ${formatTime(openHours[index].close)}pm`;
+    if (formatTime(openHours[index].close) === 'CLOSED') obj[el] = 'CLOSED';
     return obj;
   }, {});
   if (dayName) {
@@ -122,9 +122,31 @@ function increasePrices(percentage) {
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
-}
+  const resp = 'responsibleFor';
 
-// console.log(getEmployeeCoverage());
+  const obj = employees.reduce((list, person) => {
+    list[`${person.firstName} ${person.lastName}`] = person[resp]
+      .map((el) => species1
+        .find((spId) => spId.id === el).name);
+    return list;
+  }, {});
+
+  let employee4 = '';
+  let employee5 = '';
+  const obj2 = {};
+
+  employee4 = employees.find((person1) => person1.firstName === idOrName || person1.lastName === idOrName || person1.id === idOrName);
+
+  for (let key in obj) {
+    if (obj.hasOwnProperty.call(obj, key) && idOrName) {
+      employee5 = `${employee4.firstName} ${employee4.lastName}`;
+      obj2[employee5] = obj[employee5];
+      return obj2;
+    }
+  }
+
+  return obj;
+}
 
 module.exports = {
   calculateEntry,
