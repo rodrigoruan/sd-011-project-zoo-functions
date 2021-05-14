@@ -113,9 +113,9 @@ function increasePrices(percentage) {
   // seu código aqui
   // const prices = data.prices;
   const increment = (1 + (percentage / 100));
-  Object.keys(data.prices).forEach((category) => {
-    data.prices[category] *= increment;
-    data.prices[category] = Math.round(data.prices[category] * 100) / 100;
+  Object.keys(data.prices).forEach((classification) => {
+    data.prices[classification] *= increment;
+    data.prices[classification] = Math.round(data.prices[classification] * 100) / 100;
   });
 }
 
