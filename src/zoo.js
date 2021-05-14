@@ -12,7 +12,7 @@ eslint no-unused-vars: [
 // https://desenvolvimentoparaweb.com/javascript/every-some-find-includes-javascript/
 // https://renatofreire.dev/metodos-do-array-includes-javascript/
 
-// const data = require('./data');
+const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   const animalIds = data.species.filter((specie) => ids.includes(specie.id));
@@ -35,20 +35,23 @@ function getAnimalsOlderThan(animal, age) {
 console.log(getAnimalsOlderThan('otters', 7));
 console.log(getAnimalsOlderThan('penguins', 10));
 
-const data = require('./data');
+const { employees } = require('./data');
+//const data = require('./data');
 
-function getEmployeeByName(...employeeName) {
-  const EmployeeFirstName = data.employees.filter((employee) => employeeName.includes(employee.firstName));
-  const EmployeeLastName = data.employees.filter((employee) => employeeName.includes(employee.lastName));
-  if (EmployeeFirstName !== '') {
-    return EmployeeFirstName;
+function getEmployeeByName(employeeName) {
+  if (employeeName === undefined) {
+    return {};
   }
-  return EmployeeLastName;
+  const EmployeeData = employees.find((employee) => employeeName === employee.firstName || employeeName === employee.lastName);
+  return EmployeeData;
 }
-
-//console.log(getEmployeeByName());
-//console.log(getEmployeeByName('Emery'));
+// const EmployeeLastName = employees.find(employee => employeeName === employee.lastName);
+// return EmployeeLastName;
+// }
+console.log(getEmployeeByName());
+console.log(getEmployeeByName('Emery'));
 console.log(getEmployeeByName('Wishart'));
+
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
