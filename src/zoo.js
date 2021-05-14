@@ -180,8 +180,17 @@ function getEmployeeCoverage(idOrName) {
   let employeesCoverage = {}; // empty object
   let allData = data.employees.find((items) => items.id === idOrName || items.firstName === idOrName || items.lastName === idOrName);
 
-  // employeesCoverage recieves firstName and LastName of employees by animals responsible for.
-  employeesCoverage[`${allData.firstName} ${allData.lastName}`] = allData.responsibleFor.map((animalID) => data.species.find((animalData) => animalData.id === animalID).name);
+  // employeesCoverage needs to recieves firstName and LastName of employees by animals responsible for.
+  // but first, a little test if parameter "idOrName" is undefined
+  if (idOrName === undefined) {
+    data.employees.forEach((items) => {
+      employeesCoverage[`${items.firstName} ${items.lastName}`] = items.responsibleFor.map((animalID) => (data.species.find((animalData) => animalData.id === animalID)).name);
+    });
+    // return employeesCovarage's object if it's the case
+    return employeesCoverage;
+  }
+
+  employeesCoverage[`${allData.firstName} ${allData.lastName}`] = allData.responsibleFor.map((animalID) => (data.species.find((animalData) => animalData.id === animalID)).name);
   return employeesCoverage;
 }
 
