@@ -63,12 +63,7 @@ function calculateEntry(entrants) {
   return Object.entries(entrants).reduce((acc, current) => acc + (current[1] * data.prices[current[0]]), 0);
 }
 
-function increasePrices(percentage) {
-  Object.keys(data.prices).forEach((price) => {
-    data.prices[price] += data.prices[price] * (percentage / 100);
-    data.prices[price] = Math.round(data.prices[price] * 100) / 100;
-  });
-}
+function getAnimalMap(options) {}
 
 function getSchedule(dayName) {
   let schedule = {};
@@ -92,8 +87,12 @@ function getOldestFromFirstSpecies(id) {
     .reduce((acc, curr) => (acc.age < curr.age ? curr : acc)));
 }
 
-// em falta:
-function getAnimalMap(options) {}
+function increasePrices(percentage) {
+  Object.keys(data.prices).forEach((price) => {
+    data.prices[price] += data.prices[price] * (percentage / 100);
+    data.prices[price] = Math.round(data.prices[price] * 100) / 100;
+  });
+}
 
 function getEmployeeCoverage(idOrName) {}
 
