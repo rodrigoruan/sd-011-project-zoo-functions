@@ -57,16 +57,10 @@ function calculateEntry(entrants) {
   if (!entrants || Object.keys(entrants).length === 0) {
     return 0;
   }
+  const people = Object.entries(entrants); // Entrants não é array
+  const totalizer = (acc, cur) => acc + (cur[1] * prices[cur[0]]);
+  return people.reduce(totalizer, 0);
 }
-// PRICES NÂO È ARRAY
-//   const Total = (acc, person) => {
-//     acc = prices[person] * entrants[person];
-//     return acc;
-//   };
-//   const getNumbers = ({ entrants }) => entrants;
-//   return entrants.map(getNumbers); //.reduce(Total)
-// }
-// console.log(calculateEntry({ Adult: 2, Child: 3, Senior: 1 }));
 
 function getAnimalMap(options) {
   // seu código aqui
