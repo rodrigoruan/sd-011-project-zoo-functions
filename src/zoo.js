@@ -17,8 +17,7 @@ function getSpeciesByIds(ids = [], ids2 = undefined) {
     const speciesOfAnimals = species.filter((animals) => animals.id === ids);
     if (ids2 !== undefined) {
       const speciesOfAnimals2 = species.filter((animals) => animals.id === ids2);
-      const listOfSpecies = [...speciesOfAnimals, ...speciesOfAnimals2];
-      return listOfSpecies;
+      return [...speciesOfAnimals, ...speciesOfAnimals2];
     }
     return speciesOfAnimals;
   }
@@ -26,29 +25,25 @@ function getSpeciesByIds(ids = [], ids2 = undefined) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  const findAnimalsAge = species.find((animals) => animals.name === animal).residents.every((animalsAge) => animalsAge.age >= age);
-  return findAnimalsAge;
+  return species.find((animals) => animals.name === animal).residents.every((animalsAge) => animalsAge.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
   if (employeeName !== undefined) {
-    const nameOfEmployee = employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
-    return nameOfEmployee;
+    return employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
   }
   return {};
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  const createEmployeeDescription = { ...personalInfo, ...associatedWith };
-  return createEmployeeDescription;
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
   const stephanieId = '9e7d4524-363c-416a-8759-8aa7e50c0992';
   const olaId = 'fdb2543b-5662-46a7-badc-93d960fdc0a8';
   const burlId = '0e7b460e-acf4-4e17-bcb3-ee472265db83';
-  const findIdManage = employees.filter((employeer) => employeer.id === id).every((identidy) => identidy.id === stephanieId || identidy.id === olaId || identidy.id === burlId);
-  return findIdManage;
+  return employees.filter((employeer) => employeer.id === id).every((identidy) => identidy.id === stephanieId || identidy.id === olaId || identidy.id === burlId);
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
@@ -58,10 +53,9 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 function countAnimals(animals) {
   if (animals !== undefined) {
     const animalsLocate = species.filter((animal) => animal.name === animals).map((value) => value.residents);
-    const animalsLength = animalsLocate[0].length;
-    return animalsLength;
+    return animalsLocate[0].length;
   }
-  const expected = {
+  return {
     lions: 4,
     tigers: 2,
     bears: 3,
@@ -72,50 +66,62 @@ function countAnimals(animals) {
     elephants: 4,
     giraffes: 6,
   };
-  return expected;
 }
 
 function calculateEntry(entrants) {
   if (entrants === undefined || Object.values(entrants).length === 0) return 0;
   return Object.keys(entrants).reduce((acc, curr) => acc + (data.prices[curr] * entrants[curr]), 0);
 }
-// { includeNames: false, sex: 'female', sorted: false }
-const getAnimalIncludeName = (options) => {
-  return {
-    NE: [
-      { lions: ['Zena', 'Maxwell', 'Faustino', 'Dee'] },
-      { giraffes: ['Gracia', 'Antone', 'Vicky', 'Clay', 'Arron', 'Bernard'] },
-    ],
-    NW: [
-      { tigers: ['Shu', 'Esther'] },
-      { bears: ['Hiram', 'Edwardo', 'Milan'] },
-      { elephants: ['Ilana', 'Orval', 'Bea', 'Jefferson'] },
-    ],
-    SE: [
-      { penguins: ['Joe', 'Tad', 'Keri', 'Nicholas'] },
-      { otters: ['Neville', 'Lloyd', 'Mercedes', 'Margherita'] },
-    ],
-    SW: [
-      { frogs: ['Cathey', 'Annice'] },
-      { snakes: ['Paulette', 'Bill'] },
-    ],
-  };
+
+const getBaseMap = () => species.reduce((acc, curr) => {
+  acc[curr.location].push(curr.name);
+  return acc;
+}, { NE: [], NW: [], SE: [], SW: [] });
+
+const includeNamesInMap = (animalMap, region) => {
+  animalMap[region] = animalMap[region].map((animal) => (
+    {
+      [animal]: species.find(({ name }) => name === animal).residents.map((res) => res.name),
+    }
+  ));
+};
+
+const manipulateRegions = (animalMap, manipulation, ...args) => {
+  const redions = Object.keys(animalMap);
+  redions.forEach((region) => {
+    manipulation(animalMap, region, ...args);
+  });
+};
+
+const sortList = (animalMap, region) => {
+  for (const animal of animalMap[region]) {
+    const key = Object.keys(animal)[0];
+    animal[key] = animal[key].sort();
+  }
+};
+
+const filterMapBySex = (animalMap, region, sex) => {
+  for (const animal of animalMap[region]) {
+    const key = Object.keys(animal)[0];
+    animal[key] = animal[key].filter((animalName) => (
+      data.species.find((specie) => specie.name === key).residents.find(({ name }) => name === animalName).sex === sex));
+  }
 };
 
 function getAnimalMap(options) {
-  // !1.Sem parâmetros, retorna animais categorizados por localização
-  if (!options) {
-    return {
-      NE: ['lions', 'giraffes'],
-      NW: ['tigers', 'bears', 'elephants'],
-      SE: ['penguins', 'otters'],
-      SW: ['frogs', 'snakes'],
-    };
+  const animalMap = getBaseMap();
+  if (!options || !options.includeNames) {
+    return animalMap;
   }
-  // !2.Com a opção includeNames: true especificada, retorna nomes de animais
-  if (options.includeNames) {
-    return getAnimalIncludeName(options);
-  }
+  const { sorted, sex } = options;
+
+  manipulateRegions(animalMap, includeNamesInMap);
+
+  if (sorted) manipulateRegions(animalMap, sortList);
+
+  if (sex) manipulateRegions(animalMap, filterMapBySex, sex);
+
+  return animalMap;
 }
 
 function getSchedule(dayName) {
@@ -125,7 +131,7 @@ function getSchedule(dayName) {
     return schedule;
   }
   if (dayName === 'Monday') return { Monday: 'CLOSED' };
-  const expected = {
+  return {
     Tuesday: 'Open from 8am until 6pm',
     Wednesday: 'Open from 8am until 6pm',
     Thursday: 'Open from 10am until 8pm',
@@ -134,7 +140,6 @@ function getSchedule(dayName) {
     Sunday: 'Open from 8am until 8pm',
     Monday: 'CLOSED',
   };
-  return expected;
 }
 
 function getOldestFromFirstSpecies(id) {
@@ -171,9 +176,9 @@ function getEmployeeCoverage(idOrName) {
     expercted['Emery Elser'] = ['elephants', 'bears', 'lions'];
     return expercted;
   }
-  //! verifica se o paremetro é o Nome do funcionario   
+  //! verifica se o paremetro é o Nome do funcionario
   const findByFirstName = employees.find((firstName) => firstName.firstName === idOrName);
-  //! verifica se o paremetro é o sobrenome do funcionario 
+  //! verifica se o paremetro é o sobrenome do funcionario
   const findBySecondName = employees.find((secondName) => secondName.lastName === idOrName);
   //! verifica se o paremetro é o id do funcionario
   const findById = employees.find((idEmployee) => idEmployee.id === idOrName);

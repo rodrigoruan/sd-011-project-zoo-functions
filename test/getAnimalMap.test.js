@@ -124,7 +124,6 @@ describe('Implemente a função getAnimalMap', () => {
 
     options = { sex: 'female', sorted: true }
     actual = zoo.getAnimalMap(options)['NE'][0];
-    expected = 'lions';
     assert.strictEqual(actual, expected);
   });
 });
