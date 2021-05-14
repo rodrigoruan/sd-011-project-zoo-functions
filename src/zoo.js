@@ -1,13 +1,13 @@
-/*
-eslint no-unused-vars: [
-  "error",
-  {
-    "args": "none",
-    "vars": "local",
-    "varsIgnorePattern": "data"
-  }
-]
-*/
+// /*
+// eslint no-unused-vars: [
+//   "error",
+//   {
+//     "args": "none",
+//     "vars": "local",
+//     "varsIgnorePattern": "data"
+//   }
+// ]
+// */
 
 // const { create } = require('eslint/lib/rules/*');
 const { species, employees, hours, prices } = require('./data');
@@ -125,7 +125,20 @@ function increasePrices(percentage) {
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+  let coverage = {};
+  if (idOrName === undefined) {
+    data.employees.forEach((employee) => {
+      coverage[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor.map((animalId) => data.species.find((itsId) => animalId === itsId.id).name);
+    });
+    return coverage;
+  }
+  let findingWhoIs = employees.find((thisEmployee) => thisEmployee.firstName === idOrName || thisEmployee.lastName === idOrName || thisEmployee.id === idOrName);
+  coverage[`${findingWhoIs.firstName} ${findingWhoIs.lastName}`] = findingWhoIs.responsibleFor.map((animalId) => data.species.find((itsId) => animalId === itsId.id).name);
+
+  return coverage;
 }
+
+console.log(getEmployeeCoverage());
 
 module.exports = {
   calculateEntry,
