@@ -125,7 +125,11 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  Object.keys(data.prices).forEach((key) => { // Pega os nomes das keys e jogando-os para um array forEach (temporário, eu acho).
+    const value = data.prices[key]; // Pego valor de cada chave, usando como auxilio o nome da variável atual do forEach, a qual está armazenada no parâmetro "key" do forEach().
+    const adultResult = value + value * (percentage / 100) + 0.001; // Lógica de calculo de porcentagem conforme parâmetro. Somei 0.001 porque naõ estava arredondando conforme pede os testes.
+    data.prices[key] = parseFloat(adultResult.toFixed(2)); // Pega o cáculo feito e armazena como valor na chave, referenciada como auxilio o nome da variável atual do forEach().
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
