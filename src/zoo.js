@@ -144,7 +144,13 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   // seu código aqui
+  const aumento = 1 + (percentage / 100);
+  data.prices.Adult = Math.round(data.prices.Adult * aumento * 100) / 100;
+  data.prices.Senior = Math.round(data.prices.Senior * aumento * 100) / 100;
+  data.prices.Child = Math.round(data.prices.Child * aumento * 100) / 100;
+  return data.prices;
 }
+// console.log(increasePrices(30));
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
