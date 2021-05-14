@@ -63,13 +63,12 @@ function countAnimals(species) {
   // seu código aqui
   if (!species) {
     const numbersOfAnimals = {};
-    data.species.forEach((specie) => { numbersOfAnimals[specie.name] = specie.residents.length });
+    data.species.forEach((specie) => { numbersOfAnimals[specie.name] = specie.residents.length; });
     return numbersOfAnimals;
   }
-  const {residents} = data.species.find((specie) => specie.name === species);
+  const { residents } = data.species.find((specie) => specie.name === species);
   return residents.length;
 }
-
 
 function calculateEntry(entrants) {
   // seu código aqui
