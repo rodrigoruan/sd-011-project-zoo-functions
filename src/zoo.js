@@ -82,11 +82,12 @@ function getAnimalMap(options) {
 const formatHour = (hour) => (hour <= 12 ? `${hour}am` : `${hour - 12}pm`);
 
 const returnMessage = (scheduleDay) => {
-  if (scheduleDay.close <= 0 && scheduleDay.open <= 0) {
+  const { open, close } = scheduleDay;
+  if (close === 0 && open === 0) {
     return 'CLOSED';
   }
 
-  return `Open from ${formatHour(scheduleDay.open)} until ${formatHour(scheduleDay.close)}`;
+  return `Open from ${formatHour(open)} until ${formatHour(close)}`;
 };
 
 function getSchedule(dayName) {
@@ -97,13 +98,16 @@ function getSchedule(dayName) {
   }
 
   const days = Object.keys(hours);
+  const result = {};
 
   days.forEach((day) => {
-    hours[day] = returnMessage(hours[day]);
+    result[day] = returnMessage(hours[day]);
   });
 
-  return hours;
+  return result;
 }
+
+console.log(getSchedule('Monday'));
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
