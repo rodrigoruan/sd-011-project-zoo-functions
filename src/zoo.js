@@ -17,7 +17,7 @@ function getSpeciesByIds(...ids) {
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
-  const retorna = data.species.map((item) => item.residents);
+  const retorna = data.species.map((item) => item.animal === animal);
   return retorna.filter((item) => item.age >= age);
 }
 console.log(getAnimalsOlderThan());
