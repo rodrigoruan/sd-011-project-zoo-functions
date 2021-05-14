@@ -108,7 +108,7 @@ function getSchedule(dayName) {
 // A função busca por informações do animal mais velho da primeira espécie gerenciada pela pessoa colaboradora do parâmetro
 // Passado o id de um funcionário, encontra a primeira espécie de animal gerenciado pelo funcionário, e retorna um array com nome, sexo e idade do animal mais velho dessa espécie
 function getOldestFromFirstSpecies(id) {
-  const selectedEmployee = data.employees.find((employee) => employee.id === id).responsibleFor[0]; 
+  const selectedEmployee = data.employees.find((employee) => employee.id === id).responsibleFor[0];
   const firstManagedAnimal = data.species.find((zooAnimal) => zooAnimal.id === selectedEmployee);
   return Object.values(firstManagedAnimal.residents.reduce((acc, curr) => {
     if (acc.age > curr.age) {
