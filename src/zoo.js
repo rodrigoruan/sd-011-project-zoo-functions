@@ -177,9 +177,12 @@ function increasePrices(percentage) {
 // Task 13
 
 function getEmployeeCoverage(idOrName) {
-  // let employeesCoverage = {};
+  let employeesCoverage = {}; // empty object
+  let allData = data.employees.find((items) => items.id === idOrName || items.firstName === idOrName || items.lastName === idOrName);
 
-  // in progress
+  // employeesCoverage recieves firstName and LastName of employees by animals responsible for.
+  employeesCoverage[`${allData.firstName} ${allData.lastName}`] = allData.responsibleFor.map((animalID) => data.species.find((animalData) => animalData.id === animalID).name);
+  return employeesCoverage;
 }
 
 module.exports = {
