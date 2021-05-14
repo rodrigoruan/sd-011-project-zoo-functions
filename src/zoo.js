@@ -63,18 +63,31 @@ function calculateEntry(entrants) {
   return Object.entries(entrants).reduce((acc, current) => acc + (current[1] * data.prices[current[0]]), 0);
 }
 
-function getAnimalMap(options) {}
-
-function getSchedule(dayName) {}
-
-function getOldestFromFirstSpecies(id) {}
-
 function increasePrices(percentage) {
   Object.keys(data.prices).forEach((price) => {
     data.prices[price] += data.prices[price] * (percentage / 100);
     data.prices[price] = Math.round(data.prices[price] * 100) / 100;
   });
 }
+
+function getSchedule(dayName) {
+  let schedule = {};
+  Object.keys(data.hours).forEach((day) => {
+    schedule[day] = `Open from ${data.hours[day].open}am until ${(data.hours[day].close) - 12}pm`;
+    if (day === 'Monday') {
+      schedule[day] = 'CLOSED';
+    }
+  });
+
+  if (dayName !== undefined) {
+    return { [dayName]: schedule[dayName] };
+  }
+  return schedule;
+}
+
+function getAnimalMap(options) {}
+
+function getOldestFromFirstSpecies(id) {}
 
 function getEmployeeCoverage(idOrName) {}
 
