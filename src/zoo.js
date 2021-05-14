@@ -63,25 +63,20 @@ function calculateEntry(entrants) {
   return Object.entries(entrants).reduce((acc, current) => acc + (current[1] * data.prices[current[0]]), 0);
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
-}
+function getAnimalMap(options) {}
 
-function getSchedule(dayName) {
-  // seu código aqui
-}
+function getSchedule(dayName) {}
 
-function getOldestFromFirstSpecies(id) {
-  // seu código aqui
-}
+function getOldestFromFirstSpecies(id) {}
 
 function increasePrices(percentage) {
-  // seu código aqui
+  Object.keys(data.prices).forEach((price) => {
+    data.prices[price] += data.prices[price] * (percentage / 100);
+    data.prices[price] = Math.round(data.prices[price] * 100) / 100;
+  });
 }
 
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
-}
+function getEmployeeCoverage(idOrName) {}
 
 module.exports = {
   calculateEntry,
