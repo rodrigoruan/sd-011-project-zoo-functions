@@ -56,6 +56,14 @@ function countAnimals(specie) {
 }
 
 function calculateEntry(entrants) {
+  if (!entrants) {
+    return 0
+
+
+  }
+
+  const { Adult = 0, Child = 0, Senior = 0 } = entrants;
+  return (Adult * prices.Adult) + (Child * prices.Child) + (Senior * prices.Senior);
 
 }
 
