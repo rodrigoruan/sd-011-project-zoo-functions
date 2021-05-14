@@ -9,6 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
+// const { prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -75,6 +76,33 @@ function countAnimals(species) {
 
 function calculateEntry(entrants) {
   // seu código aqui
+
+  const people = { // Cria um objeto conforme os parâmetros passados. Talvez coubesse destructuring também aqui, porém mais verboso.
+    ...entrants,
+  };
+
+  let total = 0;
+
+  function parTest() {
+    if (entrants === undefined || entrants === {}) { // Retorna 0 se nenhum argumento for passado ou se um objeto vazio for passado
+      return 0;
+    }
+  }
+  function calc() { // Faz os calculos conforme os parâmetros passados
+    if (people.Child) {
+      total += people.Child * data.prices.Child;
+    }
+    if (people.Adult) {
+      total += people.Adult * data.prices.Adult;
+    }
+    if (people.Senior) {
+      total += people.Senior * data.prices.Senior;
+    }
+  }
+
+  parTest();
+  calc();
+  return total;
 }
 
 function getAnimalMap(options) {
