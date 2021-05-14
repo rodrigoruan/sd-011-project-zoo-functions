@@ -85,9 +85,15 @@ function getSchedule(dayName) {
   return schedule;
 }
 
-function getAnimalMap(options) {}
+function getOldestFromFirstSpecies(id) {
+  const animalID = data.employees.find((element) => element.id === id).responsibleFor[0];
+  return Object.values(data.species.find((element) => element.id === animalID)
+    .residents
+    .reduce((acc, curr) => (acc.age < curr.age ? curr : acc)));
+}
 
-function getOldestFromFirstSpecies(id) {}
+// em falta:
+function getAnimalMap(options) {}
 
 function getEmployeeCoverage(idOrName) {}
 
