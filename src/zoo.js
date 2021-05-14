@@ -102,10 +102,10 @@ function getSchedule(dayName) {
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
-  const employee = data.employees.find((employee) => employee.id === id);
-  const [idAnimal] = employee.responsibleFor;
-  const specie = data.species.find((specie) => specie.id === idAnimal);
-  const {name, sex, age} = specie.residents.reduce((acc, curr) => acc.age > curr.age ? acc : curr);
+  const employeeFounded = data.employees.find((employee) => employee.id === id);
+  const [idAnimal] = employeeFounded.responsibleFor;
+  const specieFounded = data.species.find((specie) => specie.id === idAnimal);
+  const { name, sex, age } = specieFounded.residents.reduce((acc, curr) => (acc.age > curr.age ? acc : curr));
   return [name, sex, age];
 }
 
