@@ -102,18 +102,27 @@ function getAnimalMap(options) {
 // Sem parâmetros, retorna um cronograma legível para humanos
 // Se um único dia for passado, retorna somente este dia em um formato legível para humanos
 function getSchedule(dayName) {
-  if (dayName === undefined) {
-    return data.hours;
-  }
+  // seu código aqui
 }
-// console.log(getSchedule());
 
+// A função busca por informações do animal mais velho da primeira espécie gerenciada pela pessoa colaboradora do parâmetro
+// Passado o id de um funcionário, encontra a primeira espécie de animal gerenciado pelo funcionário, e retorna um array com nome, sexo e idade do animal mais velho dessa espécie
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const selectedEmployee = data.employees.find((employee) => employee.id === id).responsibleFor[0]; 
+  const firstManagedAnimal = data.species.find((zooAnimal) => zooAnimal.id === selectedEmployee);
+  return Object.values(firstManagedAnimal.residents.reduce((acc, curr) => {
+    if (acc.age > curr.age) {
+      return acc;
+    }
+    return curr;
+  }));
 }
 
+// A função é responsável por aumentar o preço das visitas, com base no valor de aumento recebido no parâmetro, em porcentagem
+// Se o parâmetro da função recebe o valor 20, o aumento é de 20%
+// Altera o objeto prices do arquivo data.js
 function increasePrices(percentage) {
-  // seu código aqui
+// seu código aqui
 }
 
 function getEmployeeCoverage(idOrName) {
