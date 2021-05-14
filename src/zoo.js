@@ -93,7 +93,7 @@ function getSchedule(dayName) {
   };
   const schedule = {};
   if (!dayName) {
-    Object.keys(data.hours).forEach((dia) => { schedule[dia] = text(dia) });
+    Object.keys(data.hours).forEach((dia) => { schedule[dia] = text(dia); });
     return schedule;
   }
   schedule[dayName] = text(dayName);
