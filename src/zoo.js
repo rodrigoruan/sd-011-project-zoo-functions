@@ -9,6 +9,8 @@ eslint no-unused-vars: [
 ]
 */
 const data = require('./data');
+// Utilizar destruturação para o exercicio 9
+const { species: animals } = require('./data');
 
 // Usar o spread para procurar todos os valores passados
 function getSpeciesByIds(...ids) {
@@ -83,8 +85,28 @@ function calculateEntry(entrants) {
   return allPublic.reduce((total, ageCategory) => total + entrants[ageCategory] * data.prices[ageCategory], 0);
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+const getNames = (residents, sex, sorted) => {
+  const residentName = residents.reduce((allResidents, resident) => 
+    (sex && resident.sex !== sex ? 
+      allResidents : 
+      allResidents.concat(resident.name)), []);
+  return sorted ? 
+    residentName.sort() : 
+    residentName;
+};
+
+// Sem nada no parâmetro, o options é um objeto vazio
+function getAnimalMap(options = {}) {
+  let animalsLocation = {};
+  // Função para criar o array de cada região ainda vazio
+  ['NE', 'NW', 'SE', 'SW'].forEach((zone) => { animalsLocation[zone] = []; });
+  // Colocando cada espécie na sua zona usando a destruturação de species
+  animals.map((species) => (options.includeNames ? 
+    animalsLocation[species.location].push({ [species.name]
+      : getNames(species.residents, options.sex, options.sorted ) }) 
+      : animalsLocation[species.location].push(species.name)
+  ));
+  return animalsLocation;
 }
 
 function getSchedule(dayName) {
