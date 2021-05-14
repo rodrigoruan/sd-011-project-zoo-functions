@@ -25,7 +25,6 @@ function getAnimalsOlderThan(animal, age) {
 function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
   return data.employees.find((elemento) => elemento.firstName === employeeName || elemento.lastName === employeeName);
-  // seu código aqui
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -74,7 +73,12 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const adultPrice = ((data.prices.Adult / 100) * percentage) + data.prices.Adult + 0.001;
+  const childPrice = ((data.prices.Child / 100) * percentage) + data.prices.Child + 0.001;
+  const seniorPrice = ((data.prices.Senior / 100) * percentage) + data.prices.Senior + 0.001;
+  data.prices.Adult = Number(adultPrice.toFixed(2));
+  data.prices.Child = Number(childPrice.toFixed(2));
+  data.prices.Senior = Number(seniorPrice.toFixed(2));
 }
 
 function getEmployeeCoverage(idOrName) {
