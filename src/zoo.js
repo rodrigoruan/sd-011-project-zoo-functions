@@ -1,18 +1,9 @@
-/*
-eslint no-unused-vars: [
-  "error",
-  {
-    "args": "none",
-    "vars": "local",
-    "varsIgnorePattern": "data"
-  }
-]
-*/
-
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  return data.species.filter((animal) => ids.some((id) => id === animal.id));
+  return data.species.filter((specie) => {
+    return ids.some((value) => value === specie.id)
+  });
 }
 
 function getAnimalsOlderThan(animal, age) {
