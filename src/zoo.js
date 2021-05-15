@@ -91,20 +91,18 @@ function getSchedule(dayName) {
   return ({ [dayName]: schedule[dayName] });
 }
 
-function getOldestFromFirstSpecies(id) {
+const getOldestFromFirstSpecies = (id) => {
   const idManager = employees.find((element) => element.id === id);
   const findSpecie = species.find((specie) => specie.id === idManager.responsibleFor[0]);
   const olderSpecie = findSpecie.residents.sort((a, b) => b.age - a.age);
   return Object.values(olderSpecie[0]);
-}
+};
 
 const increasePrices = (percentage) => {
   Object.keys(prices).forEach((key) => {
     prices[key] = Math.round((prices[key] * (percentage / 100 + 1)) * 100) / 100;
   });
-}
-console.log(increasePrices(50));
-console.log(increasePrices(30));
+};
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
