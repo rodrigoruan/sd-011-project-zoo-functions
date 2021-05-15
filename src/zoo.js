@@ -125,25 +125,25 @@ function increasePrices(percentage) {
 }
 
 const findAnimalName = (animalIds) => {
-  let animals = []
+  let animals = [];
   animalIds.forEach((animalId) => {
     animals.push(species.find((specie) => specie.id === animalId));
   });
 
   return animals.map((animal) => animal.name);
-}
+};
 
 const employeeCoverageFullList = () => {
   const result = {};
   const employeeList = employees.map((employee) => `${employee.firstName} ${employee.lastName}`);
   const responsibleAnimals = employees.map((employee) => employee.responsibleFor);
-  
+
   employeeList.forEach((employee, index) => {
     result[employee] = findAnimalName(responsibleAnimals[index]);
   });
-  
+
   return result;
-}
+};
 
 function getEmployeeCoverage(idOrName) {
   if (idOrName === undefined) {
@@ -151,11 +151,11 @@ function getEmployeeCoverage(idOrName) {
   }
 
   const result = {};
-  const employee = employees.find(({id, firstName, lastName}) => id === idOrName || firstName === idOrName || lastName === idOrName);
+  const employee = employees.find(({ id, firstName, lastName }) => id === idOrName || firstName === idOrName || lastName === idOrName);
   const fullName = `${employee.firstName} ${employee.lastName}`;
   const responsibleAnimals = employee.responsibleFor;
 
-  result[fullName] = findAnimalName(responsibleAnimals)
+  result[fullName] = findAnimalName(responsibleAnimals);
 
   return result;
 }
