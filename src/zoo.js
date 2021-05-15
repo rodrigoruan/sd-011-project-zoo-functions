@@ -64,7 +64,45 @@ function calculateEntry(entrants) {
   return value;
 }
 
+function chooseAnimal() {
+  let response = species.reduce((acc, curr) => {
+    if (!acc[curr.location]) {
+      acc[curr.location] = [];
+    }
+    acc[curr.location].push(curr.name);
+    return acc;
+  }, {});
+  return response;
+}
+
+function chooseAnimalByName(options) {
+  let response = species.reduce((acc, curr) => {
+    if (!acc[curr.location]) {
+      acc[curr.location] = [];
+    }
+    let obj = {};
+    let listAnimals = curr.residents.map((value1) => value1.name);
+
+    if (options.sex) {
+      listAnimals = curr.residents.filter((value2) => value2.sex === options.sex).map((value3) => value3.name);
+    }
+    if (options.sorted === true) {
+      listAnimals.sort();
+    }
+    obj[curr.name] = listAnimals;
+    acc[curr.location].push(obj);
+    return acc;
+  }, {});
+  return response;
+}
+
 function getAnimalMap(options) {
+  if (!options || !options.includeNames) {
+    return chooseAnimal();
+  }
+  if (options && options.includeNames === true) {
+    return chooseAnimalByName(options);
+  }
 }
 
 // Requisito feito com a ajuda do Matheus Alexandre e Alberto Candido
