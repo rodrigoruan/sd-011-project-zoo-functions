@@ -33,7 +33,7 @@ function isManager(id) {
   return data.employees.some((employee) => employee.managers.some((idVerify) => idVerify === id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   data.employees.push({
     id,
     firstName,
