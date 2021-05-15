@@ -62,8 +62,48 @@ function calculateEntry(entrants) {
   return valor;
 }
 
+function handleAnimals() {
+  let responsavel = species.reduce((acc, value) => {
+    if (!acc[value.location]) {
+      acc[value.location] = [];
+    }
+    acc[value.location].push(value.name);
+    return acc;
+  }, {});
+  return responsavel;
+}
+
+function handleAnimalsName(options) {
+  let responsavel = data.species.reduce((acc, value) => {
+    if (!acc[value.location]) {
+      acc[value.location] = [];
+    }
+    let objeto = {};
+    let animais = value.residents.map((value2) => value2.name);
+
+    if (options.sex) {
+      animais = value.residents
+        .filter((value2) => value2.sex === options.sex)
+        .map((value3) => value3.name);
+    }
+    if (options.sorted === true) {
+      animais.sort();
+    }
+    objeto[value.name] = animais;
+    acc[value.location].push(objeto);
+    return acc;
+  }, {});
+  return responsavel;
+}
+// console.log(JSON.stringify(handleAnimalsName({includeNames: true})))
+
 function getAnimalMap(options) {
-  // seu código aqui
+  if (!options || !options.includeNames) {
+    return handleAnimals();
+  }
+  if (options && options.includeNames === true) {
+    return handleAnimalsName(options);
+  }
 }
 
 function trataData(dayName, dayWeek, calendario) {
@@ -90,14 +130,10 @@ function getSchedule(dayName) {
 
 function getOldestFromFirstSpecies(id) {
   const ids = employees.find((element) => element.id === id).responsibleFor[0];
-  const old = species.find((element) => element.id === ids).residents.sort((ageA, ageB) => (ageB.age - ageA.age))[0];
-  let arrayAnimais = [];
-  for (let key in old) {
-    if ({}.hasOwnProperty.call(old, key)) arrayAnimais.push(old[key]);
-  }
-  return arrayAnimais;
+  const residentesCopy = [...species.find((element) => element.id === ids).residents];
+  const old = residentesCopy.sort((ageA, ageB) => (ageB.age - ageA.age))[0];
+  return Object.values(old);
 }
-
 console.log(getOldestFromFirstSpecies('9e7d4524-363c-416a-8759-8aa7e50c0992'));
 
 function increasePrices(percentage) {
