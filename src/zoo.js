@@ -52,7 +52,7 @@ function getEmployeeByName(employeeName) {
 // console.log(getEmployeeByName('Emery'));
 // console.log(getEmployeeByName('Wishart'));
 
-//Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
+// Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
 
 function createEmployee(personalInfo, associatedWith) {
   return {
@@ -63,7 +63,7 @@ function createEmployee(personalInfo, associatedWith) {
 
 const { employees, prices } = require('./data');
 
-//Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
+// Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
 
 function isManager(id) {
   // const checkManager = employees.some((employee) => id === employees.id);
@@ -74,7 +74,7 @@ function isManager(id) {
 // console.log(isManager('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1'));
 // console.log(isManager('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
 
-//Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
+// Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   const newEmployee = {
@@ -83,7 +83,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return employees.push(newEmployee);
 }
 
-//Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
+// Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
 
 function countAnimals(species) {
   const animalQtd = data.species.reduce((acc, { name, residents }) => {
@@ -98,7 +98,7 @@ function countAnimals(species) {
 }
 // console.log(countAnimals());
 
-//Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
+// Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
 
 function calculateEntry(entrants) {
   if (!entrants || entrants === {}) {
@@ -120,7 +120,7 @@ function getSchedule(dayName) {
   // seu código aqui
 }
 
-//Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
+// Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
 
 function getOldestFromFirstSpecies(id) {
   const employeeData = data.employees.find((employee) => id === employee.id).responsibleFor[0];
