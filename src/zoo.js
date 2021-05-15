@@ -38,7 +38,7 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  return data.employees.some((funcionario) => funcionario.managers.some((value) => value === id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
@@ -88,7 +88,7 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+
 }
 
 module.exports = {
