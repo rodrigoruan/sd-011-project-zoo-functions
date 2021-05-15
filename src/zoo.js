@@ -18,7 +18,7 @@ function getSpeciesByIds(...ids) {
   const animalIds = data.species.filter((specie) => ids.includes(specie.id));
   return animalIds;
 }
-console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce', 'e8481c1d-42ea-4610-8e11-1752cfc05a46'));
+// console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce', 'e8481c1d-42ea-4610-8e11-1752cfc05a46'));
 
 // const { species } = require('./data');
 
@@ -32,8 +32,8 @@ function getAnimalsOlderThan(animal, age) {
   const checkAge = checkAnimal.residents.every((specieAge) => specieAge.age >= age);
   return checkAge;
 }
-console.log(getAnimalsOlderThan('otters', 7));
-console.log(getAnimalsOlderThan('penguins', 10));
+// console.log(getAnimalsOlderThan('otters', 7));
+// console.log(getAnimalsOlderThan('penguins', 10));
 
 // solução com o apoio da aula de revisão de Trybers e consultas aos sites:
 // https://www.youtube.com/watch?v=rAzHvYnQ8DY
@@ -48,9 +48,11 @@ function getEmployeeByName(employeeName) {
   return employeeData;
 }
 
-console.log(getEmployeeByName());
-console.log(getEmployeeByName('Emery'));
-console.log(getEmployeeByName('Wishart'));
+// console.log(getEmployeeByName());
+// console.log(getEmployeeByName('Emery'));
+// console.log(getEmployeeByName('Wishart'));
+
+//Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
 
 function createEmployee(personalInfo, associatedWith) {
   return {
@@ -59,7 +61,9 @@ function createEmployee(personalInfo, associatedWith) {
   };
 }
 
-const { employees } = require('./data');
+const { employees, prices } = require('./data');
+
+//Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
 
 function isManager(id) {
   // const checkManager = employees.some((employee) => id === employees.id);
@@ -67,8 +71,10 @@ function isManager(id) {
   return checkPerson;
 }
 
-console.log(isManager('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1'));
-console.log(isManager('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
+// console.log(isManager('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1'));
+// console.log(isManager('0e7b460e-acf4-4e17-bcb3-ee472265db83'));
+
+//Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   const newEmployee = {
@@ -76,6 +82,8 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   };
   return employees.push(newEmployee);
 }
+
+//Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
 
 function countAnimals(species) {
   const animalQtd = data.species.reduce((acc, { name, residents }) => {
@@ -88,10 +96,20 @@ function countAnimals(species) {
   }
   return animalQtd[species];
 }
-console.log(countAnimals());
+// console.log(countAnimals());
+
+//Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants || entrants === {}) {
+    return 0;
+  }
+  function soma({ Adult = 0, Child = 0, Senior = 0 }) {
+    let entrySum = 0;
+    entrySum += ((Adult * prices.Adult) + (Child * prices.Child) + (Senior * prices.Senior));
+    return entrySum;
+  }
+  return soma(entrants);
 }
 
 function getAnimalMap(options) {
@@ -102,9 +120,14 @@ function getSchedule(dayName) {
   // seu código aqui
 }
 
+//Solução com o apoio dos colegas Matheus Alexandre, Vinicius Gouveia e Alberto Candido
+
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employeeData = data.employees.find((employee) => id === employee.id).responsibleFor[0];
+  const speciesOld = data.species.find((specie) => specie.id === employeeData).residents.sort((age1, age2) => age2.age - age1.age)[0];
+  return [speciesOld.name, speciesOld.sex, speciesOld.age];
 }
+// console.log(getOldestFromFirstSpecies('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1'));
 
 function increasePrices(percentage) {
   // seu código aqui
