@@ -9,7 +9,6 @@ eslint no-unused-vars: [
 ]
 */
 
-// const { prices } = require('./data');
 const data = require('./data'); // DESCOMENTAR ANTES DE PUSH
 
 function getSpeciesByIds(...ids) {
@@ -134,6 +133,32 @@ function increasePrices(percentage) {
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+// MONTA e RETORNA OBJETO conforme pede o SUB REQUISITO 13.1:
+  const listAll = {};
+  data.employees.forEach((type) => {
+    const speciesArray = type.responsibleFor.map((specie) => { // Forma array c/ nomes das espécies que cada (type) funcionário cuida.
+      const nome = data.species.find((everySpecie) => everySpecie.id === specie); // Busca e Retorna o primeiro objeto (de data.species) que tem ID igual ao do array de espécies (responibleFor) do funcionário (type) atual.
+      return nome.name; // Retorna, para o array de nomes (speciesArray) que estamos criando, somente o nome do objeto que desejamos.
+    });
+    listAll[`${type.firstName} ${type.lastName}`] = speciesArray;
+  });
+
+  if (idOrName === undefined) { // Retorna o objeto caso não seja passado parâmetro para a função:
+    return listAll;
+  }
+  // MONTA e RETORNA OBJETOS conforme pede os SUB REQUISITOS 13.2 em diante:
+  const list = {};
+
+  data.employees.forEach((search) => { // Monta objeto conforme parâmetros (idOrName)
+    if (idOrName === search.id || idOrName === search.firstName || idOrName === search.lastName) {
+      const arraySpecies = search.responsibleFor.map((specie) => { // // Forma array c/ nomes das espécies que cada (type) funcionário cuida.
+        const nome = data.species.find((type) => type.id === specie);
+        return nome.name;
+      });
+      list[`${search.firstName} ${search.lastName}`] = arraySpecies;
+    }
+  });
+  return list;
 }
 
 module.exports = {
