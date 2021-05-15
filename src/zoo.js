@@ -131,7 +131,12 @@ function getOldestFromFirstSpecies(id) {
 // Se o parâmetro da função recebe o valor 20, o aumento é de 20%
 // Altera o objeto prices do arquivo data.js
 function increasePrices(percentage) {
-// seu código aqui
+  const adult = ((prices.Adult / 100) * percentage) + prices.Adult + 0.001;
+  const child = ((prices.Child / 100) * percentage) + prices.Child + 0.001;
+  const senior = ((prices.Senior / 100) * percentage) + prices.Senior + 0.001;
+  prices.Adult = Number(adult.toFixed(2));
+  prices.Child = Number(child.toFixed(2));
+  prices.Senior = Number(senior.toFixed(2));
 }
 
 function getEmployeeCoverage(idOrName) {
