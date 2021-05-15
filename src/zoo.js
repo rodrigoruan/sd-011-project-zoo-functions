@@ -90,8 +90,6 @@ function calculateEntry(entrants) {
 * Consultei o repositório de Samuel Silva Melo para resolver essa parte
 * Link: https://github.com/tryber/sd-011-project-zoo-functions/pull/117/commits/4e179e996adb153ce60b88e11a3edc28dae2b64e
 */
-// console.log(calculateEntry());
-// console.log(calculateEntry({}));
 
 function getAnimalMap(options) {
   // seu código aqui
@@ -102,8 +100,19 @@ function getAnimalMap(options) {
 // Sem parâmetros, retorna um cronograma legível para humanos
 // Se um único dia for passado, retorna somente este dia em um formato legível para humanos
 function getSchedule(dayName) {
-  // seu código aqui
+  let obj = {};
+  let expediente = Object.values(hours);
+  Object.keys(hours).forEach((day, index) => {
+    if (dayName === undefined) obj[day] = `Open from ${expediente[index].open}am until ${expediente[index].close - 12}pm`;
+    if (day === dayName) obj[day] = `Open from ${expediente[index].open}am until ${expediente[index].close - 12}pm`;
+  });
+  if (obj.Monday !== undefined) obj.Monday = 'CLOSED';
+  return (obj);
 }
+/**
+* Consultei o repositório de Samuel Silva Melo para resolver essa parte
+* Link: https://github.com/tryber/sd-011-project-zoo-functions/pull/117/commits/4e179e996adb153ce60b88e11a3edc28dae2b64e
+*/
 
 // A função busca por informações do animal mais velho da primeira espécie gerenciada pela pessoa colaboradora do parâmetro
 // Passado o id de um funcionário, encontra a primeira espécie de animal gerenciado pelo funcionário, e retorna um array com nome, sexo e idade do animal mais velho dessa espécie
