@@ -101,8 +101,8 @@ function getSchedule(dayName) {
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
   const pessoa = employees.find(({ id: colabora }) => colabora === id).responsibleFor[0];
-  return Object.values(species.find(({id: idx}) => idx === pessoa)
-    .residents.reduce((acc, curr) => acc.age < curr.age ? curr : acc));
+  return Object.values(species.find(({ id: idx }) => idx === pessoa)
+    .residents.reduce((acc, curr) => (acc.age < curr.age) ? curr : acc));
 }
 
 /* function increasePrices(percentage) {
