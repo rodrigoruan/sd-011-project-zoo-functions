@@ -43,11 +43,11 @@ function createEmployee(personalInfo, associatedWith) {
   };
 
   return objEmployee;
-
 }
 
 function isManager(id) {
   // seu código aqui
+
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
