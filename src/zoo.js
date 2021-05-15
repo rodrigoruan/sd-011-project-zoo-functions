@@ -75,9 +75,33 @@ function calculateEntry(entrants) {
   }, 0);
 }
 
+const findAnimals = (region) => {
+  const regionAnimals = species.filter((specie) => specie.location === region);
+  const animalsName = regionAnimals.map((animal) => animal.name);
+
+  return animalsName;
+};
+
+const globalMap = () => {
+  const globalMap = {};
+  const regionsList = species.map((region) => region.location);
+  const regions = [... new Set(regionsList)];
+
+  regions.forEach((region) => {
+    globalMap[region] = findAnimals(region);
+  });
+
+  return globalMap;
+};
+
 function getAnimalMap(options) {
-  // seu código aqui
+  if (!options) {
+    return globalMap();
+  }
 }
+
+const options = { includeNames: true };
+console.log(getAnimalMap(options));
 
 const formatHour = (hour) => (hour <= 12 ? `${hour}am` : `${hour - 12}pm`);
 
@@ -159,8 +183,6 @@ function getEmployeeCoverage(idOrName) {
 
   return result;
 }
-
-console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 
 module.exports = {
   calculateEntry,
