@@ -13,17 +13,23 @@ const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   if (!ids.length) return [];
-  const animals = ids.map((id) => data.species.find((specie) => specie.id === id));
+  const animals = ids.map((id) =>
+    data.species.find((specie) => specie.id === id));
   return animals;
 }
 
 function getAnimalsOlderThan(animal, age) {
-  return data.species.find(((specie) => specie.name === animal)).residents.every((actualAnimal) => actualAnimal.age >= age);
+  return data.species
+    .find((specie) => specie.name === animal)
+    .residents.every((actualAnimal) => actualAnimal.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
-  return data.employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName);
+  return data.employees.find(
+    ({ firstName, lastName }) =>
+      firstName === employeeName || lastName === employeeName,
+  );
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -38,19 +44,35 @@ function isManager(i) {
   return false;
 }
 
-function addEmployee(identifier, firstName, lastName, managers = [], responsibleFor = []) {
-  const employed = { id: identifier, firstName, lastName, managers, responsibleFor };
+function addEmployee(
+  identifier,
+  firstName,
+  lastName,
+  managers = [],
+  responsibleFor = [],
+) {
+  const employed = {
+    id: identifier,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
   data.employees.push(employed);
 }
 
-const specieCountReducer = (otherSpecies, specie) => ({ ...otherSpecies, [specie.name]: specie.residents.length });
+const specieCountReducer = (otherSpecies, specie) => ({
+  ...otherSpecies,
+  [specie.name]: specie.residents.length,
+});
 
 function countAnimals(species) {
   if (!species) {
-    return data.species.reduce(specieCountReducer,
-      {});
+    return data.species.reduce(specieCountReducer, {});
   }
-  const animalsCount = data.species.find((animalName) => animalName.name === species);
+  const animalsCount = data.species.find(
+    (animalName) => animalName.name === species,
+  );
   return animalsCount.residents.length;
 }
 
@@ -60,21 +82,90 @@ function calculateEntry(entrants) {
     return 0;
   }
   const allKeys = Object.keys(entrants);
-  allKeys.forEach((key) => { result += data.prices[key] * entrants[key]; });
+  allKeys.forEach((key) => {
+    result += data.prices[key] * entrants[key];
+  });
   return result;
 }
 
-function getAnimalMap(options) {
-  // seu código aqui
+const pipe = (...fns) => (x) => fns.reduce((v, f) => f(v), x);
+
+function animalMap() {
+  return data.species.reduce(
+    (accumulator, value) => {
+      accumulator[value.location].push(value.name);
+      return accumulator;
+    },
+    { NE: [], NW: [], SE: [], SW: [] },
+  );
 }
 
+const id = (self) => self;
+
+const getName = (any) => any.name;
+
+const sortArray = (array) => array.sort();
+
+const getNamesFromArray = (array) => array.map(getName);
+
+const getNamesFromResidents = (residents) => getNamesFromArray(residents);
+
+const getNamesFromSpecie = (specie) => getNamesFromArray(specie.residents);
+
+const makeSpecieReducer = (handleSpecie = id) => (specieAccumulator, specie) => {
+  const actualRegionName = specie.location;
+  const actualRegion = specieAccumulator[actualRegionName];
+  const newSpecie = { [specie.name]: handleSpecie(specie) };
+  return { ...specieAccumulator, [actualRegionName]: [...actualRegion, newSpecie] };
+};
+
+const filterBySex = (sex) => (specie) => specie.residents.filter((resident) => resident.sex === sex);
+
+const blankAnimalMap = {
+  NE: [],
+  NW: [],
+  SE: [],
+  SW: [],
+};
+
+const reduceSpecies = (handler) => data.species.reduce(makeSpecieReducer(handler), blankAnimalMap);
+
+const handleOptions = ({ sex, sorted, includeNames, sexAndSorted }) => {
+  const getNamesBySex = pipe(filterBySex(sex), getNamesFromResidents);
+  const getSortedNamesBySex = pipe(getNamesBySex, sortArray);
+  if (sexAndSorted) {
+    return reduceSpecies(getSortedNamesBySex);
+  }
+  if (sex) {
+    return reduceSpecies(getNamesBySex);
+  }
+
+  if (sorted) {
+    const getSortedNames = pipe(getNamesFromSpecie, sortArray);
+    return reduceSpecies(getSortedNames);
+  }
+
+  if (includeNames) {
+    return reduceSpecies(getNamesFromSpecie);
+  }
+  return animalMap();
+};
+
+function getAnimalMap(options) {
+  if (!options) {
+    return animalMap();
+  }
+  const sex = options.includeNames ? options.sex : null;
+  const sorted = options.sorted && options.includeNames;
+
+  const sexAndSorted = sex && sorted;
+  return handleOptions({ ...options, sexAndSorted, sorted, sex });
+}
 function getSchedule(dayName) {
   // seu código aqui
 }
 
-function getOldestFromFirstSpecies(ides) {
-
-}
+function getOldestFromFirstSpecies(ides) {}
 
 function increasePrices(percentage) {
   // seu código aqui
