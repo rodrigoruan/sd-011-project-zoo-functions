@@ -130,7 +130,7 @@ function getSchedule(dayName) {
     return daysList;
   }
   if (dayName !== undefined) {
-    return {[dayName]: daysList[dayName]};
+    return { [dayName]: daysList[dayName] };
   }
 }
 console.log(getSchedule('Monday'));
@@ -165,7 +165,7 @@ function increasePrices(percentage) {
 // console.log(increasePrices(50));
 
 function getEmployeeCoverage(idOrName) {
-   // seu código aqui
+  // seu código aqui
 }
 
 module.exports = {
