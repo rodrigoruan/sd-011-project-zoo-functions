@@ -10,7 +10,7 @@ eslint no-unused-vars: [
 */
 
 const data = require('./data');
-const { species, employees, hours } = require('./data');
+const { species, employees} = require('./data');
 
 function getSpeciesByIds(...ids) {
   return data.species.filter((Species) => ids.some((id) => Species.id === id));
@@ -26,22 +26,22 @@ function getEmployeeByName(employeeName) {
   if (!employeeName) {
     return {};
   }
-  return data.employees
+  return employees
     .find((el) => el.firstName === employeeName || el.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
   return {
-    id: personalInfo,
-    firstName: personalInfo,
-    lastName: personalInfo,
-    managers: associatedWith,
-    responsibleFor: associatedWith,
+    id: personalInfo.id,
+    firstName: personalInfo.firstName,
+    lastName: personalInfo.lastName,
+    managers: associatedWith.managers,
+    responsibleFor: associatedWith.responsibleFor,
   };
 }
 
 function isManager(id) {
-  return data.employees.some((el) => el.manegers.includes(id));
+  return employees.some((el) => el.manegers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
