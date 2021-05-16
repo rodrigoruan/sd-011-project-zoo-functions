@@ -200,16 +200,17 @@ function increasePrices(percentage) {
 // }
 
 function getEmployeeCoverage(idOrName) {
-  const object = {};
+  const employeeResponsibleFor = {};
 
   if (!idOrName) {
     data.employees.forEach(({ firstName, lastName, responsibleFor }) => {
-      object[`${firstName} ${lastName}`] = responsibleFor.map((animalId) => data.species.find(({ id }) => id === animalId).name);
+      employeeResponsibleFor[`${firstName} ${lastName}`] = responsibleFor.map((animalId) => data.species.find(({ id }) => id === animalId).name);
     });
+    console.log(employeeResponsibleFor)
   }
-  data.employees.filter(({ firstName, lastName, id }) => firstName === idOrName || lastName === idOrName || id === idOrName).forEach(({ firstName, lastName, responsibleFor }) => { object[`${firstName} ${lastName}`] = responsibleFor.map((animalId) => data.species.find(({ id }) => id === animalId).name); });
+  data.employees.filter(({ firstName, lastName, id }) => firstName === idOrName || lastName === idOrName || id === idOrName).forEach(({ firstName, lastName, responsibleFor }) => { employeeResponsibleFor[`${firstName} ${lastName}`] = responsibleFor.map((animalId) => data.species.find(({ id }) => id === animalId).name); });
 
-  return object;
+  return employeeResponsibleFor;
 }
 module.exports = {
   calculateEntry,
