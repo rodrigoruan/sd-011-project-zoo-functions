@@ -62,7 +62,7 @@ function countAnimals(speciesR) {
       return acc;
     }, {});
   }
-  return data.species.find((speciesR2) => speciesR2.name === species).residents.length;
+  return data.species.find((speciesR2) => speciesR2.name === speciesR).residents.length;
 }
 countAnimals('giraffes');
 function calculateEntry(entrants) {
