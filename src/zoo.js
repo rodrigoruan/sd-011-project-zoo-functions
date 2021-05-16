@@ -40,7 +40,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   const addPessoa = data.employees.push(pessoa);
   return employees;
 }
-console.log(addEmployee('genivaldoId', 'Genivaldo', 'Cícero', 'stephanieId', 'responsibleFor'));
+console.log(addEmployee());
 function countAnimals(species) {
   // seu código aqui
 }
