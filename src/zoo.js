@@ -59,7 +59,21 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const horas = Object.values(data.hours);
+  let diasSemana;
+  if (!dayName) {
+    diasSemana = Object.keys(data.hours);
+  } else {
+    diasSemana = [dayName];
+  }
+  const resultado = diasSemana.reduce((acc, curr, index) => {
+    acc[curr] = `Open from ${horas[index].open}am until ${horas[index].close - 12}pm`;
+    return acc;
+  }, {});
+  if (resultado.Monday) {
+    resultado.Monday = 'CLOSED';
+  }
+  return resultado;
 }
 
 function getOldestFromFirstSpecies(id) {
