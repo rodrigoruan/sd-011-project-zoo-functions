@@ -10,6 +10,7 @@ eslint no-unused-vars: [
 */
 // comando para test : npm test test/addEmployee.test.jsnpm
 
+const { prices } = require('./data');
 const data = require('./data');
 
 const { species, employees, hours } = data;
@@ -105,11 +106,16 @@ function getOldestFromFirstSpecies(id) {
     .residents.reduce((acc, curr) => (acc.age < curr.age ? curr : acc)));
 }
 
-/* function increasePrices(percentage) {
+function increasePrices(percentage) {
   // seu código aqui
+  return {
+    Adult: Math.ceil(prices.Adult*(100 + percentage))/100,
+    Child: Math.ceil(prices.Child*(100 + percentage))/100,
+    Senior: Math.ceil(prices.Senior*(100 + percentage))/100
+  };
 }
 
-function getEmployeeCoverage(idOrName) {
+/* function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
  */
