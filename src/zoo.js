@@ -118,6 +118,31 @@ function getAnimalMap(options) {
 
 function getSchedule(dayName) {
   // seu código aqui
+  const key = Object.keys(data.hours);
+  const object = {};
+
+  // para o caso sem parametros
+  if (!dayName) {
+    // Acessar a chave de cada um dos elementos do objeto "hours"
+    const schedule = (value) => {
+      object[value] = `Open from ${data.hours[value].open}am until ${(data.hours[value].close) - 12}pm`;
+      if (value === 'Monday') {
+        object[value] = 'CLOSED';
+      }
+    };
+
+    key.forEach(schedule);
+    return object;
+  }
+
+  if (dayName === 'Monday') {
+    // Adiciona uma nova chave ao obj vazio assim como o valor dela, que seria 'CLOSED'
+    object[dayName] = 'CLOSED';
+    return object;
+  }
+
+  object[dayName] = `Open from ${data.hours[dayName].open}am until ${(data.hours[dayName].close) - 12}pm`;
+  return object;
 }
 
 function getOldestFromFirstSpecies(id) {
