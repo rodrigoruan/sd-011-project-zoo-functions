@@ -130,16 +130,45 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
-  if (!dayName) {
-    const keys = Object.keys(data.hours);
-    return keys.map((value) => {
-      if (value === 'Monday') {
-        return `${value} : CLOSED`;
-      }
-      return `${value}: Open from ${hours[value].open}am until ${hours[value].close - 12}pm`;
-    });
+  // FEITO COM AJUDA DA JOICY NO PLANTÃO
+  // let keys = Object.keys(data.hours);
+  // if (dayName === undefined) {
+  //   let objectHours = {};
+  //   keys.forEach((value) => {
+  //     if (value === 'Monday') {
+  //       objectHours[value] = 'CLOSED';
+  //     } else {
+  //       objectHours[value] = `Open from ${hours[value].open}am until ${hours[value].close - 12}pm`;
+  //     }
+  //   });
+  //   return objectHours;
+  // }
+  // let dayOpen = {};
+  // if (dayName === 'Monday') {
+  //   dayOpen[dayName] = 'CLOSED';
+  // } else {
+  //   dayOpen[dayName] = `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm`;
+  // }
+  // return dayOpen;
+
+  // REFATORAÇÃO PARA PASSAR NO LINT
+  const dayOpen = {};
+  if (dayName && dayName !== 'Monday') {
+    dayOpen[dayName] = `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close - 12}pm`;
+    return dayOpen;
   }
+  if (dayName === 'Monday') {
+    return { Monday: 'CLOSED' };
+  }
+  return {
+    Tuesday: `Open from ${data.hours.Tuesday.open}am until ${data.hours.Tuesday.close - 12}pm`,
+    Wednesday: `Open from ${data.hours.Wednesday.open}am until ${data.hours.Wednesday.close - 12}pm`,
+    Thursday: `Open from ${data.hours.Thursday.open}am until ${data.hours.Thursday.close - 12}pm`,
+    Friday: `Open from ${data.hours.Friday.open}am until ${data.hours.Friday.close - 12}pm`,
+    Saturday: `Open from ${data.hours.Saturday.open}am until ${data.hours.Saturday.close - 12}pm`,
+    Sunday: `Open from ${data.hours.Sunday.open}am until ${data.hours.Sunday.close - 12}pm`,
+    Monday: 'CLOSED',
+  };
 }
 
 function getOldestFromFirstSpecies(id) {
