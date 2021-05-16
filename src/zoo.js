@@ -108,8 +108,6 @@ const sortArray = (array) => array.sort();
 
 const getNamesFromArray = (array) => array.map(getName);
 
-const getNamesFromResidents = (residents) => getNamesFromArray(residents);
-
 const getNamesFromSpecie = (specie) => getNamesFromArray(specie.residents);
 
 const makeSpecieReducer = (handleSpecie = id) => (specieAccumulator, specie) => {
@@ -131,7 +129,7 @@ const blankAnimalMap = {
 const reduceSpecies = (handler) => data.species.reduce(makeSpecieReducer(handler), blankAnimalMap);
 
 const handleOptions = ({ sex, sorted, includeNames, sexAndSorted }) => {
-  const getNamesBySex = pipe(filterBySex(sex), getNamesFromResidents);
+  const getNamesBySex = pipe(filterBySex(sex), getNamesFromArray);
   const getSortedNamesBySex = pipe(getNamesBySex, sortArray);
   if (sexAndSorted) {
     return reduceSpecies(getSortedNamesBySex);
@@ -171,8 +169,26 @@ function increasePrices(percentage) {
   // seu código aqui
 }
 
+const idToName = data.species.reduce((acc, specie) => ({ ...acc, [specie.id]: specie.name }), {});
+
+const getNamesFromIds = ((ids) => ids.map((animalID) => idToName[animalID]));
+
+const findByFirstOrLastName = (firstOrSecondName) => (employee) => employee.firstName === firstOrSecondName || employee.lastName === firstOrSecondName;
+
+const getEmpCover = (emp) => ({ [`${emp.firstName} ${emp.lastName}`]: getNamesFromIds(emp.responsibleFor) });
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (!idOrName) {
+    return data.employees.reduce(
+      (acc, emp) => ({ ...acc, ...getEmpCover(emp) }), {},
+    );
+  }
+  if (idOrName.includes('-')) {
+    const emp = data.employees.find((employee) => employee.id === idOrName);
+    return getEmpCover(emp);
+  }
+  const emp = data.employees.find(findByFirstOrLastName(idOrName));
+  return getEmpCover(emp);
 }
 
 module.exports = {
