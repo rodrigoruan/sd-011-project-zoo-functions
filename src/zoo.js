@@ -9,32 +9,42 @@ eslint no-unused-vars: [
 ]
 */
 
-const data = require('./data');
+const { species, employees, hours, prices} = require('./data');
 
-const { species } = data;
+function getSpeciesByIds(...ids) {
+  return species.filter((specie) => ids.includes(specie.id));
+  // retorno da constante species, usando filter e passando como parâmetro specie, buscando se dentro de species existe o id
+}
 
-const getSpeciesByIds = (...args) => (args ? species.filter((animal) => [...args].includes(animal.id)) : []);
-
-const getAnimalsOlderThan = (animal, age) => species.find((animalName) => animalName.name === animal).residents.every((animals) => animals.age >= age);
+function getAnimalsOlderThan(animal, age) {
+  return species
+    .find((specie) => specie.name === animal)
+    .residents.every((resident) => resident.age >= age);
+}
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  return employeeName
+    ? employees.find((employeer) => employeer === employeeName || employeer.lastName === employeeName) : {};
 }
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  return { ...personalInfo, ...associatedWith };
 }
 
 function isManager(id) {
-  // seu código aqui
+  return employees.some((employeer) => employeer.managers.includes(id));
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  employees.push({id, firstName, lastName, managers, responsibleFor });
 }
 
-function countAnimals(species) {
-  // seu código aqui
+function countAnimals(specieName) {
+  return specieName
+    ? species.find((specie) => specie.name === specieName).residents.length
+    : species.reduce((acc, specie) => {
+      acc[specie.name] = specie.residents.length;
+    }, {});
 }
 
 function calculateEntry(entrants) {
