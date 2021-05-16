@@ -40,7 +40,6 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(specie) {
-  // seu código aqui
   function countAnimals(specie) {
     if (specie) {
       return species.find(({ name }) => name === specie).residents.length;
