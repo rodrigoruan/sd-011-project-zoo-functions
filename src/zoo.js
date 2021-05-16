@@ -22,7 +22,7 @@ function getAnimalsOlderThan(animal, age) {
 // console.log(getAnimalsOlderThan());
 function getEmployeeByName(...employeeName) {
   // seu código aqui
-  return employeeName.every((item) => data.employees.find((names) => names.firstName === item));
+  return employeeName.map((item) => data.employees.find((names) => names.firstName === item));
 }
 console.log(getEmployeeByName());
 function createEmployee(personalInfo, associatedWith) {
