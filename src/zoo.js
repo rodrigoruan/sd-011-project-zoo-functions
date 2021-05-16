@@ -74,7 +74,32 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  // seu código aqui
+  /* OPÇÃO 1 */
+  // let managers = [];
+
+  // for (let index = 0; index < data.employees.length; index += 1) {
+  //   let item = data.employees[index];
+
+  //   for (let i = 0; i < item.managers.length; i += 1) {
+  //     managers.push(item.managers[i]);
+  //   }
+  // }
+
+  // return managers.includes(id);
+
+  /* OPÇÃO 2 */
+  // for (let index = 0; index < data.employees.length; index += 1) {
+  //   let item = data.employees[index];
+
+  //   if (item.managers.includes(id)) {
+  //     return true;
+  //   }
+  // }
+
+  // return false;
+
+  /* OPÇÃO 3 */
+  return data.employees.some((item) => item.managers.includes(id));
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
