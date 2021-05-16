@@ -82,7 +82,19 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const getEmployee = allEmployees.filter((person) => person.id === id).reduce((elem) => elem);
+  const getFirstID = getEmployee.responsibleFor.reduce((elem) => elem);
+  const animalObj = dataAny.filter((animal) => animal.id === getFirstID).reduce((elem) => elem);
+  const { residents } = animalObj;
+  const resident = residents;
+  for (let animal = 0; animal < resident.length; animal += 1) {
+    const firstAnimal = resident[0].age;
+    if (resident[animal].age > firstAnimal) {
+      const { name, sex, age } = resident[animal];
+      const returnList = [name, sex, age];
+      return returnList;
+    }
+  }
 }
 
 function increasePrices(percentage) {
