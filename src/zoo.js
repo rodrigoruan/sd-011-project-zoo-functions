@@ -109,9 +109,9 @@ function getOldestFromFirstSpecies(id) {
 function increasePrices(percentage) {
   // seu código aqui
   return {
-    Adult: Math.ceil(prices.Adult*(100 + percentage))/100,
-    Child: Math.ceil(prices.Child*(100 + percentage))/100,
-    Senior: Math.ceil(prices.Senior*(100 + percentage))/100
+    Adult: Math.ceil(prices.Adult * (100 + percentage)) / 100,
+    Child: Math.ceil(prices.Child * (100 + percentage)) / 100,
+    Senior: Math.ceil(prices.Senior * (100 + percentage)) / 100,
   };
 }
 
