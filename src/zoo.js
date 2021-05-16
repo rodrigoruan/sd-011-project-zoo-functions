@@ -104,9 +104,9 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  const adult = ((data.prices.Adult / 100) * percentage) + data.prices.Adult;
-  const child = ((data.prices.Child / 100) * percentage) + data.prices.Child;
-  const senior = ((data.prices.Senior / 100) * percentage) + data.prices.Senior;
+  const adult = ((data.prices.Adult / 100) * percentage) + data.prices.Adult + 0.001;
+  const child = ((data.prices.Child / 100) * percentage) + data.prices.Child + 0.001;
+  const senior = ((data.prices.Senior / 100) * percentage) + data.prices.Senior + 0.001;
   data.prices.Adult = Number(adult.toFixed(2));
   data.prices.Child = Number(child.toFixed(2));
   data.prices.Senior = Number(senior.toFixed(2));
