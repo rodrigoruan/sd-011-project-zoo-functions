@@ -9,7 +9,6 @@ eslint no-unused-vars: [
 ]
 */
 
-const { employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -28,26 +27,45 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  // let specie;
+
+  // for (let index = 0; index < data.species.length; index += 1) {
+  //   const item = data.species[index];
+
+  //   if (item.name === animal) {
+  //     specie = item;
+  //   }
+  // }
+
+  // for (let i = 0; i < specie.residents.length; i++) {
+  //   const item = specie.residents[i];
+
+  //   if (item.age < age) {
+  //     return false;
+  //   }
+  // }
+
+  // return true;
+  const specie = data.species.find((item) => item.name === animal);
+  return specie.residents.every((item) => item.age >= age);
 }
 
 // ____________________________
 
-function getEmployeeByName(...employeeName) {
-  let employee = {};
-
-  for (let index = 0; index < data.employees.length; index += 1) {
-    const item = data.employees[index];
-
-    if (employeeName.includes(item.firstName)) {
-      employee = item;
-    }
-
-    if (employeeName.includes(item.lastName)) {
-      employee = item;
-    }
+function getEmployeeByName(employeeName) {
+  if (!employeeName) {
+    return {};
   }
-  return employee;
+
+  // for (let index = 0; index < data.employees.length; index += 1) {
+  //   const item = data.employees[index];
+
+  //   if (employeeName === item.firstName || employeeName === item.lastName) {
+  //     return item;
+  //   }
+  // }
+
+  return data.employees.find((item) => employeeName === item.firstName || employeeName === item.lastName);
 }
 // ____________________________
 
