@@ -84,18 +84,54 @@ function calculateEntry(entrants) {
   return total;
 }
 
-function getAnimalMap(options) {
-  // seu código aqui.
-  let object = {};
-  if (!options) {
-    let regions = ['NE', 'NW', 'SE', 'SW'];
-    regions.forEach((region) => {
-      object[region] = (data.species.filter((specie) => specie.location === region)).map((specie) => specie.name);
-    });
-    return object;
-  }
+// function createLocation() {
+//   let object = {};
+//   let regions = ['NE', 'NW', 'SE', 'SW'];
+//   regions.forEach((region) => {
+//     object[region] = (data.species.filter((specie) => specie.location === region)).map((specie) => specie.name);
+//   });
+//   return object;
+// }
+// REFATORANDO
+
+function createLocation() {
+  const object = {};
+  data.species.forEach((specie) => {
+    if (!object[specie.location]) {
+      object[specie.location] = [];
+    }
+    object[specie.location].push(specie.name);
+  });
+  return object;
 }
-console.log(getAnimalMap());
+
+function createAnimalNames(sorted, sex) {
+  let regions = { NE: [], NW: [], SE: [], SW: [] };
+  data.species.forEach((specie) => {
+    let animalNames;
+    if (sex) {
+      animalNames = specie.residents.filter((animal) => animal.sex === sex).map(({ name }) => name);
+    } else {
+      animalNames = specie.residents.map(({ name }) => name);
+    }
+    if (sorted) {
+      animalNames.sort();
+    }
+    regions[specie.location].push({ [specie.name]: animalNames });
+  });
+  return regions;
+}
+
+function getAnimalMap(options = {}) {
+  const { includeNames, sorted, sex } = options;
+  let object = {};
+  if (includeNames) {
+    object = createAnimalNames(sorted, sex);
+  } else {
+    object = createLocation();
+  }
+  return object;
+}
 
 function insertOpenDays(object) {
   for (let days in data.hours) {
