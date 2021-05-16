@@ -206,9 +206,9 @@ function getEmployeeCoverage(idOrName) {
     data.employees.forEach(({ firstName, lastName, responsibleFor }) => {
       employeeResponsibleFor[`${firstName} ${lastName}`] = responsibleFor.map((animalId) => data.species.find(({ id }) => id === animalId).name);
     });
-    console.log(employeeResponsibleFor)
   }
-  data.employees.filter(({ firstName, lastName, id }) => firstName === idOrName || lastName === idOrName || id === idOrName).forEach(({ firstName, lastName, responsibleFor }) => { employeeResponsibleFor[`${firstName} ${lastName}`] = responsibleFor.map((animalId) => data.species.find(({ id }) => id === animalId).name); });
+  // return name < seach in name responsibleFor < map animals id < search in specie name by id
+  employees.filter(({ firstName, lastName, id }) => firstName === idOrName || lastName === idOrName || id === idOrName).forEach(({ firstName, lastName, responsibleFor }) => { employeeResponsibleFor[`${firstName} ${lastName}`] = responsibleFor.map((animalId) => data.species.find(({ id }) => id === animalId).name); });
 
   return employeeResponsibleFor;
 }
