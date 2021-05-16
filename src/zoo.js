@@ -99,8 +99,22 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-
+  if (!idOrName) {
+    const funcion = {};
+    employees.forEach((element) => {
+      funcion[`${element.firstName} ${element.lastName}`] = element.responsibleFor
+        .map((elements) => species.find((especies) => especies.id === elements).name);
+    });
+    return funcion;
+  }
+  const funcion = {};
+  const objFunc = employees
+    .find((func) => func.firstName === idOrName || func.lastName === idOrName || func.id === idOrName);
+  funcion[`${objFunc.firstName} ${objFunc.lastName}`] = objFunc.responsibleFor
+    .map((element) => species.find((especies) => especies.id === element).name);
+  return funcion;
 }
+console.log(getEmployeeCoverage('Nigel'));
 
 module.exports = {
   calculateEntry,
