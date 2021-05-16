@@ -114,7 +114,6 @@ function getEmployeeCoverage(idOrName) {
     .map((element) => species.find((especies) => especies.id === element).name);
   return funcion;
 }
-console.log(getEmployeeCoverage('Nigel'));
 
 module.exports = {
   calculateEntry,
