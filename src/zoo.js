@@ -129,9 +129,18 @@ function getOldestFromFirstSpecies(id) {
 }
 // console.log(getOldestFromFirstSpecies('c5b83cb3-a451-49e2-ac45-ff3f54fbe7e1'));
 
+// Exercício executado com base nos exercícios anteriores e  dos sites:
+// https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Working_with_Objects
+// https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Math/round
+
 function increasePrices(percentage) {
-  // seu código aqui
+  const { Adult, Senior, Child } = prices;
+  data.prices.Adult = Math.round((data.prices.Adult + ((data.prices.Adult * percentage) / 100)));
+  data.prices.Senior = Math.round((data.prices.Senior + ((data.prices.Senior * percentage) / 100)));
+  data.prices.Child = Math.round((data.prices.Child + (data.prices.Child * (percentage / 100))));
+  return prices;
 }
+console.log(increasePrices(50));
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
