@@ -14,17 +14,17 @@ const data = require('./data');
 function getSpeciesByIds(...ids) {
   return ids.map((item) => data.species.find((species) => species.id === item));
 }
-
 function getAnimalsOlderThan(animal, age) {
 //   // seu código aqui
   // const  {residents}  = species.some((item) => item.name === animal);
   // return residents.map((item) => item.age >= age);
 }
 // console.log(getAnimalsOlderThan());
-function getEmployeeByName(employeeName) {
+function getEmployeeByName(...employeeName) {
   // seu código aqui
+  return employeeName.every((item) => data.employees.find((names) => names.firstName === item));
 }
-
+console.log(getEmployeeByName());
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
   return { ...personalInfo, ...associatedWith };
@@ -35,7 +35,6 @@ function isManager(id) {
   const retornaId = data.employees.some(({ managers }) => managers.includes(id));
   return retornaId;
 }
-console.log(isManager());
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
