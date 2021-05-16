@@ -161,7 +161,7 @@ function getOldestFromFirstSpecies(id) {
   // seu código aqui
   const employeeSelected = data.employees.find((employee) => employee.id === id);
   const firstAnimal = employeeSelected.responsibleFor[0];
-  const oldestAnimal = data.species.find((animal) => animal.id === firstAnimal).residents.reduce((acc, current) => (current.age > acc.age ? current : acc), 0);
+  const oldestAnimal = data.species.find((animal) => animal.id === firstAnimal).residents.reduce((acc, current) => (current.age > acc.age ? current : acc));
   return [oldestAnimal.name, oldestAnimal.sex, oldestAnimal.age];
 }
 
