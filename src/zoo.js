@@ -147,6 +147,17 @@ function getSchedule(dayName) {
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
+  // dentro do objeto "employees" ele busca qual deles possue valor igual
+  // ao id passado como parametro
+  const employeesInformation = data.employees.find((value) => value.id === id);
+  const selectAnimal = data.species.find((value) => employeesInformation.responsibleFor[0] === value.id);
+  const oldestAnimal = selectAnimal.residents.reduce((accumulate, current) => {
+    if (current.age > accumulate.age) {
+      return current;
+    }
+    return accumulate;
+  });
+  return [oldestAnimal.name, oldestAnimal.sex, oldestAnimal.age];
 }
 
 function increasePrices(percentage) {
