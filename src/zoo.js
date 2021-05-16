@@ -8,7 +8,6 @@ eslint no-unused-vars: [
   }
 ]
 */
-// const { species } = require('./data')
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -23,10 +22,9 @@ function getAnimalsOlderThan(animal, age) {
 function getEmployeeByName(employeeName) {
   // seu código aqui
   if (!employeeName) return {};
-  const arroz = data.employees.filter((item) => item.firstName === employeeName || item.lastName === employeeName);
-  return arroz;
+  const names = data.employees.find((item) => item.firstName === employeeName || item.lastName === employeeName);
+  return names;
 }
-console.log(getEmployeeByName());
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
   return { ...personalInfo, ...associatedWith };
