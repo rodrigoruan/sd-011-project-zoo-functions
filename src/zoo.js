@@ -34,9 +34,9 @@ function isManager(id) {
   const retornaId = data.employees.some(({ managers }) => managers.includes(id));
   return retornaId;
 }
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
+function addEmployee(id, firstName, lastName, responsibleFor) {
   // seu código aqui
-  const pessoa = { id, firstName, lastName, managers, responsibleFor };
+  const pessoa = { id, firstName, lastName, responsibleFor };
   // const addPessoa = data.employees.push(pessoa);
   return employees.push(pessoa);
 }
