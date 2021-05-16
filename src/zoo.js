@@ -37,7 +37,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
-function countAnimals(species) {
+function countAnimals() {
   if (!species) {
     return data.species.reduce((acc, current) => {
       acc[current.name] = current.residents.length;
@@ -55,15 +55,7 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  if (!options || !options.includeNames) {
-    return data.species.reduce(getAnimalsByLocation, {});
-  }
-
-  const { includeNames, sorted, sex } = options;
-
-  if (includeNames) {
-    return data.species.reduce(getAnimalsByLocationWithNames, [{}, sorted, sex])[0];
-  }
+  // ...
 }
 
 function getSchedule(dayName) {
