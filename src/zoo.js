@@ -165,8 +165,14 @@ function getSchedule(dayName) {
 
 function getOldestFromFirstSpecies(ides) {}
 
+const increasePrice = (by) => (priceKey) => {
+  data.prices[priceKey] = Math.round(data.prices[priceKey] * (1 + by / 100) * 100) / 100;
+};
+
 function increasePrices(percentage) {
-  // seu código aqui
+  const priceKeys = Object.keys(data.prices);
+
+  priceKeys.forEach(increasePrice(percentage));
 }
 
 const idToName = data.species.reduce((acc, specie) => ({ ...acc, [specie.id]: specie.name }), {});
