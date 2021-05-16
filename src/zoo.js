@@ -51,7 +51,7 @@ function countAnimals(specie) {
 
 function calculateEntry(entrants) {
   if (entrants === undefined || entrants === {}) return 0;
-  return Object.keys(entrants).reduce(((total, currentValue) => total + (entrants[currentValue])))
+  return Object.keys(entrants).reduce(((total, currentValue) => total + (entrants[currentValue])));
 }
 
 function getAnimalMap(options) {
@@ -59,19 +59,19 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-const schedule = {
-  Tuesday: 'Open from 8am until 6pm',
-  Wednesday: 'Open from 8am until 6pm',
-  Thursday: 'Open from 10am until 8pm',
-  Friday: 'Open from 10am until 8pm',
-  Saturday: 'Open from 8am until 10pm',
-  Sunday: 'Open from 8am until 8pm',
-  Monday: 'CLOSED'
-}
+  const schedule = {
+    Tuesday: 'Open from 8am until 6pm',
+    Wednesday: 'Open from 8am until 6pm',
+    Thursday: 'Open from 10am until 8pm',
+    Friday: 'Open from 10am until 8pm',
+    Saturday: 'Open from 8am until 10pm',
+    Sunday: 'Open from 8am until 8pm',
+    Monday: 'CLOSED'
+  };
 
-if (!dayName) return schedule;
-const operation = Object.keys(schedule).find((day) => day === dayName);
-return { [operation]: schedule[operation] };
+  if (!dayName) return schedule;
+  const operation = Object.keys(schedule).find((day) => day === dayName);
+  return { [operation]: schedule[operation] };
 }
 
 function getOldestFromFirstSpecies(id) {
