@@ -12,7 +12,8 @@ eslint no-unused-vars: [
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  return data.species.filter((Species) => ids.some((id) => Species.id === id));
+  return data.species
+    .filter((Species) => ids.some((id) => Species.id === id));
 }
 
 function getAnimalsOlderThan(animal, age) {
@@ -64,18 +65,37 @@ function countAnimals(speciesR) {
   }
   return data.species.find((speciesR2) => speciesR2.name === speciesR).residents.length;
 }
-countAnimals('giraffes');
+
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants || Object.keys(entrants).length === 0) {
+    return (0);
+  }
+  return Object.entries(entrants)
+    .reduce((acc, current) => acc + (current[1] * data.prices[current[0]]), 0);
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  // mt grande meu
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const schedule = {
+    Tuesday: `Open from ${data.hours.Tuesday.open}am until ${data.hours.Tuesday.close - 12}pm`,
+    Wednesday: `Open from ${data.hours.Wednesday.open}am until ${data.hours.Wednesday.close - 12}pm`,
+    Thursday: `Open from ${data.hours.Thursday.open}am until ${data.hours.Thursday.close - 12}pm`,
+    Friday: `Open from ${data.hours.Friday.open}am until ${data.hours.Friday.close - 12}pm`,
+    Saturday: `Open from ${data.hours.Saturday.open}am until ${data.hours.Saturday.close - 12}pm`,
+    Sunday: `Open from ${data.hours.Sunday.open}am until ${data.hours.Sunday.close - 12}pm`,
+    Monday: 'CLOSED',
+  };
+  if (!dayName) {
+    return schedule;
+  }
+  return {
+    [dayName]: schedule[dayName],
+  }
 }
+
 
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
