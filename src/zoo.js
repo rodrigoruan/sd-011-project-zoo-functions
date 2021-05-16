@@ -20,12 +20,14 @@ function getAnimalsOlderThan(animal, age) {
   // return residents.map((item) => item.age >= age);
 }
 // console.log(getAnimalsOlderThan());
-function getEmployeeByName(...employeeName) {
+function getEmployeeByName(employeeName) {
   // seu código aqui
   if (!employeeName) return {};
-  return employeeName.filter((item) => data.employees.find((findName) => findName.firstName === item));
+  const arroz  = data.employeeName.filter((item) => item.firstName === employeeName || item.lastName === employeeName);
+  return arroz;
+
 }
-console.log(getEmployeeByName());
+console.log(getEmployeeByName())
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
   return { ...personalInfo, ...associatedWith };
