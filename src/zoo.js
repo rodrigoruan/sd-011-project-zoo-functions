@@ -10,6 +10,7 @@ eslint no-unused-vars: [
 */
 
 const data = require('./data');
+const { hours, employees, species, prices } = require('./data');
 
 function getSpeciesByIds(...ids) {
   return data.species.filter((getSpecies) => ids.some((id) => getSpecies.id === id));
@@ -37,27 +38,64 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  if (!species) {
+    return data.species.reduce((acc, current) => {
+      acc[current.name] = current.residents.length;
+      return acc;
+    }, {});
+  }
+  return data.species.find((animal) => animal.name === species).residents.length;
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants || Object.keys(entrants).length === 0) {
+    return 0;
+  }
+  return Object.entries(entrants).reduce((acc, currentValue) => acc + (currentValue[1] * data.prices[currentValue[0]]), 0);
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  if (!options || !options.includeNames) {
+    return data.species.reduce(getAnimalsByLocation, {});
+  }
+
+  const { includeNames, sorted, sex } = options;
+
+  if (includeNames) {
+    return data.species.reduce(getAnimalsByLocationWithNames, [{}, sorted, sex])[0];
+  }
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const agenda = {};
+
+  Object.keys(hours).forEach((day) => {
+    if (day !== 'Monday') agenda[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
+    else agenda[day] = 'CLOSED';
+  });
+  if (dayName) {
+    return { [dayName]: agenda[dayName] };
+  }
+  return agenda;
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const firstSpecie = employees.find((pessoa) => pessoa.id === id).responsibleFor[0];
+  const animais = species.filter((specie) => specie.id === firstSpecie)[0].residents;
+  const ages = [];
+  animais.forEach((animal) => ages.push(animal.age));
+  const oldAge = ages.reduce((acc, curr) => {
+    if (acc > curr) return acc;
+    return curr;
+  }, 0);
+  const string = animais.find((animal) => animal.age === oldAge);
+  return Object.values(string);
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  Object.keys(prices).forEach((visit) => {
+    prices[visit] = Math.round((prices[visit] + prices[visit] * (percentage / 100)) * 100) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
