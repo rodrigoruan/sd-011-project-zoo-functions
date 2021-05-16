@@ -15,10 +15,8 @@ function getSpeciesByIds(...ids) {
 }
 function getAnimalsOlderThan(animal, age) {
 //   // seu código aqui
-  // const  {residents}  = species.some((item) => item.name === animal);
-  // return residents.map((item) => item.age >= age);
+
 }
-// console.log(getAnimalsOlderThan());
 function getEmployeeByName(employeeName) {
   // seu código aqui
   if (!employeeName) return {};
@@ -37,8 +35,11 @@ function isManager(id) {
 }
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
+  const pessoa = { id, firstName, lastName, managers };
+  const addPessoa = data.employees.push(pessoa);
+  return addPessoa;
 }
-
+console.log(addEmployee('genivaldoId', 'Genivaldo', 'Cícero', 'stephanieId'));
 function countAnimals(species) {
   // seu código aqui
 }
