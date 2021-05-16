@@ -62,7 +62,35 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  const regionalizer = (acc, cur) => {
+    acc[cur.location] = data.species
+      .filter((specie) => specie.location === cur.location).map((animal) => animal.name);
+    return acc;
+  };
+  if (!options) { return data.species.reduce(regionalizer, { }); }
+
+  const { includeNames, sorted, sex } = options;
+  const identifier = (acc, cur) => {
+    if (sex && sorted) {
+      acc[cur.location] = data.species.filter((specie) => specie.location === cur.location)
+        .map((animal) => ({ [animal.name]: animal.residents.filter((resident) => resident.sex === sex).map((names) => names.name).sort() }));
+    } else if (sex) {
+      acc[cur.location] = data.species.filter((specie) => specie.location === cur.location)
+        .map((animal) => ({ [animal.name]: animal.residents.filter((resident) => resident.sex === sex).map((names) => names.name) }));
+    } else if (sorted) {
+      acc[cur.location] = data.species.filter((specie) => specie.location === cur.location)
+        .map((animal) => ({ [animal.name]: animal.residents.map((names) => names.name).sort() }));
+    } else {
+      acc[cur.location] = data.species.filter((specie) => specie.location === cur.location)
+        .map((animal) => ({ [animal.name]: animal.residents.map((names) => names.name) }));
+    }
+    return acc;
+  };
+
+  let way;
+  if (!includeNames) { way = regionalizer; }
+  if (includeNames) { way = identifier; }
+  return data.species.reduce(way, { });
 }
 
 function getSchedule(dayName) {
