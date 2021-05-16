@@ -22,7 +22,7 @@ function getSpeciesByIds(ids = [], ids2 = undefined) {
     return speciesOfAnimals;
   }
   return ids;
-};
+}
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
@@ -44,7 +44,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-function countAnimals(species) {
+function countAnimals() {
   // seu código aqui
 }
 
