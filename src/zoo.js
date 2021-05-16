@@ -132,15 +132,22 @@ function getOldestFromFirstSpecies(id) {
 // Exercício executado com base nos exercícios anteriores e  dos sites:
 // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Working_with_Objects
 // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Math/round
+// https://www.alura.com.br/artigos/formatando-numeros-no-javascript
+// https://www.alura.com.br/artigos/convertendo-string-para-numero-em-javascript?gclid=EAIaIQobChMIgcWdjcHO8AIVkg2RCh0pCwRtEAAYASAAEgIHAPD_BwE
+// https://trybecourse.slack.com/archives/C01PLFW7347/p1620685335422400?thread_ts=1620685335.422400&cid=C01PLFW7347
 
 function increasePrices(percentage) {
   const { Adult, Senior, Child } = prices;
-  data.prices.Adult = Math.round((data.prices.Adult + ((data.prices.Adult * percentage) / 100)));
-  data.prices.Senior = Math.round((data.prices.Senior + ((data.prices.Senior * percentage) / 100)));
-  data.prices.Child = Math.round((data.prices.Child + (data.prices.Child * (percentage / 100))));
+  const adultPrice = ((data.prices.Adult + (data.prices.Adult * (percentage / 100))) + 0.001).toFixed(2);
+  const seniorPrice = ((data.prices.Senior + (data.prices.Senior * (percentage / 100))) + 0.001).toFixed(2);
+  const childPrice = ((data.prices.Child + (data.prices.Child * (percentage / 100))) + 0.001).toFixed(2);
+  data.prices.Adult = parseFloat(adultPrice);
+  data.prices.Senior = parseFloat(seniorPrice);
+  data.prices.Child = parseFloat(childPrice);
+
   return prices;
 }
-console.log(increasePrices(50));
+// console.log(increasePrices(50));
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
