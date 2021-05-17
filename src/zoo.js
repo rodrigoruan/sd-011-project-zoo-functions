@@ -63,6 +63,7 @@ function countAnimals(animal) {
   return species.find((specie) => specie.name === animal).residents.length;
 }
 
+// 8. A partir da quantidade de visitantes e a faixa etária de cada um, esta função é responsável por retornar o preço total a ser cobrado
 function calculateEntry(entrants) {
   if (entrants === undefined) {
     return 0;
@@ -70,10 +71,12 @@ function calculateEntry(entrants) {
   return Object.keys(entrants).reduce((acc, cur) => acc + (prices[cur] * entrants[cur]), 0);
 }
 
+// 9. A função é responsável pelo mapeamento geográfico das espécies e seus animais, podendo ainda filtrá-los por ordem alfabética e gênero, por exemplo
 function getAnimalMap(options) {
   // seu código aqui
 }
 
+// 10. A função é responsável por disponibilizar as informações de horário para uma consulta, que pode querer ter acesso a todo o cronograma da semana ou apenas o cronograma de um dia específico
 function getSchedule(dayName) {
   const objectDay = {};
   Object.keys(hours).forEach((day) => {
@@ -88,6 +91,7 @@ function getSchedule(dayName) {
   return objectDay;
 }
 
+// 11. A função busca por informações do animal mais velho da primeira espécie gerenciada pela pessoa colaboradora do parâmetro
 function getOldestFromFirstSpecies(id) {
   const employeeName = employees.find((employ) => employ.id === id);
   const fistAnimalCare = employeeName.responsibleFor[0];
@@ -96,6 +100,7 @@ function getOldestFromFirstSpecies(id) {
   return Object.values(animalsInOrder[0]);
 }
 
+// 12. A função é responsável por aumentar o preço das visitas, com base no valor de aumento recebido no parâmetro, em porcentagem
 function increasePrices(percentage) {
   const { Adult, Senior, Child } = prices;
   prices.Adult = Math.ceil(Adult * (percentage + 100)) / 100;
@@ -103,6 +108,8 @@ function increasePrices(percentage) {
   prices.Child = Math.ceil(Child * (percentage + 100)) / 100;
 }
 
+// Requisito 13 desenvolvido com o auxílio dos colegas Julio Filizzola e Nalu Pantoja.
+// 13. A função é responsável por consultar as espécies pela qual a pessoa colaborada, recebida no parâmetro através de seu id, firstName ou lastName, é responsável
 function getEmployeeCoverage(idOrName) {
   const retorno = {};
   if (idOrName === null || idOrName === undefined) {
