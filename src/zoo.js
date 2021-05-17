@@ -161,15 +161,6 @@ function getOldestFromFirstSpecies(id) {
   //   }
   // }
 
-  // let animalMaisVelho = specie.residents[0];
-  // for (let i = 1; i < specie.residents.length; i += 1) {
-  //   const item = specie.residents[i];
-
-  //   if (item.age > animalMaisVelho.age) {
-  //     animalMaisVelho = item;
-  //   }
-  // }
-
   let animalMaisVelho = specie.residents.reduce((acc, item) => {
     if (typeof acc === 'undefined' || item.age > acc.age) {
       return item;
@@ -181,12 +172,42 @@ function getOldestFromFirstSpecies(id) {
   return [animalMaisVelho.name, animalMaisVelho.sex, animalMaisVelho.age];
 }
 
+// let animalMaisVelho = specie.residents[0];
+// for (let i = 1; i < specie.residents.length; i += 1) {
+//   const item = specie.residents[i];
+
+//   if (item.age > animalMaisVelho.age) {
+//     animalMaisVelho = item;
+//   }
+// }
+
 function increasePrices(percentage) {
   // seu código aqui
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  function getSpeciesById(speciesId) {
+    return data.species.find((item) => item.id === speciesId);
+  }
+
+  let employeeCoverage = data.employees.reduce((acc, employee) => {
+    if (!idOrName || employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName) {
+      const key = `${employee.firstName} ${employee.lastName}`;
+
+      const value = employee.responsibleFor.map((id) => {
+        const specie = getSpeciesById(id);
+        return specie.name;
+      });
+
+      return {
+        ...acc,
+        [key]: value };
+    }
+
+    return acc;
+  }, {});
+
+  return employeeCoverage;
 }
 
 module.exports = {
