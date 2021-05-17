@@ -60,9 +60,18 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  let calendar = {};
+  Object.keys(data.hours).forEach((weekDay) => {
+    calendar[weekDay] = `Open from ${data.hours[weekDay].open}am until ${data.hours[weekDay].close - 12}pm`;
+    if (weekDay === 'Monday') calendar[weekDay] = 'CLOSED';
+  });
+  if (dayName !== undefined) {
+    return { [dayName]: calendar[dayName] };
+  }
+  return calendar;
 }
 
+console.log(getSchedule('Monday'));
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
