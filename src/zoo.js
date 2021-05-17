@@ -128,7 +128,27 @@ function countAnimals(specieName) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants) {
+    return 0;
+  }
+
+  // let acc = 0;
+
+  // for (let key in entrants) {
+  //   const price = data.prices[key];
+  //   const qty = entrants[key];
+  //   acc += (price * qty);
+  // }
+
+  // return acc;
+  return Object.keys(entrants).reduce((
+    acc,
+    key,
+  ) => {
+    const price = data.prices[key];
+    const qty = entrants[key];
+    return acc + (price * qty);
+  }, 0);
 }
 
 function getAnimalMap(options) {
