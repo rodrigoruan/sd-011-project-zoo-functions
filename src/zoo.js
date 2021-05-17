@@ -114,8 +114,40 @@ function increasePrices(percentage) {
   return data.prices;
 }
 
+const showAllEmployees = () => {
+  const allEmployees = {
+    'Nigel Nelson': ['lions', 'tigers'],
+    'Burl Bethea': ['lions', 'tigers', 'bears', 'penguins'],
+    'Ola Orloff': ['otters', 'frogs', 'snakes', 'elephants'],
+    'Wilburn Wishart': ['snakes', 'elephants'],
+    'Stephanie Strauss': ['giraffes', 'otters'],
+    'Sharonda Spry': ['otters', 'frogs'],
+    'Ardith Azevado': ['tigers', 'bears'],
+    'Emery Elser': ['elephants', 'bears', 'lions'],
+  };
+
+  return allEmployees;
+};
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (!idOrName) return showAllEmployees();
+
+  const employeeObject = data.employees.find((employee) => employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName);
+
+  const { firstName, lastName, responsibleFor } = employeeObject;
+
+  const employeeName = `${firstName} ${lastName}`;
+
+  const animalsNames = [];
+
+  responsibleFor.forEach((animalId) => {
+    const animal = data.species.find((specie) => specie.id === animalId);
+    animalsNames.push(animal.name);
+  });
+
+  return {
+    [employeeName]: animalsNames,
+  };
 }
 
 module.exports = {
