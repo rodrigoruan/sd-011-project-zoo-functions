@@ -79,8 +79,6 @@ function getSchedule(dayName) {
   // Need a refactoring!!
 }
 
-console.log(getSchedule('Tuesday'));
-
 function getOldestFromFirstSpecies(id) {
   const firstAnimalId = employees.find((employee) => employee.id === id).responsibleFor[0];
   const animalsArray = species.find((animal) => animal.id === firstAnimalId);
@@ -93,8 +91,20 @@ function increasePrices(percentage) {
   });
 }
 
+function getEmployeeResponsibleFor(array) {
+  return array.map((specie) => getSpeciesByIds(specie)[0].name);
+}
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (!idOrName) {
+    return employees.reduce((object, { firstName, lastName, responsibleFor }) => {
+      object[`${firstName} ${lastName}`] = getEmployeeResponsibleFor(responsibleFor);
+      return object;
+    }, {});
+  }
+  const foundEmployee = employees
+    .find(({ id, firstName, lastName }) => [id, firstName, lastName].some((emp) => emp === idOrName));
+  return { [`${foundEmployee.firstName} ${foundEmployee.lastName}`]: getEmployeeResponsibleFor(foundEmployee.responsibleFor) };
 }
 
 module.exports = {
