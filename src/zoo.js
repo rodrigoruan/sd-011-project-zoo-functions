@@ -21,8 +21,10 @@ function getAnimalsOlderThan(animal, age) {
 }
 
 function getEmployeeByName(employeeName) {
-  return employeeName
-    ? employees.find((employeer) => employeer === employeeName || employeer.lastName === employeeName) : {};
+  if (!employeeName) {
+    return {};
+  }
+  return employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -39,11 +41,6 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(speciesName) {
-  return speciesName
-    ? species.find((specie) => specie.name === specieName).residents.length
-    : species.reduce((output, specie) => {
-      output[specie.name] = specie.residents.length;
-      return output;
 }
 
 function calculateEntry(entrants) {
