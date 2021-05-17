@@ -178,8 +178,34 @@ function increasePrices(percentage) {
   O arredondamento do return foi retirado de "https://stackoverflow.com/questions/2283566/how-can-i-round-a-number-in-javascript-tofixed-returns-a-string"
 */
 
+function getCoverage(theEmployee) {
+  const responsible = [];
+
+  theEmployee.responsibleFor.forEach((r) => {
+    responsible.push(data.species.find((animalSpecie) => animalSpecie.id === r).name);
+  });
+
+  return responsible;
+}
+
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const employeeObj = {};
+
+  if (idOrName) {
+    const findEmployee = data.employees.find(({ firstName, id, lastName }) => firstName === idOrName || lastName === idOrName || id === idOrName);
+
+    const employeeName = `${findEmployee.firstName} ${findEmployee.lastName}`;
+
+    employeeObj[employeeName] = getCoverage(findEmployee);
+    return employeeObj;
+  }
+
+  for (let theEmployee of data.employees) {
+    const employeeName = `${theEmployee.firstName} ${theEmployee.lastName}`;
+
+    employeeObj[employeeName] = getCoverage(theEmployee);
+  }
+  return employeeObj;
 }
 
 module.exports = {
