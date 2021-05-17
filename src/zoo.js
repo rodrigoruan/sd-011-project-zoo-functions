@@ -9,7 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 
-const { employees } = require('./data');
+const { employees, prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -45,7 +45,9 @@ function countAnimals(species) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants || entrants === 0) return 0;
+  const totalPrices = Object.keys(entrants);
+  return totalPrices.reduce((prevValue,currValue) => prevValue + (entrants[currValue] * data.prices[currValue]), 0);
 }
 
 function getAnimalMap(options) {
@@ -53,19 +55,33 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const days = Objetc.keys(data.hours);
+  const scheduleDays = days.reduce((acc,currValue) => {
+    if (currValue === 'Monday') return acc[currValue] = 'Closed';
+    acc[currValue] = `Open from ${data.hours[currValue].open}am until ${data.hours[currValue].close - 12}pm`;
+  }, {});
+  if (!dayName) return scheduleDays;
+  return { [dayName]: scheduleDays[dayName] };
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const searchID = data.employess.find((empID) => empID.id === id);
+  const firstSpecie = searchID.responsibleFor[0];
+  const searchSpecie = data.species.find((animal) => animal.id === firstSpecie);
+  const sortAnimalsAge = searchSpecie.residents.sort((animalAge1, animalAge2) => animalAge2.age - animalAge1.age);
+  const oldestAnimal = [sortAnimalsAge[0].name, sortAnimalsAge[0].name, sortAnimalsAge[0].age];
+  return oldestAnimal;
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  percentageAdjust = (percentage /100) + 1;
+  prices.Adult = Math.round(prices.Adult * percentageAdjust * 100) / 100;
+  prices.Child = Math.round(prices.Child * percentageAdjust * 100) / 100;
+  prices.Senior = Math.round(prices.Senior * percentageAdjust * 100) / 100;
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  // seu código aquii
 }
 
 module.exports = {
