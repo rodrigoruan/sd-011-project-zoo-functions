@@ -84,7 +84,7 @@ function calculateEntry(entrants) {
 }
 
 const animalsLocation = (acc, curr) => {
-  const location = curr.location;
+  const { location } = curr;
   const specieName = curr.name;
   if (!acc[location]) { acc[location] = []; }
   acc[location].push(specieName);
@@ -92,7 +92,7 @@ const animalsLocation = (acc, curr) => {
 };
 
 const animalsLocationNames = (acc, curr) => {
-  const location = curr.location;
+  const { location } = curr;
   const specieName = curr.name;
   const specieResidents = curr.residents.reduce((accR, currR) => {
     accR.push(currR.name);
@@ -105,7 +105,7 @@ const animalsLocationNames = (acc, curr) => {
 };
 
 const animalsLocNamesSorted = (acc, curr) => {
-  const location = curr.location;
+  const { location } = curr;
   const specieName = curr.name;
   const specieResidents = curr.residents.reduce((accR, currR) => {
     accR.push(currR.name);
@@ -143,7 +143,7 @@ function getAnimalMap(options) {
   }
   if (options.includeNames && options.sex && !options.sorted) {
     return (species.reduce((acc, curr) => {
-      const location = curr.location;
+      const { location } = curr;
       const specieName = curr.name;
       const specieResidentsGender = curr.residents.reduce((accR, currR) => {
         if (currR.sex === options.sex) { accR.push(currR.name); }
@@ -157,7 +157,7 @@ function getAnimalMap(options) {
   }
   if (options.includeNames && options.sex && options.sorted) {
     return (species.reduce((acc, curr) => {
-      const location = curr.location;
+      const { location } = curr;
       const specieName = curr.name;
       const specieResidentsGender = curr.residents.reduce((accR, currR) => {
         if (currR.sex === options.sex) { accR.push(currR.name); }
