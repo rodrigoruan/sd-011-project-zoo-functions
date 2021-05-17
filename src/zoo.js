@@ -71,7 +71,6 @@ function getSchedule(dayName) {
   return calendar;
 }
 
-console.log(getSchedule('Monday'));
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
