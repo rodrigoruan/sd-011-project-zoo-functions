@@ -91,26 +91,30 @@ const animalsLocation = (acc, curr) => {
   return acc;
 };
 
+const biuldSpecieResidentsArray = (accR, currR) => {
+  accR.push(currR.name);
+  return accR;
+};
+
 const animalsLocationNames = (acc, curr) => {
   const { location } = curr;
   const specieName = curr.name;
-  const specieResidents = curr.residents.reduce((accR, currR) => {
-    accR.push(currR.name);
-    return accR;
-  }, []);
+  const specieResidents = curr.residents.reduce(biuldSpecieResidentsArray, []);
   const specieResidentsName = { [`${specieName}`]: specieResidents };
   if (!acc[location]) { acc[location] = []; }
   acc[location].push(specieResidentsName);
   return acc;
 };
 
+const biuldSpecieResidentsArraySorted = (accR, currR) => {
+  accR.push(currR.name);
+  return accR.sort();
+};
+
 const animalsLocNamesSorted = (acc, curr) => {
   const { location } = curr;
   const specieName = curr.name;
-  const specieResidents = curr.residents.reduce((accR, currR) => {
-    accR.push(currR.name);
-    return accR.sort();
-  }, []);
+  const specieResidents = curr.residents.reduce(biuldSpecieResidentsArraySorted, []);
   const specieResidentsName = { [`${specieName}`]: specieResidents };
   if (!acc[location]) { acc[location] = []; }
   acc[location].push(specieResidentsName);
