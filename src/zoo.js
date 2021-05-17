@@ -37,14 +37,16 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
-function countAnimals() {
-  if (!species) {
-    return data.species.reduce((acc, current) => {
-      acc[current.name] = current.residents.length;
-      return acc;
-    }, {});
+function countAnimals(specie) {
+  if (!specie) {
+    const object = {};
+    species.forEach((value) => {
+      object[value.name] = value.residents.length;
+    });
+    return object;
   }
-  return data.species.find((animal) => animal.name === species).residents.length;
+
+  return species.find((value) => value.name === specie).residents.length;
 }
 
 function calculateEntry(entrants) {
@@ -54,32 +56,35 @@ function calculateEntry(entrants) {
   return Object.entries(entrants).reduce((acc, currentValue) => acc + (currentValue[1] * data.prices[currentValue[0]]), 0);
 }
 
-function getAnimalMap(options) {
-  // ...
+function getAnimalMap(options = {}) {
+  let obj = {};
 }
 
 function getSchedule(dayName) {
-  const agenda = {};
+  const schedule = {};
 
   Object.keys(hours).forEach((day) => {
-    if (day !== 'Monday') agenda[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
-    else agenda[day] = 'CLOSED';
+    if (day !== 'Monday') schedule[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
+    else schedule[day] = 'CLOSED';
   });
   if (dayName) {
-    return { [dayName]: agenda[dayName] };
+    return { [dayName]: schedule[dayName] };
   }
-  return agenda;
+  return schedule;
 }
 
 function getOldestFromFirstSpecies(id) {
   const firstSpecie = employees.find((pessoa) => pessoa.id === id).responsibleFor[0];
   const animais = species.filter((specie) => specie.id === firstSpecie)[0].residents;
   const ages = [];
+  
   animais.forEach((animal) => ages.push(animal.age));
+  
   const oldAge = ages.reduce((acc, curr) => {
     if (acc > curr) return acc;
     return curr;
   }, 0);
+  
   const string = animais.find((animal) => animal.age === oldAge);
   return Object.values(string);
 }
