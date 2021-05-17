@@ -55,12 +55,12 @@ function calculateEntry(entrants) {
   return Object.keys(entrants).reduce((acc, value) => acc + (data.prices[value] * entrants[value]), 0);
 }
 
-function getAnimalMap(options = {}) {
-  // seu código aqui
-  const obj = { NE: [], NW: [], SE: [], SW: [] };
-  data.species.forEach((value) => (options.includeNames ? obj[value.location].push({ [value.name]: findAnimals(value.residents, options.sorted, options.sex) }) : obj[value.location].push(value.name)));
-  return obj;
-}
+// function getAnimalMap(options = {}) {
+//   // seu código aqui
+//   const obj = { NE: [], NW: [], SE: [], SW: [] };
+//   data.species.forEach((value) => (options.includeNames ? obj[value.location].push({ [value.name]: findAnimals(value.residents, options.sorted, options.sex) }) : obj[value.location].push(value.name)));
+//   return obj;
+// }
 
 function getSchedule(dayName) {
   const result = {};
