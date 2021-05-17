@@ -95,7 +95,7 @@ function increasePrices(percentage) {
   const seniorPerc = ((data.prices.Senior / 100) * percentage + data.prices.Senior + 0.001);
   data.prices.Adult = Number(adultPerc.toFixed(2));
   data.prices.Child = Number(childPerc.toFixed(2));
-  data.prices.Senior = Number(seniorPerc.toFixed(2))
+  data.prices.Senior = Number(seniorPerc.toFixed(2));
 }
 
 function getEmployeeCoverage(idOrName) {
