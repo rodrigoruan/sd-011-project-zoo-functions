@@ -202,7 +202,13 @@ function getOldestFromFirstSpecies(id) {
 // }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  let keys = Object.keys(data.prices);
+
+  for (let i = 0; i < keys.length; i += 1) {
+    const key = keys[i];
+    data.prices[key] += data.prices[key] * (percentage / 100);
+    data.prices[key] = Math.round(data.prices[key] * 100) / 100;
+  }
 }
 
 function getEmployeeCoverage(idOrName) {
