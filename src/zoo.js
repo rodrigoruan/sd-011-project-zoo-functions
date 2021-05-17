@@ -42,11 +42,8 @@ const getSchedule = (dayName) => {
 };
 
 const getOldestFromFirstSpecies = (ids) => {
-  const responsible = data.employees.find(({ id }) => id === ids).responsibleFor.find((index) => index);
-  const animal = data.species.find(({ id }) => id === responsible).residents;
-  const oldSnimal = animal.reduce((acc, { age }) => Math.max(acc, age), {});
-  const result = animal.find(({ age }) => age === oldSnimal);
-  return [result.name, result.sex, result.age];
+  const responsible = employees.find(({ id }) => id === ids).responsibleFor.find((index) => index);
+  return Object.values(species.find(({ id }) => id === responsible).residents.sort((a, b) => b.age - a.age)[0]);
 };
 
 const increasePrices = (percentage) => {
