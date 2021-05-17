@@ -19,7 +19,7 @@ function getSpeciesByIds(...ids) {
   return animals.filter((specie) => (ids.includes(specie.id)));
 }
 
-function animalsOlderThan(animal, age) {
+function getAnimalsOlderThan(animal, age) {
   const species = animals.find((group) => group.name === animal);
   return species.residents.every((singleAnimal) => singleAnimal.age >= age);
 }
