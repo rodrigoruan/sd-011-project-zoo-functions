@@ -58,7 +58,7 @@ function getSchedule(dayName) {
   const days = Object.keys(data.hours);
   const scheduleDays = days.reduce((acc, currValue) => {
     if (currValue === 'Monday') {
-      acc[currValue] = 'Closed';
+      acc[currValue] = 'CLOSED';
       return acc;
     }
     acc[currValue] = `Open from ${data.hours[currValue].open}am until ${data.hours[currValue].close - 12}pm`;
