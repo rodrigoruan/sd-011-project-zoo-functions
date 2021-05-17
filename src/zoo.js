@@ -70,7 +70,17 @@ function getEmployeeByName(employeeName) {
 // ____________________________
 
 function createEmployee(personalInfo, associatedWith) {
-  // seu código aqui
+  // return {
+  //   id: personalInfo.id,
+  //   firstName: personalInfo.firstName,
+  //   lastName: personalInfo.lastName,
+  //   managers: associatedWith.managers,
+  //   responsibleFor: associatedWith.responsibleFor,
+  // };
+  return {
+    ...personalInfo,
+    ...associatedWith,
+  };
 }
 
 function isManager(id) {
@@ -103,7 +113,13 @@ function isManager(id) {
 }
 
 function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
+  data.employees.push({
+    id,
+    firstName,
+    lastName,
+    managers: managers || [],
+    responsibleFor: responsibleFor || [],
+  });
 }
 
 function countAnimals(specieName) {
