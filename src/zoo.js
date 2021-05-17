@@ -123,11 +123,13 @@ const employeeAnimals = (employee) => {
   const specieees = data.species;
   const animalsIds = employee.responsibleFor;
   const animals = animalsIds.map((animalId) => {
+    const speciee;
     for (let index in specieees) {
       if (Object.values(specieees[index]).includes(animalId)) {
-        return (specieees[index]);
+        speciee = specieees[index];
       }
     }
+    return speciee;
   });
   const animalsNames = animals.map((animal) => animal.name);
   const employeeName = `${employee.firstName} ${employee.lastName}`;
