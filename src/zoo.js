@@ -53,8 +53,8 @@ function countAnimals(specie) {
   return data.species.find((specieName) => specieName.name === specie).residents.length;
 }
 
-function calculateEntry(entrants) {
-  // codigo
+function calculateEntry(entrants = 0) {
+  return Object.keys(entrants).reduce((acc, value) => acc + (data.prices[value] * entrants[value]), 0);
 }
 
 function getAnimalMap(options) {
@@ -66,11 +66,17 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const getId = employees.find((employee) => employee.id === id);
+  const getAnimal = species.find((specie) => getId.responsibleFor[0] === specie.id);
+  const getResident = getAnimal.residents.reduce((acc, value) => (value.age > acc.age ? value : acc));
+  return [getResident.name, getResident.sex, getResident.age];
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  return Object.keys(prices).forEach((person) => {
+    const newPrices = (prices[person] * ((percentage / 100) + 1)) + 0.001;
+    prices[person] = parseFloat(newPrices.toFixed(2));
+  })
 }
 
 function getEmployeeCoverage(idOrName) {
