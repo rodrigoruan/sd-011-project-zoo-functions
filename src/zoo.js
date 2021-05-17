@@ -38,7 +38,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   // seu código aqui
 }
 
-function countAnimals(species) {
+function countAnimals(specie) {
   const total = {};
   if (!specie) {
     data.species.forEach(({ name, residents }) => {
