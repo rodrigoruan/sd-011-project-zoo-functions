@@ -44,8 +44,15 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  if (!specie) {
+    return data.species.reduce((acumulator, currentValue) => {
+      acumulator[currentValue.name] = currentValue.residents.length;
+      return acumulator;
+    }, {});
+  }
+return data.species.find((animal) => animal.name === specie).residents.length;
 }
+console.log(countAnimals('tigers'));
 
 function calculateEntry(entrants) {
   // seu código aqui
