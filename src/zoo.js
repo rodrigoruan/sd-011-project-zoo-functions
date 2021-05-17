@@ -140,14 +140,16 @@ function getEmployeeCoverage(idOrName) {
   // seu código aqui
   if (!idOrName) {
     return employees.map(employeeAnimals).reduce((acc, curr) => {
-      acc[Object.keys(curr)[0]] = Object.values(curr)[0];
+      const key = Object.keys(curr)[0];
+      const value = Object.values(curr)[0];
+      acc[key] = value;
       return acc;
     }, {});
   }
   const [employee] = employees.filter((emplo) => Object.values(emplo).includes(idOrName));
   return employeeAnimals(employee);
 }
-
+getEmployeeCoverage();
 module.exports = {
   calculateEntry,
   getSchedule,
