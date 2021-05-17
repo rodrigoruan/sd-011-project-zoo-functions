@@ -26,10 +26,7 @@ function getEmployeeByName(employeeName) {
   // seu código aqui
 }
 
-function createEmployee(personalInfo, associatedWith) {
-  ({...personalInfo, ...associatedWith});
-  // seu código aqui
-}
+const createEmployee = (personalInfo, associatedWith) => ({ ...personalInfo, ...associatedWith });
 
 function isManager(id) {
   data.employees.some((manage) => manage.managers.includes(id));
@@ -37,7 +34,7 @@ function isManager(id) {
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
-  data.employees.push({id, firstName, lastName, managers, responsibleFor});
+  data.employees.push({ id, firstName, lastName, managers, responsibleFor });
   // seu código aqui
 }
 
