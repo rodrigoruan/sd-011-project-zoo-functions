@@ -56,20 +56,19 @@ function calculateEntry(entrants = {}) {
     .reduce((total, [ageGroup, quantity]) => total + prices[ageGroup] * quantity, 0);
 }
 
-function getAnimalsByCriteria(residents, options) {
-  const objectKeys = Object.keys(options || {});
+function getAnimalsByCriteria(residents, options = {}) {
   const animalsArray = residents.reduce((object, animal) => {
-    if (!objectKeys.includes('sex') || animal.sex === options.sex) object.push(animal.name);
+    if (!options.sex || animal.sex === options.sex) object.push(animal.name);
     return object;
   }, []);
-  return objectKeys.includes('sorted') ? animalsArray.sort() : animalsArray;
+  return options.sorted ? animalsArray.sort() : animalsArray;
 }
 
-function getAnimalMap(options) {
+function getAnimalMap(options = {}) {
   return species.reduce((object, animal) => {
     const mapped = getAnimalsByCriteria(animal.residents, options);
     object[animal.location]
-      .push(Object.keys(options || {}).includes('includeNames') ? { [animal.name]: mapped } : animal.name);
+      .push(options.includeNames ? { [animal.name]: mapped } : animal.name);
     return object;
   }, { NE: [], NW: [], SE: [], SW: [] });
 }
