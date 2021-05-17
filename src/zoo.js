@@ -55,8 +55,10 @@ function countAnimals(specie) {
 console.log(countAnimals('tigers'));
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === {} || entrants === undefined) return 0;
+  return Object.keys(entrants).reduce((accumulator, currentValue) => accumulator + (data.prices[currentValue] * entrants[currentValue]), 0);
 }
+console.log(calculateEntry({ Adult: 2, Child: 3, Senior: 1 }));
 
 function getAnimalMap(options) {
   // seu código aqui
