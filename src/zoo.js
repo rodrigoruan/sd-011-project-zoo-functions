@@ -49,17 +49,16 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(speciess) {
+  const allAnimal = species.reduce((acc, element) => {
+    const { name, residents } = element;
+    acc[name] = residents.length;
+    return acc;
+  }, {});
+
   if (speciess) {
-    const animal = species.find((animall) => animall.name === speciess);
-    return animal.residents.length;
+    return allAnimal[speciess];
   }
-  if (!speciess) {
-    const allAnimal = species.map((element) => {
-      const { name, residents } = element;
-      return { [`${name}`]: residents.length };
-    });
-    return Object.assign({}, ...allAnimal);
-  }
+  return allAnimal;
 }
 
 // Ex feito com apoio dos colegas Mauricio e Rodolfo T11- Salve salve Sala A
@@ -130,7 +129,18 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  let result = {};
+  if (!idOrName) {
+    data.employees.forEach(({ firstName, lastName, responsibleFor }) => {
+      result[`${firstName} ${lastName}`] = responsibleFor.map((specieId) => species.find(({ id }) => id === specieId).name);
+    });
+    return result;
+  }
+  data.employees.filter(({ firstName, lastName, id }) => firstName === idOrName || lastName === idOrName || id === idOrName)
+    .forEach(({ firstName, lastName, responsibleFor }) => {
+      result[`${firstName} ${lastName}`] = responsibleFor.map((specieId) => species.find(({ id }) => id === specieId).name);
+    });
+  return result;
 }
 
 module.exports = {
