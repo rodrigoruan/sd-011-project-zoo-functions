@@ -56,8 +56,27 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
+const fulLSchedule = (hour) => {
+  const result = Object.keys(hours).reduce((acc, curr, index) => {
+    acc[curr] = `Open from ${hour[index].open}am until ${hour[index].close - 12}pm`;
+    return acc;
+  }, {});
+  if (result.Monday) result.Monday = 'CLOSED';
+  return result;
+};
+
+const schedulePerDay = (dayName, hour) => {
+  const result = [dayName].reduce((acc, curr, index) => {
+    acc[curr] = `Open from ${hour[index].open}am until ${hour[index].close - 12}pm`;
+    return acc;
+  }, {});
+  if (result.Monday) result.Monday = 'CLOSED';
+  return result;
+};
+
 function getSchedule(dayName) {
-  // seu código aqui
+  const hour = Object.values(hours);
+  return !dayName ? fulLSchedule(hour) : schedulePerDay(dayName, hour);
 }
 
 function getOldestFromFirstSpecies(id) {
