@@ -80,12 +80,6 @@ function getOldestFromFirstSpecies(id) {
   return Object.values(animal.residents.reduce((accumulator, currentValue) => (accumulator.age > currentValue.age ? accumulator : currentValue)));
 }
 
-// function increasePrices(percentage) {
-//   Object.keys(prices).forEach((visit) => {
-//     prices[visit] = Math.round((prices[visit] + prices[visit] * (percentage / 100)) * 100) / 100;
-//   });
-// }
-
 function increasePrices(percentage) {
   Object.keys(prices).forEach((visit) => {
     prices[visit] = Math.round((prices[visit] + prices[visit] * (percentage / 100)) * 100) / 100;
