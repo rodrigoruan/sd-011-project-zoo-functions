@@ -71,7 +71,7 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  const searchID = data.employess.find((empID) => empID.id === id);
+  const searchID = data.employees.find((empID) => empID.id === id);
   const firstSpecie = searchID.responsibleFor[0];
   const searchSpecie = data.species.find((animal) => animal.id === firstSpecie);
   const sortAnimalsAge = searchSpecie.residents.sort((animalAge1, animalAge2) => animalAge2.age - animalAge1.age);
