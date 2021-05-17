@@ -76,7 +76,7 @@ function increasePrices(percentage) {
   return Object.keys(prices).forEach((person) => {
     const newPrices = (prices[person] * ((percentage / 100) + 1)) + 0.001;
     prices[person] = parseFloat(newPrices.toFixed(2));
-  })
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
