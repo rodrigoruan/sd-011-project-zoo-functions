@@ -44,14 +44,17 @@ const getSchedule = (dayName) => {
 const getOldestFromFirstSpecies = (ids) => {
   const responsible = data.employees.find(({ id }) => id === ids).responsibleFor.find((index) => index);
   const animal = data.species.find(({ id }) => id === responsible).residents;
-  const oldSnimal = animal.reduce((acc, { age }) => Math.max(acc, age), 0);
+  const oldSnimal = animal.reduce((acc, { age }) => Math.max(acc, age), {});
   const result = animal.find(({ age }) => age === oldSnimal);
   return [result.name, result.sex, result.age];
 };
 
-function increasePrices(percentage) {
-  // seu código aqui
-}
+const increasePrices = (percentage) => {
+  Object.keys(prices).forEach((price) => {
+    prices[price] = Math.round((prices[price] + prices[price] * (percentage / 100)) * 100) / 100;
+  });
+  return prices;
+};
 
 const PersonId = (idOrName) => {
   const resposable = employees.find(({ firstName, lastName, id }) => firstName === idOrName || lastName === idOrName || id === idOrName);
