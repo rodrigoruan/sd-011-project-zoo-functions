@@ -40,8 +40,9 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 // console.log(addEmployee());
 function countAnimals(species) {
   // seu código aqui
-  return data.species.filter(({ name }) => name.popularity);
+  return data.species.map(({ popularity }) => popularity);
 }
+console.log(countAnimals());
 function calculateEntry(entrants) {
   // seu código aqui
 }
