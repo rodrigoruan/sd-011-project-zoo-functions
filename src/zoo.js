@@ -55,7 +55,7 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  // Escreva o seu código aqui
 }
 
 const horas = {
