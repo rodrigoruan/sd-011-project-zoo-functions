@@ -8,8 +8,6 @@ eslint no-unused-vars: [
   }
 ]
 */
-
-const { employees } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -92,7 +90,20 @@ function increasePrices(percentage) {
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+  // Feito na sala junto com o Lima e Bruno Duarte.
+  let result = {};
+  if (!idOrName) {
+    data.employees.forEach(({ firstName, lastName, responsibleFor }) => {
+      result[`${firstName} ${lastName}`] = responsibleFor.map((animalId) => data.species.find(({ id }) => id === animalId).name);
+    });
+    return result;
+  }
+  data.employees.filter(({ firstName, lastName, id }) => firstName === idOrName || lastName === idOrName || id === idOrName).forEach(({ firstName, lastName, responsibleFor }) => {
+    result[`${firstName} ${lastName}`] = responsibleFor.map((animalId) => data.species.find(({ id }) => id === animalId).name);
+  });
+  return result;
 }
+getEmployeeCoverage();
 
 module.exports = {
   calculateEntry,
