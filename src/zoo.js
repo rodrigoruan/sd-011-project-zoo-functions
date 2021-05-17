@@ -86,7 +86,7 @@ function calculateEntry(entrants) {
 const animalsLocation = (acc, curr) => {
   const location = curr.location;
   const specieName = curr.name;
-  if (!acc[location]) { acc[location] = [] };
+  if (!acc[location]) { acc[location] = []; }
   acc[location].push(specieName);
   return acc;
 };
@@ -98,8 +98,8 @@ const animalsLocationNames = (acc, curr) => {
     accR.push(currR.name);
     return accR;
   }, []);
-  const specieResidentsName = { [`${specieName}`]: specieResidents};
-  if (!acc[location]) { acc[location] = [] };
+  const specieResidentsName = { [`${specieName}`]: specieResidents };
+  if (!acc[location]) { acc[location] = []; }
   acc[location].push(specieResidentsName);
   return acc;
 };
@@ -111,24 +111,24 @@ const animalsLocNamesSorted = (acc, curr) => {
     accR.push(currR.name);
     return accR.sort();
   }, []);
-  const specieResidentsName = { [`${specieName}`]: specieResidents};
-  if (!acc[location]) { acc[location] = [] };
+  const specieResidentsName = { [`${specieName}`]: specieResidents };
+  if (!acc[location]) { acc[location] = []; }
   acc[location].push(specieResidentsName);
   return acc;
 };
 
-const animalsLocNamesGender = (acc, curr) => {
-  const location = curr.location;
-  const specieName = curr.name;
-  const specieResidents = curr.residents.reduce((accR, currR) => {
-    if (currR.sex === options.sex) { accR.push(currR.name); };
-    return accR;
-  }, []);
-  const specieResidentsName = { [`${specieName}`]: specieResidents};
-  if (!acc[location]) { acc[location] = [] };
-  acc[location].push(specieResidentsName);
-  return acc;
-};
+// const animalsLocNamesGender = (acc, curr) => {
+//   const location = curr.location;
+//   const specieName = curr.name;
+//   const specieResidents = curr.residents.reduce((accR, currR) => {
+//     if (currR.sex === options.sex) { accR.push(currR.name); }
+//     return accR;
+//   }, []);
+//   const specieResidentsName = { [`${specieName}`]: specieResidents };
+//   if (!acc[location]) { acc[location] = []; }
+//   acc[location].push(specieResidentsName);
+//   return acc;
+// };
 
 function getAnimalMap(options) {
   // seu código aqui
@@ -149,8 +149,8 @@ function getAnimalMap(options) {
         if (currR.sex === options.sex) { accR.push(currR.name); }
         return accR;
       }, []);
-      const specieResidentsName = { [`${specieName}`]: specieResidentsGender};
-      if (!acc[location]) { acc[location] = [] };
+      const specieResidentsName = { [`${specieName}`]: specieResidentsGender };
+      if (!acc[location]) { acc[location] = []; }
       acc[location].push(specieResidentsName);
       return acc;
     }, {}));
@@ -163,8 +163,8 @@ function getAnimalMap(options) {
         if (currR.sex === options.sex) { accR.push(currR.name); }
         return accR.sort();
       }, []);
-      const specieResidentsName = { [`${specieName}`]: specieResidentsGender};
-      if (!acc[location]) { acc[location] = [] };
+      const specieResidentsName = { [`${specieName}`]: specieResidentsGender };
+      if (!acc[location]) { acc[location] = []; }
       acc[location].push(specieResidentsName);
       return acc;
     }, {}));
