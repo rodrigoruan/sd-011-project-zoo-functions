@@ -125,14 +125,14 @@ const employeeAnimals = (employee) => {
   const animals = animalsIds.map((animalId) => {
     for (let index in specieees) {
       if (Object.values(specieees[index]).includes(animalId)) {
-        return specieees[index];
+        return (specieees[index]);
       }
     }
   });
   const animalsNames = animals.map((animal) => animal.name);
   const employeeName = `${employee.firstName} ${employee.lastName}`;
   return { [`${employeeName}`]: animalsNames };
-}
+};
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
