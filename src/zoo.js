@@ -126,21 +126,22 @@ function getEmployeeCoverage(idOrName) {
   const employeeAnimals = (employee) => {
     const animalsIds = employee.responsibleFor;
     const animals = animalsIds.map((animalId) => {
-      for (index in species) {
+      for (let index in species) {
         if (Object.values(species[index]).includes(animalId)) {
           return species[index];
-        }};
+        }
+      }
     });
     const animalsNames = animals.map((animal) => animal.name);
     const employeeName = `${employee.firstName} ${employee.lastName}`;
-    return {[`${employeeName}`]: animalsNames};
+    return { [`${employeeName}`]: animalsNames };
   };
   if (!idOrName) {
     return emplyees.map(employeeAnimals).reduce((acc, curr) => {
       acc[Object.keys(curr)[0]] = Object.values(curr)[0];
       return acc;
     }, {});
-  };
+  }
   const [employee] = emplyees.filter((emplo) => Object.values(emplo).includes(idOrName));
   return employeeAnimals(employee);
 }
