@@ -83,15 +83,15 @@ const findAnimals = (region) => {
 };
 
 const globalMap = () => {
-  const globalMap = {};
+  const result = {};
   const regionsList = species.map((region) => region.location);
-  const regions = [... new Set(regionsList)];
+  const regions = [...new Set(regionsList)];
 
   regions.forEach((region) => {
-    globalMap[region] = findAnimals(region);
+    result[region] = findAnimals(region);
   });
 
-  return globalMap;
+  return result;
 };
 
 function getAnimalMap(options) {
