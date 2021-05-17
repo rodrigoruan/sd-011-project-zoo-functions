@@ -40,9 +40,16 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
 // console.log(addEmployee());
 function countAnimals(species) {
   // seu código aqui
-  return data.species.map(({ popularity }) => popularity);
+  const allAnimals = data.species.reduce((acc, currentValue) => {
+    const { name, residents } = currentValue;
+    acc[name] = residents.length;
+    return acc;
+  }, {});
+  if (species) {
+    return allAnimals[species];
+  }
+  return allAnimals;
 }
-console.log(countAnimals());
 function calculateEntry(entrants) {
   // seu código aqui
 }
