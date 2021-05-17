@@ -8,7 +8,7 @@ eslint no-unused-vars: [
   }
 ]
 */
-const { species, employees, hours, prices} = require('./data');
+const { species, employees, hours, prices } = require('./data');
 
 function getSpeciesByIds(...ids) {
   return species.filter((specie) => ids.includes(specie.id));
@@ -36,7 +36,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-function countAnimals(species) {
+function countAnimals(speciesName) {
   // seu código aqui
 }
 
