@@ -43,7 +43,7 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
-function countAnimals(species) {
+function countAnimals(specie) {
   if (!specie) {
     return data.species.reduce((acumulator, currentValue) => {
       acumulator[currentValue.name] = currentValue.residents.length;
