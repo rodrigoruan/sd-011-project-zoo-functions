@@ -12,17 +12,15 @@ eslint no-unused-vars: [
 const { employees } = require('./data');
 const data = require('./data');
 
-const species = data.species;
-
 function getSpeciesByIds(...ids) {
   // seu código aqui
-  return species.filter((specie) => ids.includes(specie.id));
+  return data.species.filter((specie) => ids.includes(specie.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
   // seu código aqui
   const getAnimalByName = (specie) => specie.name === animal;
-  const [testedAnimal] = species.filter(getAnimalByName);
+  const [testedAnimal] = data.species.filter(getAnimalByName);
   const checkAge = (resident) => resident.age >= age;
   return testedAnimal.residents.every(checkAge);
 }
@@ -65,10 +63,10 @@ function countAnimals(species) {
   // seu código aqui
   if (!species) {
     const numbersOfAnimals = {};
-    species.forEach((specie) => { numbersOfAnimals[specie.name] = specie.residents.length; });
+    data.species.forEach((specie) => { numbersOfAnimals[specie.name] = specie.residents.length; });
     return numbersOfAnimals;
   }
-  const { residents } = species.find((specie) => specie.name === species);
+  const { residents } = data.species.find((specie) => specie.name === species);
   return residents.length;
 }
 
@@ -106,7 +104,7 @@ function getOldestFromFirstSpecies(id) {
   // seu código aqui
   const employeeFounded = data.employees.find((employee) => employee.id === id);
   const [idAnimal] = employeeFounded.responsibleFor;
-  const specieFounded = species.find((specie) => specie.id === idAnimal);
+  const specieFounded = data.species.find((specie) => specie.id === idAnimal);
   const { name, sex, age } = specieFounded.residents.reduce((acc, curr) => (acc.age > curr.age ? acc : curr));
   return [name, sex, age];
 }
@@ -123,29 +121,29 @@ function increasePrices(percentage) {
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
-  // const emplyees = data.employees;
-  // // const species = species;
-  // const employeeAnimals = (employee) => {
-  //   const animalsIds = employee.responsibleFor;
-  //   const animals = animalsIds.map((animalId) => {
-  //     for (let index in species) {
-  //       if (Object.values(species[index]).includes(animalId)) {
-  //         return species[index];
-  //       }
-  //     }
-  //   });
-  //   const animalsNames = animals.map((animal) => animal.name);
-  //   const employeeName = `${employee.firstName} ${employee.lastName}`;
-  //   return { [`${employeeName}`]: animalsNames };
-  // };
-  // if (!idOrName) {
-  //   return emplyees.map(employeeAnimals).reduce((acc, curr) => {
-  //     acc[Object.keys(curr)[0]] = Object.values(curr)[0];
-  //     return acc;
-  //   }, {});
-  // }
-  // const [employee] = emplyees.filter((emplo) => Object.values(emplo).includes(idOrName));
-  // return employeeAnimals(employee);
+  const emplyees = data.employees;
+  const species = data.species;
+  const employeeAnimals = (employee) => {
+    const animalsIds = employee.responsibleFor;
+    const animals = animalsIds.map((animalId) => {
+      for (let index in species) {
+        if (Object.values(species[index]).includes(animalId)) {
+          return species[index];
+        }
+      }
+    });
+    const animalsNames = animals.map((animal) => animal.name);
+    const employeeName = `${employee.firstName} ${employee.lastName}`;
+    return { [`${employeeName}`]: animalsNames };
+  };
+  if (!idOrName) {
+    return emplyees.map(employeeAnimals).reduce((acc, curr) => {
+      acc[Object.keys(curr)[0]] = Object.values(curr)[0];
+      return acc;
+    }, {});
+  }
+  const [employee] = emplyees.filter((emplo) => Object.values(emplo).includes(idOrName));
+  return employeeAnimals(employee);
 }
 
 module.exports = {
