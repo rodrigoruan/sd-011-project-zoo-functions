@@ -54,8 +54,45 @@ function calculateEntry(entrants) {
   ), 0);
 }
 
-function getAnimalMap(options) {
-  // Escreva o seu código aqui
+const comIncludes = (sex, sorted) => {
+  let location = { NE: [], NW: [], SE: [], SW: [] };
+  let animalNames;
+  species.forEach((animal) => {
+    if (sex) {
+      animalNames = animal.residents.filter((element) => element.sex === sex)
+        .map(({ name }) => name);
+    } else {
+      animalNames = animal.residents.map(({ name }) => name);
+    }
+    if (sorted) {
+      animalNames.sort();
+    }
+    location[animal.location].push({ [animal.name]: animalNames });
+  });
+  return location;
+};
+
+const semIncludes = () => {
+  let ObjLocation = {};
+  species.forEach((animal) => {
+    if (!ObjLocation[animal.location]) {
+      ObjLocation[animal.location] = [];
+    }
+    ObjLocation[animal.location].push(animal.name);
+  });
+  return ObjLocation;
+};
+console.log(semIncludes());
+
+function getAnimalMap(options = {}) {
+  let animal = {};
+  const { includeNames, sex, sorted } = options;
+  if (includeNames) {
+    animal = comIncludes(sex, sorted);
+  } else {
+    animal = semIncludes();
+  }
+  return animal;
 }
 
 const horas = {
