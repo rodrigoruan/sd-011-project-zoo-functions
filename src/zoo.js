@@ -70,6 +70,9 @@ function getSchedule(dayName) {
     getResult[dayName] = `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm`;
     return getResult;
   }
+  if (dayName === 'Monday') {
+    return { Monday: 'CLOSED' };
+  }
   return {
     Tuesday: 'Open from 8am until 6pm',
     Wednesday: 'Open from 8am until 6pm',
