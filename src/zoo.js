@@ -64,7 +64,9 @@ function getSchedule(dayName) {
     acc[currValue] = `Open from ${data.hours[currValue].open}am until ${data.hours[currValue].close - 12}pm`;
     return acc;
   }, {});
-  if (!dayName) return scheduleDays;
+  if (!dayName) {
+    return scheduleDays;
+  }
   return { [dayName]: scheduleDays[dayName] };
 }
 
@@ -73,7 +75,7 @@ function getOldestFromFirstSpecies(id) {
   const firstSpecie = searchID.responsibleFor[0];
   const searchSpecie = data.species.find((animal) => animal.id === firstSpecie);
   const sortAnimalsAge = searchSpecie.residents.sort((animalAge1, animalAge2) => animalAge2.age - animalAge1.age);
-  const oldestAnimal = [sortAnimalsAge[0].name, sortAnimalsAge[0].name, sortAnimalsAge[0].age];
+  const oldestAnimal = [sortAnimalsAge[0].name, sortAnimalsAge[0].sex, sortAnimalsAge[0].age];
   return oldestAnimal;
 }
 
