@@ -84,6 +84,9 @@ function getAnimalMap(options) {
 
 function getSchedule(dayName) {
   // seu código aqui
+  if (!dayName) {
+    return Object.keys(data.hours);
+  }
 }
 
 function getOldestFromFirstSpecies(id) {
@@ -92,6 +95,13 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   // seu código aqui
+  const adult = ((data.prices.Adult * percentage) / 100) + data.prices.Adult + 0.001;
+  const child = ((data.prices.Child * percentage) / 100) + data.prices.Child + 0.001;
+  const senior = ((data.prices.Senior * percentage) / 100) + data.prices.Senior + 0.001;
+
+  data.prices.Adult = Number(adult.toFixed(2));
+  data.prices.Child = Number(child.toFixed(2));
+  data.prices.Senior = Number(senior.toFixed(2));
 }
 
 function getEmployeeCoverage(idOrName) {
