@@ -123,7 +123,7 @@ const employeeAnimals = (employee) => {
   const specieees = data.species;
   const animalsIds = employee.responsibleFor;
   const animals = animalsIds.map((animalId) => {
-    const speciee;
+    let speciee = {};
     for (let index in specieees) {
       if (Object.values(specieees[index]).includes(animalId)) {
         speciee = specieees[index];
