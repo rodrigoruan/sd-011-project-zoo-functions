@@ -47,7 +47,7 @@ function countAnimals(species) {
 function calculateEntry(entrants) {
   if (!entrants || entrants === 0) return 0;
   const totalPrices = Object.keys(entrants);
-  return totalPrices.reduce((prevValue,currValue) => prevValue + (entrants[currValue] * data.prices[currValue]), 0);
+  return totalPrices.reduce((prevValue, currValue) => prevValue + (entrants[currValue] * data.prices[currValue]), 0);
 }
 
 function getAnimalMap(options) {
@@ -55,10 +55,14 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  const days = Objetc.keys(data.hours);
-  const scheduleDays = days.reduce((acc,currValue) => {
-    if (currValue === 'Monday') return acc[currValue] = 'Closed';
+  const days = Object.keys(data.hours);
+  const scheduleDays = days.reduce((acc, currValue) => {
+    if (currValue === 'Monday') {
+      acc[currValue] = 'Closed'
+      return acc;
+    }
     acc[currValue] = `Open from ${data.hours[currValue].open}am until ${data.hours[currValue].close - 12}pm`;
+    return acc;
   }, {});
   if (!dayName) return scheduleDays;
   return { [dayName]: scheduleDays[dayName] };
@@ -74,7 +78,7 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  percentageAdjust = (percentage /100) + 1;
+  const percentageAdjust = (percentage / 100) + 1;
   prices.Adult = Math.round(prices.Adult * percentageAdjust * 100) / 100;
   prices.Child = Math.round(prices.Child * percentageAdjust * 100) / 100;
   prices.Senior = Math.round(prices.Senior * percentageAdjust * 100) / 100;
