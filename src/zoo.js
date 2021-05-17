@@ -50,7 +50,7 @@ function countAnimals(specie) {
       return acumulator;
     }, {});
   }
-return data.species.find((animal) => animal.name === specie).residents.length;
+  return data.species.find((animal) => animal.name === specie).residents.length;
 }
 console.log(countAnimals('tigers'));
 
