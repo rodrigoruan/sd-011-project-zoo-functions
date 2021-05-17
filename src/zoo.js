@@ -55,19 +55,36 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const result = {};
+  Object.keys(data).forEach((day) => {
+    if (day !== 'Monday') {
+      result[day] = `Open from ${data[day].open}am until ${data[day].close - 12}pm`;
+    } else { result[day] = 'CLOSED'; }
+    // console.log();
+  });
+  if (!dayName) return result;
+  return { [dayName]: result[dayName] };
+  // console.log();
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const employee = data.employees.find((value) => value.id === id);
+  const specie = data.species.find((value) => value.id === employee.responsibleFor[0]);
+  const animal = specie.residents.reduce((acc, currentValue) => {
+    if (currentValue.age > acc.age) return currentValue;
+    return acc;
+  });
+  return Object.values(animal);
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  return Object.keys(data).forEach((ageGroup) => {
+    data[ageGroup] *= (1 + (percentage / 100));
+    data[ageGroup] = Math.round(data[ageGroup] * 100) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
