@@ -83,8 +83,95 @@ function calculateEntry(entrants) {
   return (adultValue + seniorValue + childValue);
 }
 
+const animalsLocation = (acc, curr) => {
+  const location = curr.location;
+  const specieName = curr.name;
+  if (!acc[location]) { acc[location] = [] };
+  acc[location].push(specieName);
+  return acc;
+};
+
+const animalsLocationNames = (acc, curr) => {
+  const location = curr.location;
+  const specieName = curr.name;
+  const specieResidents = curr.residents.reduce((accR, currR) => {
+    accR.push(currR.name);
+    return accR;
+  }, []);
+  const specieResidentsName = { [`${specieName}`]: specieResidents};
+  if (!acc[location]) { acc[location] = [] };
+  acc[location].push(specieResidentsName);
+  return acc;
+};
+
+const animalsLocNamesSorted = (acc, curr) => {
+  const location = curr.location;
+  const specieName = curr.name;
+  const specieResidents = curr.residents.reduce((accR, currR) => {
+    accR.push(currR.name);
+    return accR.sort();
+  }, []);
+  const specieResidentsName = { [`${specieName}`]: specieResidents};
+  if (!acc[location]) { acc[location] = [] };
+  acc[location].push(specieResidentsName);
+  return acc;
+};
+
+const animalsLocNamesGender = (acc, curr) => {
+  const location = curr.location;
+  const specieName = curr.name;
+  const specieResidents = curr.residents.reduce((accR, currR) => {
+    if (currR.sex === options.sex) { accR.push(currR.name); };
+    return accR;
+  }, []);
+  const specieResidentsName = { [`${specieName}`]: specieResidents};
+  if (!acc[location]) { acc[location] = [] };
+  acc[location].push(specieResidentsName);
+  return acc;
+};
+
 function getAnimalMap(options) {
   // seu código aqui
+  if (!options) {
+    return (species.reduce(animalsLocation, {}));
+  }
+  if (options.includeNames && !options.sorted && !options.sex) {
+    return (species.reduce(animalsLocationNames, {}));
+  }
+  if (options.includeNames && options.sorted && !options.sex) {
+    return (species.reduce(animalsLocNamesSorted, {}));
+  }
+  if (options.includeNames && options.sex && !options.sorted) {
+    return (species.reduce((acc, curr) => {
+      const location = curr.location;
+      const specieName = curr.name;
+      const specieResidentsGender = curr.residents.reduce((accR, currR) => {
+        if (currR.sex === options.sex) { accR.push(currR.name); }
+        return accR;
+      }, []);
+      const specieResidentsName = { [`${specieName}`]: specieResidentsGender};
+      if (!acc[location]) { acc[location] = [] };
+      acc[location].push(specieResidentsName);
+      return acc;
+    }, {}));
+  }
+  if (options.includeNames && options.sex && options.sorted) {
+    return (species.reduce((acc, curr) => {
+      const location = curr.location;
+      const specieName = curr.name;
+      const specieResidentsGender = curr.residents.reduce((accR, currR) => {
+        if (currR.sex === options.sex) { accR.push(currR.name); }
+        return accR.sort();
+      }, []);
+      const specieResidentsName = { [`${specieName}`]: specieResidentsGender};
+      if (!acc[location]) { acc[location] = [] };
+      acc[location].push(specieResidentsName);
+      return acc;
+    }, {}));
+  }
+  if (!options.includeNames && options.sex) {
+    return (species.reduce(animalsLocation, {}));
+  }
 }
 
 function getSchedule(dayName) {
