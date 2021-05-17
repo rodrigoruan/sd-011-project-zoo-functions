@@ -84,9 +84,11 @@ function getSchedule(day) {
   }
   return days;
 }
-console.log(getSchedule('Monday'));
-function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+
+function getOldestFromFirstSpecies(id1) {
+  const animalId = data.employees.find((employee) => employee.id === id1).responsibleFor[0]; // busca o primeiro animal do funcionario
+  const oldestAnimal = species.filter((animal) => animal.id === animalId)[0].residents.sort((resident1, resident2) => resident2.age - resident1.age)[0]; // KAKSJDASKDJASKJD 1 to passando um filtro pra buscar o animal do id, depois to dando um sort nos residents pra pegar o mais velho
+  return [oldestAnimal.name, oldestAnimal.sex, oldestAnimal.age];
 }
 
 function increasePrices(percentage) {
