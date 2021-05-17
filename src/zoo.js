@@ -56,13 +56,10 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options = {}) {
-  let result = {};
-  let arrayRegions = ['NE', 'NW', 'SE', 'SW'];
-  arrayRegions.forEach((regions) => {
-    result[regions] = [];
-  });
-  data.species.map((animal) => (options.includeNames ? result[animal.location].push({ [animal.name]: getNameAnimal(animal.residents, options.sorted, options.sex) }) : result[animal.location].push(animal.name)));
-  return result;
+  // seu código aqui
+  const obj = { NE: [], NW: [], SE: [], SW: [] };
+  data.species.forEach((value) => (options.includeNames ? obj[value.location].push({ [value.name]: findAnimals(value.residents, options.sorted, options.sex) }) : obj[value.location].push(value.name)));
+  return obj;
 }
 
 function getSchedule(dayName) {
