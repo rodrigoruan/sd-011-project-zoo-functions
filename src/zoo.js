@@ -119,23 +119,24 @@ function increasePrices(percentage) {
   });
 }
 
+const employeeAnimals = (employee) => {
+  const specieees = data.species;
+  const animalsIds = employee.responsibleFor;
+  const animals = animalsIds.map((animalId) => {
+    for (let index in specieees) {
+      if (Object.values(specieees[index]).includes(animalId)) {
+        return specieees[index];
+      }
+    }
+  });
+  const animalsNames = animals.map((animal) => animal.name);
+  const employeeName = `${employee.firstName} ${employee.lastName}`;
+  return { [`${employeeName}`]: animalsNames };
+}
+
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
   const emplyees = data.employees;
-  const specieees = data.species;
-  const employeeAnimals = (employee) => {
-    const animalsIds = employee.responsibleFor;
-    const animals = animalsIds.map((animalId) => {
-      for (let index in specieees) {
-        if (Object.values(specieees[index]).includes(animalId)) {
-          return specieees[index];
-        }
-      }
-    });
-    const animalsNames = animals.map((animal) => animal.name);
-    const employeeName = `${employee.firstName} ${employee.lastName}`;
-    return { [`${employeeName}`]: animalsNames };
-  };
   if (!idOrName) {
     return emplyees.map(employeeAnimals).reduce((acc, curr) => {
       acc[Object.keys(curr)[0]] = Object.values(curr)[0];
