@@ -8,16 +8,18 @@ eslint no-unused-vars: [
   }
 ]
 */
-const { employees } = require('./data');
+// const { employees, species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  return ids.map((item) => data.species.find((species) => species.id === item));
+  return ids.map((item) => data.species.find((spec) => spec.id === item));
 }
 function getAnimalsOlderThan(animal, age) {
 //   // seu código aqui
-
+  const getAnimal = data.species.find(((item) => item.name === animal)).residents.every((specie) => specie.age >= age);
+  return getAnimal;
 }
+// console.log(getAnimalsOlderThan())
 function getEmployeeByName(employeeName) {
   // seu código aqui
   if (!employeeName) return {};
@@ -43,7 +45,6 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
     managers,
     responsibleFor,
   };
-
   data.employees.push(object);
 }
 // console.log(addEmployee());
