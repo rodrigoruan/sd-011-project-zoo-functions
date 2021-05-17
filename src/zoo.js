@@ -39,11 +39,19 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  const total = {};
+  if (!specie) {
+    data.species.forEach(({ name, residents }) => {
+      total[name] = residents.length;
+    });
+    return total;
+  }
+  return data.species.find(({ name }) => specie === name).residents.length;
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants || entrants === {}) return 0;
+  return Object.keys(entrants).reduce((acc, value) => acc + (data.prices[value] * entrants[value]), 0);
 }
 
 function getAnimalMap(options) {
