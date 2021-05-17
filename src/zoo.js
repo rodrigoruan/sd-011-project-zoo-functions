@@ -91,7 +91,6 @@ function getOldestFromFirstSpecies(id) {
 }
 console.log(getOldestFromFirstSpecies('4b40a139-d4dc-4f09-822d-ec25e819a5ad'));
 
-
 function increasePrices(percentage) {
   const adultPerc = ((data.prices.Adult / 100) * percentage + data.prices.Adult + 0.001);
   const childPerc = ((data.prices.Child / 100) * percentage + data.prices.Child + 0.001);
