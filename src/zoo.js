@@ -61,36 +61,53 @@ function calculateEntry(entrants) {
   return people.reduce(totalizer, 0);
 }
 
-function getAnimalMap(options) {
-  const regionalizer = (acc, cur) => {
-    acc[cur.location] = data.species
-      .filter((specie) => specie.location === cur.location).map((animal) => animal.name);
-    return acc;
-  };
-  if (!options) { return data.species.reduce(regionalizer, { }); }
+const nameReducer = (acc, cur) => {
+  acc[cur.location] = data.species.filter((specie) => specie.location === cur.location)
+    .map((animal) => ({ [animal.name]: animal.residents.map(({ name }) => name) }));
+  return acc;
+};
 
-  const { includeNames, sorted, sex } = options;
-  const identifier = (acc, cur) => {
-    if (sex && sorted) {
-      acc[cur.location] = data.species.filter((specie) => specie.location === cur.location)
-        .map((animal) => ({ [animal.name]: animal.residents.filter((resident) => resident.sex === sex).map((names) => names.name).sort() }));
-    } else if (sex) {
-      acc[cur.location] = data.species.filter((specie) => specie.location === cur.location)
-        .map((animal) => ({ [animal.name]: animal.residents.filter((resident) => resident.sex === sex).map((names) => names.name) }));
-    } else if (sorted) {
-      acc[cur.location] = data.species.filter((specie) => specie.location === cur.location)
-        .map((animal) => ({ [animal.name]: animal.residents.map((names) => names.name).sort() }));
-    } else {
-      acc[cur.location] = data.species.filter((specie) => specie.location === cur.location)
-        .map((animal) => ({ [animal.name]: animal.residents.map((names) => names.name) }));
-    }
-    return acc;
-  };
+const sexReducer = (acc, cur, options) => {
+  acc[cur.location] = data.species.filter((specie) => specie.location === cur.location)
+    .map((animal) => ({ [animal.name]: animal.residents.filter((resident) => resident.sex === options.sex).map(({ name }) => name) }));
+  return acc;
+};
 
-  let way;
-  if (!includeNames) { way = regionalizer; }
-  if (includeNames) { way = identifier; }
-  return data.species.reduce(way, { });
+const sexSortReducer = (acc, cur, options) => {
+  acc[cur.location] = data.species.filter((specie) => specie.location === cur.location)
+    .map((animal) => ({ [animal.name]: animal.residents.filter((resident) => resident.sex === options.sex).map(({ name }) => name).sort() }));
+  return acc;
+};
+
+const simpleReducer = (acc, cur) => {
+  acc[cur.location] = data.species.filter((specie) => specie.location === cur.location)
+    .map(({ name }) => name);
+  return acc;
+};
+
+const sortReducer = (acc, cur) => {
+  acc[cur.location] = data.species.filter((specie) => specie.location === cur.location)
+    .map((animal) => ({ [animal.name]: animal.residents.map(({ name }) => name).sort() }));
+  return acc;
+};
+
+function checkAnimalsOptions(options) {
+  if (options.sorted && options.sex) {
+    return data.species.reduce((acc, cur) => sexSortReducer(acc, cur, options), {});
+  }
+  if (options.sex) {
+    return data.species.reduce((acc, cur) => sexReducer(acc, cur, options), {});
+  }
+  if (options.sorted) return data.species.reduce(sortReducer, {});
+  return data.species.reduce(nameReducer, {});
+}
+
+function getAnimalMap(options = {}) {
+  const { includeNames } = options;
+  if (includeNames) {
+    return checkAnimalsOptions(options);
+  }
+  return data.species.reduce(simpleReducer, {});
 }
 
 function getSchedule(dayName) {
