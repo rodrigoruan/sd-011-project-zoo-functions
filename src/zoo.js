@@ -122,13 +122,13 @@ function increasePrices(percentage) {
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
   const emplyees = data.employees;
-  const species = data.species;
+  const specieees = data.species;
   const employeeAnimals = (employee) => {
     const animalsIds = employee.responsibleFor;
     const animals = animalsIds.map((animalId) => {
-      for (let index in species) {
-        if (Object.values(species[index]).includes(animalId)) {
-          return species[index];
+      for (let index in specieees) {
+        if (Object.values(specieees[index]).includes(animalId)) {
+          return specieees[index];
         }
       }
     });
