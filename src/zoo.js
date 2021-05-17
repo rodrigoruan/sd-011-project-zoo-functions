@@ -145,34 +145,34 @@ function getAnimalMap(options) {
   if (options.includeNames && options.sorted && !options.sex) {
     return (species.reduce(animalsLocNamesSorted, {}));
   }
-  // if (options.includeNames && options.sex && !options.sorted) {
-  //   return (species.reduce((acc, curr) => {
-  //     const { location } = curr;
-  //     const specieName = curr.name;
-  //     const specieResidentsGender = curr.residents.reduce((accR, currR) => {
-  //       if (currR.sex === options.sex) { accR.push(currR.name); }
-  //       return accR;
-  //     }, []);
-  //     const specieResidentsName = { [`${specieName}`]: specieResidentsGender };
-  //     if (!acc[location]) { acc[location] = []; }
-  //     acc[location].push(specieResidentsName);
-  //     return acc;
-  //   }, {}));
-  // }
-  // if (options.includeNames && options.sex && options.sorted) {
-  //   return (species.reduce((acc, curr) => {
-  //     const { location } = curr;
-  //     const specieName = curr.name;
-  //     const specieResidentsGender = curr.residents.reduce((accR, currR) => {
-  //       if (currR.sex === options.sex) { accR.push(currR.name); }
-  //       return accR.sort();
-  //     }, []);
-  //     const specieResidentsName = { [`${specieName}`]: specieResidentsGender };
-  //     if (!acc[location]) { acc[location] = []; }
-  //     acc[location].push(specieResidentsName);
-  //     return acc;
-  //   }, {}));
-  // }
+  if (options.includeNames && options.sex && !options.sorted) {
+    return (species.reduce((acc, curr) => {
+      const { location } = curr;
+      const specieName = curr.name;
+      const specieResidentsGender = curr.residents.reduce((accR, currR) => {
+        if (currR.sex === options.sex) { accR.push(currR.name); }
+        return accR;
+      }, []);
+      const specieResidentsName = { [`${specieName}`]: specieResidentsGender };
+      if (!acc[location]) { acc[location] = []; }
+      acc[location].push(specieResidentsName);
+      return acc;
+    }, {}));
+  }
+  if (options.includeNames && options.sex && options.sorted) {
+    return (species.reduce((acc, curr) => {
+      const { location } = curr;
+      const specieName = curr.name;
+      const specieResidentsGender = curr.residents.reduce((accR, currR) => {
+        if (currR.sex === options.sex) { accR.push(currR.name); }
+        return accR.sort();
+      }, []);
+      const specieResidentsName = { [`${specieName}`]: specieResidentsGender };
+      if (!acc[location]) { acc[location] = []; }
+      acc[location].push(specieResidentsName);
+      return acc;
+    }, {}));
+  }
 }
 
 function getSchedule(dayName) {
