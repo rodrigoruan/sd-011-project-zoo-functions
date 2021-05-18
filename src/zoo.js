@@ -63,14 +63,37 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  return data.species.reduce((acc, curr) => {
-    acc[curr.location].push(curr.name);
-    return acc;
-  }, { NE: [], NW: [], SE: [], SW: [] });
+  const animalMap = getBaseMap();
+
+  if (!options || !options.includeNames) {
+    return animalMap;
+  }
+
+  const { sorted, sex } = options;
+
+  manipulateRegions(animalMap, includeNamesInMap);
+
+  if (sorted) manipulateRegions(animalMap, sortMap);
+
+  if (sex) manipulateRegions(animalMap, filterMapBySex, sex);
+
+  return animalMap;
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const schedule = data.hours;
+
+  if (dayName) {
+    return { [dayName]: schedule[dayName] };
+  }
+
+  const scheduleKeys = Object.keys(schedule);
+
+  scheduleKeys.forEach((day) => {
+    schedule[day] = getSingleDayScheduleString(schedule[day]);
+  });
+
+  return schedule;
 }
 
 function getOldestFromFirstSpecies(id) {
