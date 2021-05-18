@@ -79,13 +79,13 @@ function getSchedule(dayName) {
   /** consultei o repositório do Igor Mendez
    * Link:https://github.com/tryber/sd-011-project-zoo-functions/pull/158/files */
   const dayOfWeek = {
-    Tuesday: `The zoo is open from ${data.hours.Tuesday.open}am until ${data.hours.Tuesday.close}`,
-    Wednesday: `The zoo is open from ${data.hours.Wednesday.open}am until ${data.hours.Wednesday.close}`,
-    Thursday: `The zoo is open from ${data.hours.Thursday.open}am until ${data.hours.Thursday.close}`,
-    Friday: `The zoo is open from ${data.hours.Friday.open}am until ${data.hours.Friday.close}`,
-    Saturday: `The zoo is open from ${data.hours.Saturday.open}am until ${data.hours.Saturday.close}`,
-    Sunday: `The zoo is open from ${data.hours.Sunday.open}am until ${data.hours.Sunday.close}`,
-    Monday: 'The zoo is closed',
+    Tuesday: `Open from ${data.hours.Tuesday.open}am until ${data.hours.Tuesday.close - 12}pm`,
+    Wednesday: `Open from ${data.hours.Wednesday.open}am until ${data.hours.Wednesday.close - 12}pm`,
+    Thursday: `Open from ${data.hours.Thursday.open}am until ${data.hours.Thursday.close - 12}pm`,
+    Friday: `Open from ${data.hours.Friday.open}am until ${data.hours.Friday.close - 12}pm`,
+    Saturday: `Open from ${data.hours.Saturday.open}am until ${data.hours.Saturday.close - 12}pm`,
+    Sunday: `Open from ${data.hours.Sunday.open}am until ${data.hours.Sunday.close - 12}pm`,
+    Monday: 'CLOSED',
   };
   if (!dayName) {
     return dayOfWeek;
