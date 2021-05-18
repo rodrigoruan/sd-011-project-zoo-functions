@@ -150,6 +150,7 @@ function getAnimalMap(options) {
         return (species.reduce(animalsLocNamesSorted, {}));
       }
     }
+  }
   // if (options.includeNames && options.sex && !options.sorted) {
   //   return (species.reduce((acc, curr) => {
   //     const { location } = curr;
