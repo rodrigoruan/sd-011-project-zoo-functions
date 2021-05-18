@@ -76,17 +76,23 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  const dayOfWeek = {};
-  Object.keys(data.hours).forEach((day) => {
-    const openZoo = data.hours[day].open;
-    const closeZoo = data.hours[day].close;
-    dayOfWeek[day] = `The zoo is open from ${openZoo} until ${closeZoo - 12}`;
-  });
-  dayOfWeek.Monday = 'CLOSED';
-
-  if (dayName) return ({ [dayName]: dayOfWeek[dayName] });
-
-  return dayOfWeek;
+  /** consultei o repositório do Igor Mendez
+   * Link:https://github.com/tryber/sd-011-project-zoo-functions/pull/158/files */
+  const dayOfWeek = {
+    Tuesday: `The zoo is open from ${data.hours.Tuesday.open}am until ${data.hours.Tuesday.close}`,
+    Wednesday: `The zoo is open from ${data.hours.Wednesday.open}am until ${data.hours.Wednesday.close}`,
+    Thursday: `The zoo is open from ${data.hours.Thursday.open}am until ${data.hours.Thursday.close}`,
+    Friday: `The zoo is open from ${data.hours.Friday.open}am until ${data.hours.Friday.close}`,
+    Saturday: `The zoo is open from ${data.hours.Saturday.open}am until ${data.hours.Saturday.close}`,
+    Sunday: `The zoo is open from ${data.hours.Sunday.open}am until ${data.hours.Sunday.close}`,
+    Monday: 'The zoo is closed',
+  };
+  if (!dayName) {
+    return dayOfWeek;
+  }
+  return {
+    [dayName]: dayOfWeek[dayName],
+  };
 }
 
 function getOldestFromFirstSpecies(id) {
