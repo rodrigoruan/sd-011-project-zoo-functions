@@ -139,18 +139,15 @@ function getAnimalMap(options) {
   if (!options || !options.includeNames) {
     return (species.reduce(animalsLocation, {}));
   }
-  if (options.includeNames) {
-    if (!options.sorted) {
-      if (!options.sex) {
-        return (species.reduce(animalsLocationNames, {}));
-      }
-    }
-    if (options.sorted) {
-      if (!options.sex) {
-        return (species.reduce(animalsLocNamesSorted, {}));
-      }
+  if (!options.sorted) {
+    if (!options.sex) {
+      return (species.reduce(animalsLocationNames, {}));
     }
   }
+  if (!options.sex) {
+    return (species.reduce(animalsLocNamesSorted, {}));
+  }
+
   // if (options.includeNames && options.sex && !options.sorted) {
   //   return (species.reduce((acc, curr) => {
   //     const { location } = curr;
