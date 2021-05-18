@@ -77,9 +77,9 @@ function getAnimalMap(options) {
 
 function getSchedule(dayName) {
   const dayOfWeek = {};
-  Object.keys(hours).forEach((day) => {
-    const openZoo = hours[day].open;
-    const closeZoo = hours[day].close;
+  Object.keys(data.hours).forEach((day) => {
+    const openZoo = data.hours[day].open;
+    const closeZoo = data.hours[day].close;
     dayOfWeek[day] = `The zoo is open from ${openZoo} until ${closeZoo - 12}`;
   });
   dayOfWeek.Monday = 'CLOSED';
