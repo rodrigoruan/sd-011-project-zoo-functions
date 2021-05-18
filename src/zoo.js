@@ -117,7 +117,17 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-
+  const regress = {};
+  if (idOrName === undefined || idOrName === null) {
+    data.employees.forEach((employ) => {
+      regress[`${employ.firstName} ${employ.lastName}`] = employ.responsibleFor.map((id) => data.species.find((animals) => animals.id === id).name);
+    });
+    return regress;
+  }
+  data.employees.filter((emp) => emp.firstName === idOrName || emp.lastName === idOrName || emp.id === idOrName).forEach((employ) => {
+    regress[`${employ.firstName} ${employ.lastName}`] = employ.responsibleFor.map((id) => data.species.find((animals) => animals.id === id).name);
+  });
+  return regress;
 }
 
 module.exports = {
