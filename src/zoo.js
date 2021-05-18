@@ -63,7 +63,10 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  return data.species.reduce((acc, curr) => {
+    acc[curr.location].push(curr.name);
+    return acc;
+  }, { NE: [], NW: [], SE: [], SW: [] });
 }
 
 function getSchedule(dayName) {
