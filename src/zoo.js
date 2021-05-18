@@ -124,7 +124,7 @@ function getEmployeeCoverage(idOrName) {
     });
     return regress;
   }
-  data.employees.filter((emp) => emp.firstName === idOrName || emp.lastName === idOrName || emp.id === idOrName).forEach((employ) => {
+  data.employees.filter((servant) => servant.firstName === idOrName || servant.lastName === idOrName || servant.id === idOrName).forEach((employ) => {
     regress[`${employ.firstName} ${employ.lastName}`] = employ.responsibleFor.map((id) => data.species.find((animals) => animals.id === id).name);
   });
   return regress;
