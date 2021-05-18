@@ -11,18 +11,22 @@ eslint no-unused-vars: [
 
 const data = require('./data');
 
+const { species, employees, hours, prices } = data;
+
 function getSpeciesByIds(...ids) {
-  return data.species.filter((species) => ids.includes(species.id));
+  return ids.map((id) => species.find((animal) => animal.id === id));
 }
 
-function getAnimalsOlderThan(species, age) {
-  return data.species.find(((specie) => specie.name === species)).residents.every((animal) => animal.age >= age);
+function getAnimalsOlderThan(animal, age) {
+  const { residents } = species.find((el) => el.name === animal);
+
+  return residents.every((resident) => resident.age >= age);
 }
 
 function getEmployeeByName(employeeName) {
   if (!employeeName) return {};
 
-  return data.employees.find(({ firstName, lastName }) => firstName === employeeName || lastName === employeeName);
+  return employees.find((el) => el.firstName === employeeName || el.lastName === employeeName);
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -30,82 +34,122 @@ function createEmployee(personalInfo, associatedWith) {
 }
 
 function isManager(id) {
-  return data.employees.some(({ managers }) => managers.includes(id));
+  return employees.reduce((found, el) => found || el.managers.some((el2) => el2 === id), false);
 }
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  data.employees.push({ id, firstName, lastName, managers, responsibleFor });
+function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  employees.push(createEmployee(
+    { id, firstName, lastName },
+    { managers, responsibleFor },
+  ));
 }
 
-function countAnimals(species) {
-  if (species) {
-    return data.species.find(({ name }) => name === species).residents.length;
+function countAnimals(animalName) {
+  if (animalName) {
+    return species.find((el) => el.name === animalName).residents.length;
   }
 
-  return data.species.reduce((acc, curr) => {
-    acc[curr.name] = curr.residents.length;
-    return acc;
-  }, {});
+  // Referece: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#new_notations_in_ecmascript_2015
+  return species.reduce((object, { name, residents }) =>
+    Object.assign(object, { [name]: residents.length }), {});
 }
 
 function calculateEntry(entrants) {
-  let total = 0;
+  if (!entrants || Object.keys(entrants).length === 0) return 0;
 
-  if (!entrants) {
-    return total;
-  }
+  return Object.entries(entrants).reduce((total, [category, amount]) =>
+    total + prices[category] * amount, 0);
+}
 
-  const entrantKeys = Object.keys(entrants);
+function getResidentsNames(id, sorted, sexFilter) {
+  const residentsNames = species
+    .find((animal) => animal.id === id)
+    .residents.filter((animal) => (sexFilter ? animal.sex === sexFilter : true))
+    .map((el) => el.name);
 
-  entrantKeys.forEach((key) => { total += data.prices[key] * entrants[key]; });
+  return sorted ? residentsNames.sort() : residentsNames;
+}
 
-  return total;
+function buildMapWithNames(map, sorted, sex) {
+  species.forEach((el) => map[el.location].push({ [el.name]: getResidentsNames(el.id, sorted, sex) }));
+}
+
+function buildMapWithoutNames(map) {
+  species.forEach((el) => map[el.location].push(el.name));
+}
+
+function getMapTemplate() {
+  return species.reduce((map, { location: sector }) =>
+    (map[sector] ? map : Object.assign(map, { [sector]: [] })), {});
 }
 
 function getAnimalMap(options) {
-  const animalMap = getBaseMap();
+  const map = getMapTemplate();
 
-  if (!options || !options.includeNames) {
-    return animalMap;
+  if (!options || !options.includeNames) buildMapWithoutNames(map);
+  else {
+    if (!options.sex) options.sex = false;
+    buildMapWithNames(map, !!options.sorted, options.sex);
   }
 
-  const { sorted, sex } = options;
+  return map;
+}
 
-  manipulateRegions(animalMap, includeNamesInMap);
+function getScheduleReducer(formattedHours, day) {
+  let readableHours = '';
 
-  if (sorted) manipulateRegions(animalMap, sortMap);
+  if (hours[day].open === 0 && hours[day].close === 0) {
+    readableHours = 'CLOSED';
+  } else {
+    readableHours = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
+  }
 
-  if (sex) manipulateRegions(animalMap, filterMapBySex, sex);
-
-  return animalMap;
+  return Object.assign(formattedHours, { [day]: readableHours });
 }
 
 function getSchedule(dayName) {
-  const schedule = data.hours;
+  let hoursArray = Object.keys(hours);
+  hoursArray = dayName ? [dayName] : hoursArray;
 
-  if (dayName) {
-    return { [dayName]: schedule[dayName] };
-  }
-
-  const scheduleKeys = Object.keys(schedule);
-
-  scheduleKeys.forEach((day) => {
-    schedule[day] = getSingleDayScheduleString(schedule[day]);
-  });
-
-  return schedule;
+  return hoursArray.reduce(getScheduleReducer, {});
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const firstSpeciesId = employees.find((employee) => employee.id === id).responsibleFor[0];
+  const [firstSpecies] = getSpeciesByIds(firstSpeciesId);
+  const oldestAnimal = firstSpecies.residents.reduce((oldest, animal) =>
+    (animal.age > oldest.age ? animal : oldest));
+
+  return [oldestAnimal.name, oldestAnimal.sex, oldestAnimal.age];
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  Object.entries(prices).forEach(function ([category, price]) {
+    prices[category] = Math.ceil((price * (1 + percentage / 100)) * 100) / 100;
+  });
+}
+
+function getEmployByLabel(label) {
+  return employees.find((el) =>
+    label === el.firstName || label === el.lastName || label === el.id);
+}
+
+function buildEmployeeCoverageData(idOrName) {
+  const employee = getEmployByLabel(idOrName);
+  const employeeFullName = `${employee.firstName} ${employee.lastName}`;
+  const employeeCoverage = employee.responsibleFor.map((id) => getSpeciesByIds(id)[0]);
+  const employeeCoverageNames = employeeCoverage.map((el) => el.name);
+
+  return { [employeeFullName]: employeeCoverageNames };
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (idOrName) {
+    return buildEmployeeCoverageData(idOrName);
+  }
+
+  return employees.reduce((employeesCoverage, employee) =>
+    Object.assign(employeesCoverage, buildEmployeeCoverageData(employee.id)), {});
 }
 
 module.exports = {
