@@ -110,9 +110,11 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   const { Child, Adult, Senior } = prices;
-  prices.Child = Math.ceil(Child * (1 + (percentage / 100)));
-  prices.Adult = Math.ceil(Adult * (1 + (percentage / 100)));
-  prices.Senior = Math.ceil(Senior * (1 + (percentage / 100)));
+  let increase = percentage / 100;
+  prices.Child = Math.ceil(Child * (1 + increase));
+  prices.Adult = Math.ceil(Adult * (1 + increase));
+  prices.Senior = Math.ceil(Senior * (1 + increase));
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
