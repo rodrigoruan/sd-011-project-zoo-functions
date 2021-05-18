@@ -110,9 +110,9 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   let increase = 1 + (percentage / 100);
-  data.prices.Child = Math.ceil(data.prices.Child * increase);
-  data.prices.Adult = Math.ceil(data.prices.Adult * increase);
-  data.prices.Senior = Math.ceil(data.prices.Senior * increase);
+  data.prices.Child = Math.round(data.prices.Child * increase);
+  data.prices.Adult = Math.round(data.prices.Adult * increase);
+  data.prices.Senior = Math.round(data.prices.Senior * increase);
   return data.prices;
 }
 
