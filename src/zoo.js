@@ -29,6 +29,8 @@ function getEmployeeByName(employeeName) {
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
+  let obj = {};
+  return Object.assign(obj, personalInfo, associatedWith);
 }
 
 function isManager(id) {
