@@ -25,7 +25,9 @@ function getSpeciesByIds(ids = [], ids2 = undefined) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  return species.find((animals) => animals.name === animal).residents.every((animalsAge.age) );
+  return species
+  .find((el) => el.name.includes(animal))
+  .residents.every((resident) => resident.age > age);
 }
 
 function getEmployeeByName(employeeName) {
@@ -38,8 +40,8 @@ function getEmployeeByName(employeeName) {
 function createEmployee(personalInfo, associatedWith) {
   return {
     id: personalInfo.id,
-    firstName: peronsalInfo.firstName,
-    lastName: personalbar.lastName,
+    firstName: personalInfo.firstName,
+    lastName: personalInfo.lastName,
     managers: associatedWith.managers,
     responsibleFor: associatedWith.responsibleFor,
   };
@@ -57,7 +59,8 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
     managers,
     responsibleFor,
   };
-  data.employees;
+  data.employees.push(newEmployee);
+  return data.employees;
 }
 
 function countAnimals(species0) {
