@@ -97,7 +97,7 @@ function getSchedule(dayName) {
   if (!dayName) {
     return schedule;
   }
-  return {[dayName]: schedule[dayName]};
+  return { [dayName]: schedule[dayName] };
 }
 
 function getOldestFromFirstSpecies(id) {
