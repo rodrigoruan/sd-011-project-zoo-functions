@@ -39,16 +39,13 @@ function addEmployee(id = [], firstName = [], lastName = [], managers = [], resp
   return data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
-function countAnimals(specie) {
-  if (typeof specie === 'undefined') {
-    const animals = {};
-    data.specie.forEach((value) => {
-      animals[value.name] = value.residents.length;
-      return undefined;
-    });
-    return animals;
+function countAnimals(animal) {
+  if (typeof animal === 'undefined') {
+    const object = {};
+    species.forEach((specie) => { object[specie.name] = specie.residents.length; });
+    return object;
   }
-  return data.specie.find((value) => value.name === specie).residents.length;
+  return species.find((specie) => specie.name === animal).residents.length;
 }
 
 function calculateEntry(entrants) {
