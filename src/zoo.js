@@ -95,7 +95,7 @@ function objectAnimals(current, sorted, sex) {
 }
 
 function getAnimalMap(options) {
-  const locationName = data.species.reduce((accumulator, current) => {
+  let locationName = data.species.reduce((accumulator, current) => {
     if (!accumulator[current.location]) {
       accumulator[current.location] = [];
     }
@@ -108,7 +108,7 @@ function getAnimalMap(options) {
     return accumulator[current.location].push(objectAnimals(current, options.sorted, options.sex));
   }, {});
   if (options.includeNames) locationName = animalsObject;
-  return locationName 
+  return locationName;
 }
 
 function getSchedule(dayName) {
