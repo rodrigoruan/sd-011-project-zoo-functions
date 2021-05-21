@@ -94,7 +94,7 @@ function objectAnimals(current, sorted, sex) {
   return animalObject;
 }
 
-function getAnimalMap(options) {
+function getAnimalMap(options = {}) {
   let locationName = data.species.reduce((accumulator, current) => {
     if (!accumulator[current.location]) {
       accumulator[current.location] = [];
