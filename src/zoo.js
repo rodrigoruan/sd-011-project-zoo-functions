@@ -8,7 +8,8 @@ eslint no-unused-vars: [
   }
 ]
 */
-// const { employees, species } = require('./data');
+// const { species } = require('./data');
+// const { employees, hours } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -62,25 +63,26 @@ function countAnimals(species) {
 }
 function calculateEntry(entrants) {
   // seu código aqui
-
+  if (!entrants || entrants === {}) return 0;
+  return Object.keys(entrants)
+    .reduce(((accumulator, currentValue) => accumulator + (entrants[currentValue] * data.prices[currentValue])));
 }
-
 function getAnimalMap(options) {
   // seu código aqui
+
 }
 
 function getSchedule(dayName) {
   // seu código aqui
 }
-
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
-
+// console.log(getOldestFromFirstSpecies())
 function increasePrices(percentage) {
   // seu código aqui
-}
 
+}
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
 }
