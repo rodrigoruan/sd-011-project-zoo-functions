@@ -101,7 +101,7 @@ function getAnimalMap(options) {
     }
     return accumulator[current.location].push(current.name);
   }, {});
-  const animalsObject = data.species.reduce((accumulator, current) => {
+  let animalsObject = data.species.reduce((accumulator, current) => {
     if (!accumulator[current.location]) {
       accumulator[current.location] = [];
     }
