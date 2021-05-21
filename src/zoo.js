@@ -101,10 +101,10 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  const specieId = data.employees.find((employeeId) => employeeId.id.includes(id)).responsibleFor[0];
-  const residentsList = data.species.find((speci) => speci.id.includes(specieId)).residents;
-  const result = residentsList.sort((a, b) => a.age - b.age).splice(-1);
-  return result.reduce((acc, re) => Object.values(re), []);
+  const employee = data.employees.find((responsible) => responsible.id === id).responsibleFor[0];
+  return Object.values(data.species
+    .find((specie) => specie.id === employee)
+    .residents.sort((a, b) => a.age - b.age)[0]);
 }
 
 function increasePrices(percentage) {
@@ -112,7 +112,7 @@ function increasePrices(percentage) {
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+
 }
 
 module.exports = {
