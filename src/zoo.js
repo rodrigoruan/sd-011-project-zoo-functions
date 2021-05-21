@@ -99,13 +99,15 @@ function getAnimalMap(options) {
     if (!accumulator[current.location]) {
       accumulator[current.location] = [];
     }
-    return accumulator[current.location].push(current.name);
+    accumulator[current.location].push(current.name);
+    return accumulator;
   }, {});
   let animalsObject = data.species.reduce((accumulator, current) => {
     if (!accumulator[current.location]) {
       accumulator[current.location] = [];
     }
-    return accumulator[current.location].push(objectAnimals(current, options.sorted, options.sex));
+    accumulator[current.location].push(objectAnimals(current, options.sorted, options.sex));
+    return accumulator;
   }, {});
   if (options.includeNames) locationName = animalsObject;
   return locationName;
