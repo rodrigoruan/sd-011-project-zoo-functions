@@ -101,18 +101,32 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  const employee = data.employees.find((responsible) => responsible.id === id).responsibleFor[0];
-  return Object.values(data.species
-    .find((specie) => specie.id === employee)
-    .residents.sort((a, b) => a.age - b.age)[0]);
+  const specieId = data.employees.find((employeeId) => employeeId.id.includes(id)).responsibleFor[0];
+  const residentsList = data.species.find((speci) => speci.id.includes(specieId)).residents;
+  const result = residentsList.sort((a, b) => a.age - b.age).splice(-1);
+  return result.reduce((acc, re) => Object,value(re), []);
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const adult = ((data.prices.Adult / 100) * percentage) + data.prices.Adult + 0.001;
+  const child = ((data.prices.Child / 100) * percentage) + data.prices.Child + 0.001;
+  const senior = ((data.prices.Senior / 100) * percentage) + data.prices.Senior + 0.001;
+  data.prices.Adult = Number(adult.toFixed(2));
+  data.prices.Child = Number(child.toFixed(2));
+  data.prices.Senior = Number(senior.toFixed(2));
 }
 
 function getEmployeeCoverage(idOrName) {
+  let obj = {};
 
+  if (!idOrName) {
+    data.employees.forEach((employee) => { obj[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor.map((animal) => data.species.find(({id }) => id === animal).name); });
+  } else {
+    const employeeResponsabity = data.employees.find(({ id, firstName, lastName}) => idOrName === id || idOrName === firstName || idOrName === lastName);
+
+    obj[`${employeeResponsabity.firstName} ${employeeResponsabity.lastName}`] = employeeResponsabity.responsibleFor.map((animal) => data.species.find(({ id}) => animal === id).name);
+  }
+  return obj;
 }
 
 module.exports = {
