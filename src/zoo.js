@@ -40,7 +40,7 @@ function addEmployee(id = [], firstName = [], lastName = [], managers = [], resp
 }
 
 function countAnimals(specie) {
-  if (specie === undefined) {
+  if (typeof specie === 'undefined') {
     const animals = {};
     data.specie.forEach((value) => {
       animals[value.name] = value.residents.length;
