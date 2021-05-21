@@ -9,7 +9,6 @@ eslint no-unused-vars: [
 ]
 */
 
-const { employees } = require('./data');
 const data = require('./data');
 
 // Task 1
@@ -20,9 +19,21 @@ const data = require('./data');
 // JS arrow function: https://www.w3schools.com/js/js_arrow_function.asp
 // Working with Objects: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects
 
-function getSpeciesByIds(...id) { // rest is used cause is various IDs
-  // filter items that includes object.id key
-  return data.species.filter((items) => id.includes(items.id));
+function getSpeciesByIds(...ids) { // rest is used cause is various IDs
+  // filter and return items that includes object.id key
+  // return data.species.filter((items) => id.includes(items.id));
+
+  // or another method, create a empty array
+  // itinerant through each item to check if it's includes id
+  // if true, add to the array via push method
+
+  let auxArray = [];
+
+  data.species.forEach((items) => {
+    if (ids.includes(items.id)) auxArray.push(items);
+  });
+
+  return auxArray;
 }
 
 // Task 2
@@ -30,17 +41,19 @@ function getSpeciesByIds(...id) { // rest is used cause is various IDs
 // JS find: https://www.w3schools.com/jsref/jsref_find.asp
 // JS every: https://www.w3schools.com/jsref/jsref_every.asp
 
-function getAnimalsOlderThan(animals, age) {
-  // finds the items that includes object.name key, which contains every residents (animals residents) with age >= especific age (as requisited parameter)
-  return data.species.find((items) => animals.includes(items.name)).residents.every((items) => (items.age >= age));
+function getAnimalsOlderThan(animals, minimalAge) {
+  // finds the items that has name equal to animals, and then check with every method if age >= minimalAge
+  return data.species.find((items) => items.name === animals)
+    .residents.every((items) => (items.age >= minimalAge));
 }
 
 // Task 3
 
 function getEmployeeByName(employeeName) {
-  if (employeeName) { // test if has a parameter passed
+  if (employeeName) { // test if there's a parameter declared
     // find the items that's has key FirstName and LastName equal to employeeName (which is a full name)
-    return data.employees.find((items) => (items.firstName === employeeName || items.lastName === employeeName));
+    return data.employees
+      .find((items) => (items.firstName === employeeName || items.lastName === employeeName));
   } return {}; // otherwise, returns empty object
 }
 
@@ -51,10 +64,11 @@ function getEmployeeByName(employeeName) {
 // Obj Spread vs Obj Assign: https://stackoverflow.com/questions/32925460/object-spread-vs-object-assign
 
 function createEmployee(personalInfo, associatedWith) {
-  // passing the personalInfo and associatedWith, create employee's register
+  // passing personalInfo and associatedWith create employee's register
   // personalInfo contains Id, First Name and Last Name
   // associatedWith contains managers and responsibleFor
-  // could be made as Object Spread too, like *return { ...personalInfo", ...associatedWith };
+  // could also be made as Object Spread, like:
+  // return { ...personalInfo", ...associatedWith };
   return Object.assign(personalInfo, associatedWith);
 }
 
@@ -64,11 +78,8 @@ function createEmployee(personalInfo, associatedWith) {
 // Simplify your JavaScript: https://medium.com/poka-techblog/simplify-your-javascript-use-some-and-find-f9fb9826ddfd
 
 function isManager(id) {
-  // the some method checks if any element in the array pass a test
-  // in this case, if employees contains the string managers including the ID
-  // then return the managers's IDs
-  // it's can't use method find, cause it's just returns the first item
-  return data.employees.some(({ managers }) => managers.includes(id));
+  // get employees data by some if this items is included on managers variable
+  return data.employees.some((items) => items.managers.includes(id));
 }
 
 // Task 6
@@ -78,7 +89,8 @@ function isManager(id) {
 // gets all info for employees needs as parameters
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
   // managers and resposibleFor has too many values, so it's declared as empty arrays
-  return employees.push({ id, firstName, lastName, managers, responsibleFor });
+  const newRegister = { id, firstName, lastName, managers, responsibleFor };
+  return data.employees.push(newRegister);
 }
 
 // Task 7
@@ -88,16 +100,18 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 // How to use T.O.: https://www.programiz.com/javascript/ternary-operator
 
 function countAnimals(species, aux) {
-  let AllAnimals = {}; // just create a empty object
+  let AllAnimals = {}; // empty object
 
-  // ForEach pass-through all animals by name key and count it based on residents.length
-  aux = data.species.forEach((items) => { AllAnimals[items.name] = items.residents.length; });
+  // ForEach itinerates for all animals by name key and count it based on residents.length
+  aux = data.species.forEach((items) => {
+    AllAnimals[`${items.name}`] = items.residents.length;
+  });
 
+  // if has a name in species parameter, find the quantity of this species
+  // based on finding the items by name key equal to the species declared,
+  // otherwise return all animals and his quantities
   return species
-    // if has a name in species parameter, find the quantity of this species
-    // based on finding the items by name key equal to the species declared
     ? data.species.find((items) => items.name === species).residents.length
-    // otherwise return all animals and his quantities
     : AllAnimals;
 }
 
@@ -107,27 +121,30 @@ function countAnimals(species, aux) {
 // Reduce syntax: array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
 
 function calculateEntry(entrants) {
+  // if has entrants parameter, get all Object keys, reduce it a single value, which is the total price
+  // where the accumulator recieves each prices from data.prices multiplies by number of entrants
+  // which starts at value 0, and returns 0 if entrants is empty (which is false)
   return entrants
-    // acc = accumulator
-    // if has entrants parameter, get all Object keys, reduce it a single value, which is the total price
-    // where the accumulator recieves each prices from data.prices multiplies by number of entraces
-    // which starts at value 0, and returns 0 if entrants is false
-    ? Object.keys(entrants).reduce((acc, item) => (acc + (data.prices[item] * entrants[item])), 0)
+    ? Object.keys(entrants)
+      .reduce((acc, value) => (acc + ((data.prices[value]) * (entrants[value]))), 0)
     : 0;
 }
 
 // Task 9
 // References:
-// JS concat (array.prototype): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat
 // JS sort: https://www.w3schools.com/js/js_array_sort.asp
-// Thanks to Rodolfo Resende - Team 11's explanation
+// JS spread: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+// 2 ways to merge arrays: https://dev.to/samanthaming/2-ways-to-merge-arrays-in-javascript-42d1
+// Thanks to Rodolfo Resende's helps
 
-const animalInfo = (residents, sorted, sex) => {
+const animalInfo = (animals, sort, sex) => {
   // animal sex validation
-  const names = residents.reduce((acc, item) => ((sex && item.sex !== sex)
-    ? acc : acc.concat(item.name)), []);
+  // How to use array reduce with condition in JS:
+  // https://stackoverflow.com/questions/45204270/how-to-use-array-reduce-with-condition-in-javascript
+  // reduce the array and concatenate the names if sex parameter is equals to animal sex
+  const names = animals.reduce((acc, items) => (((sex && items.sex) === sex) ? [...acc, items.name] : acc), []);
   // if sorted is true, return names sorted, otherwise just return the name
-  return sorted ? names.sort() : names;
+  return sort ? names.sort() : names;
 };
 
 // Objects as function argument: https://stackoverflow.com/questions/46224895/javascript-pass-object-as-function-argument
@@ -135,16 +152,16 @@ function getAnimalMap(options = {}) {
   let result = {};
   const locationSymbols = ['NE', 'NW', 'SE', 'SW'];
 
-  // just a way to pass the locationSymbols to an object
-  locationSymbols.forEach((item) => { result[item] = []; });
+  // just a way to pass locationSymbols to result
+  for (let index of locationSymbols) result[index] = [];
 
-  // Thanks to Rodolfo Resend and Julio Filizzola from Team 11
   data.species.map((animal) => (options.includeNames
     // if includeNames is true
-    // result recieves animal's name plus animalInfo
+    // result recieves animal's name plus animal's info
     ? result[animal.location].push({ [animal.name]: animalInfo(animal.residents, options.sorted, options.sex) })
+
     // if includeNames is false
-    // otherwise result just recieves animal name
+    // result just recieves animal's name
     : result[animal.location].push(animal.name)));
 
   return result;
@@ -169,7 +186,6 @@ function getSchedule(dayName) {
   // based on schedule, Object.entries makes a loop to find items relative to dayName declared in the parameter
   let getDay = Object.entries(schedule).find((items) => items[0] === dayName);
 
-  // returns
   // if no dayName was declared, returns the entire schedule
   if (!dayName) return schedule;
 
