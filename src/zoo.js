@@ -80,6 +80,20 @@ function calculateEntry(entrants) {
   return Object.entries(entrants).reduce((acc, current) => acc + (current[1] * data.prices[current[0]]), 0);
 }
 
+function objectAnimals(current, sorted, sex) {
+  let animalObject;
+  if (sorted && sex) {
+    animalObject = { [current.name]: current.residents.filter((sexo) => sexo.sex === sex).map((value) => value.name).sort() };
+  } else if (sex) {
+    animalObject = { [current.name]: current.residents.filter((sexo) => sexo.sex === sex).map((value) => value.name) };
+  } else if (sorted) {
+    animalObject = { [current.name]: current.residents.map((value) => value.name).sort() };
+  } else {
+    animalObject = { [current.name]: current.residents.map((value) => value.name) };
+  }
+  return animalObject;
+}
+
 function getAnimalMap(options) {
   const locationName = data.species.reduce((accumulator, current) => {
     if (!accumulator[current.location]) {
@@ -91,7 +105,7 @@ function getAnimalMap(options) {
     if (!accumulator[current.location]) {
       accumulator[current.location] = [];
     }
-    return accumulator[current.location].push(createObjectAnimals(current, options.sorted, options.sex));
+    return accumulator[current.location].push(objectAnimals(current, options.sorted, options.sex));
   }, {});
   if (options.includeNames) locationName = animalsObject;
   return locationName 
