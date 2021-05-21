@@ -120,7 +120,7 @@ function getEmployeeCoverage(idOrName) {
   let obj = {};
 
   if (!idOrName) {
-    data.employees.forEach((employee) => { obj[ `${employee.firstName} ${employee.lastName}`] = employee.responsibleFor.map((animal) => data.species.find(({id }) => id === animal).name); });
+    data.employees.forEach((employee) => { obj[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor.map((animal) => data.species.find(({ id }) => id === animal).name); });
   } else {
     const employeeResponsabity = data.employees.find(({ id, firstName, lastName }) => idOrName === id || idOrName === firstName || idOrName === lastName);
 
