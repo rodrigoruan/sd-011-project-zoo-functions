@@ -104,7 +104,7 @@ function getOldestFromFirstSpecies(id) {
   const specieId = data.employees.find((employeeId) => employeeId.id.includes(id)).responsibleFor[0];
   const residentsList = data.species.find((speci) => speci.id.includes(specieId)).residents;
   const result = residentsList.sort((a, b) => a.age - b.age).splice(-1);
-  return result.reduce((acc, re) => Object,value(re), []);
+  return result.reduce((acc, re) => Object.values(re), []);
 }
 
 function increasePrices(percentage) {
@@ -120,11 +120,11 @@ function getEmployeeCoverage(idOrName) {
   let obj = {};
 
   if (!idOrName) {
-    data.employees.forEach((employee) => { obj[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor.map((animal) => data.species.find(({id }) => id === animal).name); });
+    data.employees.forEach((employee) => { obj[ `${employee.firstName} ${employee.lastName}`] = employee.responsibleFor.map((animal) => data.species.find(({id }) => id === animal).name); });
   } else {
-    const employeeResponsabity = data.employees.find(({ id, firstName, lastName}) => idOrName === id || idOrName === firstName || idOrName === lastName);
+    const employeeResponsabity = data.employees.find(({ id, firstName, lastName }) => idOrName === id || idOrName === firstName || idOrName === lastName);
 
-    obj[`${employeeResponsabity.firstName} ${employeeResponsabity.lastName}`] = employeeResponsabity.responsibleFor.map((animal) => data.species.find(({ id}) => animal === id).name);
+    obj[`${employeeResponsabity.firstName} ${employeeResponsabity.lastName}`] = employeeResponsabity.responsibleFor.map((animal) => data.species.find(({ id }) => animal === id).name);
   }
   return obj;
 }
