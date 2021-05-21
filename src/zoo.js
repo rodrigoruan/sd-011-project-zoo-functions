@@ -11,8 +11,10 @@ eslint no-unused-vars: [
 
 const data = require('./data');
 
+const { species, employees, hours, prices } = data;
+
 function getSpeciesByIds(...ids) {
-  return data.species.filter((species) => ids.some((id) => id === species.id));
+  return species.filter((specie) => ids.some((id) => id === specie.id));
 }
 
 function getAnimalsOlderThan(animal, age) {
@@ -37,16 +39,16 @@ function addEmployee(id = [], firstName = [], lastName = [], managers = [], resp
   return data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
-function countAnimals(species) {
-  if (species === undefined) {
+function countAnimals(specie) {
+  if (specie === undefined) {
     const animals = {};
-    data.species.forEach((value) => {
+    data.specie.forEach((value) => {
       animals[value.name] = value.residents.length;
       return undefined;
     });
     return animals;
   }
-  return data.species.find((value) => value.name === species).residents.length;
+  return data.specie.find((value) => value.name === specie).residents.length;
 }
 
 function calculateEntry(entrants) {
@@ -59,9 +61,9 @@ function getAnimalMap(options) {
 
 function getSchedule(dayName) {
   const result = {};
-  Object.keys(data).forEach((day) => {
+  Object.keys(hours).forEach((day) => {
     if (day !== 'Monday') {
-      result[day] = `Open from ${data[day].open}am until ${data[day].close - 12}pm`;
+      result[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
     } else { result[day] = 'CLOSED'; }
   });
   if (!dayName) return result;
@@ -79,14 +81,26 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  return Object.keys(data).forEach((ageGroup) => {
-    data[ageGroup] *= (1 + (percentage / 100));
-    data[ageGroup] = Math.round(data[ageGroup] * 100) / 100;
+  return Object.keys(prices).forEach((ageGroup) => {
+    prices[ageGroup] *= (1 + (percentage / 100));
+    prices[ageGroup] = Math.round(prices[ageGroup] * 100) / 100;
   });
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  if (!idOrName) {
+    const result = {};
+
+    const speciesEmployeeResponsable = employees.map((employee) => employee.responsibleFor.map((specieId) => species.find((specie) => specie.id === specieId).name));
+    employees.forEach((employee, index) => {
+      result[`${employee.firstName} ${employee.lastName}`] = speciesEmployeeResponsable[index];
+    });
+    return result;
+  }
+  const findEmployee = employees.find((employee) => employee.id === idOrName
+    || employee.firstName === idOrName || employee.lastName === idOrName);
+  return {
+    [`${findEmployee.firstName} ${findEmployee.lastName}`]: findEmployee.responsibleFor.map((specieId) => species.find((specie) => specie.id === specieId).name) };
 }
 
 module.exports = {
