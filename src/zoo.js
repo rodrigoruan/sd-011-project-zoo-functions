@@ -81,7 +81,20 @@ function calculateEntry(entrants) {
 }
 
 function getAnimalMap(options) {
-  // seu código aqui
+  const locationName = data.species.reduce((accumulator, current) => {
+    if (!accumulator[current.location]) {
+      accumulator[current.location] = [];
+    }
+    return accumulator[current.location].push(current.name);
+  }, {});
+  const animalsObject = data.species.reduce((accumulator, current) => {
+    if (!accumulator[current.location]) {
+      accumulator[current.location] = [];
+    }
+    return accumulator[current.location].push(createObjectAnimals(current, options.sorted, options.sex));
+  }, {});
+  if (options.includeNames) locationName = animalsObject;
+  return locationName 
 }
 
 function getSchedule(dayName) {
