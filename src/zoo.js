@@ -12,7 +12,7 @@ eslint no-unused-vars: [
 // PROJECT ZOO FUNCTIONS
 // Gabriel Lennox - TRYBE T11
 
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 
 function getSpeciesByIds(...ids) {
   const speciesById = [];
@@ -93,9 +93,7 @@ function countAnimals(specie) {
 function calculateEntry(entrants) {
   if (!entrants || Object.keys(entrants).length === 0) return 0;
   // !HOF nao itera objetos
-  return Object.keys(entrants).reduce((acc, crr) => {
-    return acc + entrants[crr] * prices[crr];
-  }, 0);
+  return Object.keys(entrants).reduce((acc, crr) => acc + entrants[crr] * prices[crr], 0);
 }
 
 function getAnimalMap(options) {
@@ -103,7 +101,18 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  const schedule = {};
+
+  Object.keys(hours).forEach((day) => {
+    if (day !== 'Monday') schedule[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
+    else schedule[day] = 'CLOSED';
+  });
+
+  if (dayName) {
+    return { [dayName]: schedule[dayName] };
+  }
+
+  return schedule;
 }
 
 function getOldestFromFirstSpecies(id) {
