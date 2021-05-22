@@ -12,7 +12,7 @@ eslint no-unused-vars: [
 // PROJECT ZOO FUNCTIONS
 // Gabriel Lennox - TRYBE T11
 
-const { species, employees } = require('./data');
+const { species, employees, prices } = require('./data');
 
 function getSpeciesByIds(...ids) {
   const speciesById = [];
@@ -91,7 +91,11 @@ function countAnimals(specie) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (!entrants || Object.keys(entrants).length === 0) return 0;
+  // !HOF nao itera objetos
+  return Object.keys(entrants).reduce((acc, crr) => {
+    return acc + entrants[crr] * prices[crr];
+  }, 0);
 }
 
 function getAnimalMap(options) {
