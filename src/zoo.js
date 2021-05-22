@@ -49,7 +49,6 @@ function getAnimalsOlderThan(animal, age) {
   const speciesFound = species.find((specie) => specie.name === animal);
   return speciesFound.residents.every((resident) => resident.age >= age);
 }
-console.log(getAnimalsOlderThan('lions', 7));
 
 function getEmployeeByName(employeeName) {
   const employeeByName = {};
