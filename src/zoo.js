@@ -13,14 +13,13 @@ eslint no-unused-vars: [
 // Gabriel Lennox - TRYBE T11
 
 const { species } = require('./data');
-const data = require('./data');
 
 function getSpeciesByIds(...ids) {
   const speciesById = [];
   if (!ids) return speciesById;
   // early return || escape condition
   ids.forEach((id) => {
-    const speciesFound = data.species.find((specie) => specie.id === id);
+    const speciesFound = species.find((specie) => specie.id === id);
     speciesById.push(speciesFound);
   });
   return speciesById;
