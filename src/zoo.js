@@ -81,7 +81,6 @@ function getSchedule(dayName) {
   if (dayName === undefined) return housDay;
   return { [dayName]: housDay[dayName] };
 }
-// console.log(getSchedule());
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
 }
