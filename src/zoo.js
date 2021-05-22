@@ -12,6 +12,7 @@ eslint no-unused-vars: [
 // PROJECT ZOO FUNCTIONS
 // Gabriel Lennox - TRYBE T11
 
+const { species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -26,7 +27,24 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
+  let overageResidents = 0;
+
+  for (const specie of species) {
+    let residents = specie.residents;
+
+    if (specie.name === animal) {
+      for (const resident of residents) {
+        if (resident.age >= age) {
+          overageResidents += 1;
+        };
+      };
+      if (overageResidents === residents.length) {
+        return true;
+      } else {
+        return false;
+      };
+    };
+  };
 }
 
 function getEmployeeByName(employeeName) {
