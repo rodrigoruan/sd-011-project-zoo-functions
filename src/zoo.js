@@ -12,7 +12,7 @@ eslint no-unused-vars: [
 // PROJECT ZOO FUNCTIONS
 // Gabriel Lennox - TRYBE T11
 
-const { species } = require('./data');
+const { species, employees } = require('./data');
 
 function getSpeciesByIds(...ids) {
   const speciesById = [];
@@ -26,28 +26,35 @@ function getSpeciesByIds(...ids) {
 }
 
 function getAnimalsOlderThan(animal, age) {
-  let overageResidents = 0;
+  // !complexidade acima do permitido
+  // let overageResidents = 0;
 
-  for (const specie of species) {
-    let residents = specie.residents;
+  // for (const specie of species) {
+  //   let residents = specie.residents;
 
-    if (specie.name === animal) {
-      for (const resident of residents) {
-        if (resident.age >= age) {
-          overageResidents += 1;
-        };
-      };
-      if (overageResidents === residents.length) {
-        return true;
-      } else {
-        return false;
-      };
-    };
-  };
+  //   if (specie.name === animal) {
+  //     for (const resident of residents) {
+  //       if (resident.age >= age) {
+  //         overageResidents += 1;
+  //       }
+  //     }
+
+  //     if (overageResidents === residents.length) {
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   }
+  // }
+  const speciesFound = species.find((specie) => specie.name === animal);
+  return speciesFound.residents.every((resident) => resident.age >= age);
 }
+console.log(getAnimalsOlderThan('lions', 7));
 
 function getEmployeeByName(employeeName) {
-  // seu código aqui
+  const employeeByName = {};
+
+  if (!employeeName) return employeeByName;
 }
 
 function createEmployee(personalInfo, associatedWith) {
@@ -62,7 +69,7 @@ function addEmployee(id, firstName, lastName, managers, responsibleFor) {
   // seu código aqui
 }
 
-function countAnimals(species) {
+function countAnimals(specie) {
   // seu código aqui
 }
 
