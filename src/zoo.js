@@ -71,12 +71,23 @@ function isManager(id) {
 }
 
 function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []) {
+  // estruturacao de novo objeto
+  // *importante declarar tipos de valores
   const newEmployee = { id, firstName, lastName, managers, responsibleFor };
   employees.push(newEmployee);
+  // sem retorno
+  // ?modifica array
 }
 
 function countAnimals(specie) {
-  // seu código aqui
+  if (specie !== undefined) {
+    const speciesFound = species.find((animal) => animal.name === specie);
+    return speciesFound.residents.length;
+  }
+  return species.reduce((acc, crr) => {
+    acc[crr.name] = crr.residents.length;
+    return acc;
+  }, {});
 }
 
 function calculateEntry(entrants) {
