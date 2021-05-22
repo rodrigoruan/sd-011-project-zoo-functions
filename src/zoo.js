@@ -54,6 +54,10 @@ function getEmployeeByName(employeeName) {
   const employeeByName = {};
 
   if (!employeeName) return employeeByName;
+
+  const employeeFound = employees.find((employee) => employee.firstName === employeeName || employee.lastName === employeeName);
+
+  return employeeFound;
 }
 
 function createEmployee(personalInfo, associatedWith) {
