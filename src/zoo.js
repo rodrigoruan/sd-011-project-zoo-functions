@@ -13,14 +13,17 @@ const { prices } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
-  return ids.map((actualId) => (data.animals.find((animal) => actualId === animal.id)));
+  return ids.map((actualId) => (animals.find((animal) => actualId === animal.id)));
 }
 
+// console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'))
 
 function getAnimalsOlderThan(animal, age) {
   const especie = data.animals.find((specie) => specie.name === animal);
   return especie.residents.every((obj) => obj.age > age);
 }
+
+// console.log(getAnimalsOlderThan('lions', 12))
 
 function getEmployeeByName(name) {
   let employee = data.employees.find((emp) => emp.firstName === name || emp.lastName === name);
@@ -51,11 +54,11 @@ function animalNum() {
 
 function countAnimals(species) {
   const countAnimalSpecies = animalNum();
-  if (!species) {
-    return countAnimalSpecies;
-  }
+  if (!species) return countAnimalSpecies;
   return countAnimalSpecies[species];
 }
+
+console.log(countAnimals())
 
 function calculateEntry(entrants) {
   if (!entrants) return 0;
