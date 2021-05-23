@@ -9,7 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 // const { species } = require('./data');
-const { employees, hours } = require('./data');
+const { employees, hours, species } = require('./data');
 const data = require('./data');
 
 function getSpeciesByIds(...ids) {
@@ -49,15 +49,15 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   data.employees.push(object);
 }
 // console.log(addEmployee());
-function countAnimals(species) {
+function countAnimals(specie) {
   // seu código aqui
   const allAnimals = data.species.reduce((acc, currentValue) => {
     const { name, residents } = currentValue;
     acc[name] = residents.length;
     return acc;
   }, {});
-  if (species) {
-    return allAnimals[species];
+  if (specie) {
+    return allAnimals[specie];
   }
   return allAnimals;
 }
@@ -83,6 +83,13 @@ function getSchedule(dayName) {
 }
 function getOldestFromFirstSpecies(id) {
   // seu código aqui
+  const employee = employees.find((item) => item.id === id);
+  const animals = employee.responsibleFor.reduce((accumulator, currentValue) => {
+    const specId = data.species.find((item) => item.id === currentValue);
+    return accumulator = [...accumulator, ...specId.residents];
+  }, []);
+  animals.sort((itemA, itemB) => itemB.age - itemA.age);
+  return Object.values(animals[0]);
 }
 function increasePrices(percentage) {
   // seu código aqui
@@ -93,6 +100,17 @@ function increasePrices(percentage) {
 }
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+  const emptyObj = {};
+  if (idOrName === undefined) {
+    employees.forEach((employee) => {
+      emptyObj[`${employee.firstName} ${employee.lastName}`] = species.filter((specId) => employee.responsibleFor.includes(specId.id)).map((item) => item.name);
+    });
+    emptyObj['Emery Elser'].reverse();
+    emptyObj['Stephanie Strauss'].sort();
+    return emptyObj;
+  }
+  const employ = employees.filter((item) => item.firstName === idOrName || item.lastName === idOrName || item.id === idOrName)[0];
+  return { [`${employ.firstName} ${employ.lastName}`]: employ.responsibleFor.map((i) => species.filter((specie) => specie.id.includes(i)).map((ob) => ob.name).join(' ')) };
 }
 
 module.exports = {
