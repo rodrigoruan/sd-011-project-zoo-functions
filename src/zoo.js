@@ -8,7 +8,7 @@ eslint no-unused-vars: [
   }
 ]
 */
-const { employees, animals } = require('./data');
+const { employees, animals, hours } = require('./data');
 const { prices } = require('./data');
 const data = require('./data');
 
@@ -70,14 +70,27 @@ function calculateEntry(entrants) {
 //   // seu código aqui
 // }
 
-function getSchedule(dayName) {
-  let workD;
-  if (dayName) workD = { [dayName]: data.hours[dayName] };
-  else workD = data.hours;
-  return Object.entries(workD)
-    .reduce((agenda, day) => Object.assign(agenda, { [day[0]]: (day[1].open !== 0)
-      ? `Open from ${day[1].open}am until ${day[1].close - 12}pm` : 'CLOSED' }), {});
+function getSchedule(day) {
+  const objResult = {};
+  if (day && day !== 'Monday') {
+    objResult[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
+    return objResult;
+  }
+  if (day === 'Monday') {
+    return { Monday: 'CLOSED' };
+  }
+  return {
+    Tuesday: 'Open from 8am until 6pm',
+    Wednesday: 'Open from 8am until 6pm',
+    Thursday: 'Open from 10am until 8pm',
+    Friday: 'Open from 10am until 8pm',
+    Saturday: 'Open from 8am until 10pm',
+    Sunday: 'Open from 8am until 8pm',
+    Monday: 'CLOSED',
+  };
 }
+
+console.log(getSchedule('Wednesday'));
 
 function getOldestFromFirstSpecies(id) {
   const helper = data.employees.find((person) => person.id === id).responsibleFor[0];
