@@ -86,7 +86,8 @@ function getOldestFromFirstSpecies(id) {
   const employee = employees.find((item) => item.id === id);
   const animals = employee.responsibleFor.reduce((accumulator, currentValue) => {
     const specId = data.species.find((item) => item.id === currentValue);
-    return accumulator = [...accumulator, ...specId.residents];
+    const accumulator = [...accumulator, ...specId.residents];
+    return accumulator
   }, []);
   animals.sort((itemA, itemB) => itemB.age - itemA.age);
   return Object.values(animals[0]);
