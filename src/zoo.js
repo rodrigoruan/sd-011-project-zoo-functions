@@ -44,8 +44,27 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
   return data.employees.push({ id, firstName, lastName, managers, responsibleFor });
 }
 
+function createObject(key, value) {
+  const obj = {};
+  obj[key] = value;
+  return obj;
+}
+
 function countAnimals(species) {
   // seu código aqui
+  if (species == null) {
+    const animalsData = {};
+    const animalsNames = data.species.map((specie) => specie.name);
+    const animalsQuantities = data.species.map((specie) => specie.residents.length);
+    console.log(animalsNames);
+    console.log(animalsQuantities);
+    animalsNames.forEach((animalName, index) => {
+      const temp = createObject(animalName, animalsQuantities[index]);
+      Object.assign(animalsData, temp);
+    });
+    return animalsData;
+  }
+  return data.species.find((specie) => specie.name === species).residents.length;
 }
 
 function calculateEntry(entrants) {
