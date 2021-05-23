@@ -95,7 +95,11 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const firstAnimal = data.employees.find((employee) => employee.id === id).responsibleFor[0];
+  const arrayAnimal = data.species.find((animal) => firstAnimal === animal.id).residents;
+  const animalVelho = arrayAnimal.sort((a, b) => b.age - a.age);
+  const { name, sex, age } = animalVelho[0];
+  return [name, sex, age];
 }
 
 function increasePrices(percentage) {
