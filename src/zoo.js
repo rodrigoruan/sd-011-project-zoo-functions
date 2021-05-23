@@ -128,13 +128,10 @@ function increasePrices(percentage) {
   // ?importar novamente para alterar a referencia
   const increase = percentage / 100 + 1;
 
-  Object.keys(entries).forEach((price) => {entries[price] = Math.round((entries[price] * increase) * 100) / 100});
+  Object.keys(entries).forEach((price) => { entries[price] = Math.round((entries[price] * increase) * 100) / 100; });
 
   return entries;
 }
-// console.log(increasePrices(30));
-// console.log(increasePrices(20));
-
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
