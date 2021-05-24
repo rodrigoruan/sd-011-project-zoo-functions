@@ -126,6 +126,23 @@ function increasePrices(percentage) {
 
 function getEmployeeCoverage(idOrName) {
   // seu código aqui
+  if (idOrName == null) {
+    const employeeResponsible = data.employees.map((employee) => `${employee.firstName} ${employee.lastName}`);
+    const animalCoveragedIds = data.employees.map((employee) => employee.responsibleFor);
+    const animalsCoverageNames = animalCoveragedIds.map((arrayIds) => arrayIds.map((animalId) =>
+      data.species.find((specie) => specie.id === animalId)).map((animal) => animal.name));
+    return employeeResponsible.reduce((acc, curr, index) => {
+      Object.assign(acc, createObject(curr, animalsCoverageNames[index]));
+      return acc;
+    }, {});
+  }
+  const employeeResponsible = data.employees.find((employee) => employee.id === idOrName
+  || employee.firstName === idOrName || employee.lastName === idOrName);
+  const animalCoveragedIds = employeeResponsible.responsibleFor;
+  const animalsCoverageNames = animalCoveragedIds.map((animalId) =>
+    data.species.find((specie) => specie.id === animalId)).map((animal) => animal.name);
+  const fullName = `${employeeResponsible.firstName} ${employeeResponsible.lastName}`;
+  return createObject(fullName, animalsCoverageNames);
 }
 
 module.exports = {
