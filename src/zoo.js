@@ -147,6 +147,9 @@ function getEmployeeCoverage(idOrName) {
   // else {
   //   return ;
   // }
+  // *Consultei o repositório da Mikaela Braga para resolver essa parte
+  // *https://github.com/tryber/sd-011-project-zoo-functions/pull/49/commits/3bd2ad533ae75f3afeb07291d3a7959422503682
+
   if (!idOrName) {
     employees.forEach((employee) => {
       employeeCoverage[`${employee.firstName} ${employee.lastName}`] = employee.responsibleFor.map((animalId) => species.find((specie) => specie.id === animalId).name);
