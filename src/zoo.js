@@ -97,11 +97,26 @@ function getOldestFromFirstSpecies(id) {
 }
 
 function increasePrices(percentage) {
-  // seu código aqui
+  const raise = 1 + (percentage / 100);
+  data.prices.Adult = Math.round(data.prices.Adult * raise * 100) / 100;
+  data.prices.Senior = Math.round(data.prices.Senior * raise * 100) / 100;
+  data.prices.Child = Math.round(data.prices.Child * raise * 100) / 100;
+
+  return data.prices;
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const retorno = {};
+  if (idOrName === null || idOrName === undefined) {
+    data.employees.forEach((empregado) => {
+      retorno[`${empregado.firstName} ${empregado.lastName}`] = empregado.responsibleFor.map((id) => data.species.find((animals) => animals.id === id).name);
+    });
+    return retorno;
+  }
+  data.employees.filter((empregado) => empregado.firstName === idOrName || empregado.lastName === idOrName || empregado.id === idOrName).forEach((empregadoForEach) => {
+    retorno[`${empregadoForEach.firstName} ${empregadoForEach.lastName}`] = empregadoForEach.responsibleFor.map((id) => data.species.find((animals) => animals.id === id).name);
+  });
+  return retorno;
 }
 
 module.exports = {
