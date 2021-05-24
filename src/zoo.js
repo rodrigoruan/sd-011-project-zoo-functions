@@ -64,11 +64,21 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 }
 
 function countAnimals(species) {
-  // seu código aqui
+  let quantidadeAnimal = {};
+  if (species === null || species === undefined) {
+    data.species.forEach((specie) => {
+      quantidadeAnimal[specie.name] = specie.residents.length;
+    });
+    return quantidadeAnimal;
+  }
+  return data.species.find((specie) => specie.name === species).residents.length;
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === {} || entrants === undefined || entrants === null) {
+    return 0;
+  }
+  return Object.keys(entrants).reduce((accumulator, valor) => accumulator + (data.prices[valor] * entrants[valor]), 0);
 }
 
 function getAnimalMap(options) {
@@ -80,7 +90,10 @@ function getSchedule(dayName) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  // seu código aqui
+  const empregados = data.employees.find((foundEmployees) => foundEmployees.id === id).responsibleFor[0];
+  return Object.values(data.species
+    .find((foundSpecie) => foundSpecie.id === empregados)
+    .residents.sort((age1, age2) => age2.age - age1.age)[0]);
 }
 
 function increasePrices(percentage) {
