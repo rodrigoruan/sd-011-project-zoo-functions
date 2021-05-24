@@ -10,7 +10,7 @@ eslint no-unused-vars: [
 */
 
 const data = require('./data');
-const { species, employees, prices } = require('./data');
+const { species, employees, prices, hours } = require('./data');
 
 function getSpeciesByIds(ids = [], ids2 = undefined) {
   if (ids !== undefined) {
@@ -83,7 +83,18 @@ function getAnimalMap(options) {
 }
 
 function getSchedule(dayName) {
-  // seu código aqui
+  let schedule = {};
+  Object.keys(hours).forEach((day) => {
+    schedule[day] = `Open from ${hours[day].open}am until ${(hours[day].close) - 12}pm`;
+    if (day === 'Monday') {
+      schedule[day] = 'CLOSED';
+    }
+  });
+
+  if (dayName !== undefined) {
+    return { [dayName]: schedule[dayName] };
+  }
+  return schedule;
 }
 
 function getOldestFromFirstSpecies(id) {
@@ -94,10 +105,20 @@ function getOldestFromFirstSpecies(id) {
 
 function increasePrices(percentage) {
   // seu código aqui
+  Object.keys(prices).forEach((key) => {
+    prices[key] = Math.round(prices[key] * (1 + percentage / 100) * 100) / 100;
+  });
 }
 
 function getEmployeeCoverage(idOrName) {
-  // seu código aqui
+  const objeect = {};
+  if (!idOrName) {
+    data.employees.forEach(({ firstName, lastName, responsibleFor }) => {
+      objeect[`${firstName} ${lastName}`] = responsibleFor.map((idEntradaAnimal) => data.species.find(({ id }) => id === idEntradaAnimal).name);
+    });
+  }
+  data.employees.filter(({ firstName, lastName, id }) => firstName === idOrName || lastName === idOrName || id === idOrName).forEach(({ firstName, lastName, responsibleFor }) => { objeect[`${firstName} ${lastName}`] = responsibleFor.map((idEntradaAnimal) => data.species.find(({ id }) => id === idEntradaAnimal).name); });
+  return objeect;
 }
 
 module.exports = {
