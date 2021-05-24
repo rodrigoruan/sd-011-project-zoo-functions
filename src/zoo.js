@@ -56,8 +56,6 @@ function countAnimals(species) {
     const animalsData = {};
     const animalsNames = data.species.map((specie) => specie.name);
     const animalsQuantities = data.species.map((specie) => specie.residents.length);
-    console.log(animalsNames);
-    console.log(animalsQuantities);
     animalsNames.forEach((animalName, index) => {
       const temp = createObject(animalName, animalsQuantities[index]);
       Object.assign(animalsData, temp);
@@ -82,8 +80,32 @@ function getAnimalMap(options) {
   // seu código aqui
 }
 
+function getDay(weekDay) {
+  const schedule = {};
+  const day = Object.entries(data.hours).find((dayInfo) => dayInfo[0] === weekDay);
+  if (day[0] === 'Monday') Object.assign(schedule, createObject(day[0], 'CLOSED'));
+  else Object.assign(schedule, createObject(day[0], `Open from ${day[1].open}am until ${day[1].close - 12}pm`));
+  return schedule;
+}
+
 function getSchedule(dayName) {
   // seu código aqui
+  const hoursKeys = Object.keys(data.hours);
+  const hoursValues = Object.values(data.hours);
+  const schedule = {};
+  if (dayName == null) {
+    hoursKeys.forEach((day, index) => {
+      if (day === 'Monday') {
+        const temp = createObject(day, 'CLOSED');
+        Object.assign(schedule, temp);
+      } else {
+        const temp = createObject(day, `Open from ${hoursValues[index].open}am until ${hoursValues[index].close - 12}pm`);
+        Object.assign(schedule, temp);
+      }
+    });
+    return schedule;
+  }
+  return getDay(dayName);
 }
 
 function getOldestFromFirstSpecies(id) {
