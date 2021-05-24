@@ -17,13 +17,18 @@ const getSpeciesByIds = (...ids) => {
   return array;
 };
 
-function getAnimalsOlderThan(animal, age) {
-  // seu código aqui
-}
+const getAnimalsOlderThan = (animal, age) => {
+  let olderThan;
+  data.species.forEach((specie) => {
+    if (specie.name === animal) olderThan = (specie.residents.every((res) => res.age >= age));
+  });
+  return olderThan;
+};
 
-function getEmployeeByName(employeeName) {
-  // seu código aqui
-}
+const getEmployeeByName = (emplName) => {
+  if (!emplName) return {};
+  return data.employees.find((empl) => empl.firstName === emplName || empl.lastName === emplName);
+};
 
 function createEmployee(personalInfo, associatedWith) {
   // seu código aqui
