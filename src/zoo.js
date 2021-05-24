@@ -44,13 +44,27 @@ const isManager = (id) => {
   return false;
 };
 
-function addEmployee(id, firstName, lastName, managers, responsibleFor) {
-  // seu código aqui
-}
+const addEmployee = (id, firstName, lastName, managers = [], responsibleFor = []) => {
+  const newEmployee = {
+    id,
+    firstName,
+    lastName,
+    managers,
+    responsibleFor,
+  };
+  data.employees.push(newEmployee);
+};
 
-function countAnimals(species) {
-  // seu código aqui
-}
+const countAnimals = (species) => {
+  let object = {};
+  let count = 0;
+  if (!species) {
+    data.species.forEach((specie) => { object[specie.name] = specie.residents.length; });
+    return object;
+  }
+  data.species.forEach((spec) => { if (spec.name === species) count = spec.residents.length; });
+  return count;
+};
 
 function calculateEntry(entrants) {
   // seu código aqui
