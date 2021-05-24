@@ -90,9 +90,18 @@ const getSchedule = (dayName) => {
   return schedule;
 };
 
-function getOldestFromFirstSpecies(id) {
-  // seu código aqui
-}
+const getOldestFromFirstSpecies = (id) => {
+  let specieId;
+  data.employees.forEach((employe) => {
+    const [firstSpecie] = employe.responsibleFor;
+    if (employe.id === id) specieId = firstSpecie;
+  });
+  const specie = getSpeciesByIds(specieId);
+  const ages = specie[0].residents.map((res) => res.age);
+  const older = Math.max(...ages);
+  const oldest = specie[0].residents.find((res) => res.age === older);
+  return Object.values(oldest);
+};
 
 function increasePrices(percentage) {
   // seu código aqui
