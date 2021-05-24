@@ -92,9 +92,9 @@ const getSchedule = (dayName) => {
 
 const getOldestFromFirstSpecies = (id) => {
   let specieId;
-  data.employees.forEach((employe) => {
-    const [firstSpecie] = employe.responsibleFor;
-    if (employe.id === id) specieId = firstSpecie;
+  data.employees.forEach((empl) => {
+    const [firstSpecie] = empl.responsibleFor;
+    if (empl.id === id) specieId = firstSpecie;
   });
   const specie = getSpeciesByIds(specieId);
   const ages = specie[0].residents.map((res) => res.age);
@@ -103,13 +103,32 @@ const getOldestFromFirstSpecies = (id) => {
   return Object.values(oldest);
 };
 
-function increasePrices(percentage) {
-  // seu código aqui
-}
+const increasePrices = (percentage) => {
+  Object.keys(data.prices).forEach((price) => {
+    data.prices[price] += data.prices[price] * (percentage / 100);
+    data.prices[price] = Math.round(data.prices[price] * 100) / 100;
+  });
+};
 
-function getEmployeeCoverage(idOrName) {
-  // seu código aqui
-}
+const getSpeciesByIdOrName = (...ids) => {
+  let animal = [];
+  ids.forEach((iD) => animal.push((data.species.find((specie) => specie.id === iD)).name));
+  return animal;
+};
+
+const getEmployeeCoverage = (idOrName) => {
+  let coverage = {};
+  let simpleCoverage = {};
+  data.employees.forEach((empl) => {
+    const responsibleEmpl = getSpeciesByIdOrName(...empl.responsibleFor);
+    coverage[`${empl.firstName} ${empl.lastName}`] = responsibleEmpl;
+    if (empl.firstName === idOrName || empl.lastName === idOrName || empl.id === idOrName) {
+      simpleCoverage = { [`${empl.firstName} ${empl.lastName}`]: responsibleEmpl };
+    }
+  });
+  if (!idOrName) return coverage;
+  return simpleCoverage;
+};
 
 module.exports = {
   calculateEntry,
