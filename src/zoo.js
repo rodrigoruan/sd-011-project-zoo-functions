@@ -9,6 +9,7 @@ eslint no-unused-vars: [
 ]
 */
 const { employees, animals, hours } = require('./data');
+console.log(animals)
 const { prices } = require('./data');
 const data = require('./data');
 
@@ -19,7 +20,7 @@ function getSpeciesByIds(...ids) {
 // console.log(getSpeciesByIds('0938aa23-f153-4937-9f88-4858b24d6bce'))
 
 function getAnimalsOlderThan(animal, age) {
-  const especie = data.animals.find((specie) => specie.name === animal);
+  const especie = animals.find((specie) => specie.name === animal);
   return especie.residents.every((obj) => obj.age > age);
 }
 
@@ -58,7 +59,7 @@ function countAnimals(species) {
   return countAnimalSpecies[species];
 }
 
-console.log(countAnimals())
+// console.log(countAnimals())
 
 function calculateEntry(entrants) {
   if (!entrants) return 0;
@@ -90,7 +91,7 @@ function getSchedule(day) {
   };
 }
 
-console.log(getSchedule('Wednesday'));
+// console.log(getSchedule('Wednesday'));
 
 function getOldestFromFirstSpecies(id) {
   const helper = data.employees.find((person) => person.id === id).responsibleFor[0];
@@ -108,23 +109,21 @@ function increasePrices(percentage) {
   });
 }
 
-const consultAnimalsById = (...arr) => (
-  arr.map((id) => animals.find((animal) => animal.id === id)).map((specie) => specie.name)
-);
-
-const returnEmployee = (par) => {
-  const fullName = `${par.firstName} ${par.lastName}`;
-  return { [fullName]: consultAnimalsById(...par.responsibleFor) };
-};
-
 function getEmployeeCoverage(idOrName) {
-  if (idOrName === undefined) {
-    return employees.reduce((acc, act) => Object.assign(acc, returnEmployee(act)), {});
+  const resultReturn = {};
+  if (!idOrName) {
+    employees.forEach((employ) => {
+      resultReturn[`${employ.firstName} ${employ.lastName}`] = employ.responsibleFor.map((id) => animals.find((animals) => animals.id === id).name);
+    });
+    return resultReturn;
   }
-  const findEmployee = employees.find((element) => element.id === idOrName
-      || element.firstName === idOrName || element.lastName === idOrName);
-  return { ...returnEmployee(findEmployee) };
+  employees.filter((emp) => emp.firstName === idOrName || emp.lastName === idOrName || emp.id === idOrName).forEach((employ) => {
+    resultReturn[`${employ.firstName} ${employ.lastName}`] = employ.responsibleFor.map((id) => animals.find((animals) => animals.id === id).name);
+  });
+  return resultReturn;
 }
+
+// console.log(getEmployeeCoverage('4b40a139-d4dc-4f09-822d-ec25e819a5ad'))
 
 module.exports = {
   calculateEntry,
