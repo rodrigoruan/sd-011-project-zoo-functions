@@ -16,11 +16,11 @@ function getSpeciesByIds(...ids) {
   return species.filter((animals) => ids.includes(animals.id));
 }
 
-function getAnimalsOlderThan(animal, age) {
-  const findingName = (specie) => specie.name === animal;
-  const checkingAge = (resident) => resident.age >= age;
+function getAnimalsOlderThan(specie, age) {
+  const animalSpecie = (animal) => animal.name === specie;
+  const animalAge = (animal) => animal.age >= age;
 
-  return species.find(findingName).residents.every(checkingAge);
+  return species.find(animalSpecie).residents.every(animalAge);
 }
 
 function getEmployeeByName(employeeName) {
@@ -44,9 +44,12 @@ function addEmployee(id, firstName, lastName, managers = [], responsibleFor = []
 function countAnimals(specie) {
   if (!specie) {
     const animalsObj = {};
-    species.forEach((animal) => {
-      const { name, residents } = animal;
-      animalsObj[name] = residents.length;
+
+    const animalsQuant = species.map((animal) => animal.residents.length);
+    const animalsName = species.map((animal) => animal.name);
+
+    animalsName.forEach((animal, index) => {
+      animalsObj[animal] = animalsQuant[index];
     });
 
     return animalsObj;
@@ -56,67 +59,71 @@ function countAnimals(specie) {
 }
 
 function calculateEntry(entrants) {
-  if (!entrants) {
-    return 0;
-  }
+  if (!entrants) return 0;
 
   const { Adult = 0, Child = 0, Senior = 0 } = entrants;
+
   return (Adult * prices.Adult) + (Child * prices.Child) + (Senior * prices.Senior);
 }
 
-function getAnimalMap(options) {
+function getAnimalMap() {
 }
 
 function getSchedule(dayName) {
-  const days = Object.keys(data.hours);
+  const days = Object.keys(hours);
   const scheduleObj = {};
 
   if (!dayName) {
     days.forEach((day) => {
-      scheduleObj[day] = `Open from ${data.hours[day].open}am until ${data.hours[day].close - 12}pm`;
+      scheduleObj[day] = `Open from ${hours[day].open}am until ${hours[day].close - 12}pm`;
 
-      if (day === 'Monday') {
-        scheduleObj[day] = 'CLOSED';
-      }
+      if (day === 'Monday') scheduleObj[day] = 'CLOSED';
     });
+
     return scheduleObj;
   }
 
-  if (dayName === 'Monday') {
-    scheduleObj[dayName] = 'CLOSED';
-    return scheduleObj;
-  }
+  scheduleObj[dayName] = `Open from ${hours[dayName].open}am until ${hours[dayName].close - 12}pm`;
 
-  scheduleObj[dayName] = `Open from ${data.hours[dayName].open}am until ${data.hours[dayName].close - 12}pm`;
+  if (dayName === 'Monday') scheduleObj[dayName] = 'CLOSED';
+
   return scheduleObj;
 }
 
 function getOldestFromFirstSpecies(id) {
-  const animalsResponsible = employees.find((employee) => employee.id === id).responsibleFor;
-  const getAnimals = species.find((animal) => animal.id === animalsResponsible[0]).residents;
-  const compareAge = getAnimals.map((animal) => animal.age).reduce((bigger, number) => ((bigger > number) ? bigger : number));
+  const findEmployee = employees.find((employee) => employee.id === id);
+
+  const findAnimalsResponsible = findEmployee.responsibleFor.find((animal) => animal);
+
+  const getAnimals = species.find((animal) => animal.id === findAnimalsResponsible).residents;
+
+  const compareAge = getAnimals.map((animal) => animal.age).reduce((bigger, age) => ((bigger > age) ? bigger : age));
+
   const getOldest = getAnimals.find((animal) => animal.age === compareAge);
 
   return Object.values(getOldest);
 }
 
 function increasePrices(percentage) {
-  const keys = Object.keys(data.prices);
-  keys.forEach((value) => {
-    const calculatePrice = data.prices[value] + (percentage * data.prices[value]) / 100;
-    data.prices[value] = Math.round(calculatePrice * 100) / 100;
+  const keys = Object.keys(prices);
+  const values = Object.values(prices);
+
+  keys.forEach((key, index) => {
+    const newPrice = values[index] + (values[index] * percentage) / 100;
+    prices[key] = Math.round(newPrice * 100) / 100;
   });
 
-  return data.prices;
+  return prices;
 }
 
 function getEmployeeCoverage(idOrName) {
   const employeeObj = {};
+  const findAnimal = (id) => species.find((animal) => animal.id === id).name;
 
   if (!idOrName) {
     employees.forEach((employee) => {
       const fullName = `${employee.firstName} ${employee.lastName}`;
-      employeeObj[fullName] = employee.responsibleFor.map((id) => species.find((ids) => ids.id === id).name);
+      employeeObj[fullName] = employee.responsibleFor.map(findAnimal);
     });
     return employeeObj;
   }
@@ -124,7 +131,7 @@ function getEmployeeCoverage(idOrName) {
   employees.forEach((employee) => {
     if (employee.id === idOrName || employee.firstName === idOrName || employee.lastName === idOrName) {
       const fullName = `${employee.firstName} ${employee.lastName}`;
-      employeeObj[fullName] = employee.responsibleFor.map((id) => species.find((ids) => ids.id === id).name);
+      employeeObj[fullName] = employee.responsibleFor.map(findAnimal);
     }
   });
 
