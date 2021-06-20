@@ -152,21 +152,26 @@ const reduceAnimalsLocSexNamesSorted = (sex) => (species.reduce((acc, curr) => {
   return acc;
 }, {}));
 
+function organizedLocation(options) {
+  const { sorted, sex } = options;
+  if (!sorted) {
+    if (!sex) {
+      return reduceAnimalsLocationNames();
+    }
+    return reduceAnimalsLocationSexNames(sex);
+  }
+  if (!sex) {
+    return reduceAnimalsLocNamesSorted();
+  }
+  return reduceAnimalsLocSexNamesSorted(sex);
+}
+
 function getAnimalMap(options) {
   // seu código aqui
   if (!options || !options.includeNames) {
     return reduceAnimalsLocation();
   }
-  if (!options.sorted) {
-    if (!options.sex) {
-      return reduceAnimalsLocationNames();
-    }
-    return reduceAnimalsLocationSexNames(options.sex);
-  }
-  if (!options.sex) {
-    return reduceAnimalsLocNamesSorted();
-  }
-  return reduceAnimalsLocSexNamesSorted(options.sex);
+  return organizedLocation(options);
 }
 
 function getSchedule(dayName) {
